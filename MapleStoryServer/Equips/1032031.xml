@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Type>4</Type>
+    <Slots>5</Slots>
+    <MDef>80</MDef>
+    <Acc>1</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+</Equip>

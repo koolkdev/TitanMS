@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Item>
+    <Type>2</Type>
+    <Price>1500</Price>
+    <MaxSlot>100</MaxSlot>
+    <Quest>0</Quest>
+    <Consume>1</Consume>
+    <Effect>
+        <HP>1000</HP>
+        <MP>1000</MP>
+        <HPR>0</HPR>
+        <MPR>0</MPR>
+    </Effect>
+</Item>
