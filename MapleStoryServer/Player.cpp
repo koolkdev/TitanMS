@@ -29,6 +29,8 @@ Player::~Player(){
 				sprintf_s(temp, 100, "pos%d=%d ", i, keys[i]);
 			strcat_s(sql, 2000, temp);
 		}
+		sprintf_s(sql, 2000, "update characters set level=%d, job=%d, str=%d, dex=%d, intt=%d, luk=%d, chp=%d, mhp=%d, cmp=%d, mmp=%d, ap=%d, sp=%d, exp=%d, fame=%d, map=%d, gender=%d, skin=%d, eyes=%d, hair=%d, mesos=%d where id=%d", getLevel(), getJob(), getStr(), getDex(), getInt(), getLuk(), getHP(), getMHP(), getMP(), getMMP(), getAp(), getSp(), getExp(), getFame(), getMap(), getGender(), getSkin(), getEyes(), getHair(), inv->getMesos() ,getPlayerid());
+		MySQL::insert(sql);
 		char temp[100];
 		sprintf_s(temp, 100, "where charid=%d;", getPlayerid());
 		strcat_s(sql, 2000, temp);
