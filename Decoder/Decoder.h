@@ -26,7 +26,7 @@ public:
 		(*(short*)(ivRecv+2)) = rand();
 		(*(short*)(ivSend+2)) = rand();
 		(*(short*)connectBuffer) = 0x000D;
-		(*(int*)(connectBuffer+sizeof(short))) = 52;
+		(*(int*)(connectBuffer+sizeof(short))) = 53;
 		memcpy_s(connectBuffer+6, 4, ivRecv, 4);
 		memcpy_s(connectBuffer+10, 4, ivSend, 4);
 		connectBuffer[14] = 0x08;

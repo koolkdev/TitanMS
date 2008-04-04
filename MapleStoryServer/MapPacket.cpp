@@ -30,7 +30,7 @@ Packet MapPacket::playerPacket(Player* player){
 	packet.addInt(0);
 	packet.addInt(0);
 	packet.addInt(0);
-	packet.addInt(0);
+	packet.addInt(player->getChair());
 	packet.addShort(player->getPos().x);
 	packet.addShort(player->getPos().y);
 	packet.addByte(player->getType());
@@ -52,7 +52,7 @@ void MapPacket::showPlayer(Player* player, vector <Player*> players){
 
 void MapPacket::removePlayer(Player* player, vector <Player*> players){
 	Packet packet = Packet();
-	packet.addHeader(0x66);
+	packet.addHeader(0x70);
 	packet.addInt(player->getPlayerid());
 	for(unsigned int i=0; i<players.size(); i++){
 		if(player->getPlayerid() != players[i]->getPlayerid())
@@ -90,6 +90,6 @@ void MapPacket::changeMap(Player* player){
 
 void MapPacket::makeApple(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x52);
+	packet.addHeader(0x5B);  
 	packet.packetSend(player);
 }

@@ -79,17 +79,14 @@ void Initializing::initializeMob(char *name){
 }
 
 void Initializing::initializeMobs(){
-  WIN32_FIND_DATA FindFileData;
-   HANDLE hFind = INVALID_HANDLE_VALUE;
-   hFind = FindFirstFile(_T("Mobs\\*.xml"), &FindFileData);
-   char name[50];
-	wtoc(FindFileData.cFileName, name);
-	initializeMob(name);
-      while (FindNextFile(hFind, &FindFileData) != 0) 
-      {
-		wtoc(FindFileData.cFileName, name);
-    	initializeMob(name);
-      }
+	WIN32_FIND_DATAA FindFileData;
+	
+	HANDLE hFind = FindFirstFileA("Mobs\\*.xml", &FindFileData);
+	initializeMob((char*)FindFileData.cFileName);
+	while (FindNextFileA(hFind, &FindFileData)) 
+	{
+		initializeMob((char*)FindFileData.cFileName);
+	}
 }
 
 void Initializing::initializeItem(char *name){
@@ -155,17 +152,13 @@ void Initializing::initializeItem(char *name){
 }
 
 void Initializing::initializeItems(){
-  WIN32_FIND_DATA FindFileData;
-   HANDLE hFind = INVALID_HANDLE_VALUE;
-   hFind = FindFirstFile(_T("Items\\*.xml"), &FindFileData);
-   char name[50];
-	wtoc(FindFileData.cFileName, name);
-	initializeItem(name);
-      while (FindNextFile(hFind, &FindFileData) != 0) 
-      {
-		wtoc(FindFileData.cFileName, name);
-    	initializeItem(name);
-      }
+	WIN32_FIND_DATAA FindFileData;
+	HANDLE hFind = FindFirstFileA("Items\\*.xml", &FindFileData);
+	initializeItem((char*)FindFileData.cFileName);
+	while (FindNextFileA(hFind, &FindFileData)) 
+	{
+		initializeItem((char*)FindFileData.cFileName);
+	}
 }
 void Initializing::initializeNPCs(){
 }
@@ -227,16 +220,13 @@ void Initializing::initializeDrop(char* name){
 	Drops::addMesos(di, mesos);
 }
 void Initializing::initializeDrops(){
-  WIN32_FIND_DATA FindFileData;
-   HANDLE hFind = INVALID_HANDLE_VALUE;
-   hFind = FindFirstFile(_T("Drops\\*.xml"), &FindFileData);
-   char name[50];
-	wtoc(FindFileData.cFileName, name);
-	initializeDrop(name);
-      while (FindNextFile(hFind, &FindFileData) != 0) 
+  WIN32_FIND_DATAA FindFileData;
+   
+   HANDLE hFind = FindFirstFileA("Drops\\*.xml", &FindFileData);
+	initializeDrop((char*)FindFileData.cFileName);
+      while (FindNextFileA(hFind, &FindFileData)) 
       {
-		wtoc(FindFileData.cFileName, name);
-    	initializeDrop(name);
+    	initializeDrop((char*)FindFileData.cFileName);
       }
 }
 void Initializing::initializeEquip(char *name){
@@ -344,17 +334,13 @@ void Initializing::initializeEquip(char *name){
 }
 
 void Initializing::initializeEquips(){
-  WIN32_FIND_DATA FindFileData;
-   HANDLE hFind = INVALID_HANDLE_VALUE;
-   hFind = FindFirstFile(_T("Equips\\*.xml"), &FindFileData);
-   char name[50];
-	wtoc(FindFileData.cFileName, name);
-	initializeEquip(name);
-      while (FindNextFile(hFind, &FindFileData) != 0) 
-      {
-		wtoc(FindFileData.cFileName, name);
-    	initializeEquip(name);
-      }
+	WIN32_FIND_DATAA FindFileData;
+	HANDLE hFind = FindFirstFileA("Equips\\*.xml", &FindFileData);
+	initializeEquip((char*)FindFileData.cFileName);
+	while (FindNextFileA(hFind, &FindFileData))
+	{
+		initializeEquip((char*)FindFileData.cFileName);
+	}
 }
 
 void Initializing::initializeShop(char* name){
@@ -397,17 +383,13 @@ void Initializing::initializeShop(char* name){
 	Shops::addShop(di, shop);
 }
 void Initializing::initializeShops(){
-  WIN32_FIND_DATA FindFileData;
-   HANDLE hFind = INVALID_HANDLE_VALUE;
-   hFind = FindFirstFile(_T("Shops\\*.xml"), &FindFileData);
-   char name[50];
-	wtoc(FindFileData.cFileName, name);
-	initializeShop(name);
-      while (FindNextFile(hFind, &FindFileData) != 0) 
-      {
-		wtoc(FindFileData.cFileName, name);
-    	initializeShop(name);
-      }
+	WIN32_FIND_DATAA FindFileData;
+	HANDLE hFind = FindFirstFileA("Shops\\*.xml", &FindFileData);
+	initializeShop((char*)FindFileData.cFileName);
+	while (FindNextFileA(hFind, &FindFileData))
+	{
+		initializeShop((char*)FindFileData.cFileName);
+	}
 }
 void Initializing::initializeQuest(char* name){
 	char id[18];
@@ -540,16 +522,14 @@ void Initializing::initializeQuest(char* name){
 	Quests::addReward(di, raws);
 }
 void Initializing::initializeQuests(){
-  WIN32_FIND_DATA FindFileData;
-   HANDLE hFind = INVALID_HANDLE_VALUE;
-   hFind = FindFirstFile(_T("Quests\\*.xml"), &FindFileData);
-   char name[50];
-	wtoc(FindFileData.cFileName, name);
-	initializeQuest(name);
-      while (FindNextFile(hFind, &FindFileData) != 0) 
+  WIN32_FIND_DATAA FindFileData;
+   
+   HANDLE hFind = FindFirstFileA("Quests\\*.xml", &FindFileData);
+   
+	initializeQuest((char*)FindFileData.cFileName);
+      while (FindNextFileA(hFind, &FindFileData))
       {
-		wtoc(FindFileData.cFileName, name);
-    	initializeQuest(name);
+    	initializeQuest((char*)FindFileData.cFileName);
       }
 }
 void Initializing::initializeSkill(char* name){
@@ -640,16 +620,14 @@ void Initializing::initializeSkill(char* name){
 	Skills::addSkill(di, skill);
 }
 void Initializing::initializeSkills(){
-  WIN32_FIND_DATA FindFileData;
-   HANDLE hFind = INVALID_HANDLE_VALUE;
-   hFind = FindFirstFile(_T("Skills\\*.xml"), &FindFileData);
-   char name[50];
-	wtoc(FindFileData.cFileName, name);
-	initializeQuest(name);
-      while (FindNextFile(hFind, &FindFileData) != 0) 
+  WIN32_FIND_DATAA FindFileData;
+   
+   HANDLE hFind = FindFirstFileA("Skills\\*.xml", &FindFileData);
+   
+	initializeQuest((char*)FindFileData.cFileName);
+      while (FindNextFileA(hFind, &FindFileData))
       {
-		wtoc(FindFileData.cFileName, name);
-    	initializeSkill(name);
+    	initializeSkill((char*)FindFileData.cFileName);
       }
 }
 void Initializing::initializeMap(char *name){
@@ -796,16 +774,14 @@ void Initializing::initializeMap(char *name){
 	Drops::objids[di] = 100;
 }
 void Initializing::initializeMaps(){
-	  WIN32_FIND_DATA FindFileData;
-   HANDLE hFind = INVALID_HANDLE_VALUE;
-   hFind = FindFirstFile(_T("Maps\\*.xml"), &FindFileData);
-   char name[50];
-	wtoc(FindFileData.cFileName, name);
-	initializeMap(name);
-      while (FindNextFile(hFind, &FindFileData) != 0) 
+	  WIN32_FIND_DATAA FindFileData;
+   
+   HANDLE hFind = FindFirstFileA(("Maps\\*.xml"), &FindFileData);
+   
+	initializeMap((char*)FindFileData.cFileName);
+      while (FindNextFileA(hFind, &FindFileData))
       {
-		wtoc(FindFileData.cFileName, name);
-    	initializeMap(name);
+    	initializeMap((char*)FindFileData.cFileName);
       }
 }
 void Initializing::initializing(){

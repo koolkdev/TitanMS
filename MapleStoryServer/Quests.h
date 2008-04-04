@@ -98,7 +98,6 @@ public:
 		}
 		return 0;
 	}
-	void checkQuests();
 private:
 	Player* player;
 	vector <Quest> quests;

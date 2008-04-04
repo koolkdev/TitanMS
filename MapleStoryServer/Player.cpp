@@ -43,6 +43,12 @@ Player::~Player(){
 				inv->getEquip(i)->imdef, inv->getEquip(i)->iacc, inv->getEquip(i)->iavo, inv->getEquip(i)->ihand, inv->getEquip(i)->ijump, inv->getEquip(i)->ispeed);
 			MySQL::insert(sql);
 		}
+		sprintf_s(sql, 2000, "delete from skills where charid=%d;", getPlayerid());
+		MySQL::insert(sql);
+		for(int i=0; i<skills->getSkillsNum(); i++){
+			sprintf_s(sql, 2000, "insert into skills values(%d, %d, %d)", getPlayerid(), skills->getSkillID(i), skills->getSkillLevel(skills->getSkillID(i)));
+			MySQL::insert(sql);
+		}
 		sprintf_s(sql, 2000, "delete from items where charid=%d;", getPlayerid());
 		MySQL::insert(sql);
 		for(int i=0; i<inv->getItemNum(); i++){
@@ -55,36 +61,35 @@ Player::~Player(){
 }
 
 void Player::handleRequest(unsigned char* buf, int len){
-	short header = buf[0] + buf[1]*0x100;	
-	printf("*%x*",header);
-	switch(header){
-		case 0x10: getUserID(buf+2); break;
-		case 0x20: Maps::moveMap(this ,buf+2); break;
-		case 0x23: Players::handleMoving(this ,buf+2, len-2); break;
-		case 0x24: Inventory::stopChair(this ,buf+2); break;
-		case 0x25: Inventory::useChair(this ,buf+2); break;
-		case 0x26: Mobs::damageMob(this ,buf+2); break;
-		case 0x27: Mobs::damageMobS(this ,buf+2, len-2); break;
-		case 0x28: Mobs::damageMobSkill(this ,buf+2); break;
-		case 0x29: Players::damagePlayer(this ,buf+2); break;
-		case 0x2C: Players::faceExperiment(this ,buf+2); break;
-		case 0x2A: Players::chatHandler(this ,buf+2); break;
-		case 0x31: NPCs::handleNPC(this, buf+2); break;
-		case 0x32: NPCs::handleNPCIn(this ,buf+2); break;
-		case 0x33: Inventory::buyItem(this ,buf+2); break;
-		case 0x3A: Inventory::itemMove(this ,buf+2); break;
-		case 0x3B: Inventory::useItem(this, buf+2); break;
-		case 0x48: Levels::addStat(this, buf+2); break;
-		case 0x49: Players::healPlayer(this, buf+2); break;
-		case 0x4A: Skills::addSkill(this, buf+2); break;
-		case 0x4B: Skills::useSkill(this, buf+2); break;
-		case 0x4C: Skills::cancelSkill(this, buf+2); break;
-		case 0x4E: Drops::dropMesos(this ,buf+2); break;
-		case 0x5A: Quests::getQuest(this, buf+2); break;
+	short header = buf[0] + buf[1]*0x100;
+	switch(header){  
+		case 0x14: getUserID(buf+2); break;
+		case 0x2F: Maps::moveMap(this ,buf+2); break;
+		case 0x35: Players::handleMoving(this ,buf+2, len-2); break;
+		case 0x2B: Inventory::stopChair(this ,buf+2); break;
+		case 0x2D: Inventory::useChair(this ,buf+2); break;
+		case 0x59: Mobs::damageMob(this ,buf+2); break;
+		case 0x5A: Mobs::damageMobS(this ,buf+2, len-2); break;
+		case 0x5B: Mobs::damageMobSkill(this ,buf+2); break;
+		case 0x2A: Players::damagePlayer(this ,buf+2); break;
+		case 0x5C: Players::faceExperiment(this ,buf+2); break;
+		case 0x2C: Players::chatHandler(this ,buf+2); break;
+		case 0x23: NPCs::handleNPC(this, buf+2); break;
+		case 0x21: NPCs::handleNPCIn(this ,buf+2); break;
+		case 0x22: Inventory::buyItem(this ,buf+2); break;
+		case 0x62: Inventory::itemMove(this ,buf+2); break;
+		case 0x63: Inventory::useItem(this, buf+2); break;
+		case 0x66: Levels::addStat(this, buf+2); break;
+		case 0x67: Players::healPlayer(this, buf+2); break;
+		case 0x4D: Skills::addSkill(this, buf+2); break;
+		case 0x51: Skills::useSkill(this, buf+2); break;
+		case 0x4E: Skills::cancelSkill(this, buf+2); break;
+		case 0x68: Drops::dropMesos(this ,buf+2); break;
+		case 0x6B: Quests::getQuest(this, buf+2); break;
 		case 0x75: chaneKey(buf+2);
-		case 0x8A: Mobs::monsterControl(this ,buf+2, len-2); break;
-		case 0x8B: Mobs::monsterControlSkill(this ,buf+2); break;
-		case 0x96: Drops::lootItem(this ,buf+2); break;
+		case 0x9D: Mobs::monsterControl(this ,buf+2, len-2); break;
+		case 0xA0: Mobs::monsterControlSkill(this ,buf+2); break;
+		case 0x89: Drops::lootItem(this ,buf+2); break;
 	}
 }
 
@@ -150,11 +155,16 @@ void Player::playerConnect(){
 		item->amount = items[i][3];
 		inv->addItem(item);
 	}
+	int skill[200][2];
+	many = MySQL::getSkills(getPlayerid(), skill);
+	for(int i=0; i<many; i++){
+		skills->addSkillLevel(skill[i][0], skill[i][1]);
+	}
 	inv->setMesosStart(MySQL::getInt("characters", getPlayerid(), "mesos"));
 	inv->setPlayer(this);
 	MySQL::getKeys(getPlayerid(), keys);
-	PlayerPacket::headerNotice(this);
 	PlayerPacket::connectData(this);
+	PlayerPacket::headerNotice(this);
 	if(Maps::info[map].Portals.size() > 0){
 		pos.x = Maps::info[map].Portals[0].x;
 		pos.y = Maps::info[map].Portals[0].y;
@@ -164,6 +174,7 @@ void Player::playerConnect(){
 		pos.y = 0;
 	}
 	type=0;
+	
 	Players::addPlayer(this);
 	NPCs::showNPCs(this);
 	Maps::addPlayer(this);
@@ -173,22 +184,22 @@ void Player::playerConnect(){
 
 }
 
-void Player::setHP(short hp){
+void Player::setHP(unsigned short hp){
 	this->hp=hp;
 	if(this->hp<0)
 		this->hp=0;
 	if(this->hp>mhp)
 		this->hp=mhp;
-	PlayerPacket::newHP(this, this->hp);
+	PlayerPacket::newHP(this, (short)this->hp);
 }
 
-void Player::setMP(short mp, bool is){
+void Player::setMP(unsigned short mp, bool is){
 	this->mp=mp;
 	if(this->mp<0)
 		this->mp=0;
 	if(this->mp>mmp)
 		this->mp=mmp;
-	PlayerPacket::newMP(this, this->mp, is);
+	PlayerPacket::newMP(this, (short)this->mp, is);
 }
 
 void Player::setSp(short sp){

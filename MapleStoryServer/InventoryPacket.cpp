@@ -20,7 +20,7 @@ void InventoryPacket::moveItem(Player* player, char inv, short slot1, short slot
 
 void InventoryPacket::updatePlayer(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x84);
+	packet.addHeader(0x92);
 	packet.addInt(player->getPlayerid());
 	packet.addByte(1);
 	packet.addByte(player->getGender());
@@ -86,7 +86,7 @@ void InventoryPacket::bought(Player* player){
 
 void InventoryPacket::newMesos(Player* player, int mesos, bool is){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(is);
 	packet.addShort(0);
 	packet.addShort(4);
@@ -158,12 +158,12 @@ void InventoryPacket::moveItemS2(Player* player, char inv, short slot1, short am
 
 void InventoryPacket::sitChair(Player* player, vector <Player*> players, int chairid){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(1);
 	packet.addInt(0);
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0x82);
+	packet.addHeader(0x91);
 	packet.addInt(player->getPlayerid());
 	packet.addInt(chairid);
 	packet.sendTo(player, players, 0);
@@ -172,11 +172,11 @@ void InventoryPacket::sitChair(Player* player, vector <Player*> players, int cha
 
 void InventoryPacket::stopChair(Player* player, vector <Player*> players){
 	Packet packet = Packet();
-	packet.addHeader(0x8B);
+	packet.addHeader(0x66);
 	packet.addByte(0);
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0x83);
+	packet.addHeader(0x91);
 	packet.addInt(player->getPlayerid());
 	packet.addInt(0);
 	packet.sendTo(player, players, 0);

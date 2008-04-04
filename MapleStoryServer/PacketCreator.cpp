@@ -63,11 +63,13 @@ void Packet::packetSend(Player* player){
 		fprintf(f, "%x ", packet[i]);
 	fclose(f);
 	*/
-	//printf("\r\n");
-	//for(int i=0; i<pos; i++)
-	//	printf("%x ", packet[i]);
+	/*
+	printf("\r\n");
+	for(int i=0; i<pos; i++)
+		printf("%x ", packet[i]);
 	if(pos>400)
 		printf("***%d***", pos);
+	*/
 	unsigned char tempbuf[10000];
 	for(int i=0; i<pos; i++){
 		tempbuf[i] = packet[i];

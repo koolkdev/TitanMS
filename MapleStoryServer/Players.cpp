@@ -119,8 +119,17 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 void Players::damagePlayer(Player* player, unsigned char* packet){
 	int damage = getInt(packet+5);
 	int mobid = getInt(packet+13);
+	Mob* mob = NULL;
+	for(unsigned int i=0; i<Mobs::mobs[player->getMap()].size(); i++)
+		if(Mobs::mobs[player->getMap()][i]->getID() == mobid){
+			mob = Mobs::mobs[player->getMap()][i];
+			break;
+		}
 	player->setHP(player->getHP()-damage);
-	PlayersPacket::damagePlayer(player, Maps::info[player->getMap()].Players, damage, mobid);
+	if(mob != NULL)
+		PlayersPacket::damagePlayer(player, Maps::info[player->getMap()].Players, damage, mob->getMobID());
+	else
+		PlayersPacket::damagePlayer(player, Maps::info[player->getMap()].Players, damage, 0);
 }
 
 void Players::healPlayer(Player* player, unsigned char* packet){

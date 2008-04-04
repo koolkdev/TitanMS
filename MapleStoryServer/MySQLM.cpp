@@ -5,11 +5,12 @@ using namespace std;
 
 MYSQL MySQL::maple_db;
 
-void MySQL::connectToMySQL(){
+int MySQL::connectToMySQL(){
 	if(!mysql_real_connect(&maple_db, "localhost", "root", "", "maplestory", 3306, NULL, 0)){
 		printf(mysql_error(&maple_db));
-		exit(1);
+		return 0;
 	}
+	return 1;
 }
 
 int MySQL::getInt(char* table, int id, char* value){
@@ -201,6 +202,26 @@ int MySQL::getItems(int id, int equips[400][4]){
 				buffer >> equips[i][j-1];
 			else if(j!=1)
 				buffer >> equips[i][0];
+		}
+		mrow = mysql_fetch_row(mres);
+	}
+	int ret = (int)mysql_num_rows(mres);
+	return ret;
+}
+int MySQL::getSkills(int id, int skills[200][2]){
+	MYSQL_RES *mres;
+	MYSQL_ROW mrow;
+	char query[255]; 
+    sprintf_s(query, 255, "select * from skills where charid='%d';", id);
+	mysql_real_query(&maple_db, query, strlen(query));
+	mres = mysql_store_result(&MySQL::maple_db);
+	mrow = mysql_fetch_row(mres);
+	//int ret = 0;
+	for(int i=0; i<mysql_num_rows(mres); i++){
+		for(int j=1; j<3; j++){
+			string mr = string((char*)mrow[j]);
+			istringstream buffer(mr);
+			buffer >> skills[i][j-1];
 		}
 		mrow = mysql_fetch_row(mres);
 	}

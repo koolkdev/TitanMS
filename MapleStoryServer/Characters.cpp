@@ -7,7 +7,7 @@ void Characters::showEquips(int id, vector <CharEquip> &vec){
 	int equips[15][2];
 	int many = MySQL::showEquips(id, equips);
 	for(int i=0; i<many; i++){
-		CharEquip equip;
+		CharEquip equip; 
 		equip.id = equips[i][0];
 		equip.type = equips[i][1];
 		vec.push_back(equip);
@@ -29,7 +29,7 @@ void Characters::showCharacters(PlayerLogin* player){
 		charc.level = MySQL::getInt("characters", IDs[i], "level");
 		charc.job = MySQL::getInt("characters", IDs[i], "job");
 		charc.str = MySQL::getInt("characters", IDs[i], "str");
-		charc.dex = charc.gender = MySQL::getInt("characters", IDs[i], "dex");
+		charc.dex = MySQL::getInt("characters", IDs[i], "dex");
 		charc.intt = MySQL::getInt("characters", IDs[i], "intt");
 		charc.luk = MySQL::getInt("characters", IDs[i], "luk");
 		charc.hp = MySQL::getInt("characters", IDs[i], "chp");

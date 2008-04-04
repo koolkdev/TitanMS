@@ -24,6 +24,7 @@ public:
 		isconnect=0;
 		shop=0;
 		npc=NULL;
+		chair=0;
 	}
 
 	~Player();
@@ -86,24 +87,24 @@ public:
 	short getLuk(){
 		return this->luk;
 	}
-	void setHP(short hp);
-	short getHP(){
+	void setHP(unsigned short hp);
+	unsigned short getHP(){
 		return this->hp;
 	}
-	void setMP(short mp, bool is=0);
-	short getMP(){
+	void setMP(unsigned short mp, bool is=0);
+	unsigned short getMP(){
 		return this->mp;
 	}
-	void setMHP(short mhp){
+	void setMHP(unsigned short mhp){
 		this->mhp=mhp;
 	}
-	short getMHP(){
+	unsigned short getMHP(){
 		return this->mhp;
 	}
-	void setMMP(short mmp){
+	void setMMP(unsigned short mmp){
 		this->mmp=mmp;
 	}
-	short getMMP(){
+	unsigned short getMMP(){
 		return this->mmp;
 	}
 	void setAp(short ap){
@@ -159,6 +160,12 @@ public:
 	void setNPC(NPC* npc){
 		this->npc = npc;
 	}
+	void setChair(int chair){
+		this->chair = chair;
+	}
+	int getChair(){
+		return chair;
+	}
 	NPC* getNPC(){
 		return npc;
 	}
@@ -179,10 +186,10 @@ private:
 	short dex;
 	short intt;
 	short luk;
-	short hp;
-	short mhp;
-	short mp;
-	short mmp;
+	unsigned short hp;
+	unsigned short mhp;
+	unsigned short mp;
+	unsigned short mmp;
 	short ap;
 	short sp;
 	int exp;
@@ -192,6 +199,7 @@ private:
 	char type;
 	int keys[90];
 	int shop;
+	int chair;
 	Pos pos;
 	NPC* npc;
 	void getUserID(unsigned char* buf){

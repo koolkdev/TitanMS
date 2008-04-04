@@ -2,6 +2,7 @@
 #include "PacketCreator.h"
 #include "Player.h"
 #include "Inventory.h"
+#include "Skills.h"
 
 void PlayerPacket::connectData(Player* player){
 	Packet packet = Packet();
@@ -130,9 +131,11 @@ void PlayerPacket::connectData(Player* player){
 
 	}
 	//Skills
-	packet.addShort(0);
-	//packet.addInt(5001001);
-	//packet.addInt(1);
+	packet.addShort(player->skills->getSkillsNum());
+	for(int i=0; i<player->skills->getSkillsNum(); i++){
+		packet.addInt(player->skills->getSkillID(i));
+		packet.addInt(player->skills->getSkillLevel(player->skills->getSkillID(i)));
+	}
 	//End
 	packet.addInt(0);
 	packet.addInt(0);
@@ -146,18 +149,18 @@ void PlayerPacket::connectData(Player* player){
 
 void PlayerPacket::headerNotice(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x37);
+	packet.addHeader(0x00);
 	packet.addByte(4);
 	packet.addByte(1);
 	char msg[] = "Welcome to MapleStory!";
 	packet.addShort(strlen(msg));
 	packet.addString(msg, strlen(msg));
-	packet.packetSend(player);
+	//packet.packetSend(player);
 }
 
 void PlayerPacket::newHP(Player* player, short hp){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addByte(0);
 	packet.addShort(0);
 	packet.addShort(4);
@@ -168,7 +171,7 @@ void PlayerPacket::newHP(Player* player, short hp){
 
 void PlayerPacket::newMP(Player* player, short mp, bool is){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addByte(is);
 	packet.addShort(0);
 	packet.addShort(0x10);
@@ -179,7 +182,7 @@ void PlayerPacket::newMP(Player* player, short mp, bool is){
 
 void PlayerPacket::newEXP(Player* player, int exp){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(0);
 	packet.addShort(0);
 	packet.addShort(1);
@@ -200,7 +203,7 @@ void PlayerPacket::showKeys(Player* player, int keys[90]){
 }
 void PlayerPacket::setSP(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(0);
 	packet.addByte(0);
 	packet.addShort(0x80);
@@ -211,7 +214,7 @@ void PlayerPacket::setSP(Player* player){
 
 void PlayerPacket::setJob(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(0);
 	packet.addInt(0x20);
 	packet.addShort(player->getJob());
@@ -220,7 +223,7 @@ void PlayerPacket::setJob(Player* player){
 
 void PlayerPacket::newHair(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(0);
 	packet.addInt(0x4);
 	packet.addInt(player->getHair());
@@ -229,7 +232,7 @@ void PlayerPacket::newHair(Player* player){
 
 void PlayerPacket::newEyes(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(0);
 	packet.addInt(0x2);
 	packet.addInt(player->getEyes());
@@ -238,7 +241,7 @@ void PlayerPacket::newEyes(Player* player){
 
 void PlayerPacket::newSkin(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(0);
 	packet.addInt(0x1);
 	packet.addByte(player->getSkin());

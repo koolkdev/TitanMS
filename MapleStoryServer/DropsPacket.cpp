@@ -5,7 +5,7 @@
 
 void DropsPacket::drop(vector <Player*> players, Drop* drop, Dropped dropper){
 	Packet packet = Packet();
-	packet.addHeader(0xB3);
+	packet.addHeader(0xB8);
 	packet.addByte(1);
 	packet.addInt(drop->getObjID());
 	packet.addByte(drop->getMesos());
@@ -27,7 +27,7 @@ void DropsPacket::drop(vector <Player*> players, Drop* drop, Dropped dropper){
 
 void DropsPacket::dropForPlayer(Player* player, Drop* drop, Dropped dropper){
 	Packet packet = Packet();
-	packet.addHeader(0xB3);
+	packet.addHeader(0xB8);
 	packet.addByte(1);
 	packet.addInt(drop->getObjID());
 	packet.addByte(drop->getMesos());
@@ -49,7 +49,7 @@ void DropsPacket::dropForPlayer(Player* player, Drop* drop, Dropped dropper){
 
 void DropsPacket::showDrop(Player* player, Drop* drop){
 	Packet packet = Packet();
-	packet.addHeader(0xB3);
+	packet.addHeader(0xB8);
 	packet.addByte(2);
 	packet.addInt(drop->getObjID());
 	packet.addByte(drop->getMesos());
@@ -68,7 +68,7 @@ void DropsPacket::showDrop(Player* player, Drop* drop){
 
 void DropsPacket::takeNote(Player *player, int id, bool ismesos, short amount){
 	Packet packet = Packet();
-	packet.addHeader(0x20);
+	packet.addHeader(0x32);
 	packet.addByte(0);
 	if(id==0)
 		packet.addByte(-1);
@@ -90,7 +90,7 @@ void DropsPacket::takeNote(Player *player, int id, bool ismesos, short amount){
 
 void DropsPacket::takeDrop(Player* player, vector <Player*> players, Drop* drop){
 	Packet packet = Packet();
-	packet.addHeader(0xB4);
+	packet.addHeader(0xB9);
 	packet.addByte(2);
 	packet.addInt(drop->getObjID());
 	packet.addInt(player->getPlayerid());

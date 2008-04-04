@@ -71,6 +71,19 @@ public:
 		}
 		return 0;
 	}
+	int getSkillsNum(){
+		return playerskills.size();
+	}
+	int getSkillID(int i){
+		int j=0;
+		for (hash_map<int,int>::iterator iter = playerskills.begin(); iter != playerskills.end(); iter++){
+			if(j == i){
+				return iter->first;
+			} 
+			j++;
+		}
+		return 0;
+	}
 private:
 	hash_map <int, int> playerskills;
 };

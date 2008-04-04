@@ -36,12 +36,12 @@ void PlayersPacket::damagePlayer(Player* player, vector <Player*> players, int d
 	packet.addHeader(0x89);
 	packet.addInt(player->getPlayerid());
 	packet.addByte(-1);
-	packet.addInt(1);
+	packet.addInt(dmg);
 	packet.addInt(mob);
 	packet.addShort(1);
 	packet.addByte(0);
 	packet.addInt(dmg);
-	packet.sendTo(player, players, 1);
+	//packet.sendTo(player, players, 1); // Need to be fixed
 }
 
 void PlayersPacket::showMassage(char* msg, char type){

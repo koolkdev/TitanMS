@@ -55,7 +55,6 @@ void Inventory::itemMove(Player* player, unsigned char* packet){
 			drop->setDropInfo(dropi);
 			drop->doDrop(dropper);
 			player->inv->deleteEquip(num);
-			player->quests->checkQuests();
 			return;
 		}
 		for(int i=0; i<player->inv->getEquipNum(); i++){
@@ -108,7 +107,6 @@ void Inventory::itemMove(Player* player, unsigned char* packet){
 			drop->doDrop(dropper);
 			if(item->amount == 0)
 				player->inv->deleteItem(num);
-			player->quests->checkQuests();
 			return;
 		}
 		int stack=0;
@@ -160,7 +158,6 @@ void Inventory::itemMove(Player* player, unsigned char* packet){
 			InventoryPacket::moveItemS2(player, inv, slot1, amount1, slot2, amount2);
 
 	}
-	player->quests->checkQuests();
 }
 
 int Inventory::findSlot(Player* player, int itemid ,char inv, short amount){
@@ -234,7 +231,6 @@ Equip* Inventory::setEquipStats(Player* player, int equipid){
 void Inventory::addEquip(Player* player, Equip* equip, bool is){
 	InventoryPacket::addEquip(player, equip, is);
 	player->inv->addEquip(equip);
-	player->quests->checkQuests();
 }
 
 void Inventory::addItem(Player* player, Item* item, bool is){
@@ -307,7 +303,6 @@ void Inventory::addNewItem(Player* player, int item, int howmany){
 		newitem->pos = findSlot(player, item , type, howmany);
 		addItem(player, newitem);
 	}
-	player->quests->checkQuests();
 }
 
 void Inventory::takeItem(Player* player, int item, int howmany){
@@ -333,7 +328,6 @@ void Inventory::takeItem(Player* player, int item, int howmany){
 				player->inv->deleteItem(i);
 			}
 		}
-	player->quests->checkQuests();
 }
 
 void Inventory::takeItemSlot(Player* player, short slot){
@@ -349,7 +343,6 @@ void Inventory::takeItemSlot(Player* player, short slot){
 				InventoryPacket::moveItemS(player, item->inv, item->pos, item->amount);
 			break;
 		}
-	player->quests->checkQuests();
 }
 
 void Inventory::useItem(Player *player, unsigned char *packet){
@@ -376,9 +369,11 @@ void Inventory::useItem(Player *player, unsigned char *packet){
 
 void Inventory::useChair(Player* player, unsigned char* packet){
 	int chairid = getInt(packet);
+	player->setChair(chairid);
 	InventoryPacket::sitChair(player, Maps::info[player->getMap()].Players, chairid);
 }
 
 void Inventory::stopChair(Player* player, unsigned char* packet){
+	player->setChair(0);
 	InventoryPacket::stopChair(player, Maps::info[player->getMap()].Players);
 }

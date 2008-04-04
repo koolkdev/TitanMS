@@ -9,7 +9,7 @@ class MySQL {
 private:
 	static MYSQL maple_db;
 public:
-	static void connectToMySQL();
+	static int connectToMySQL();
 	static int getUserID(char* username);
 	static int getInt(char* table, int id, char* value);
 	static void setInt(char* table, char* wht, int id, int value);
@@ -26,6 +26,7 @@ public:
 	static int showEquipsIn(int id, int equips[115][21]);
 	static int getItems(int id, int equips[400][4]);
 	static void getKeys(int id, int keys[90]);
+	static int getSkills(int id, int skills[200][2]);
 };
 
 #endif

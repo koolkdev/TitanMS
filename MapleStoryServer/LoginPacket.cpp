@@ -68,7 +68,7 @@ void LoginPacket::loginConnect(PlayerLogin* player, char* username, int size){
 
 void LoginPacket::loginProcess(PlayerLogin* player, char id){
 	Packet packet = Packet();
-	packet.addHeader(0x05);
+	packet.addHeader(0x0d);
 	packet.addByte(id);
 	packet.packetSendLogin(player);
 }
@@ -83,7 +83,7 @@ void LoginPacket::processOk(PlayerLogin* player){
 
 void LoginPacket::showWorld(PlayerLogin* player, World world){
 	Packet packet = Packet();
-	packet.addHeader(0x09);
+	packet.addHeader(0x05);
 	packet.addByte(world.id);
 	packet.addShort(strlen(world.name));
 	packet.addString(world.name, strlen(world.name));
@@ -111,21 +111,21 @@ void LoginPacket::showWorld(PlayerLogin* player, World world){
 
 void LoginPacket::worldEnd(PlayerLogin* player){
 	Packet packet = Packet();
-	packet.addHeader(0x09);
+	packet.addHeader(0x05);
 	packet.addByte(0xFF);
 	packet.packetSendLogin(player);
 }
 
 void LoginPacket::showChannels(PlayerLogin* player){
 	Packet packet = Packet();
-	packet.addHeader(0x02);
+	packet.addHeader(0x12);
 	packet.addShort(0x00);
 	packet.packetSendLogin(player);
 }
 
 void LoginPacket::channelSelect(PlayerLogin* player){
 	Packet packet = Packet();
-	packet.addHeader(0x13);
+	packet.addHeader(0x10);
 	packet.addBytes("000500001040008612340097227400");
 	packet.addInt(4);
 	packet.addBytes("9F227400");
@@ -136,7 +136,7 @@ void LoginPacket::channelSelect(PlayerLogin* player){
 
 void LoginPacket::showCharacters(PlayerLogin* player, vector <Character> chars){
 	Packet packet = Packet();
-	packet.addHeader(0x0A);
+	packet.addHeader(0x13);
 	packet.addByte(0);
 	packet.addByte(chars.size());
 	for(int i=0; i<(int)chars.size(); i++){
@@ -184,7 +184,7 @@ void LoginPacket::showCharacters(PlayerLogin* player, vector <Character> chars){
 
 void LoginPacket::checkName(PlayerLogin* player, char is, char* name){
 	Packet packet = Packet();
-	packet.addHeader(0x0c);
+	packet.addHeader(0x06);
 	packet.addShort(strlen(name));
 	packet.addString(name, strlen(name));
 	packet.addByte(is);
@@ -193,7 +193,7 @@ void LoginPacket::checkName(PlayerLogin* player, char is, char* name){
 
 void LoginPacket::showCharacter(PlayerLogin* player, Character charc){
 	Packet packet = Packet();
-	packet.addHeader(0x0D);
+	packet.addHeader(0x07);
 	packet.addByte(0);
 	packet.addInt(charc.id);
 	packet.addString(charc.name, 12);
@@ -246,25 +246,14 @@ void LoginPacket::deleteCharacter(PlayerLogin* player, int ID){
 
 void LoginPacket::connectIP(PlayerLogin* player, int charid){
 	Packet packet = Packet();
-	packet.addHeader(0x0b);
+	packet.addHeader(0x04);
 	packet.addShort(0); // IP
 	
-	packet.addByte(127); // IP
-	packet.addByte(0);
-	packet.addByte(0);
-	packet.addByte(1);
-	
-	/*
-	packet.addByte(127); // IP
-	packet.addByte(0);
-	packet.addByte(0);
-	packet.addByte(1);
-	/*
-	packet.addByte(192); // IP
-	packet.addByte(168);
-	packet.addByte(1);
-	packet.addByte(3);
-	*/
+	packet.addByte(5); // IP
+	packet.addByte(167);
+	packet.addByte(207);
+	packet.addByte(220);
+
 	packet.addShort(8888 + player->getChannel());
 	packet.addInt(charid);
 	packet.addInt(0);
@@ -275,7 +264,7 @@ void LoginPacket::connectIP(PlayerLogin* player, int charid){
 
 void LoginPacket::logBack(PlayerLogin* player){
 	Packet packet = Packet();
-	packet.addHeader(0x15);
+	packet.addHeader(0x13);
 	packet.addByte(1);
 	packet.packetSendLogin(player);
 }

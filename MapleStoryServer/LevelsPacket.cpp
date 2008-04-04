@@ -4,7 +4,7 @@
 
 void LevelsPacket::showEXP(Player* player, int exp, char type){
 	Packet packet = Packet();
-	packet.addHeader(0x20);
+	packet.addHeader(0x32);
 	packet.addByte(3);
 	packet.addByte(1);
 	packet.addInt(exp);
@@ -17,7 +17,7 @@ void LevelsPacket::showEXP(Player* player, int exp, char type){
 
 void LevelsPacket::levelUP(Player* player, vector <Player*> players){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(0);
 	packet.addShort(0x7C10);
 	packet.addShort(1);
@@ -39,14 +39,14 @@ void LevelsPacket::levelUP(Player* player, vector <Player*> players){
 
 void LevelsPacket::statOK(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(1);
 	packet.addInt(0);
 	packet.packetSend(player);
 }
 void LevelsPacket::changeStat(Player* player, int nam, short val){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(1);
 	packet.addInt(nam);
 	packet.addShort(val);
@@ -56,9 +56,14 @@ void LevelsPacket::changeStat(Player* player, int nam, short val){
 
 void LevelsPacket::jobChange(Player *player, std::vector<Player*> players){
 	Packet packet = Packet();
-	packet.addHeader(0x1A);
+	packet.addHeader(0x23);
 	packet.addShort(0);
 	packet.addInt(0x20);
 	packet.addShort(player->getJob());
 	packet.packetSend(player);
+	packet = Packet();
+	packet.addHeader(0x85);
+	packet.addInt(player->getPlayerid());
+	packet.addByte(2);
+	packet.sendTo(player, players, 0);
 }

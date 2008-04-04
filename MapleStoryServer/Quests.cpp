@@ -65,10 +65,6 @@ void PlayerQuests::updateQuestMob(int mobid){
 		}
 	}
 }
-void PlayerQuests::checkQuests(){
-	for(unsigned int i=0; i<quests.size(); i++)
-		checkDone(quests[i]);
-}
 void PlayerQuests::checkDone(Quest &quest){
 	if(Quests::quests[quest.id].requests.size() == 0){
 		quest.done = 1;

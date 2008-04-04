@@ -10,9 +10,17 @@
 void main(){
 
 	Initializing::initializing();
+	printf("Initializing Timers... ");
 	Timer::timer = new Timer();
 	Skills::startTimer();
-	MySQL::connectToMySQL();
+	printf("DONE\n");
+	printf("Initializing MySQL... ");
+	if(MySQL::connectToMySQL())
+		printf("DONE\n");
+	else{
+		printf("FAILED\n");
+		exit(1);
+	}
 	WSADATA wsaData;
 	int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
 	if (iResult != NO_ERROR)  printf("Error at WSAStartup()\n");

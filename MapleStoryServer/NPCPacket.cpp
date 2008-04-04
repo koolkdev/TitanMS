@@ -16,7 +16,7 @@ void NPCPacket::showNPC(Player* player, NPCInfo npc, int i){
 	packet.addShort(npc.rx1);
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0xA9);
+	packet.addHeader(0xAC);
 	packet.addByte(1);
 	packet.addInt(i+0x64);
 	packet.addInt(npc.id);

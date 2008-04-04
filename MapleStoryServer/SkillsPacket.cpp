@@ -4,7 +4,7 @@
 
 void SkillsPacket::addSkill(Player* player, int skillid, int level){
 	Packet packet = Packet();
-	packet.addHeader(0x1D);
+	packet.addHeader(0x2f);
 	packet.addByte(1);
 	packet.addShort(1);
 	packet.addInt(skillid);
@@ -12,15 +12,12 @@ void SkillsPacket::addSkill(Player* player, int skillid, int level){
 	packet.addInt(0);
 	packet.addByte(1);
 	packet.packetSend(player);
-	packet = Packet();
-	packet.addHeader(0x5A);
-	packet.addByte(0);
 	packet.packetSend(player);
 }
 
 void SkillsPacket::useSkill(Player* player, vector <Player*> players, int skillid, int time, char type1, char type2, char type3, char type4, char type5, char type6, char type7, char type8, vector <int> values , bool is){
 	Packet packet = Packet();
-	packet.addHeader(0x1B);
+	packet.addHeader(0x3a);
 	packet.addByte(type1);
 	packet.addByte(type2);
 	packet.addByte(type3);
@@ -65,7 +62,7 @@ void SkillsPacket::useSkill(Player* player, vector <Player*> players, int skilli
 
 void SkillsPacket::healHP(Player* player, short hp){
 	Packet packet = Packet();
-	packet.addHeader(0x8C);
+	packet.addHeader(0x67);
 	packet.addByte(0xA);
 	packet.addShort(hp);
 	packet.packetSend(player);
@@ -73,7 +70,7 @@ void SkillsPacket::healHP(Player* player, short hp){
 
 void SkillsPacket::endSkill(Player* player, vector <Player*> players, char type1, char type2, char type3, char type4, char type5, char type6, char type7, char type8, bool is){
 	Packet packet = Packet();
-	packet.addHeader(0x1C);
+	packet.addHeader(0x24);
 	packet.addByte(type1);
 	packet.addByte(type2);
 	packet.addByte(type3);
@@ -97,7 +94,7 @@ void SkillsPacket::endSkill(Player* player, vector <Player*> players, char type1
 		packet.addByte(type7);
 		packet.addByte(type8);
 		packet.addByte(0);
-		packet.sendTo(player, players, 0);
+		//packet.sendTo(player, players, 0); //Header probably changed
 
 	}
 }
