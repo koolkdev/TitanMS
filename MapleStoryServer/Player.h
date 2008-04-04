@@ -55,7 +55,7 @@ public:
 		return this->hair;
 	}
 	void setLevel(int level);
-	char getLevel(){
+	unsigned char getLevel(){
 		return this->level;
 	}
 	void setJob(short job);
@@ -173,7 +173,7 @@ private:
 	char skin;
 	int eyes;
 	int hair;
-	char level;
+	unsigned char level;
 	short job;
 	short str;
 	short dex;

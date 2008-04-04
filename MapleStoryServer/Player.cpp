@@ -155,8 +155,14 @@ void Player::playerConnect(){
 	MySQL::getKeys(getPlayerid(), keys);
 	PlayerPacket::headerNotice(this);
 	PlayerPacket::connectData(this);
-	pos.x = Maps::info[map].Portals[0].x;
-	pos.y = Maps::info[map].Portals[0].y;
+	if(Maps::info[map].Portals.size() > 0){
+		pos.x = Maps::info[map].Portals[0].x;
+		pos.y = Maps::info[map].Portals[0].y;
+	}
+	else{
+		pos.x = 0;
+		pos.y = 0;
+	}
 	type=0;
 	Players::addPlayer(this);
 	NPCs::showNPCs(this);
@@ -203,7 +209,7 @@ void Player::setExp(int exp, bool is){
 }
 
 void Player::setLevel(int level){
-	this->level=level;
+	this->level=(unsigned char)level;
 
 }
 int getIntg(unsigned char* buf){

@@ -362,6 +362,8 @@ void Inventory::useItem(Player *player, unsigned char *packet){
 	if(Drops::consumes[itemid].mp>0){ 
 		player->setMP(player->getMP()+Drops::consumes[itemid].mp);
 	}
+	else
+		player->setMP(player->getMP(), 1);
 	if(Drops::consumes[itemid].hpr>0){
 		player->setHP(player->getHP()+Drops::consumes[itemid].hpr*player->getMHP()/100);
 	}

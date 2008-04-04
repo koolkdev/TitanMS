@@ -128,6 +128,8 @@ void Skills::useSkill(Player* player, unsigned char* packet){
 	if(skills[skillid][player->skills->getSkillLevel(skillid)].mp > 0){
 		player->setMP(player->getMP()-skills[skillid][player->skills->getSkillLevel(skillid)].mp, 1);
 	}
+	else
+		player->setMP(player->getMP(), 1);
 	if(skills[skillid][player->skills->getSkillLevel(skillid)].hp > 0){
 		player->setHP(player->getHP()-skills[skillid][player->skills->getSkillLevel(skillid)].hp);
 	}

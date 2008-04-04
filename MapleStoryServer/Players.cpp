@@ -60,7 +60,7 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 					Maps::changeMap(player ,mapid, 0);
 			}
 		}
-		else if(strcmp(command, "summon") == 0){
+		else if(strcmp(command, "summon") == 0 || strcmp(command, "spawn") == 0){
 			int mobid = strval(strtok_s(NULL, " ",&next_token));
 			if(Mobs::mobinfo.find(mobid) == Mobs::mobinfo.end())
 				return;

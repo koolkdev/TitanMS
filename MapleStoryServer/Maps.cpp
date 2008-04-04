@@ -77,9 +77,13 @@ void Maps::changeMap(Player* player, int mapid, int pos){
 		cpos.x = info[mapid].Portals[pos].x;
 		cpos.y = info[mapid].Portals[pos].y;
 	}
-	else{
+	else if(info[mapid].Portals.size() > 0){
 		cpos.x = info[mapid].Portals[0].x;
 		cpos.y = info[mapid].Portals[0].y;
+	}
+	else{
+		cpos.x = 0;
+		cpos.y = 0;
 	}
 	player->setPos(cpos);
 	MapPacket::changeMap(player);
