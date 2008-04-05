@@ -1,5 +1,6 @@
 #include "PacketCreator.h"
 #include <stdio.h>
+#include "Player.h"
 
 void Packet::addHeader(short headerid){
 	(*(short*)packet) = headerid;
@@ -67,6 +68,7 @@ void Packet::packetSend(Player* player){
 	printf("\r\n");
 	for(int i=0; i<pos; i++)
 		printf("%x ", packet[i]);
+
 	if(pos>400)
 		printf("***%d***", pos);
 	*/

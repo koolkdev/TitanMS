@@ -149,7 +149,7 @@ void PlayerPacket::connectData(Player* player){
 
 void PlayerPacket::headerNotice(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x00);
+	packet.addHeader(0x19);
 	packet.addByte(4);
 	packet.addByte(1);
 	char msg[] = "Welcome to MapleStory!";

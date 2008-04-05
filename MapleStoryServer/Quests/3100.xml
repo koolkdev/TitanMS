@@ -1,8 +1,6 @@
 <?xml version="1.0" ?>
 <Quest>
     <NextQuest>0</NextQuest>
-    <StartScript>0</StartScript>
-    <EndScript>0</EndScript>
     <Requests>
         <Request>
             <Mob>0</Mob>
@@ -33,7 +31,7 @@
             <EXP>1</EXP>
             <Mesos>0</Mesos>
             <Fame>0</Fame>
-            <ID>1300</ID>
+            <ID>7500</ID>
             <Count>0</Count>
             <Gender>0</Gender>
             <Job>0</Job>

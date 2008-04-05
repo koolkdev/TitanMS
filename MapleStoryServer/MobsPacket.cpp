@@ -76,7 +76,7 @@ void MobsPacket::moveMob(Player* player, Mob* mob ,vector <Player*> players, uns
 	packet.addByte(0);
 	packet.addInt(0xFF);
 	packet.addByte(0);
-	packet.addBytesHex(pack+13, pla+4);
+	packet.addBytesHex(pack+17, pla-17);
 	packet.sendTo(player, players, 0);
 }
 
@@ -113,7 +113,7 @@ void MobsPacket::damageMobS(Player* player, vector <Player*> players, unsigned c
 	int howmany = pack[1]/0x10;
 	int hits = pack[1]%0x10;
 	Packet packet = Packet();
-	packet.addHeader(0x88);
+	packet.addHeader(0x8D);
 	packet.addInt(player->getPlayerid());
 	packet.addByte(pack[1]);
 	if(getInt(pack+2)>0){
@@ -142,7 +142,7 @@ void MobsPacket::damageMobSkill(Player* player, vector <Player*> players, unsign
 	int howmany = pack[1]/0x10;
 	int hits = pack[1]%0x10;
 	Packet packet = Packet();
-	packet.addHeader(0x89);
+	packet.addHeader(0x93);
 	packet.addInt(player->getPlayerid());
 	packet.addByte(pack[1]);
 	packet.addByte(1);

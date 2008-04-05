@@ -238,7 +238,7 @@ void LoginPacket::showCharacter(PlayerLogin* player, Character charc){
 
 void LoginPacket::deleteCharacter(PlayerLogin* player, int ID){
 	Packet packet = Packet();
-	packet.addHeader(0x0E);
+	packet.addHeader(0x08);
 	packet.addInt(ID);
 	packet.addByte(0);
 	packet.packetSendLogin(player);
@@ -249,10 +249,10 @@ void LoginPacket::connectIP(PlayerLogin* player, int charid){
 	packet.addHeader(0x04);
 	packet.addShort(0); // IP
 	
-	packet.addByte(5); // IP
-	packet.addByte(167);
-	packet.addByte(207);
-	packet.addByte(220);
+	packet.addByte(127); // IP
+	packet.addByte(0);
+	packet.addByte(0);
+	packet.addByte(1);
 
 	packet.addShort(8888 + player->getChannel());
 	packet.addInt(charid);

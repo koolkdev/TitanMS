@@ -37,12 +37,11 @@ void Mobs::monsterControl(Player* player, unsigned char* packet, int size){
 	if(mob->getControl() != player)
 		mob->setControl(player);
 		Pos cpos;
-		int pla = packet[17]*14+1;
 		cpos.x = getShort(packet+size-4);
 		cpos.y = getShort(packet+size-2);
 		mob->setPos(cpos);
-		mob->setType(packet[17+14*(packet[17]-1)+12]);
-		MobsPacket::moveMob(player, mob, Maps::info[player->getMap()].Players, packet, pla);
+		mob->setType(packet[size-12]);
+		MobsPacket::moveMob(player, mob, Maps::info[player->getMap()].Players, packet, size);
 	//}
 }
 
@@ -69,6 +68,7 @@ void Mobs::checkSpawn(int mapid){
 				mob->setHP(mobinfo[info[mapid][i].id].hp);
 				mob->setMP(mobinfo[info[mapid][i].id].mp);
 				mob->setFH(info[mapid][i].fh);
+				mob->setType(2);
 			}
 			int num;
 			for(unsigned int j=0; j<mobs[mapid].size(); j++)
@@ -245,6 +245,7 @@ void Mobs::spawnMob(Player* player, int mobid){
 	mob->setMP(mobinfo[mobid].mp);
 	mob->setFH(0);
 	mob->setControl(player);
+	mob->setType(2);
 	for(unsigned int j=0; j<Maps::info[player->getMap()].Players.size(); j++)
 		MobsPacket::showMob(Maps::info[player->getMap()].Players[j], mob);
 }

@@ -1,15 +1,13 @@
 <?xml version="1.0" ?>
 <Quest>
     <NextQuest>0</NextQuest>
-    <StartScript>0</StartScript>
-    <EndScript>0</EndScript>
     <Requests>
         <Request>
             <Mob>1</Mob>
             <Item>0</Item>
             <Quest>0</Quest>
             <ID>2130100</ID>
-            <Count>15</Count>
+            <Count>10</Count>
         </Request>
     </Requests>
     <Rewards>

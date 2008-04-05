@@ -69,8 +69,8 @@ void Player::handleRequest(unsigned char* buf, int len){
 		case 0x2B: Inventory::stopChair(this ,buf+2); break;
 		case 0x2D: Inventory::useChair(this ,buf+2); break;
 		case 0x59: Mobs::damageMob(this ,buf+2); break;
-		case 0x5A: Mobs::damageMobS(this ,buf+2, len-2); break;
-		case 0x5B: Mobs::damageMobSkill(this ,buf+2); break;
+		case 0x36: Mobs::damageMobS(this ,buf+2, len-2); break;
+		case 0x2E: Mobs::damageMobSkill(this ,buf+2); break;
 		case 0x2A: Players::damagePlayer(this ,buf+2); break;
 		case 0x5C: Players::faceExperiment(this ,buf+2); break;
 		case 0x2C: Players::chatHandler(this ,buf+2); break;
@@ -184,7 +184,7 @@ void Player::playerConnect(){
 
 }
 
-void Player::setHP(unsigned short hp){
+void Player::setHP(int hp){
 	this->hp=hp;
 	if(this->hp<0)
 		this->hp=0;
@@ -193,7 +193,7 @@ void Player::setHP(unsigned short hp){
 	PlayerPacket::newHP(this, (short)this->hp);
 }
 
-void Player::setMP(unsigned short mp, bool is){
+void Player::setMP(int mp, bool is){
 	this->mp=mp;
 	if(this->mp<0)
 		this->mp=0;

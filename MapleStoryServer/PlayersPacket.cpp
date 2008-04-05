@@ -41,7 +41,7 @@ void PlayersPacket::damagePlayer(Player* player, vector <Player*> players, int d
 	packet.addShort(1);
 	packet.addByte(0);
 	packet.addInt(dmg);
-	//packet.sendTo(player, players, 1); // Need to be fixed
+	packet.sendTo(player, players, 1);
 }
 
 void PlayersPacket::showMassage(char* msg, char type){

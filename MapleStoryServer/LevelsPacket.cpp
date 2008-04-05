@@ -64,6 +64,6 @@ void LevelsPacket::jobChange(Player *player, std::vector<Player*> players){
 	packet = Packet();
 	packet.addHeader(0x85);
 	packet.addInt(player->getPlayerid());
-	packet.addByte(2);
+	packet.addByte(8);
 	packet.sendTo(player, players, 0);
 }

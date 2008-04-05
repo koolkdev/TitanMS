@@ -87,21 +87,21 @@ public:
 	short getLuk(){
 		return this->luk;
 	}
-	void setHP(unsigned short hp);
+	void setHP(int hp);
 	unsigned short getHP(){
 		return this->hp;
 	}
-	void setMP(unsigned short mp, bool is=0);
+	void setMP(int mp, bool is=0);
 	unsigned short getMP(){
 		return this->mp;
 	}
-	void setMHP(unsigned short mhp){
+	void setMHP(int mhp){
 		this->mhp=mhp;
 	}
 	unsigned short getMHP(){
 		return this->mhp;
 	}
-	void setMMP(unsigned short mmp){
+	void setMMP(int mmp){
 		this->mmp=mmp;
 	}
 	unsigned short getMMP(){
