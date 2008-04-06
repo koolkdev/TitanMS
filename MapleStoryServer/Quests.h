@@ -41,6 +41,11 @@ struct QuestInfo {
 	int nextquest;
 };
 
+struct QuestComp {
+	int id;
+	__int64 time;
+};
+
 struct QuestMob {
 	int id;
 	int count;
@@ -101,7 +106,7 @@ public:
 private:
 	Player* player;
 	vector <Quest> quests;
-	vector <int> cquests;
+	vector <QuestComp> questscomp;
 };
 
 #endif

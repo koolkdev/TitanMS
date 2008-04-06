@@ -11,6 +11,7 @@ public:
 	static void showChat(Player* player, vector <Player*> players, char* msg);
 	static void damagePlayer(Player* player, vector <Player*> players, int dmg, int mob);
 	static void showMassage(char* msg, char type);
+	static void showInfo(Player* player, Player* getinfo);
 };
 
 #endif

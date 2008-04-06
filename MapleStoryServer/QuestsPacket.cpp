@@ -52,13 +52,13 @@ void QuestsPacket::doneQuest(Player* player, int questid){
 	packet.packetSend(player);
 }
 
-void QuestsPacket::questFinish(Player* player, vector <Player*> players,short questid, int npcid, short nextquest){
+void QuestsPacket::questFinish(Player* player, vector <Player*> players,short questid, int npcid, short nextquest, __int64 time){
 	Packet packet = Packet();
 	packet.addHeader(0x32);
 	packet.addByte(1);
 	packet.addShort(questid);
 	packet.addByte(2);
-	packet.addBytes("C03451315375C801");//TO DO TIME since  1/1/1601
+	packet.addInt64(time);
 	packet.packetSend(player);
 	packet = Packet();
 	packet.addHeader(0x6C);

@@ -32,17 +32,17 @@ void Mobs::monsterControl(Player* player, unsigned char* packet, int size){
 			break;
 		}
 	if(mob == NULL)
-		return;
-	//if(mob->getControl() == player){
-	if(mob->getControl() != player)
-		mob->setControl(player);
+		return;	
+	if(mob->getControl() == player){
+	//if(mob->getControl() != player)
+		//mob->setControl(player);
 		Pos cpos;
 		cpos.x = getShort(packet+size-4);
 		cpos.y = getShort(packet+size-2);
 		mob->setPos(cpos);
 		mob->setType(packet[size-12]);
 		MobsPacket::moveMob(player, mob, Maps::info[player->getMap()].Players, packet, size);
-	//}
+	}
 }
 
 void Mobs::checkSpawn(int mapid){

@@ -77,7 +77,7 @@ void MapPacket::changeMap(Player* player){
 	packet.addInt(player->getMap());
 	packet.addByte(player->getMappos());
 	if(player->getHP() <= 0)
-		packet.addShort(5000);
+		packet.addShort(50);
 	else
 		packet.addShort(player->getHP());
 	packet.addByte(0);

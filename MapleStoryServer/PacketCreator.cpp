@@ -11,6 +11,11 @@ void Packet::addInt(int intg){
 	pos+=4;
 }
 
+void Packet::addInt64(__int64 int64){
+	(*(__int64*)(packet+pos)) = int64;
+	pos+=8;
+}
+
 void Packet::addShort(short shrt){
 	(*(short*)(packet+pos)) = shrt;
 	pos+=2;
@@ -72,7 +77,7 @@ void Packet::packetSend(Player* player){
 	if(pos>400)
 		printf("***%d***", pos);
 	*/
-	unsigned char tempbuf[10000];
+	unsigned char tempbuf[10000]; 
 	for(int i=0; i<pos; i++){
 		tempbuf[i] = packet[i];
 	}

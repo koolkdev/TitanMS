@@ -57,3 +57,18 @@ void PlayersPacket::showMassage(char* msg, char type){
 			 packet.packetSend(iter->second);
 	}*/
 }
+
+void PlayersPacket::showInfo(Player* player, Player* getinfo){
+	Packet packet = Packet();
+	packet.addHeader(0x2A);
+	packet.addInt(getinfo->getPlayerid());
+	packet.addByte(getinfo->getLevel());
+	packet.addShort(getinfo->getJob());
+	packet.addShort(getinfo->getFame());
+	packet.addByte(0); // Married
+	packet.addShort(1); // Guild Name Len
+	packet.addByte(0x2D); // Guild Name
+	packet.addShort(0);
+	packet.addByte(0);
+	packet.packetSend(player);
+}

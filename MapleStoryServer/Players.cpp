@@ -49,6 +49,7 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 	int chatsize = getShort(packet);
 	getString(packet+2, chatsize, chat);
 	if(chat[0] == '!'){
+		if(!player->isGM()) return;
 		char* next_token;
 		char command[90] = "";
 		if(chatsize>2)
@@ -69,7 +70,6 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 				count = strval(next_token);
 			for(int i=0; i<count && i<100; i++){
 				Mobs::spawnMob(player, mobid);
-
 			}
 		}
 		else if(strcmp(command, "notice") == 0){
@@ -93,14 +93,14 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 			int count = 1;
 			if(strlen(next_token) > 0)
 				count = strval(next_token);
-			 Inventory::addNewItem(player, itemid, count);
+			Inventory::addNewItem(player, itemid, count);
 		}
 		else if(strcmp(command, "level") == 0){
 			Levels::setLevel(player, strval(strtok_s(NULL, " ",&next_token)));
 		}
 		else if(strcmp(command, "job") == 0){
 			Levels::setJob(player, strval(strtok_s(NULL, " ",&next_token)));
-		}
+		}	
 		else if(strcmp(command, "ap") == 0){
 			player->setAp(player->getAp()+strval(strtok_s(NULL, " ",&next_token)));
 		}
@@ -109,6 +109,82 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 		}
 		else if(strcmp(command, "killnpc") == 0){
 			player->setNPC(NULL);
+		}
+		else if(strcmp(command, "killall") == 0){
+			int size=Mobs::mobs[player->getMap()].size();
+			for (unsigned int j=0; j<size; j++){
+				Mobs::dieMob(player, Mobs::mobs[player->getMap()][0], 0);
+			}
+		}
+		else if(strcmp(command, "horntail") == 0){
+			Mobs::spawnMob(player, 8810002);
+			Mobs::spawnMob(player, 8810003);
+			Mobs::spawnMob(player, 8810004);
+			Mobs::spawnMob(player, 8810005);
+			Mobs::spawnMob(player, 8810006);
+			Mobs::spawnMob(player, 8810007);
+            Mobs::spawnMob(player, 8810008);
+            Mobs::spawnMob(player, 8810009);
+        }
+		else if(strcmp(command, "heal") == 0){
+            player->setHP(player->getMHP());
+            player->setMP(player->getMMP());
+        }
+		else if(strcmp(command, "kill") == 0){
+			if(strcmp(next_token, "all") == 0){
+				for (unsigned int x=0; x<Maps::info[player->getMap()].Players.size(); x++){
+					Player* killpsa;
+					killpsa = Maps::info[player->getMap()].Players[x];
+					if(killpsa != player){
+						killpsa->setHP(0);
+					}
+				}
+			}
+			else if(strcmp(next_token, "gm") == 0){
+				for (unsigned int x=0; x<Maps::info[player->getMap()].Players.size(); x++){	
+					Player* killpsa;
+					killpsa = Maps::info[player->getMap()].Players[x];
+					if(killpsa != player){
+						if(killpsa->isGM()){	
+							killpsa->setHP(0);
+						}
+					}
+				}
+			}
+			else if(strcmp(next_token, "players") == 0){
+				for (unsigned int x=0; x<Maps::info[player->getMap()].Players.size(); x++){	
+					Player* killpsa;
+					killpsa = Maps::info[player->getMap()].Players[x];
+					if(killpsa != player){
+						if(!killpsa->isGM()){
+							killpsa->setHP(0);
+						}
+					}
+				}
+			}
+			else if(strcmp(next_token, "me") == 0){
+				player->setHP(0);
+			}
+			else {
+				for (unsigned int x=0; x<Maps::info[player->getMap()].Players.size(); x++){
+					Player* killpsa;
+					killpsa = Maps::info[player->getMap()].Players[x];
+					if(killpsa != player){
+						killpsa->setHP(0);
+					}
+				}
+			}
+		}
+		else if(strcmp(command, "zakum") == 0){
+			Mobs::spawnMob(player, 8800000);
+			Mobs::spawnMob(player, 8800003);
+			Mobs::spawnMob(player, 8800004);
+			Mobs::spawnMob(player, 8800005);
+			Mobs::spawnMob(player, 8800006);
+			Mobs::spawnMob(player, 8800007);
+			Mobs::spawnMob(player, 8800008);
+			Mobs::spawnMob(player, 8800009);
+			Mobs::spawnMob(player, 8800010);
 		}
 		return;
 	}
@@ -128,11 +204,13 @@ void Players::damagePlayer(Player* player, unsigned char* packet){
 	player->setHP(player->getHP()-damage);
 	if(mob != NULL)
 		PlayersPacket::damagePlayer(player, Maps::info[player->getMap()].Players, damage, mob->getMobID());
-	else
-		PlayersPacket::damagePlayer(player, Maps::info[player->getMap()].Players, damage, 0);
 }
 
 void Players::healPlayer(Player* player, unsigned char* packet){
 	player->setHP(player->getHP()+getShort(packet+4));
 	player->setMP(player->getMP()+getShort(packet+6));
+}
+
+void Players::getPlayerInfo(Player* player, unsigned char* packet){
+	PlayersPacket::showInfo(player, players[getInt(packet+4)]);
 }

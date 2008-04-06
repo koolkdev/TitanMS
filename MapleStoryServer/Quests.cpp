@@ -100,7 +100,6 @@ void PlayerQuests::checkDone(Quest &quest){
 }
 
 void PlayerQuests::finishQuest(short questid, int npcid){
-	QuestsPacket::questFinish(player, Maps::info[player->getMap()].Players , questid, npcid, Quests::quests[questid].nextquest);
 	int chance=0;
 	for(unsigned int i=0; i<Quests::quests[questid].rewards.size(); i++){
 		if(Quests::quests[questid].rewards[i].start){
@@ -161,7 +160,18 @@ void PlayerQuests::finishQuest(short questid, int npcid){
 			break;
 		}
 	}
-	cquests.push_back(questid);
+	QuestComp quest;
+	quest.id = questid;
+	SYSTEMTIME systemTime;
+	GetSystemTime( &systemTime );
+	FILETIME fileTime; 
+	SystemTimeToFileTime( &systemTime, &fileTime );
+	ULARGE_INTEGER uli;
+	uli.LowPart = fileTime.dwLowDateTime; 
+	uli.HighPart = fileTime.dwHighDateTime;
+	quest.time = uli.QuadPart;
+	questscomp.push_back(quest);
+	QuestsPacket::questFinish(player, Maps::info[player->getMap()].Players , questid, npcid, Quests::quests[questid].nextquest, quest.time);
 }
 
 void PlayerQuests::addQuest(int questid, int npcid){

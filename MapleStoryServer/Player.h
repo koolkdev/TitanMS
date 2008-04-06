@@ -169,6 +169,9 @@ public:
 	NPC* getNPC(){
 		return npc;
 	}
+	int isGM(){
+		return gm;
+	}
 	PlayerInventory* inv;
 	PlayerSkills* skills;
 	PlayerQuests* quests;
@@ -200,6 +203,7 @@ private:
 	int keys[90];
 	int shop;
 	int chair;
+	int gm;
 	Pos pos;
 	NPC* npc;
 	void getUserID(unsigned char* buf){

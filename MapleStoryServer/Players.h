@@ -20,6 +20,7 @@ public:
 	static void faceExperiment(Player* player, unsigned char* packet);
 	static void chatHandler(Player* player, unsigned char* packet);
 	static void healPlayer(Player* player, unsigned char* packet);
+	static void getPlayerInfo(Player* player, unsigned char* packet);
 };
 
 #endif

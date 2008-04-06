@@ -128,7 +128,7 @@ void MobsPacket::damageMobS(Player* player, vector <Player*> players, unsigned c
 	packet.addInt(itemid);
 	for(int i=0; i<howmany; i++){
 		int mobid = getInt(pack+19+i*22);
-		packet.addInt(mobid);
+		packet.addInt(mobid); 
 		packet.addByte(-1);
 		for(int j=0; j<hits; j++){
 			int damage = getInt(pack+37+i*22+j*4);
@@ -176,12 +176,12 @@ void MobsPacket::dieMob(Player* player, vector<Player*> players, Mob* mob, int m
 	packet.addHeader(0xa5);
 	packet.addInt(mobid);
 	packet.addByte(1);
-	packet.sendTo(player, players, 1);
-	if(mob->getControl() == player){
-		packet = Packet();
+	packet.sendTo(player, players, 1); 
+	if(mob->getControl() != NULL && mob->getControl()->getMap() == player->getMap()){
+		Packet packet = Packet();
 		packet.addHeader(0xa4);
 		packet.addByte(0);
 		packet.addInt(mobid);
-		packet.packetSend(player);
+		packet.packetSend(mob->getControl());
 	}
 }

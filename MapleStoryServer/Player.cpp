@@ -26,9 +26,10 @@ Player::~Player(){
 			if(i!=89)
 				sprintf_s(temp, 100, "pos%d=%d, ", i, keys[i]);
 			else
-				sprintf_s(temp, 100, "pos%d=%d ", i, keys[i]);
+				sprintf_s(temp, 100, "pos%d=%d where charid=%d; ", i, keys[i], getPlayerid());
 			strcat_s(sql, 2000, temp);
 		}
+		MySQL::insert(sql);
 		sprintf_s(sql, 2000, "update characters set level=%d, job=%d, str=%d, dex=%d, intt=%d, luk=%d, chp=%d, mhp=%d, cmp=%d, mmp=%d, ap=%d, sp=%d, exp=%d, fame=%d, map=%d, gender=%d, skin=%d, eyes=%d, hair=%d, mesos=%d where id=%d", getLevel(), getJob(), getStr(), getDex(), getInt(), getLuk(), getHP(), getMHP(), getMP(), getMMP(), getAp(), getSp(), getExp(), getFame(), getMap(), getGender(), getSkin(), getEyes(), getHair(), inv->getMesos() ,getPlayerid());
 		MySQL::insert(sql);
 		char temp[100];
@@ -77,6 +78,7 @@ void Player::handleRequest(unsigned char* buf, int len){
 		case 0x23: NPCs::handleNPC(this, buf+2); break;
 		case 0x21: NPCs::handleNPCIn(this ,buf+2); break;
 		case 0x22: Inventory::buyItem(this ,buf+2); break;
+		case 0x44: Players::getPlayerInfo(this, buf+2); break;
 		case 0x62: Inventory::itemMove(this ,buf+2); break;
 		case 0x63: Inventory::useItem(this, buf+2); break;
 		case 0x66: Levels::addStat(this, buf+2); break;
@@ -115,6 +117,7 @@ void Player::playerConnect(){
 	fame = (short)MySQL::getInt("characters", getPlayerid(), "fame");
 	map = MySQL::getInt("characters", getPlayerid(), "map");
 	mappos = (char)MySQL::getInt("characters", getPlayerid(), "pos");
+	gm = MySQL::getInt("users", MySQL::getInt("characters", getPlayerid(), "userid"), "gm");
 	int equips[115][21];
 	int many = MySQL::showEquipsIn(getPlayerid(), equips);
 	inv = new PlayerInventory();
@@ -185,20 +188,22 @@ void Player::playerConnect(){
 }
 
 void Player::setHP(int hp){
-	this->hp=hp;
-	if(this->hp<0)
+	if(hp<0)
 		this->hp=0;
-	if(this->hp>mhp)
+	else if(hp>mhp)
 		this->hp=mhp;
+	else
+		this->hp=hp;
 	PlayerPacket::newHP(this, (short)this->hp);
 }
 
 void Player::setMP(int mp, bool is){
-	this->mp=mp;
-	if(this->mp<0)
+	if(mp<0)
 		this->mp=0;
-	if(this->mp>mmp)
+	else if(mp>mmp)
 		this->mp=mmp;
+	else
+		this->mp=mp;
 	PlayerPacket::newMP(this, (short)this->mp, is);
 }
 
