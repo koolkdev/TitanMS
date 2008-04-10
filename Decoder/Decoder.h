@@ -35,6 +35,8 @@ public:
 	void encrypt (unsigned char *buffer, int size);
 	void decrypt (unsigned char *buffer, int size);
 	void next ();
+	static void Init();
+
 };
 
 #endif

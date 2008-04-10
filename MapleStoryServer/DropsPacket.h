@@ -21,6 +21,7 @@ public:
 	static void takeNote(Player* player, int id, bool ismesos, short amount);
 	static void takeDrop(Player* player, vector <Player*> players, Drop* drop);
 	static void dontTake(Player* player);
+	static void removeDrop(vector <Player*> players, Drop* drop);
 };
 
 #endif

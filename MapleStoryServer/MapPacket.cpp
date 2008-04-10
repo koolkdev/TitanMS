@@ -27,9 +27,9 @@ Packet MapPacket::playerPacket(Player* player){
 	}
 	packet.addShort(-1);
 	packet.addInt(0);
+	packet.addInt(0);   
 	packet.addInt(0);
-	packet.addInt(0);
-	packet.addInt(0);
+	packet.addInt(0); 
 	packet.addInt(player->getChair());
 	packet.addShort(player->getPos().x);
 	packet.addShort(player->getPos().y);
@@ -76,10 +76,7 @@ void MapPacket::changeMap(Player* player){
 	packet.addShort(0); // 2?
 	packet.addInt(player->getMap());
 	packet.addByte(player->getMappos());
-	if(player->getHP() <= 0)
-		packet.addShort(50);
-	else
-		packet.addShort(player->getHP());
+	packet.addShort(player->getHP());
 	packet.addByte(0);
 	packet.addInt(-1);
 	packet.addShort(-1);

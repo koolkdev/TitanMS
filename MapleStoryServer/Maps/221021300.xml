@@ -161,8 +161,8 @@
             <to>st00</to>
             <toid>221021200</toid>
             <type>3</type>
-            <x>-10</x>
-            <y>2168</y>
+            <x>52</x>
+            <y>2202</y>
         </Portal>
         <Portal>
             <id>5</id>
@@ -170,8 +170,8 @@
             <to>st00</to>
             <toid>221021200</toid>
             <type>3</type>
-            <x>90</x>
-            <y>2168</y>
+            <x>140</x>
+            <y>2202</y>
         </Portal>
         <Portal>
             <id>6</id>
@@ -179,8 +179,8 @@
             <to>st00</to>
             <toid>221021200</toid>
             <type>3</type>
-            <x>-110</x>
-            <y>2168</y>
+            <x>-35</x>
+            <y>2202</y>
         </Portal>
         <Portal>
             <id>7</id>
@@ -188,8 +188,8 @@
             <to>st00</to>
             <toid>221021200</toid>
             <type>3</type>
-            <x>190</x>
-            <y>2168</y>
+            <x>228</x>
+            <y>2201</y>
         </Portal>
         <Portal>
             <id>8</id>
@@ -197,8 +197,17 @@
             <to>st00</to>
             <toid>221021200</toid>
             <type>3</type>
-            <x>-210</x>
-            <y>2168</y>
+            <x>-124</x>
+            <y>2202</y>
+        </Portal>
+        <Portal>
+            <id>9</id>
+            <from>under05</from>
+            <to>st00</to>
+            <toid>221021200</toid>
+            <type>3</type>
+            <x>-217</x>
+            <y>2202</y>
         </Portal>
     </Portals>
     <Footholds>

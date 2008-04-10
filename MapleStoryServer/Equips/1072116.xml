@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <Equip>
     <Type>7</Type>
+    <Price>30000</Price>
     <Slots>5</Slots>
     <INT>2</INT>
     <MP>5</MP>

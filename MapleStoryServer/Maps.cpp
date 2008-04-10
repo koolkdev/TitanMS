@@ -4,15 +4,52 @@
 #include "NPCs.h"
 #include "Mobs.h"
 #include "Drops.h"
+#include "Timer.h"
+
 
 hash_map <int, MapInfo> Maps::info;
 short getShort(unsigned char* buf);
 int getInt(unsigned char* buf);
 void getString(unsigned char* buf, int len, char* out);
 
+class MapTimer: public Timer::TimerHandler {
+public:
+	void setMapTimer(int mapid){
+		if(ctimer.find(mapid) != ctimer.end())
+			if(ctimer[mapid])
+			return;
+		Maps::mapTimer(mapid);
+		timers[Timer::timer->setTimer(10000, this)] = mapid;
+		ctimer[mapid] = 1;
+	}
+	void next(int mapid, int is){
+		if(is)
+			timers[Timer::timer->setTimer(10000, this)] = mapid;
+		else
+			ctimer[mapid] = 1;
+	}
+private:
+	static hash_map <int, int> timers;
+	static hash_map <int, int> ctimer;
+	void handle (Timer* timer, int id) {
+		Maps::mapTimer(timers[id]);
+	}
+	void remove (int id){
+		for (hash_map<int, int>::iterator iter = timers.begin();
+			 iter != timers.end(); iter++){
+			if(iter->first == id){
+				timers.erase(iter);
+				break;
+			 }
+		}
+	}
+};
+hash_map <int,int> MapTimer::timers;
+hash_map <int,int> MapTimer::ctimer;
+MapTimer* Maps::timer;
+
 void Maps::addMap(int id, MapInfo map){
 	info[id] = map;
-	Mobs::last[id] = -200000000;
 }
 
 void Maps::addPlayer(Player* player){
@@ -42,7 +79,7 @@ void Maps::moveMap(Player* player, unsigned char* packet){
 			tomap = player->getMap();
 		else
 			tomap = info[player->getMap()].rm;
-		player->setHP(50);
+		player->setHP(50, 0);
 		changeMap(player, tomap, 0); // TODO - Random
 		return;
 	}
@@ -87,9 +124,28 @@ void Maps::changeMap(Player* player, int mapid, int pos){
 	}
 	player->setPos(cpos);
 	MapPacket::changeMap(player);
+	newMap(player);
+}
+
+void Maps::mapTimer(int mapid){
+	if(info[mapid].Players.size() == 0){
+		timer->next(mapid, 0);
+		return;
+	}
+	else
+		timer->next(mapid, 1);
+	Mobs::checkSpawn(mapid);
+	Drops::checkDrops(mapid);
+}
+void Maps::startTimer(){
+	timer = new MapTimer();
+}
+
+void Maps::newMap(Player* player){
+	Players::addPlayer(player);
 	NPCs::showNPCs(player);
 	addPlayer(player);
-	Mobs::updateSpawn(player->getMap());
 	Mobs::showMobs(player);
 	Drops::showDrops(player);
+	timer->setMapTimer(player->getMap());
 }

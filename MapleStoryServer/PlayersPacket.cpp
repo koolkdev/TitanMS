@@ -46,16 +46,14 @@ void PlayersPacket::damagePlayer(Player* player, vector <Player*> players, int d
 
 void PlayersPacket::showMassage(char* msg, char type){
 	Packet packet = Packet();
-	packet.addHeader(0x00); //UNK
-	packet.addByte(4);
+	packet.addHeader(0x2D); 
 	packet.addByte(type);
 	packet.addShort(strlen(msg));
 	packet.addString(msg, strlen(msg));
-	/*
 	for (hash_map<int,Player*>::iterator iter = Players::players.begin();
 		 iter != Players::players.end(); iter++){
 			 packet.packetSend(iter->second);
-	}*/
+	}
 }
 
 void PlayersPacket::showInfo(Player* player, Player* getinfo){

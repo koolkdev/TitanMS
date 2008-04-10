@@ -10,6 +10,7 @@
 #include "Levels.h"
 #include "Skills.h"
 #include "Quests.h"
+#include "Server.h"
 
 int distPos(Pos pos1, Pos pos2){
 	return (int)sqrt(pow((float)(pos1.x+pos2.x), 2)+pow((float)(pos1.y+pos2.y), 2));
@@ -77,7 +78,7 @@ void Player::handleRequest(unsigned char* buf, int len){
 		case 0x2C: Players::chatHandler(this ,buf+2); break;
 		case 0x23: NPCs::handleNPC(this, buf+2); break;
 		case 0x21: NPCs::handleNPCIn(this ,buf+2); break;
-		case 0x22: Inventory::buyItem(this ,buf+2); break;
+		case 0x22: Inventory::useShop(this ,buf+2); break;
 		case 0x44: Players::getPlayerInfo(this, buf+2); break;
 		case 0x62: Inventory::itemMove(this ,buf+2); break;
 		case 0x63: Inventory::useItem(this, buf+2); break;
@@ -113,7 +114,7 @@ void Player::playerConnect(){
 	mmp = (short)MySQL::getInt("characters", getPlayerid(), "mmp");
 	ap = (short)MySQL::getInt("characters", getPlayerid(), "ap");
 	sp = (short)MySQL::getInt("characters", getPlayerid(), "sp");
-	exp = (short)MySQL::getInt("characters", getPlayerid(), "exp");
+	exp = MySQL::getInt("characters", getPlayerid(), "exp");
 	fame = (short)MySQL::getInt("characters", getPlayerid(), "fame");
 	map = MySQL::getInt("characters", getPlayerid(), "map");
 	mappos = (char)MySQL::getInt("characters", getPlayerid(), "pos");
@@ -167,7 +168,7 @@ void Player::playerConnect(){
 	inv->setPlayer(this);
 	MySQL::getKeys(getPlayerid(), keys);
 	PlayerPacket::connectData(this);
-	PlayerPacket::headerNotice(this);
+	Server::showScrollingHeader(this);
 	if(Maps::info[map].Portals.size() > 0){
 		pos.x = Maps::info[map].Portals[0].x;
 		pos.y = Maps::info[map].Portals[0].y;
@@ -177,24 +178,20 @@ void Player::playerConnect(){
 		pos.y = 0;
 	}
 	type=0;
-	
-	Players::addPlayer(this);
-	NPCs::showNPCs(this);
-	Maps::addPlayer(this);
 	PlayerPacket::showKeys(this, keys);
-	Mobs::showMobs(this);
-	Drops::showDrops(this);
+	Maps::newMap(this);
 
 }
 
-void Player::setHP(int hp){
+void Player::setHP(int hp, bool is){
 	if(hp<0)
 		this->hp=0;
 	else if(hp>mhp)
 		this->hp=mhp;
 	else
 		this->hp=hp;
-	PlayerPacket::newHP(this, (short)this->hp);
+	if(is)
+		PlayerPacket::newHP(this, (short)this->hp);
 }
 
 void Player::setMP(int mp, bool is){

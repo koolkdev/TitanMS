@@ -36,7 +36,6 @@ public:
 	static hash_map <int, MobInfo> mobinfo;
 	static hash_map <int, SpawnsInfo> info;
 	static hash_map <int, vector<Mob*>> mobs;
-	static hash_map <int, int> last;
 	static int mobscount;
 	static void addMob(int id, MobInfo mob){
 		mobinfo[id] = mob;

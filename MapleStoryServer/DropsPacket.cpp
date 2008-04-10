@@ -108,3 +108,11 @@ void DropsPacket::dontTake(Player* player){
 	packet.addShort(1);
 	packet.packetSend(player);
 }
+
+void DropsPacket::removeDrop(vector <Player*> players, Drop* drop){
+	Packet packet = Packet();
+	packet.addHeader(0xB9);
+	packet.addByte(0);
+	packet.addInt(drop->getObjID());
+	packet.sendTo(NULL, players, 1);
+}

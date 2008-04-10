@@ -48,6 +48,7 @@ private:
 			if(timers[i].id == id){
 				player = timers[i].player;
 				strcpy_s(name, 50, timers[i].name);
+				break;
 			}
 		}
 		if(strcmp(name, "end1001") == 0) Skills::end1001(player);

@@ -10,7 +10,6 @@
 hash_map <int, MobInfo> Mobs::mobinfo;
 hash_map <int, SpawnsInfo> Mobs::info;
 hash_map <int, vector<Mob*>> Mobs::mobs;
-hash_map <int, int> Mobs::last;
 int Mobs::mobscount=0x200;
 
 void Mob::setControl(Player* control){
@@ -23,7 +22,6 @@ void Mob::setControl(Player* control){
 }
 
 void Mobs::monsterControl(Player* player, unsigned char* packet, int size){
-	checkSpawn(player->getMap());
 	int mobid = getInt(packet);
 	Mob* mob = NULL;
 	for(unsigned int i=0; i<mobs[player->getMap()].size(); i++)
@@ -46,58 +44,53 @@ void Mobs::monsterControl(Player* player, unsigned char* packet, int size){
 }
 
 void Mobs::checkSpawn(int mapid){
-	if((int)GetTickCount() > last[mapid] + 10000){
-		for(unsigned int i=0; i<info[mapid].size(); i++){
-			int check=0;
-			for(unsigned int j=0; j<mobs[mapid].size(); j++){
-				if(i == mobs[mapid][j]->getMapID()){
-					check=1;
-					break;
-				}
-			}
-			if(!check){
-				Mob* mob = new Mob();
-				mobs[mapid].push_back(mob);
-				Pos mobpos;
-				mobpos.x = info[mapid][i].x;
-				mobpos.y = info[mapid][i].cy;
-				mob->setPos(mobpos);
-				mob->setID(i+100);
-				mob->setMobID(info[mapid][i].id);
-				mob->setMapID(i);
-				mob->setHP(mobinfo[info[mapid][i].id].hp);
-				mob->setMP(mobinfo[info[mapid][i].id].mp);
-				mob->setFH(info[mapid][i].fh);
-				mob->setType(2);
-			}
-			int num;
-			for(unsigned int j=0; j<mobs[mapid].size(); j++)
-				if(i == mobs[mapid][j]->getMapID()){
-					num = j;
-					break;
-				}
-
-			if(Maps::info[mapid].Players.size() > 0 && mobs[mapid][num]->getControl()==0){
-				int maxpos = distPos(mobs[mapid][num]->getPos(), Maps::info[mapid].Players[0]->getPos());
-				int posi = 0;
-				for(unsigned int k=0; k<Maps::info[mapid].Players.size(); k++){
-					int curpos = distPos(mobs[mapid][num]->getPos(), Maps::info[mapid].Players[k]->getPos());
-					if(curpos < maxpos){
-						maxpos = curpos;
-						posi = k;
-					}
-				}
-				if(!check)
-					MobsPacket::spawnMob(Maps::info[mapid].Players[posi], mobs[mapid][num], Maps::info[mapid].Players, 1);
-				mobs[mapid][num]->setControl(Maps::info[mapid].Players[posi]);
+	for(unsigned int i=0; i<info[mapid].size(); i++){
+		int check=0;
+		for(unsigned int j=0; j<mobs[mapid].size(); j++){
+			if(i == mobs[mapid][j]->getMapID()){
+				check=1;
+				break;
 			}
 		}
-		last[mapid] = (int)GetTickCount();
+		if(!check){
+			Mob* mob = new Mob();
+			mobs[mapid].push_back(mob);
+			Pos mobpos;
+			mobpos.x = info[mapid][i].x;
+			mobpos.y = info[mapid][i].cy;
+			mob->setPos(mobpos);
+			mob->setID(i+100);
+			mob->setMobID(info[mapid][i].id);
+			mob->setMapID(i);
+			mob->setHP(mobinfo[info[mapid][i].id].hp);
+			mob->setMP(mobinfo[info[mapid][i].id].mp);
+			mob->setFH(info[mapid][i].fh);
+			mob->setType(2);
+		}
+		int num;
+		for(unsigned int j=0; j<mobs[mapid].size(); j++)
+			if(i == mobs[mapid][j]->getMapID()){
+				num = j;
+				break;
+			}
+		if(Maps::info[mapid].Players.size() > 0 && mobs[mapid][num]->getControl()==0){
+			int maxpos = distPos(mobs[mapid][num]->getPos(), Maps::info[mapid].Players[0]->getPos());
+			int posi = 0;
+			for(unsigned int k=0; k<Maps::info[mapid].Players.size(); k++){
+				int curpos = distPos(mobs[mapid][num]->getPos(), Maps::info[mapid].Players[k]->getPos());
+				if(curpos < maxpos){
+					maxpos = curpos;
+					posi = k;
+				}
+			}
+			if(!check)
+				MobsPacket::spawnMob(Maps::info[mapid].Players[posi], mobs[mapid][num], Maps::info[mapid].Players, 1);
+			mobs[mapid][num]->setControl(Maps::info[mapid].Players[posi]);
+		}
 	}
 }	
 
 void Mobs::showMobs(Player* player){
-	checkSpawn(player->getMap());
 	for(unsigned int i=0; i<mobs[player->getMap()].size(); i++){
 		MobsPacket::showMob(player, mobs[player->getMap()][i]);
 	}

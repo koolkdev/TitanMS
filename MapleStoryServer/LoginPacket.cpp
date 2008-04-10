@@ -3,7 +3,7 @@
 #include "PlayerLogin.h"
 #include "PacketCreator.h"
 #include "Worlds.h"
-#include "Characters.h"
+#include "Characters.h" 
 
 short getShort(unsigned char* buf){
 	return buf[0] + buf[1]*0x100;
@@ -43,27 +43,6 @@ void LoginPacket::loginConnect(PlayerLogin* player, char* username, int size){
 	packet.addInt(0);
 	packet.addBytes("000000A6B89C2B4CC701");
 	packet.packetSendLogin(player);
-	/*
-	
-	Packet packet = Packet();
-	packet.addHeader(0x00);
-	packet.addInt(0);
-	packet.addShort(0);
-	packet.addBytes("FF6A01");
-	packet.addByte(0);
-	if(player->getStatus() == 1)
-		packet.addByte(0x0A);
-	else
-		packet.addByte(player->getGender());
-	packet.addBytes("004E");
-	packet.addShort(size);
-	packet.addString(username, size);
-	packet.addInt(0);
-	packet.addInt(0);
-	packet.addShort(0);
-	packet.addBytes("DC3D0B2864C501");
-	packet.packetSendLogin(player);
-	*/
 }
 
 void LoginPacket::loginProcess(PlayerLogin* player, char id){

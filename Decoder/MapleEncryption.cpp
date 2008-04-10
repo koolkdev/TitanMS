@@ -1,6 +1,5 @@
 #include "MapleEncryption.h"
 
-
 void MapleEncryption::nextIV(unsigned char* vector){
 	unsigned char values[256] = {0xEC, 0x3F, 0x77, 0xA4, 0x45, 0xD0, 0x71, 0xBF, 0xB7, 0x98, 0x20, 0xFC,
 		0x4B, 0xE9, 0xB3, 0xE1, 0x5C, 0x22, 0xF7, 0x0C,	0x44, 0x1B, 0x81, 0xBD, 0x63, 0x8D, 0xD4, 0xC3,
@@ -86,10 +85,11 @@ unsigned char MapleEncryption::ror(unsigned char val, int num) {
 
 void MapleEncryption::mapleEncrypt(unsigned char* buf, int size){
 	int i,j,a;
+	unsigned char c;
 	for(i=0; i<3; i++){
 		a=0;
 		for(j=size; j>0; j--){
-			unsigned char c = buf[size - j];
+			c = buf[size - j];
 			c = rol(c, 3);
 			c = c + j;
 			c = c ^ a;
@@ -102,7 +102,7 @@ void MapleEncryption::mapleEncrypt(unsigned char* buf, int size){
 
 		a=0;
 		for(j=size; j>0; j--){
-			unsigned char c = buf[j - 1];
+			c = buf[j - 1];
 			c = rol(c, 4);
 			c = c + j;
 			c = c ^ a;
@@ -117,11 +117,12 @@ void MapleEncryption::mapleEncrypt(unsigned char* buf, int size){
 
 void MapleEncryption::mapleDecrypt(unsigned char* buf, int size){
 	int i,j,a,b;
+	unsigned char c;
 	for(i=0; i<3; i++){
 		a=0;
 		b=0;
 		for(j=size; j>0; j--){
-			unsigned char c = buf[j - 1];
+			c = buf[j - 1];
 			c = rol(c, 3);
 			c = c ^ 0x13;
 			a = c;
@@ -135,7 +136,7 @@ void MapleEncryption::mapleDecrypt(unsigned char* buf, int size){
 		a=0;
 		b=0;
 		for(j=size; j>0; j--){
-			unsigned char c = buf[size - j];
+			c = buf[size - j];
 			c = c - 0x48;
 			c = c ^ 0xFF;
 			c = rol(c, j);

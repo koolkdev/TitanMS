@@ -419,9 +419,9 @@ void decryptofb(unsigned char* buffer, unsigned char* vec, int bsize)
     /* char firstRound */
     char firstRound = 1;
 
-    int i;
+    int i,j;
 
- 	for(int j=0; j<bsize/16 + 1; j++)
+ 	for(j=0; j<bsize/16 + 1; j++)
     {
 		if (firstRound)
 		{

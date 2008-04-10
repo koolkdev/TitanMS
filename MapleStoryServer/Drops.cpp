@@ -4,6 +4,7 @@
 #include "DropsPacket.h"
 #include "Inventory.h"
 #include "Quests.h"
+#include <windows.h>
 
 hash_map <int, MobDropsInfo> Drops::dropsinfo;
 hash_map <int, Mesos> Drops::mesos;
@@ -51,6 +52,7 @@ Pos Drops::findFloor(Pos pos, int map){
 }
 
 void Drop::doDrop(Dropped dropped){
+	setDropped(GetTickCount());
 	setPos(Drops::findFloor(getPos(), getMap()));
 	if(!isQuest())
 		DropsPacket::drop(Maps::info[getMap()].Players, this, dropped);
@@ -314,4 +316,15 @@ void Drops::dropMesos(Player* player, unsigned char* packet){
 	dropper.pos = player->getPos();
 	drop->setPos(player->getPos());
 	drop->doDrop(dropper);
+}
+
+void Drops::checkDrops(int mapid){
+	int t = GetTickCount() - 60000;
+	for(unsigned int i=0; i<drops[mapid].size(); i++){
+		if(drops[mapid][i]->getDropped() < t){
+			DropsPacket::removeDrop(Maps::info[mapid].Players, drops[mapid][i]);
+			drops[mapid].erase(drops[mapid].begin()+i);
+			i--;
+		}
+	}
 }

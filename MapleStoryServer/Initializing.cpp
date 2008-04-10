@@ -721,10 +721,10 @@ void Initializing::initializeMap(char *name){
 					portal.id = strval((char*)pCur->GetText());
 				}
 				else if(strcmp("from", pCur->Value()) == 0){
-					sprintf_s(portal.from, 15,"%s",(char*)pCur->GetText());
+					sprintf_s(portal.from, 20,"%s",(char*)pCur->GetText());
 				}
 				else if(strcmp("to", pCur->Value()) == 0){
-					sprintf_s(portal.to, 15,"%s",(char*)pCur->GetText());
+					sprintf_s(portal.to, 20,"%s",(char*)pCur->GetText());
 				}
 				else if(strcmp("toid", pCur->Value()) == 0){
 					portal.toid = strval((char*)pCur->GetText());

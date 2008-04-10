@@ -6,7 +6,6 @@ class Player;
 class PlayerPacket {
 public:
 	static void connectData(Player* player);
-	static void headerNotice(Player* player);
 	static void newHP(Player* player, short hp);
 	static void showKeys(Player* player, int keys[90]);
 	static void newEXP(Player* player, int exp);

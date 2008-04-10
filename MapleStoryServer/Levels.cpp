@@ -53,7 +53,7 @@ void Levels::giveEXP(Player* player, int exp, char type){
 		else if(job == 2){
 			player->setMHP(player->getMHP()+15);
 			player->setMMP(player->getMMP()+35);
-		}
+		} 
 		else{
 			player->setMHP(player->getMHP()+25);
 			player->setMMP(player->getMMP()+15);

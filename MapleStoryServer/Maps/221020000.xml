@@ -138,6 +138,42 @@
             <cy>769</cy>
             <fh>209</fh>
         </Mob>
+        <Mob>
+            <id>9400510</id>
+            <x>-154</x>
+            <cy>1032</cy>
+            <fh>197</fh>
+        </Mob>
+        <Mob>
+            <id>9400510</id>
+            <x>57</x>
+            <cy>1032</cy>
+            <fh>197</fh>
+        </Mob>
+        <Mob>
+            <id>9400510</id>
+            <x>1</x>
+            <cy>1239</cy>
+            <fh>195</fh>
+        </Mob>
+        <Mob>
+            <id>9400510</id>
+            <x>-165</x>
+            <cy>1504</cy>
+            <fh>191</fh>
+        </Mob>
+        <Mob>
+            <id>9400510</id>
+            <x>124</x>
+            <cy>1803</cy>
+            <fh>180</fh>
+        </Mob>
+        <Mob>
+            <id>9400510</id>
+            <x>-140</x>
+            <cy>1803</cy>
+            <fh>180</fh>
+        </Mob>
     </Mobs>
     <Portals>
         <Portal>

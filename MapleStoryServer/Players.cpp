@@ -7,6 +7,7 @@
 #include "Inventory.h"
 #include "Drops.h"
 #include "Levels.h"
+#include "Server.h"
 
 hash_map <int, Player*> Players::players;
 short getShort(unsigned char* buf);
@@ -112,7 +113,7 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 		}
 		else if(strcmp(command, "killall") == 0){
 			int size=Mobs::mobs[player->getMap()].size();
-			for (unsigned int j=0; j<size; j++){
+			for (int j=0; j<size; j++){
 				Mobs::dieMob(player, Mobs::mobs[player->getMap()][0], 0);
 			}
 		}
@@ -185,6 +186,14 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 			Mobs::spawnMob(player, 8800008);
 			Mobs::spawnMob(player, 8800009);
 			Mobs::spawnMob(player, 8800010);
+		}
+		else if(strcmp(command, "header") == 0){
+			if(strlen(next_token) > 0){
+				Server::changeScrollingHeader(next_token);
+			}
+			else{
+				Server::disableScrollingHeader();
+			}
 		}
 		return;
 	}

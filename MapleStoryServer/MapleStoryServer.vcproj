@@ -240,6 +240,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Server.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Shops.cpp"
 					>
 				</File>
@@ -301,6 +305,10 @@
 				</File>
 				<File
 					RelativePath=".\QuestsPacket.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ServerPacket.cpp"
 					>
 				</File>
 				<File
@@ -410,6 +418,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Server.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Shops.h"
 					>
 				</File>
@@ -471,6 +483,10 @@
 				</File>
 				<File
 					RelativePath=".\QuestsPacket.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ServerPacket.h"
 					>
 				</File>
 				<File

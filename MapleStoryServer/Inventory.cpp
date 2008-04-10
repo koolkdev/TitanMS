@@ -257,29 +257,54 @@ void Inventory::addItem(Player* player, Item* item, bool is){
 	player->inv->addItem(item);
 }
 
-void Inventory::buyItem(Player* player, unsigned char* packet){
-	int item = getInt(packet+3);
-	short howmany = getShort(packet+7);
-	bool isequip=false;
-	if(Drops::equips.find(item) != Drops::equips.end())
-		isequip = 1;
-	if(isequip){
-		Equip* equip = setEquipStats(player, item);
-		addEquip(player, equip);
-		player->inv->setMesos(player->inv->getMesos() - Shops::getPrice(player, item));
-		InventoryPacket::bought(player);
+void Inventory::useShop(Player* player, unsigned char* packet){
+
+	char type = packet[0];
+	if(type == 0){
+		int item = getInt(packet+3);
+		short howmany = getShort(packet+7);
+		bool isequip=false;
+		if(Drops::equips.find(item) != Drops::equips.end())
+			isequip = 1;
+		if(isequip){
+			Equip* equip = setEquipStats(player, item);
+			addEquip(player, equip);
+			player->inv->setMesos(player->inv->getMesos() - Shops::getPrice(player, item));
+			InventoryPacket::bought(player);
+		}
+		else{
+			if(Drops::items.find(item) == Drops::items.end())
+				return;
+			char type = Drops::items[item].type;
+			Item* newitem = new Item;
+			newitem->amount = howmany;
+			newitem->id = item;
+			newitem->inv = type;
+			newitem->pos = findSlot(player, item , type, howmany);
+			addItem(player, newitem);
+			player->inv->setMesos(player->inv->getMesos() - Shops::getPrice(player, item)*howmany);
+			InventoryPacket::bought(player);
+		}
 	}
-	else{
-		if(Drops::items.find(item) == Drops::items.end())
-			return;
-		char type = Drops::items[item].type;
-		Item* newitem = new Item;
-		newitem->amount = howmany;
-		newitem->id = item;
-		newitem->inv = type;
-		newitem->pos = findSlot(player, item , type, howmany);
-		addItem(player, newitem);
-		player->inv->setMesos(player->inv->getMesos() - Shops::getPrice(player, item)*howmany);
+	else if(type == 1){
+		short slot = getShort(packet+1);
+		int item = getInt(packet+3);
+		short amount = getShort(packet+7);
+		char inv = packet[9];
+		if(item/1000000 == 1){
+			for(int i=0; i<player->inv->getEquipNum(); i++){
+				if(player->inv->getEquip(i)->pos == slot){
+					InventoryPacket::moveItem(player, 1, slot, 0);
+					player->inv->deleteEquip(i);	
+					break;
+				}
+			}
+			player->inv->setMesos(player->inv->getMesos() + Drops::equips[item].price*amount);
+		}
+		else{
+			takeItemSlot(player, slot, Drops::items[item].type, amount);
+			player->inv->setMesos(player->inv->getMesos() + Drops::items[item].price*amount);
+		}
 		InventoryPacket::bought(player);
 	}
 }
@@ -330,11 +355,11 @@ void Inventory::takeItem(Player* player, int item, int howmany){
 		}
 }
 
-void Inventory::takeItemSlot(Player* player, short slot){
+void Inventory::takeItemSlot(Player* player, short slot, char inv, short amount){
 	for(int i=0; i<player->inv->getItemNum(); i++)
-		if(player->inv->getItem(i)->pos == slot && player->inv->getItem(i)->inv == 2){
+		if(player->inv->getItem(i)->pos == slot && player->inv->getItem(i)->inv == inv){
 			Item* item = player->inv->getItem(i);
-			item->amount-=1;
+			item->amount-=amount;
 			if(item->amount == 0){
 				InventoryPacket::moveItem(player, item->inv, item->pos, 0);
 				player->inv->deleteItem(i);
@@ -348,7 +373,7 @@ void Inventory::takeItemSlot(Player* player, short slot){
 void Inventory::useItem(Player *player, unsigned char *packet){
 	short slot = getShort(packet+4);
 	int itemid = getInt(packet+6);
-	takeItemSlot(player, slot);
+	takeItemSlot(player, slot, 2, 1);
 	if(Drops::consumes[itemid].hp>0){
 		player->setHP(player->getHP()+Drops::consumes[itemid].hp);
 	}

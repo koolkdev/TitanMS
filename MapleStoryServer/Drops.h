@@ -133,6 +133,7 @@ public:
 	static void dropMob(Player* player, Mob* mob);
 	static void showDrops(Player* player);
 	static Pos findFloor(Pos pos, int map);
+	static void checkDrops(int mapid);
 };
 
 class Drop {
@@ -148,6 +149,7 @@ private:
 	int questid;
 	bool quest;
 	int playerid;
+	int dropped;
 	Pos pos;
 	DropInfo info;
 public:
@@ -158,6 +160,7 @@ public:
 		isequip=0;
 		map = mapid;
 		questid=0;
+		dropped=0;
 		objid = Drops::objids[mapid]++;
 		if(Drops::drops.find(mapid) == Drops::drops.end())
 			Drops::drops[mapid];
@@ -240,6 +243,12 @@ public:
 	}
 	DropInfo getDropInfo(){
 		return info;
+	}
+	void setDropped(int time){
+		dropped=time;
+	}
+	int getDropped(){
+		return dropped;
 	}
 	static Drop* getDrop(int objid, int mapid);
 	void doDrop(Dropped dropped);

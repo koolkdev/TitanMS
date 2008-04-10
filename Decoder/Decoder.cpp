@@ -4,16 +4,26 @@
 
 void Decoder::encrypt(unsigned char *buffer, int size){
 	MapleEncryption::mapleEncrypt(buffer, size);
-	decryptofb(buffer, Decoder::ivSend, size);
+	int pos=0,first=1;
+	while(size > pos){
+		if(size>pos+1456-first*4){
+			decryptofb(buffer+pos, Decoder::ivSend, 1460 - first*4);
+		}
+		else
+			decryptofb(buffer+pos, Decoder::ivSend, size-pos);
+		pos+=1460-first*4;
+		if(first)
+			first=0;
+	}
 } 
-
+ 
 void Decoder::next(){
 	MapleEncryption::nextIV(Decoder::ivSend);
 }
 
 void Decoder::decrypt(unsigned char *buffer, int size){
 	decryptofb(buffer, Decoder::ivRecv, size);
-	MapleEncryption::nextIV(Decoder::ivRecv);
+	MapleEncryption::nextIV(Decoder::ivRecv); 
 	MapleEncryption::mapleDecrypt(buffer, size);
 }
 

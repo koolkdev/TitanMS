@@ -6,6 +6,8 @@
 #include "Initializing.h"
 #include "Timer.h"
 #include "Skills.h"
+#include "Maps.h"
+#include "Server.h"
 
 void main(){
 
@@ -13,6 +15,7 @@ void main(){
 	printf("Initializing Timers... ");
 	Timer::timer = new Timer();
 	Skills::startTimer();
+	Maps::startTimer();
 	printf("DONE\n");
 	printf("Initializing MySQL... ");
 	if(MySQL::connectToMySQL())
@@ -21,6 +24,7 @@ void main(){
 		printf("FAILED\n");
 		exit(1);
 	}
+	Server::initialize();
 	WSADATA wsaData;
 	int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
 	if (iResult != NO_ERROR)  printf("Error at WSAStartup()\n");

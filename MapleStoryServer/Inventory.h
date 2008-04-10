@@ -9,7 +9,7 @@ struct Item;
 
 class Inventory {
 public:
-	static void buyItem(Player* player, unsigned char* packet);
+	static void useShop(Player* player, unsigned char* packet);
 	static void itemMove(Player* player, unsigned char* packet);
 	static int findSlot(Player* player, int itemid ,char inv, short amount);
 	static Equip* setEquipStats(Player* player, int equipid);
@@ -18,7 +18,7 @@ public:
 	static void addNewItem(Player* player, int item, int howmany);
 	static void takeItem(Player* player, int item, int howmany);
 	static void useItem(Player* player, unsigned char* packet);
-	static void takeItemSlot(Player* player, short slot);
+	static void takeItemSlot(Player* player, short slot, char inv, short amount);
 	static void useChair(Player* player, unsigned char* packet);
 	static void stopChair(Player* player, unsigned char* packet);
 };

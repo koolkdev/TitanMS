@@ -1,8 +1,6 @@
 <?xml version="1.0" ?>
 <Quest>
     <NextQuest>2004</NextQuest>
-    <StartScript>0</StartScript>
-    <EndScript>0</EndScript>
     <Requests />
     <Rewards />
 </Quest>

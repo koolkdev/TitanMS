@@ -87,7 +87,7 @@ public:
 	short getLuk(){
 		return this->luk;
 	}
-	void setHP(int hp);
+	void setHP(int hp, bool is=1);
 	unsigned short getHP(){
 		return this->hp;
 	}
