@@ -133,7 +133,7 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 		else if(strcmp(command, "killall") == 0){
 			int size=Mobs::mobs[player->getMap()].size();
 			for (int j=0; j<size; j++){
-				Mobs::dieMob(player, Mobs::mobs[player->getMap()][0], 0);
+				Mobs::dieMob(player, Mobs::mobs[player->getMap()][0]);
 			}
 		}
 		else if(strcmp(command, "horntail") == 0){

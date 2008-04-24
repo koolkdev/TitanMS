@@ -60,6 +60,19 @@ public:
             }
         } 
 	}
+	void stopKill (Player* player){
+        for(unsigned int i=timers.size(); i>0; i--){
+            if(player == timers[i-1].player){
+				Skills::endSkill(player, timers[i].id);
+                Timer::timer->cancelTimer(timers[i-1].id);
+            }
+        } 
+        for(unsigned int i=acttimers.size(); i>0; i--){ 
+            if(player == acttimers[i-1].player){
+                Timer::timer->cancelTimer(acttimers[i-1].id);
+            }
+        } 
+	}
 private:
 	struct STimer {
 		int id;

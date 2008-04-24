@@ -52,8 +52,9 @@ public:
 	static void showMobs(Player* player);
 	static void updateSpawn(int mapid);
 	static void spawnMob(Player* player, int mobid);
-	static void dieMob(Player* player, Mob* mob, int n);
+	static void dieMob(Player* player, Mob* mob);
 	static void spawnMobPos(Player* player, int mobid, int xx, int yy);
+	static Mob* getMobByID(int mobid, int map);
 };
 
 class Mob {

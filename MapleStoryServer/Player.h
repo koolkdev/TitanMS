@@ -206,6 +206,8 @@ public:
 	SkillMapEnterActiveInfo getSkill(){
 		return skill;
 	}
+	void addWarning();
+	void save();
 	PlayerInventory* inv;
 	PlayerSkills* skills;
 	PlayerQuests* quests;
@@ -242,6 +244,7 @@ private:
 	int gm;
 	Pos pos;
 	NPC* npc;
+	vector <int> warnings;
 	void getUserID(unsigned char* buf){
 		isconnect=1;
 		setPlayerid(buf[0] + buf[1]*0x100 + buf[2]*0x100*0x100 + buf[3]*0x100*0x100*0x100);

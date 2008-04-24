@@ -134,6 +134,9 @@ void Characters::createCharacter(PlayerLogin* player, unsigned char* packet){
 	charc.pos = MySQL::getInt("characters", id, "pos");
 	showEquips(id, charc.equips);
 	LoginPacket::showCharacter(player, charc);
+	int IDs[3];
+	int charnum = MySQL::getCharactersIDs(player->getUserid(), IDs);
+	player->setIDs(IDs, charnum);
 }
 
 void Characters::deleteCharacter(PlayerLogin* player, unsigned char *packet){
@@ -163,6 +166,9 @@ void Characters::deleteCharacter(PlayerLogin* player, unsigned char *packet){
 	sprintf_s(sql, 200, "delete from skills where charid=%d;", ID);
 	MySQL::insert(sql);
 	LoginPacket::deleteCharacter(player, ID);
+	int IDs[3];
+	int charnum = MySQL::getCharactersIDs(player->getUserid(), IDs);
+	player->setIDs(IDs, charnum);
 }
 
 

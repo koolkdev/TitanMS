@@ -77,7 +77,7 @@ void Inventory::itemMove(Player* player, unsigned char* packet){
 	else {
 		if(slot2 == 0){
 			short amount = getShort(packet+9);
-			Item* item;
+			Item* item = NULL;
 			int num;
 			for(int i=0; i<player->inv->getItemNum(); i++){
 				if(player->inv->getItemPos(i) == slot1 && player->inv->getItem(i)->inv == inv){
@@ -309,11 +309,11 @@ void Inventory::useShop(Player* player, unsigned char* packet){
 		short slot = getShort(packet+1);
 		int item = getInt(packet+3);
 		short amount = getShort(packet+7);
-		if(player->inv->getItemBySlot(item, slot) < amount){
+		char inv = packet[9];
+		if(player->inv->getItemBySlot(item, slot, inv) < amount){
 			// hacking
 			return;
 		}
-		char inv = packet[9];
 		if(item/1000000 == 1){
 			for(int i=0; i<player->inv->getEquipNum(); i++){
 				if(player->inv->getEquip(i)->pos == slot){
@@ -396,7 +396,7 @@ void Inventory::takeItemSlot(Player* player, short slot, char inv, short amount)
 void Inventory::useItem(Player *player, unsigned char *packet){
 	short slot = getShort(packet+4);
 	int itemid = getInt(packet+6);
-	if(player->inv->getItemBySlot(itemid, slot) == 0){
+	if(player->inv->getItemBySlot(itemid, slot, 2) == 0){
 		// hacking
 		return;
 	}
@@ -439,7 +439,7 @@ int Inventory::isCash(int itemid){
 void Inventory::useSummonBag(Player* player, unsigned char* packet){
 	short slot = getShort(packet+4);
 	int itemid = getInt(packet+6);
-	if(player->inv->getItemBySlot(itemid, slot) == 0){
+	if(player->inv->getItemBySlot(itemid, slot, 2) == 0){
 		// hacking
 		return;
 	}
@@ -455,7 +455,7 @@ void Inventory::useSummonBag(Player* player, unsigned char* packet){
 void Inventory::useReturnScroll(Player* player, unsigned char* packet){
 	short slot = getShort(packet+4);
 	int itemid = getInt(packet+6);
-	if(player->inv->getItemBySlot(itemid, slot) == 0){
+	if(player->inv->getItemBySlot(itemid, slot, 2) == 0){
 		// hacking
 		return;
 	}
@@ -510,6 +510,7 @@ void Inventory::useScroll(Player* player, unsigned char* packet){
 			equip->ihand+=Drops::consumes[itemid].ihand;
 			equip->ijump+=Drops::consumes[itemid].ijump;
 			equip->ispeed+=Drops::consumes[itemid].ispeed;
+			equip->scrolls++;
 		}
 		else{
 			if(rand()%100<Drops::consumes[itemid].cursed){

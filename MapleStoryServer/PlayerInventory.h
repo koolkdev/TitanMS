@@ -99,10 +99,10 @@ public:
 				amount+=getItem(i)->amount;
 		return amount;
 	}
-	int getItemBySlot(int itemid, int slot){
+	int getItemBySlot(int itemid, int slot, char inv){
 		int amount=0;
 		for(int i=0; i<getItemNum(); i++)
-			if(getItem(i)->id == itemid && getItem(i)->pos == slot){
+			if(getItem(i)->id == itemid && getItem(i)->pos == slot && getItem(i)->inv == inv){
 				amount=getItem(i)->amount;
 				break;
 			}

@@ -118,7 +118,7 @@ void MobsPacket::damageMobS(Player* player, vector <Player*> players, unsigned c
 	int hits = pack[1]%0x10;
 	int skillid = getInt(pack+2);
 	bool s3121004 = false;
-	if(skillid == 3121004)
+	if(skillid == 3121004 || skillid == 3221001)
 		s3121004 = true;
 	Packet packet = Packet();
 	packet.addHeader(0x8D);

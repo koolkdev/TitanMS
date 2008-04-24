@@ -20,43 +20,7 @@ Player::~Player(){
 	if(isconnect){
 		Maps::removePlayer(this);
 		Players::deletePlayer(this);
-		char sql[2000];
-		sprintf_s(sql, 2000, "update keymap set ");
-		for(int i=0; i<90; i++){
-			char temp[100];
-			if(i!=89)
-				sprintf_s(temp, 100, "pos%d=%d, ", i, keys[i]);
-			else
-				sprintf_s(temp, 100, "pos%d=%d where charid=%d; ", i, keys[i], getPlayerid());
-			strcat_s(sql, 2000, temp);
-		}
-		MySQL::insert(sql);
-		sprintf_s(sql, 2000, "update characters set level=%d, job=%d, str=%d, dex=%d, intt=%d, luk=%d, chp=%d, mhp=%d, cmp=%d, mmp=%d, ap=%d, sp=%d, exp=%d, fame=%d, map=%d, gender=%d, skin=%d, eyes=%d, hair=%d, mesos=%d where id=%d", getLevel(), getJob(), getStr(), getDex(), getInt(), getLuk(), getHP(), getMHP(), getMP(), getMMP(), getAp(), getSp(), getExp(), getFame(), getMap(), getGender(), getSkin(), getEyes(), getHair(), inv->getMesos() ,getPlayerid());
-		MySQL::insert(sql);
-		char temp[100];
-		sprintf_s(temp, 100, "where charid=%d;", getPlayerid());
-		strcat_s(sql, 2000, temp);
-		MySQL::insert(sql);
-		sprintf_s(sql, 2000, "delete from equip where charid=%d;", getPlayerid());
-		MySQL::insert(sql);
-		for(int i=0; i<inv->getEquipNum(); i++){
-			sprintf_s(sql, 2000, "insert into equip values(%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d);", inv->getEquip(i)->id, Drops::equips[inv->getEquip(i)->id].type ,getPlayerid(), inv->getEquipPos(i), inv->getEquip(i)->slots, inv->getEquip(i)->scrolls,
-				inv->getEquip(i)->istr, inv->getEquip(i)->idex, inv->getEquip(i)->iint, inv->getEquip(i)->iluk, inv->getEquip(i)->ihp, inv->getEquip(i)->imp, inv->getEquip(i)->iwatk, inv->getEquip(i)->imatk, inv->getEquip(i)->iwdef, 
-				inv->getEquip(i)->imdef, inv->getEquip(i)->iacc, inv->getEquip(i)->iavo, inv->getEquip(i)->ihand, inv->getEquip(i)->ijump, inv->getEquip(i)->ispeed);
-			MySQL::insert(sql);
-		}
-		sprintf_s(sql, 2000, "delete from skills where charid=%d;", getPlayerid());
-		MySQL::insert(sql);
-		for(int i=0; i<skills->getSkillsNum(); i++){
-			sprintf_s(sql, 2000, "insert into skills values(%d, %d, %d)", getPlayerid(), skills->getSkillID(i), skills->getSkillLevel(skills->getSkillID(i)));
-			MySQL::insert(sql);
-		}
-		sprintf_s(sql, 2000, "delete from items where charid=%d;", getPlayerid());
-		MySQL::insert(sql);
-		for(int i=0; i<inv->getItemNum(); i++){
-			sprintf_s(sql, 2000, "insert into items values(%d, %d, %d, %d, %d);", inv->getItem(i)->id, getPlayerid() ,inv->getItem(i)->inv, inv->getItem(i)->pos, inv->getItem(i)->amount);
-			MySQL::insert(sql);
-		}
+		save();
 		Skills::stopTimerPlayer(this);
 		isconnect = false;
 	}
@@ -258,4 +222,85 @@ void Player::setEyes(int id){
 void Player::setSkin(char id){
 	this->skin = id;
 	PlayerPacket::newSkin(this);
+}
+
+void Player::addWarning(){
+	int t = GetTickCount();
+	// Deleting old warnings
+	for(unsigned int i=0; i<warnings.size(); i++){
+		if(warnings[i] + 300000 < t){
+			warnings.erase(warnings.begin()+i);
+			i--;
+		}
+	}
+	warnings.push_back(t);
+	if(warnings.size()>50){
+		// Hacker - Temp DCing
+		int tmap = map;
+		Maps::changeMap(this, 999999999, 0);
+		Maps::changeMap(this, tmap, 0);
+	}
+}
+
+void Player::save(){
+	char sql[10000];
+	sprintf_s(sql, 10000, "update keymap set ");
+	for(int i=0; i<90; i++){
+		char temp[100];
+		if(i!=89)
+			sprintf_s(temp, 100, "pos%d=%d, ", i, keys[i]);
+		else
+			sprintf_s(temp, 100, "pos%d=%d where charid=%d; ", i, keys[i], getPlayerid());
+		strcat_s(sql, 10000, temp);
+	}
+	MySQL::insert(sql);
+	sprintf_s(sql, 10000, "update characters set level=%d, job=%d, str=%d, dex=%d, intt=%d, luk=%d, chp=%d, mhp=%d, cmp=%d, mmp=%d, ap=%d, sp=%d, exp=%d, fame=%d, map=%d, gender=%d, skin=%d, eyes=%d, hair=%d, mesos=%d where id=%d", getLevel(), getJob(), getStr(), getDex(), getInt(), getLuk(), getHP(), getRMHP(), getMP(), getRMMP(), getAp(), getSp(), getExp(), getFame(), getMap(), getGender(), getSkin(), getEyes(), getHair(), inv->getMesos() ,getPlayerid());
+	MySQL::insert(sql);
+	char temp[1000];
+	sprintf_s(sql, 10000, "delete from equip where charid=%d;", getPlayerid());
+	MySQL::insert(sql);
+	bool firstrun = true;
+	for(int i=0; i<inv->getEquipNum(); i++){
+		if(firstrun == true){
+			sprintf_s(sql, 10000, "INSERT INTO equip VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)", inv->getEquip(i)->id, Drops::equips[inv->getEquip(i)->id].type ,getPlayerid(), inv->getEquipPos(i), inv->getEquip(i)->slots, inv->getEquip(i)->scrolls,
+				inv->getEquip(i)->istr, inv->getEquip(i)->idex, inv->getEquip(i)->iint, inv->getEquip(i)->iluk, inv->getEquip(i)->ihp, inv->getEquip(i)->imp, inv->getEquip(i)->iwatk, inv->getEquip(i)->imatk, inv->getEquip(i)->iwdef, 
+				inv->getEquip(i)->imdef, inv->getEquip(i)->iacc, inv->getEquip(i)->iavo, inv->getEquip(i)->ihand, inv->getEquip(i)->ijump, inv->getEquip(i)->ispeed);
+			firstrun = false;
+		}
+		else{
+			sprintf_s(temp, 1000, ",(%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)", inv->getEquip(i)->id, Drops::equips[inv->getEquip(i)->id].type ,getPlayerid(), inv->getEquipPos(i), inv->getEquip(i)->slots, inv->getEquip(i)->scrolls,
+				inv->getEquip(i)->istr, inv->getEquip(i)->idex, inv->getEquip(i)->iint, inv->getEquip(i)->iluk, inv->getEquip(i)->ihp, inv->getEquip(i)->imp, inv->getEquip(i)->iwatk, inv->getEquip(i)->imatk, inv->getEquip(i)->iwdef, 
+				inv->getEquip(i)->imdef, inv->getEquip(i)->iacc, inv->getEquip(i)->iavo, inv->getEquip(i)->ihand, inv->getEquip(i)->ijump, inv->getEquip(i)->ispeed);
+			strcat_s(sql, 10000, temp);
+		}
+	}
+	MySQL::insert(sql);
+	sprintf_s(sql, 10000, "delete from skills where charid=%d;", getPlayerid());
+	MySQL::insert(sql);
+	firstrun = true;
+	for(int i=0; i<skills->getSkillsNum(); i++){
+		if(firstrun == true){
+			sprintf_s(sql, 10000, "INSERT INTO skills VALUES (%d, %d, %d)", getPlayerid(), skills->getSkillID(i), skills->getSkillLevel(skills->getSkillID(i)));
+			firstrun = false;
+		}
+		else{
+			sprintf_s(temp, 1000, ",(%d, %d, %d)", getPlayerid(), skills->getSkillID(i), skills->getSkillLevel(skills->getSkillID(i)));
+			strcat_s(sql, 10000, temp);
+		}
+	}
+	MySQL::insert(sql);
+	sprintf_s(sql, 10000, "DELETE FROM items WHERE charid=%d;", getPlayerid());
+	MySQL::insert(sql);
+	firstrun = true;
+	for(int i=0; i<inv->getItemNum(); i++){
+		if(firstrun == true){
+			sprintf_s(sql, 10000, "INSERT INTO items VALUES (%d, %d, %d, %d, %d)", inv->getItem(i)->id, getPlayerid() ,inv->getItem(i)->inv, inv->getItem(i)->pos, inv->getItem(i)->amount);
+			firstrun = false;
+		}
+		else{
+			sprintf_s(temp, 1000, ",(%d, %d, %d, %d, %d)", inv->getItem(i)->id, getPlayerid() ,inv->getItem(i)->inv, inv->getItem(i)->pos, inv->getItem(i)->amount);
+			strcat_s(sql, 10000, temp);
+		}
+	}
+	MySQL::insert(sql);
 }

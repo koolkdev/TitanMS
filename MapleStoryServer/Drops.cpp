@@ -227,12 +227,17 @@ void Drops::showDrops(Player* player){
 	}
 }
 
+int getDistance(Pos a, Pos b);
+
 void Drops::lootItem(Player* player, unsigned char*packet){
 	int itemid = getInt(packet+9);
 	Drop* drop = Drop::getDrop(itemid, player->getMap());
 	if(drop == NULL){
 		DropsPacket::dontTake(player);
 		return;
+	}
+	if(getDistance(drop->getPos(), player->getPos()) > 300){
+		player->addWarning();
 	}
 	if(drop->isQuest()){
 		int request=0;

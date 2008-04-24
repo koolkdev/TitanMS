@@ -29,7 +29,8 @@ int Levels::exps[200] = {15, 34, 57, 92, 135, 372, 560, 840, 1242, 1716, 2360, 3
 
 void Levels::giveEXP(Player* player, int exp, char type){
 	int cexp = player->getExp() + exp;
-	LevelsPacket::showEXP(player, exp, type);
+	if(exp!=0)
+		LevelsPacket::showEXP(player, exp, type);
 	player->setExp(cexp, 1);
 	if(cexp >= exps[player->getLevel()-1]){
 		cexp -= exps[player->getLevel()-1];

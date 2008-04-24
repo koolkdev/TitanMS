@@ -23,9 +23,9 @@ void LevelsPacket::levelUP(Player* player, vector <Player*> players){
 	packet.addShort(1);
 	packet.addByte(player->getLevel());
 	packet.addShort(player->getHP());
-	packet.addShort(player->getMHP());
+	packet.addShort(player->getRMHP());
 	packet.addShort(player->getMP());
-	packet.addShort(player->getMMP());
+	packet.addShort(player->getRMMP());
 	packet.addShort(player->getAp());
 	packet.addInt(player->getExp());
 	packet.packetSend(player); // TODO

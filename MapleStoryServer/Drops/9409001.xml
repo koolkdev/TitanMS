@@ -1,9 +1,9 @@
-<?xml version="1.0"?>
 <Mob>
-<Drops>
-</Drops>
-<Mesos>
-<Min>100</Min>
-<Max>200</Max>
-</Mesos>
+	<Drops>
+		<Drop>
+			<ID>4000301</ID>
+			<Chance>10000</Chance>
+			<Quest>8142</Quest>
+		</Drop>
+	</Drops>
 </Mob>
