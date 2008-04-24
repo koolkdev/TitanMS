@@ -40,35 +40,48 @@ void Levels::giveEXP(Player* player, int exp, char type){
 		player->setAp(player->getAp()+5);
 		int job=player->getJob()/100;
 		if(job == 0){
-			player->setMHP(player->getMHP()+15);
-			player->setMMP(player->getMMP()+10);
+			player->setRMHP(player->getRMHP()+15);
+			player->setRMMP(player->getRMMP()+10);
 		}
 		else if(job == 1){
-			player->setMHP(player->getMHP()+25);
-			player->setMMP(player->getMMP()+15);
+			player->setRMHP(player->getRMHP()+25);
+			player->setRMMP(player->getRMMP()+15);
 			if(player->skills->getSkillLevel(1000001)>0){
-				player->setMHP(player->getMHP()+Skills::skills[1000001][player->skills->getSkillLevel(1000001)].x);
+				player->setRMHP(player->getRMHP()+Skills::skills[1000001][player->skills->getSkillLevel(1000001)].x);
 			}
 		}
 		else if(job == 2){
-			player->setMHP(player->getMHP()+15);
-			player->setMMP(player->getMMP()+35);
+			player->setRMHP(player->getRMHP()+15);
+			player->setRMMP(player->getRMMP()+35);
+			if(player->skills->getSkillLevel(2000001)>0)
+				player->setMMP(player->getMMP()+Skills::skills[2000001][player->skills->getSkillLevel(2000001)].x);
 		} 
 		else{
-			player->setMHP(player->getMHP()+25);
-			player->setMMP(player->getMMP()+15);
+			player->setRMHP(player->getRMHP()+25);
+			player->setRMMP(player->getRMMP()+15);
 		}
+		player->setMHP(player->getRMHP());
+		player->setMMP(player->getRMMP());
 		LevelsPacket::levelUP(player, Maps::info[player->getMap()].Players);
 		player->setHP(player->getMHP());
 		player->setMP(player->getMMP());
 		if(player->getJob() > 0){
 			player->setSp(player->getSp()+3);
 		}
+		//
+		if(player->skills->getActiveSkillLevel(1301007) != 0){
+			Skills::stopSkill(player, 1301007);
+		}
+		//
 	}
 }
 
 void Levels::addStat(Player* player, unsigned char* packet){
 	int type = getInt(packet+4);
+	if(player->getAp() == 0){
+		// hacking
+		return;
+	}
 	LevelsPacket::statOK(player);
 	if(type == 0x40){
 		player->setStr(player->getStr()+1);

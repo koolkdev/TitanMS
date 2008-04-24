@@ -10,12 +10,14 @@
             <X>105</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -26,12 +28,14 @@
             <X>110</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -42,12 +46,14 @@
             <X>115</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -58,12 +64,14 @@
             <X>120</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -74,12 +82,14 @@
             <X>125</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -90,12 +100,14 @@
             <X>130</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -106,12 +118,14 @@
             <X>135</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -122,12 +136,14 @@
             <X>140</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -138,12 +154,14 @@
             <X>145</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -154,12 +172,14 @@
             <X>150</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -170,12 +190,14 @@
             <X>155</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -186,12 +208,14 @@
             <X>160</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -202,12 +226,14 @@
             <X>165</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -218,12 +244,14 @@
             <X>170</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -234,12 +262,14 @@
             <X>175</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -250,12 +280,14 @@
             <X>180</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -266,12 +298,14 @@
             <X>185</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -282,12 +316,14 @@
             <X>190</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -298,12 +334,14 @@
             <X>195</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
         <Level>
             <Time>0</Time>
@@ -314,12 +352,14 @@
             <X>200</X>
             <Y>0</Y>
             <Speed>0</Speed>
+            <Jump>0</Jump>
             <WAtk>0</WAtk>
             <WDef>0</WDef>
             <MAtk>0</MAtk>
             <MDef>0</MDef>
             <Acc>0</Acc>
             <Avo>0</Avo>
+            <HPP>0</HPP>
         </Level>
     </Levels>
 </Skill>

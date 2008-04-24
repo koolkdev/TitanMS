@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Monster [ Glutton Ghoul ] -->
+	<!-- [9400565] -->
+	<!-- Level 21 -->
+	<!-- HP 300 -->
+	<!-- Speed 0 -->
+	<!-- EXP 36 -->
+	<!-- MP 20 -->
+	<!-- Knockback 30 -->
+<Mob>
+	<Drops>
+	</Drops>
+	<Mesos>
+		<Min>100</Min>
+		<Max>200</Max>
+	</Mesos>
+</Mob>

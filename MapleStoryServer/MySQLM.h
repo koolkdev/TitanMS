@@ -22,8 +22,8 @@ public:
 	static void charInfo(char* wht, int id);
 	static void deleteRow(char* table, int id);
 	static void insert(char* query);
-	static int showEquips(int id, int equips[15][2]);
-	static int showEquipsIn(int id, int equips[115][21]);
+	static int showEquips(int id, int equips[30][2]);
+	static int showEquipsIn(int id, int equips[130][21]);
 	static int getItems(int id, int equips[400][4]);
 	static void getKeys(int id, int keys[90]);
 	static int getSkills(int id, int skills[200][2]);

@@ -26,7 +26,7 @@ public:
 		if(is)
 			timers[Timer::timer->setTimer(10000, this)] = mapid;
 		else
-			ctimer[mapid] = 1;
+			ctimer[mapid] = 0;
 	}
 private:
 	static hash_map <int, int> timers;

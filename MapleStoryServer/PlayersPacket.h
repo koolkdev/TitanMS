@@ -12,6 +12,7 @@ public:
 	static void damagePlayer(Player* player, vector <Player*> players, int dmg, int mob);
 	static void showMassage(char* msg, char type);
 	static void showInfo(Player* player, Player* getinfo);
+	static void findPlayer(Player* player, char* name, int map);
 };
 
 #endif

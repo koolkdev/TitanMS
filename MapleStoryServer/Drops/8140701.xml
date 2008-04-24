@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mob>
+  <Drops>
+    <Drop>
+      <ID>1302023</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>1040111</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>1072197</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>1051096</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>1002365</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>1082144</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>1332027</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>2000006</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>2000005</ID>
+      <Chance>100</Chance>
+    </Drop>
+  </Drops>
+  <Mesos>
+    <Min>845</Min>
+    <Max>1125</Max>
+  </Mesos>
+</Mob>

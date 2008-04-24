@@ -7,8 +7,6 @@
 using namespace std;
 using namespace stdext;
 
-#include "Player.h"
-
 class Player;
 
 class Server {
@@ -21,6 +19,7 @@ public:
 	static void enableScrollingHeader();
 	static void disableScrollingHeader();
 	static void initialize();
+	static __int64 getServerTime();
 };
 
 #endif

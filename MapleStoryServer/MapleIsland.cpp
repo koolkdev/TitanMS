@@ -305,13 +305,13 @@ void NPCsScripts::npc_2020005(NPC* npc){
 		else if(count <= 19){
 			npc->giveMesos(10000000);
 			npc->giveItem(2070005, 1);
-			npc->giveItem(strval(scrolls[npc->getSelected()]), 1);
+			npc->giveItem(atoi(scrolls[npc->getSelected()]), 1);
 		}
 		else {
 			npc->giveMesos(12000000);
 			npc->giveItem(4001102, 1);
 			npc->giveItem(2070006, 1);
-			npc->giveItem(strval(scrolls[npc->getSelected()]), 1);
+			npc->giveItem(atoi(scrolls[npc->getSelected()]), 1);
 		}
 		npc->end();
 
@@ -338,7 +338,7 @@ void NPCsScripts::npc_2100(NPC* npc){
 		npc->sendSimple();
 	}
 	else if(state == 2){
-		npc->teleport(strval(arr[npc->getSelected()]));
+		npc->teleport(atoi(arr[npc->getSelected()]));
 		npc->end();
 	}
 }

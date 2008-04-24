@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Monster [ Bellamoa  ] -->
+	<!-- [2100105] -->
+	<!-- Level 23 -->
+	<!-- HP 500 -->
+	<!-- Speed -40 -->
+	<!-- EXP 42 -->
+	<!-- MP 0 -->
+	<!-- Knockback 250 -->
+<Mob>
+	<Drops>
+	</Drops>
+	<Mesos>
+		<Min>100</Min>
+		<Max>200</Max>
+	</Mesos>
+</Mob>

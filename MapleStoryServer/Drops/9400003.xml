@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mob>
+  <Drops>
+    <Drop>
+      <ID>2020010</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>2070005</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>4020002</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>4004003</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <Drop>
+      <ID>4006000</ID>
+      <Chance>100</Chance>
+    </Drop>
+  </Drops>
+  <Mesos>
+    <Min>280</Min>
+    <Max>420</Max>
+  </Mesos>
+</Mob>

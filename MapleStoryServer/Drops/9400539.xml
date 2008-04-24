@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Monster [ Urban Fungus ] -->
+<!-- [9400539] -->
+<!-- Level 21 -->
+<!-- HP 350 -->
+<!-- Speed 15 -->
+<!-- EXP 37 -->
+<!-- MP 30 -->
+<!-- Knockback 1 -->
+<Mob>
+  <Drops>
+    <!-- Items -->
+    <!-- [Iron Axe] -->
+    <Drop>
+      <ID>1412012</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Purple Jewelry Boots] -->
+    <Drop>
+      <ID>1072020</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- etc -->
+    <!-- [Gold Ore] -->
+    <Drop>
+      <ID>4010006</ID>
+      <Chance>100</Chance>
+    </Drop>
+  </Drops>
+  <Mesos>
+    <Min>44</Min>
+    <Max>66</Max>
+  </Mesos>
+</Mob>

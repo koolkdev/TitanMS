@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Inventory.h"
 #include "Skills.h"
+#include "Server.h"
 
 void PlayerPacket::connectData(Player* player){
 	Packet packet = Packet();
@@ -44,7 +45,7 @@ void PlayerPacket::connectData(Player* player){
 	packet.addByte(100);
 	for(int i=0; i<player->inv->getEquipNum(); i++){
 		Equip* equip = player->inv->getEquip(i);
-		if(equip->pos<0){
+		if(equip->pos<0 && !Inventory::isCash(equip->id)){
 			packet.addByte(equip->type);
 			packet.addByte(1);
 			packet.addInt(equip->id);
@@ -74,7 +75,40 @@ void PlayerPacket::connectData(Player* player){
 			packet.addShort(0);
 		}
 	}
-	packet.addShort(0);
+	packet.addByte(0);
+	for(int i=0; i<player->inv->getEquipNum(); i++){
+		Equip* equip = player->inv->getEquip(i);
+		if(equip->pos<0 && Inventory::isCash(equip->id)){
+			packet.addByte(equip->type);
+			packet.addByte(1);
+			packet.addInt(equip->id);
+			packet.addShort(0);
+			packet.addBytes("8005BB46E61702");
+			packet.addShort(equip->slots); // slots
+			packet.addShort(equip->istr); // STR
+			packet.addShort(equip->idex); // DEX
+			packet.addShort(equip->iint); // INT
+			packet.addShort(equip->iluk); // LUK
+			packet.addShort(equip->ihp); // HP
+			packet.addShort(equip->imp); // MP
+			packet.addShort(equip->iwatk); // W.Atk
+			packet.addShort(equip->imatk); // M.Atk
+			packet.addShort(equip->iwdef); // W.def
+			packet.addShort(equip->imdef); // M.Def
+			packet.addShort(equip->iacc); // Acc		
+			packet.addShort(equip->iavo); // Avo		
+			packet.addShort(equip->ihand); // Hands		
+			packet.addShort(equip->ispeed); // Speed		
+			packet.addShort(equip->ijump); // Jump		
+			packet.addShort(0);		
+			packet.addShort(0);		
+			packet.addShort(0);		
+			packet.addShort(0);		
+			packet.addShort(0);		
+			packet.addShort(0);
+		}
+	}
+	packet.addByte(0);
 	for(int i=0; i<player->inv->getEquipNum(); i++){
 		Equip* equip = player->inv->getEquip(i);
 		if(equip->pos>0){
@@ -143,7 +177,7 @@ void PlayerPacket::connectData(Player* player){
 	packet.addShort(0);
 	for(int i=0; i<15; i++)
 		packet.addBytes("FFC99A3B");
-	packet.addBytes("90633A0DC55DC801");
+	packet.addInt64(Server::getServerTime());
 	packet.packetSend(player);
 }
 

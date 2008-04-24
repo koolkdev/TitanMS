@@ -83,6 +83,10 @@ void MobsPacket::moveMob(Player* player, Mob* mob ,vector <Player*> players, uns
 void MobsPacket::damageMob(Player* player, vector <Player*> players, unsigned char* pack){
 	int howmany = pack[1]/0x10;
 	int hits = pack[1]%0x10;
+	int skillid = getInt(pack+2);
+	bool s4211006 = false;
+	if(skillid == 4211006)
+		s4211006 = true;
 	Packet packet = Packet();
 	packet.addHeader(0x87);
 	packet.addInt(player->getPlayerid());
@@ -98,11 +102,11 @@ void MobsPacket::damageMob(Player* player, vector <Player*> players, unsigned ch
 	packet.addByte(10);
 	packet.addInt(0);
 	for(int i=0; i<howmany; i++){
-		int mobid = getInt(pack+14+i*22);
+		int mobid = getInt(pack+14+i*(22-s4211006+4*(hits-1)));
 		packet.addInt(mobid);
 		packet.addByte(-1);
 		for(int j=0; j<hits; j++){
-			int damage = getInt(pack+32+i*22+j*4);
+			int damage = getInt(pack+32-s4211006+i*(22-s4211006+4*(hits-1))+j*4);
 			packet.addInt(damage);
 		}
 	}
@@ -112,6 +116,10 @@ void MobsPacket::damageMob(Player* player, vector <Player*> players, unsigned ch
 void MobsPacket::damageMobS(Player* player, vector <Player*> players, unsigned char* pack, int itemid){
 	int howmany = pack[1]/0x10;
 	int hits = pack[1]%0x10;
+	int skillid = getInt(pack+2);
+	bool s3121004 = false;
+	if(skillid == 3121004)
+		s3121004 = true;
 	Packet packet = Packet();
 	packet.addHeader(0x8D);
 	packet.addInt(player->getPlayerid());
@@ -127,11 +135,11 @@ void MobsPacket::damageMobS(Player* player, vector <Player*> players, unsigned c
 	packet.addByte(pack[13]);
 	packet.addInt(itemid);
 	for(int i=0; i<howmany; i++){
-		int mobid = getInt(pack+19+i*22);
+		int mobid = getInt(pack+19+4*s3121004+i*(22+4*(hits-1)));
 		packet.addInt(mobid); 
 		packet.addByte(-1);
 		for(int j=0; j<hits; j++){
-			int damage = getInt(pack+37+i*22+j*4);
+			int damage = getInt(pack+37+4*s3121004+i*(22+4*(hits-1))+j*4);
 			packet.addInt(damage);
 		}
 	}
@@ -152,11 +160,11 @@ void MobsPacket::damageMobSkill(Player* player, vector <Player*> players, unsign
 	packet.addByte(0);
 	packet.addInt(0);
 	for(int i=0; i<howmany; i++){
-		int mobid = getInt(pack+14+i*22);
+		int mobid = getInt(pack+14+i*(22+4*(hits-1)));
 		packet.addInt(mobid);
 		packet.addByte(-1);
 		for(int j=0; j<hits; j++){
-			int damage = getInt(pack+32+i*22+j*4);
+			int damage = getInt(pack+32+i*(22+4*(hits-1))+j*4);
 			packet.addInt(damage);
 		}
 	}

@@ -27,15 +27,50 @@ void InventoryPacket::updatePlayer(Player* player){
 	packet.addByte(player->getSkin());
 	packet.addInt(player->getEyes());
 	packet.addByte(1);
-	packet.addInt(player->getHair());
+	packet.addInt(player->getHair());	for(int i=0; i<player->inv->getEquipNum(); i++){
+		Equip* equip = player->inv->getEquip(i);
+		if(equip->pos<0){
+			if(!Inventory::isCash(equip->id)){
+				bool check=true;
+				for(int j=0; j<player->inv->getEquipNum(); j++){
+					Equip* equip2 = player->inv->getEquip(j);
+					if(equip2->pos<0 && equip != equip2 && equip->type == equip2->type){
+						check=false;
+						break;
+					}
+				}	
+				if(check){
+					packet.addByte(equip->type);
+					packet.addInt(equip->id);
+				}
+			}
+			else{
+				packet.addByte(equip->type);
+				packet.addInt(equip->id);
+			}
+		}
+	}
+	packet.addByte(-1);
 	for(int i=0; i<player->inv->getEquipNum(); i++){
 		Equip* equip = player->inv->getEquip(i);
 		if(equip->pos<0){
-			packet.addByte(equip->type);
-			packet.addInt(equip->id);
+			if(!Inventory::isCash(equip->id)){
+				bool check=true;
+				for(int j=0; j<player->inv->getEquipNum(); j++){
+					Equip* equip2 = player->inv->getEquip(j);
+					if(equip2->pos<0 && equip != equip2 && equip->type == equip2->type){
+						check=false;	
+						break;
+					}
+				}	
+				if(!check){
+					packet.addByte(equip->type);
+					packet.addInt(equip->id);
+				}
+			}
 		}
 	}
-	packet.addShort(-1); // To do cash items
+	packet.addByte(-1);
 	packet.addInt(0);
 	packet.addByte(0);
 	packet.addShort(0);
@@ -181,3 +216,11 @@ void InventoryPacket::stopChair(Player* player, vector <Player*> players){
 	packet.addInt(0);
 	packet.sendTo(player, players, 0);
 }
+void InventoryPacket::useScroll(Player* player, vector <Player*> players, char s){
+	Packet packet = Packet();
+	packet.addHeader(0x7A);
+	packet.addInt(player->getPlayerid());
+	packet.addInt(s);
+	packet.sendTo(player, players, 1);
+}
+

@@ -1,22 +1,32 @@
 #include "Players.h"
 #include "Player.h"
 #include "PlayersPacket.h"
-#include "Maps.h"
+#include "Maps.h" 
 #include "Mobs.h"
 #include "Shops.h"
 #include "Inventory.h"
 #include "Drops.h"
 #include "Levels.h"
 #include "Server.h"
+//
+#include "SkillsPacket.h"
 
 hash_map <int, Player*> Players::players;
+hash_map <char*, Player*> Players::names;
 short getShort(unsigned char* buf);
 int getInt(unsigned char* buf);
-int strval(char* buf);
 void getString(unsigned char* buf, int len, char* out);
+
+char* toLow(char* s){
+	for(unsigned int i=0; i<strlen(s); i++)
+		if(s[i]>='A' && s[i]<='Z')
+			s[i]-=('A'-'a');
+	return s;
+}
 
 void Players::addPlayer(Player* player){
 	players[player->getPlayerid()] = player;
+	names[toLow(player->getName())] = player;
 }
 
 void Players::deletePlayer(Player* player){
@@ -26,6 +36,15 @@ void Players::deletePlayer(Player* player){
 				 if(iter->first == player->getPlayerid()){
 					 players.erase(iter);
 					break;
+				 }
+		}
+	}
+	if(names.find(toLow(player->getName())) != names.end()){
+		for (hash_map<char*,Player*>::iterator iter = names.begin();
+			 iter != names.end(); iter++){
+				 if(strcmp(iter->first,toLow(player->getName())) == 0){
+					 names.erase(iter);
+					 break;
 				 }
 		}
 	}
@@ -57,18 +76,18 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 			strcpy_s(command, 90, strtok_s(chat+1, " ", &next_token));
 		if(strcmp(command, "map") == 0){
 			if(strlen(next_token) > 0){
-				int mapid = strval(strtok_s(NULL, " ",&next_token));
+				int mapid = atoi(strtok_s(NULL, " ",&next_token));
 				if(Maps::info.find(mapid) != Maps::info.end())
 					Maps::changeMap(player ,mapid, 0);
 			}
 		}
 		else if(strcmp(command, "summon") == 0 || strcmp(command, "spawn") == 0){
-			int mobid = strval(strtok_s(NULL, " ",&next_token));
+			int mobid = atoi(strtok_s(NULL, " ",&next_token));
 			if(Mobs::mobinfo.find(mobid) == Mobs::mobinfo.end())
 				return;
 			int count = 1;
 			if(strlen(next_token) > 0)
-				count = strval(next_token);
+				count = atoi(next_token);
 			for(int i=0; i<count && i<100; i++){
 				Mobs::spawnMob(player, mobid);
 			}
@@ -88,25 +107,25 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 			PlayersPacket::showMassage(text, 0);
 		}
 		else if(strcmp(command, "item") == 0){
-			int itemid = strval(strtok_s(NULL, " ",&next_token));
+			int itemid = atoi(strtok_s(NULL, " ",&next_token));
 			if(Drops::items.find(itemid) == Drops::items.end() && Drops::equips.find(itemid) == Drops::equips.end())
 				return;
 			int count = 1;
 			if(strlen(next_token) > 0)
-				count = strval(next_token);
+				count = atoi(next_token);
 			Inventory::addNewItem(player, itemid, count);
 		}
 		else if(strcmp(command, "level") == 0){
-			Levels::setLevel(player, strval(strtok_s(NULL, " ",&next_token)));
+			Levels::setLevel(player, atoi(strtok_s(NULL, " ",&next_token)));
 		}
 		else if(strcmp(command, "job") == 0){
-			Levels::setJob(player, strval(strtok_s(NULL, " ",&next_token)));
+			Levels::setJob(player, atoi(strtok_s(NULL, " ",&next_token)));
 		}	
 		else if(strcmp(command, "ap") == 0){
-			player->setAp(player->getAp()+strval(strtok_s(NULL, " ",&next_token)));
+			player->setAp(player->getAp()+atoi(strtok_s(NULL, " ",&next_token)));
 		}
 		else if(strcmp(command, "sp") == 0){
-			player->setSp(player->getSp()+strval(strtok_s(NULL, " ",&next_token)));
+			player->setSp(player->getSp()+atoi(strtok_s(NULL, " ",&next_token)));
 		}
 		else if(strcmp(command, "killnpc") == 0){
 			player->setNPC(NULL);
@@ -210,7 +229,25 @@ void Players::damagePlayer(Player* player, unsigned char* packet){
 			mob = Mobs::mobs[player->getMap()][i];
 			break;
 		}
-	player->setHP(player->getHP()-damage);
+
+	if(player->skills->getActiveSkillLevel(2001002) > 0){
+		unsigned short mp = player->getMP();
+        unsigned short hp = player->getHP();
+        unsigned short reduc = Skills::skills[2001002][player->skills->getActiveSkillLevel(2001002)].x;
+        int mpdamage = ((damage * reduc) / 100);
+        int hpdamage = damage - mpdamage;
+        if (mpdamage >= mp) {
+            player->setMP(0);
+            player->setHP(hp - (hpdamage + (mpdamage - mp)));
+        }
+        if (mpdamage < mp) {
+            player->setMP(mp - mpdamage);
+            player->setHP(hp - hpdamage);
+        }
+	}
+	else{
+		player->setHP(player->getHP()-damage);
+	}
 	if(mob != NULL)
 		PlayersPacket::damagePlayer(player, Maps::info[player->getMap()].Players, damage, mob->getMobID());
 }
@@ -222,4 +259,22 @@ void Players::healPlayer(Player* player, unsigned char* packet){
 
 void Players::getPlayerInfo(Player* player, unsigned char* packet){
 	PlayersPacket::showInfo(player, players[getInt(packet+4)]);
+}
+
+void Players::searchPlayer(Player* player, unsigned char* packet){
+	char type = packet[0];
+	int namelen = getShort(packet+1);
+	if(namelen>15)
+		return;
+	char name[20];
+	getString(packet+3, namelen, name);
+	if(type == 5){ // find
+		if(names.find(toLow(name)) == names.end()){
+			PlayersPacket::findPlayer(player, name, 0);
+		}
+		else {
+			PlayersPacket::findPlayer(player, names[toLow(name)]->getName(), names[toLow(name)]->getMap());
+		}
+	}
+
 }

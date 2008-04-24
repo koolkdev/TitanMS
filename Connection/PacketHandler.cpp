@@ -53,18 +53,6 @@ void PacketHandler::sendPacket(unsigned char *buff, int size){
 	decoder->createHeader((unsigned char*)bufs, (short)(size));
 	decoder->encrypt(buff, size);
 	memcpy_s(bufs+4, size, buff, size);
-	/*int count = 0;
-	while(count < size){
-		if(size+4-count > 1452){
-			decoder->encrypt(buff+count, 1452);
-			memcpy_s(bufs+count+4, 1452, buff+count, 1452);
-		}
-		else{
-			decoder->encrypt(buff+count, size-count);
-			memcpy_s(bufs+count+4, size-count, buff+count, size-count);
-		}
-		count += 1452;
-	}*/
 	decoder->next();
 	send(socket, (const char*)bufs, size+4, 0);
 }

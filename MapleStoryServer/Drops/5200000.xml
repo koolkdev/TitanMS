@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Monster [ Jr. Sentinel ] -->
+<!-- [5200000] -->
+<!-- Level 23 -->
+<!-- HP 600 -->
+<!-- Speed -10 -->
+<!-- EXP 40 -->
+<!-- MP 10 -->
+<!-- Knockback 0 -->
+<Mob>
+  <Drops>
+    <!-- Items -->
+    <!-- [Hard Briefcase] -->
+    <Drop>
+      <ID>1322008</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Iron Mace] -->
+    <Drop>
+      <ID>1322002</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Fusion Mace] -->
+    <Drop>
+      <ID>1322004</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Orihalcon Master Sergeant] -->
+    <Drop>
+      <ID>1040016</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Orihalcon Master Sergeant Kilt] -->
+    <Drop>
+      <ID>1060011</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Blue Matty] -->
+    <Drop>
+      <ID>1002142</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Ryden] -->
+    <Drop>
+      <ID>1452005</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Brown Loosecap] -->
+    <Drop>
+      <ID>1002129</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Black Steal] -->
+    <Drop>
+      <ID>1041048</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Black Steal Pants] -->
+    <Drop>
+      <ID>1061044</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- Useable -->
+    <!-- [Bronze Arrow for Bow] -->
+    <Drop>
+      <ID>2060001</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Bronze Arrow for Crossbow] -->
+    <Drop>
+      <ID>2061001</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Blue Potion] -->
+    <Drop>
+      <ID>2000003</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Orange Potion] -->
+    <Drop>
+      <ID>2000001</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Scroll for Two-handed Axe for ATT] -->
+    <Drop>
+      <ID>2044102</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Subi Throwing-Stars] -->
+    <Drop>
+      <ID>2070000</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- etc -->
+    <!-- [Bronze Ore] -->
+    <Drop>
+      <ID>4010000</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Jr. Sentinel Shellpiece] -->
+    <Drop>
+      <ID>4000083</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [LUK Crystal Ore] -->
+    <Drop>
+      <ID>4004003</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Topaz Ore] -->
+    <Drop>
+      <ID>4020006</ID>
+      <Chance>100</Chance>
+    </Drop>
+  </Drops>
+  <Mesos>
+    <Min>60</Min>
+    <Max>90</Max>
+  </Mesos>
+</Mob>

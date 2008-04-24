@@ -82,13 +82,35 @@ struct ItemInfo {
 	bool consume;
 };
 
+struct SummonBag {
+	int mobid;
+	int chance;
+};
+
 struct ConsumeInfo {
 	short hp;
 	short mp;
 	short hpr;
 	short mpr;
-
-	//TODO
+	int moveTo;
+	int success;
+	int cursed;
+	short istr;
+	short idex;
+	short iint;
+	short iluk;
+	short ihp;
+	short imp;
+	short iwatk;
+	short imatk;
+	short iwdef;
+	short imdef;
+	short iacc;
+	short iavo;
+	short ihand;
+	short ijump;
+	short ispeed;
+	vector <SummonBag> mobs;
 };
 struct FootholdInfo {
 	short x1;

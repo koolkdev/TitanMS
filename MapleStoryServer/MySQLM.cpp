@@ -143,7 +143,7 @@ void MySQL::insert(char* query){
 	mysql_real_query(&maple_db, query, strlen(query));
 }
 
-int MySQL::showEquips(int id, int equips[15][2]){
+int MySQL::showEquips(int id, int equips[30][2]){
 	MYSQL_RES *mres;
 	MYSQL_ROW mrow;
 	char query[255]; 
@@ -164,7 +164,7 @@ int MySQL::showEquips(int id, int equips[15][2]){
 	return (int)mysql_num_rows(mres);
 }
 
-int MySQL::showEquipsIn(int id, int equips[115][21]){
+int MySQL::showEquipsIn(int id, int equips[130][21]){
 	MYSQL_RES *mres;
 	MYSQL_ROW mrow;
 	char query[255]; 

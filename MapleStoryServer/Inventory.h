@@ -21,6 +21,10 @@ public:
 	static void takeItemSlot(Player* player, short slot, char inv, short amount);
 	static void useChair(Player* player, unsigned char* packet);
 	static void stopChair(Player* player, unsigned char* packet);
+	static int isCash(int itemid);
+	static void useSummonBag(Player* player, unsigned char* packet);
+	static void useReturnScroll(Player* player, unsigned char* packet);
+	static void useScroll(Player* player, unsigned char* packet);
 };
 
 #endif

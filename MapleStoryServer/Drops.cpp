@@ -191,6 +191,7 @@ void Drops::dropMob(Player* player, Mob* mob){
 				pos.y = mob->getPos().y;
 			}
 			drp->setPos(pos);
+			drp->setOwner(player->getPlayerid());
 			drp->doDrop(dropper);
 			d++;
 		}
@@ -305,6 +306,10 @@ void Drops::lootItem(Player* player, unsigned char*packet){
 
 void Drops::dropMesos(Player* player, unsigned char* packet){
 	int amount = getInt(packet+4);
+	if(amount < 10){
+		// hacking
+		return;
+	}
 	player->inv->setMesos(player->inv->getMesos()-amount, 1);
 	Drop* drop = new Drop(player->getMap());
 	drop->setID(amount);

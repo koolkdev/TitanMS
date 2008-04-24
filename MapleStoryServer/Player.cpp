@@ -66,33 +66,37 @@ void Player::handleRequest(unsigned char* buf, int len){
 	short header = buf[0] + buf[1]*0x100;
 	switch(header){  
 		case 0x14: getUserID(buf+2); break;
-		case 0x2F: Maps::moveMap(this ,buf+2); break;
-		case 0x35: Players::handleMoving(this ,buf+2, len-2); break;
-		case 0x2B: Inventory::stopChair(this ,buf+2); break;
-		case 0x2D: Inventory::useChair(this ,buf+2); break;
-		case 0x59: Mobs::damageMob(this ,buf+2); break;
-		case 0x36: Mobs::damageMobS(this ,buf+2, len-2); break;
-		case 0x2E: Mobs::damageMobSkill(this ,buf+2); break;
-		case 0x2A: Players::damagePlayer(this ,buf+2); break;
-		case 0x5C: Players::faceExperiment(this ,buf+2); break;
-		case 0x2C: Players::chatHandler(this ,buf+2); break;
-		case 0x23: NPCs::handleNPC(this, buf+2); break;
 		case 0x21: NPCs::handleNPCIn(this ,buf+2); break;
 		case 0x22: Inventory::useShop(this ,buf+2); break;
+		case 0x23: NPCs::handleNPC(this, buf+2); break;
+		case 0x2A: Players::damagePlayer(this ,buf+2); break;
+		case 0x2B: Inventory::stopChair(this ,buf+2); break;
+		case 0x2C: Players::chatHandler(this ,buf+2); break;
+		case 0x2D: Inventory::useChair(this ,buf+2); break;
+		case 0x2E: Mobs::damageMobSkill(this ,buf+2); break;
+		case 0x2F: Maps::moveMap(this ,buf+2); break;
+		case 0x35: Players::handleMoving(this ,buf+2, len-2); break;
+		case 0x36: Mobs::damageMobS(this ,buf+2, len-2); break;
 		case 0x44: Players::getPlayerInfo(this, buf+2); break;
+		case 0x4B: Inventory::useSummonBag(this, buf+2); break;
+		case 0x4D: Skills::addSkill(this, buf+2); break;
+		case 0x4E: Skills::cancelSkill(this, buf+2); break;
+		case 0x51: Skills::useSkill(this, buf+2); break;
+		case 0x58: Players::searchPlayer(this ,buf+2); break;
+		case 0x59: Mobs::damageMob(this ,buf+2); break;
+		case 0x5C: Players::faceExperiment(this ,buf+2); break;
 		case 0x62: Inventory::itemMove(this ,buf+2); break;
 		case 0x63: Inventory::useItem(this, buf+2); break;
+		case 0x64: Inventory::useReturnScroll(this, buf+2); break; 
+		case 0x65: Inventory::useScroll(this, buf+2); break;
 		case 0x66: Levels::addStat(this, buf+2); break;
 		case 0x67: Players::healPlayer(this, buf+2); break;
-		case 0x4D: Skills::addSkill(this, buf+2); break;
-		case 0x51: Skills::useSkill(this, buf+2); break;
-		case 0x4E: Skills::cancelSkill(this, buf+2); break;
 		case 0x68: Drops::dropMesos(this ,buf+2); break;
 		case 0x6B: Quests::getQuest(this, buf+2); break;
 		case 0x75: chaneKey(buf+2);
+		case 0x89: Drops::lootItem(this ,buf+2); break;
 		case 0x9D: Mobs::monsterControl(this ,buf+2, len-2); break;
 		case 0xA0: Mobs::monsterControlSkill(this ,buf+2); break;
-		case 0x89: Drops::lootItem(this ,buf+2); break;
 	}
 }
 
@@ -109,9 +113,9 @@ void Player::playerConnect(){
 	intt = (short)MySQL::getInt("characters", getPlayerid(), "intt");
 	luk = (short)MySQL::getInt("characters", getPlayerid(), "luk");
 	hp = (short)MySQL::getInt("characters", getPlayerid(), "chp");
-	mhp = (short)MySQL::getInt("characters", getPlayerid(), "mhp");
+	rmhp = mhp = (short)MySQL::getInt("characters", getPlayerid(), "mhp");
 	mp = (short)MySQL::getInt("characters", getPlayerid(), "cmp");
-	mmp = (short)MySQL::getInt("characters", getPlayerid(), "mmp");
+	rmmp = mmp = (short)MySQL::getInt("characters", getPlayerid(), "mmp");
 	ap = (short)MySQL::getInt("characters", getPlayerid(), "ap");
 	sp = (short)MySQL::getInt("characters", getPlayerid(), "sp");
 	exp = MySQL::getInt("characters", getPlayerid(), "exp");
@@ -119,7 +123,7 @@ void Player::playerConnect(){
 	map = MySQL::getInt("characters", getPlayerid(), "map");
 	mappos = (char)MySQL::getInt("characters", getPlayerid(), "pos");
 	gm = MySQL::getInt("users", MySQL::getInt("characters", getPlayerid(), "userid"), "gm");
-	int equips[115][21];
+	int equips[130][21];
 	int many = MySQL::showEquipsIn(getPlayerid(), equips);
 	inv = new PlayerInventory();
 	skills = new PlayerSkills();

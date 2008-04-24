@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Mob>
+<Drops>
+<Drop>
+<ID>1302030</ID>
+<Chance>100</Chance>
+</Drop>
+</Drops>
+<Mesos>
+<Min>100</Min>
+<Max>200</Max>
+</Mesos>
+</Mob>

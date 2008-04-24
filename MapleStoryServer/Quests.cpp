@@ -5,6 +5,7 @@
 #include "Maps.h"
 #include "Inventory.h"
 #include "NPCs.h"
+#include "Server.h"
 
 hash_map <int, QuestInfo> Quests::quests;
 
@@ -162,14 +163,7 @@ void PlayerQuests::finishQuest(short questid, int npcid){
 	}
 	QuestComp quest;
 	quest.id = questid;
-	SYSTEMTIME systemTime;
-	GetSystemTime( &systemTime );
-	FILETIME fileTime; 
-	SystemTimeToFileTime( &systemTime, &fileTime );
-	ULARGE_INTEGER uli;
-	uli.LowPart = fileTime.dwLowDateTime; 
-	uli.HighPart = fileTime.dwHighDateTime;
-	quest.time = uli.QuadPart;
+	quest.time = Server::getServerTime();
 	questscomp.push_back(quest);
 	QuestsPacket::questFinish(player, Maps::info[player->getMap()].Players , questid, npcid, Quests::quests[questid].nextquest, quest.time);
 }

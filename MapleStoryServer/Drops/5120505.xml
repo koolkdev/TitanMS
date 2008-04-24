@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mob>
+  <Drops></Drops>
+  <Mesos>
+    <Min>250</Min>
+    <Max>342</Max>
+  </Mesos>
+</Mob>

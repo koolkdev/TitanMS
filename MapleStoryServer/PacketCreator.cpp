@@ -61,22 +61,6 @@ void Packet::addBytesHex(unsigned char* bytes, int len){
 }
 
 void Packet::packetSend(Player* player){
-	/*
-	FILE* f;
-	fopen_s(&f, "test.txt", "a");
-	fprintf(f, "\r\n");
-	for(int i=0; i<pos; i++)
-		fprintf(f, "%x ", packet[i]);
-	fclose(f);
-	*/
-	/*
-	printf("\r\n");
-	for(int i=0; i<pos; i++)
-		printf("%x ", packet[i]);
-
-	if(pos>400)
-		printf("***%d***", pos);
-	*/
 	unsigned char tempbuf[10000]; 
 	for(int i=0; i<pos; i++){
 		tempbuf[i] = packet[i];
@@ -92,7 +76,7 @@ void Packet::sendTo(Player* player, vector <Player*> players, bool is){
 }
 
 void Packet::packetSendLogin(PlayerLogin* player){
-	unsigned char tempbuf[2000];
+	unsigned char tempbuf[10000];
 	for(int i=0; i<pos; i++){
 		tempbuf[i] = packet[i];
 	}

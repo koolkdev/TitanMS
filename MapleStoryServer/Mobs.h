@@ -53,6 +53,7 @@ public:
 	static void updateSpawn(int mapid);
 	static void spawnMob(Player* player, int mobid);
 	static void dieMob(Player* player, Mob* mob, int n);
+	static void spawnMobPos(Player* player, int mobid, int xx, int yy);
 };
 
 class Mob {

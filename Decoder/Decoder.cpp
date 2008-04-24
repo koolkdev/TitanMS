@@ -6,7 +6,7 @@ void Decoder::encrypt(unsigned char *buffer, int size){
 	MapleEncryption::mapleEncrypt(buffer, size);
 	int pos=0,first=1;
 	while(size > pos){
-		if(size>pos+1456-first*4){
+		if(size>pos+1460-first*4){
 			decryptofb(buffer+pos, Decoder::ivSend, 1460 - first*4);
 		}
 		else

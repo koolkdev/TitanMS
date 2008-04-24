@@ -25,6 +25,7 @@ public:
 	static void moveItemS2(Player* player, char inv, short slot1, short amount1, short slot2, short amount2);
 	static void sitChair(Player* player, vector <Player*> players, int chairid);
 	static void stopChair(Player* player, vector <Player*> players);
+	static void useScroll(Player* player, vector <Player*> players, char s);
 };
 
 #endif

@@ -50,7 +50,10 @@ void DropsPacket::dropForPlayer(Player* player, Drop* drop, Dropped dropper){
 void DropsPacket::showDrop(Player* player, Drop* drop){
 	Packet packet = Packet();
 	packet.addHeader(0xB8);
-	packet.addByte(2);
+	if(drop->getPlayer() == player->getPlayerid())
+		packet.addByte(1);
+	else
+		packet.addByte(2);
 	packet.addInt(drop->getObjID());
 	packet.addByte(drop->getMesos());
 	packet.addInt(drop->getID());
@@ -114,5 +117,14 @@ void DropsPacket::removeDrop(vector <Player*> players, Drop* drop){
 	packet.addHeader(0xB9);
 	packet.addByte(0);
 	packet.addInt(drop->getObjID());
+	packet.sendTo(NULL, players, 1);
+}
+
+void DropsPacket::explodeDrop(vector <Player*> players, Drop* drop){
+	Packet packet = Packet();
+	packet.addHeader(0xB9);
+	packet.addByte(4);
+	packet.addInt(drop->getObjID());
+	packet.addShort(655);
 	packet.sendTo(NULL, players, 1);
 }

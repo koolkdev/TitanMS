@@ -143,7 +143,80 @@ void Initializing::initializeItem(char *name){
 				else if(strcmp("MPR", pCur->Value()) == 0){
 					cons.mpr = strval((char*)pCur->GetText());
 				}
-	
+				else if(strcmp("moveTo", pCur->Value()) == 0){
+					cons.moveTo = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("success", pCur->Value()) == 0){
+					cons.success = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("cursed", pCur->Value()) == 0){
+					cons.cursed = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iSTR", pCur->Value()) == 0){
+					cons.istr = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iDEX", pCur->Value()) == 0){
+					cons.idex = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iINT", pCur->Value()) == 0){
+					cons.iint = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iLUK", pCur->Value()) == 0){
+					cons.iluk = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iHP", pCur->Value()) == 0){
+					cons.ihp = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iMP", pCur->Value()) == 0){
+					cons.imp = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iWAtk", pCur->Value()) == 0){
+					cons.iwatk = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iMAtk", pCur->Value()) == 0){
+					cons.imatk = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iWDef", pCur->Value()) == 0){
+					cons.iwdef = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iMDef", pCur->Value()) == 0){
+					cons.imdef = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iAcc", pCur->Value()) == 0){
+					cons.iacc = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iAvo", pCur->Value()) == 0){
+					cons.iavo = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iHand", pCur->Value()) == 0){
+					cons.ihand = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iJump", pCur->Value()) == 0){
+					cons.ijump = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("iSpeed", pCur->Value()) == 0){
+					cons.ispeed = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("Mobs", pCur->Value()) == 0){
+					SummonBag s;
+					TiXmlElement* pCur2;
+  					pCur2 = pCur->FirstChildElement();
+					for( pCur2; pCur2; pCur2=pCur2->NextSiblingElement()){
+						if(strcmp("Mob", pCur2->Value()) == 0){ 
+							TiXmlElement* pCur3;
+  							pCur3 = pCur2->FirstChildElement();
+							for( pCur3; pCur3; pCur3=pCur3->NextSiblingElement()){
+								if(strcmp("ID", pCur3->Value()) == 0){
+									s.mobid = strval((char*)pCur3->GetText());
+								}
+								else if(strcmp("Chance", pCur3->Value()) == 0){
+									s.chance = strval((char*)pCur3->GetText());
+								}
+							}
+						}
+						cons.mobs.push_back(s);
+					}
+				}	
 			}
 			Drops::addConsume(di, cons);
 		}
@@ -545,7 +618,7 @@ void Initializing::initializeSkill(char* name){
 	if(strcmp("Skill",pElem->Value()) != 0) return;
 	hRoot=TiXmlHandle(pElem);
 	pElem=hRoot.FirstChildElement( "Levels" ).FirstChild().Element();
-	SkillInfo skill;
+	SkillsLevelInfo skill;
 	int count=1;
 	for( pElem; pElem; pElem=pElem->NextSiblingElement())
 	{
@@ -556,15 +629,17 @@ void Initializing::initializeSkill(char* name){
 			level.mp=0;
 			level.hp=0;
 			level.speed=0;
+			level.jump=0;
 			level.time=0;
 			level.x=0;
 			level.y=0;
 			level.watk=0;
-			level.wdef=0;
+			level.wdef=0; 
 			level.matk=0;
 			level.mdef=0;
 			level.acc=0;
 			level.avo=0;
+			level.hpP=0;
 			TiXmlElement* pCur;
   			pCur = pElem->FirstChildElement();
 			for( pCur; pCur; pCur=pCur->NextSiblingElement())
@@ -593,6 +668,9 @@ void Initializing::initializeSkill(char* name){
 				else if(strcmp("Speed", pCur->Value()) == 0){
 					level.speed = strval((char*)pCur->GetText());
 				}
+				else if(strcmp("Jump", pCur->Value()) == 0){
+					level.jump = strval((char*)pCur->GetText());
+				}
 				else if(strcmp("WAtk", pCur->Value()) == 0){
 					level.watk = strval((char*)pCur->GetText());
 				}
@@ -610,6 +688,9 @@ void Initializing::initializeSkill(char* name){
 				}
 				else if(strcmp("Avo", pCur->Value()) == 0){
 					level.avo = strval((char*)pCur->GetText());
+				}
+				else if(strcmp("HPP", pCur->Value()) == 0){
+					level.hpP = strval((char*)pCur->GetText());
 				}
 
 			}

@@ -6,6 +6,10 @@
 #include "PlayerInventory.h"
 #include <string.h>
 #include <math.h>
+#include <vector>
+#include "Skills.h"
+
+using namespace std;
 
 struct Pos {
 	short x;
@@ -18,6 +22,8 @@ class PlayerQuests;
 
 int distPos(Pos pos1, Pos pos2);
 
+struct SkillMapEnterActiveInfo;
+
 class Player:public AbstractPlayer {
 public:
 	Player () {
@@ -25,6 +31,16 @@ public:
 		shop=0;
 		npc=NULL;
 		chair=0;
+		skill.types[0] = 0;
+		skill.types[1] = 0;
+		skill.types[2] = 0;
+		skill.types[3] = 0;
+		skill.types[4] = 0;
+		skill.types[5] = 0;
+		skill.types[6] = 0;
+		skill.types[7] = 0;
+		skill.val = 0;
+		skill.isval = false;
 	}
 
 	~Player();
@@ -101,11 +117,23 @@ public:
 	unsigned short getMHP(){
 		return this->mhp;
 	}
+	void setRMHP(int rmhp){
+		this->rmhp=rmhp;
+	}
+	unsigned short getRMHP(){
+		return this->rmhp;
+	}
 	void setMMP(int mmp){
 		this->mmp=mmp;
 	}
 	unsigned short getMMP(){
 		return this->mmp;
+	}
+	void setRMMP(int rmmp){
+		this->rmmp=rmmp;
+	}
+	unsigned short getRMMP(){
+		return this->rmmp;
 	}
 	void setAp(short ap){
 		this->ap=ap;
@@ -172,6 +200,12 @@ public:
 	int isGM(){
 		return gm;
 	}
+	void setSkill(SkillMapEnterActiveInfo skill){
+		this->skill = skill;
+	}
+	SkillMapEnterActiveInfo getSkill(){
+		return skill;
+	}
 	PlayerInventory* inv;
 	PlayerSkills* skills;
 	PlayerQuests* quests;
@@ -191,8 +225,10 @@ private:
 	short luk;
 	unsigned short hp;
 	unsigned short mhp;
+	unsigned short rmhp;
 	unsigned short mp;
 	unsigned short mmp;
+	unsigned short rmmp;
 	short ap;
 	short sp;
 	int exp;
@@ -213,6 +249,7 @@ private:
 	}
 	void playerConnect();
 	void chaneKey(unsigned char* packet);
+	SkillMapEnterActiveInfo skill;
 };
 
 class PlayerFactory:public AbstractPlayerFactory {

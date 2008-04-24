@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Monster [ Pinboom ] -->
+<!-- [2230108] -->
+<!-- Level 22 -->
+<!-- HP 400 -->
+<!-- Speed 0 -->
+<!-- EXP 36 -->
+<!-- MP 0 -->
+<!-- Knockback 0 -->
+<Mob>
+  <Drops>
+    <!-- Items -->
+    <!-- [Two-Handed Sword] -->
+    <Drop>
+      <ID>1402000</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [White Fingerless Gloves] -->
+    <Drop>
+      <ID>1082001</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Red Doroness Robe] -->
+    <Drop>
+      <ID>1051005</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Yellow Doros Robe] -->
+    <Drop>
+      <ID>1050024</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Green Robin Hat] -->
+    <Drop>
+      <ID>1002119</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Red Shivermail] -->
+    <Drop>
+      <ID>1041027</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Red Shivermail Skirt] -->
+    <Drop>
+      <ID>1061025</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Green Loosecap] -->
+    <Drop>
+      <ID>1002131</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Red Enamel Boots] -->
+    <Drop>
+      <ID>1072065</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- Useable -->
+    <!-- [Arrow for Bow] -->
+    <Drop>
+      <ID>2060000</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Arrow for Crossbow] -->
+    <Drop>
+      <ID>2061000</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Blue Potion] -->
+    <Drop>
+      <ID>2000003</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Orange Potion] -->
+    <Drop>
+      <ID>2000001</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Wizard Potion] -->
+    <Drop>
+      <ID>2002003</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Scroll for Two-handed BW for ATT] -->
+    <Drop>
+      <ID>2044202</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- etc -->
+    <!-- [Bronze Ore] -->
+    <Drop>
+      <ID>4010000</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Diamond Ore] -->
+    <Drop>
+      <ID>4020007</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [Needle] -->
+    <Drop>
+      <ID>4000160</ID>
+      <Chance>100</Chance>
+    </Drop>
+    <!-- [The Summoning Rock] -->
+    <Drop>
+      <ID>4006001</ID>
+      <Chance>100</Chance>
+    </Drop>
+  </Drops>
+  <Mesos>
+    <Min>40</Min>
+    <Max>60</Max>
+  </Mesos>
+</Mob>

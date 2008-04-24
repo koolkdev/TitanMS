@@ -4,7 +4,7 @@
 #include "MySQLM.h"
 
 void Characters::showEquips(int id, vector <CharEquip> &vec){
-	int equips[15][2];
+	int equips[30][2];
 	int many = MySQL::showEquips(id, equips);
 	for(int i=0; i<many; i++){
 		CharEquip equip; 
@@ -17,6 +17,7 @@ void Characters::showEquips(int id, vector <CharEquip> &vec){
 void Characters::showCharacters(PlayerLogin* player){
 	int IDs[3];
 	int charnum = MySQL::getCharactersIDs(player->getUserid(), IDs);
+	player->setIDs(IDs, charnum);
 	vector <Character> chars;
 	for(int i=0; i<charnum; i++){
 		Character charc;
@@ -52,6 +53,9 @@ void Characters::checkCharacterName(PlayerLogin* player, unsigned char* packet){
 	char charactername[15];
 	int size = packet[0];
 	char is = 0;
+	if(size>15){
+		return;
+	}
 	getString(packet+2, size, charactername);
 	if(MySQL::isString("characters", "name", charactername))
 		is = 1;
@@ -77,6 +81,9 @@ void Characters::createCharacter(PlayerLogin* player, unsigned char* packet){
 	int id = MySQL::setChar(player->getUserid());
 	charc.id = id;
 	int size = packet[0];
+	if(size>15){
+		return;
+	}
 	getString(packet+2, size, charactername);
 	int pos = 2+size;
 	int eyes = getInt(packet+pos);
@@ -93,6 +100,10 @@ void Characters::createCharacter(PlayerLogin* player, unsigned char* packet){
 	pos+=4;
 	createEquip(getInt(packet+pos), 0x0b, id);
 	pos+=4;
+	if(packet[pos+1] + packet[pos+2] + packet[pos+3] + packet[pos+4] != 25){
+		// hacking
+		return;
+	}
 	char query[255]; 
 	sprintf_s(query, 255, "insert into items values(4161001, %d, 4, 1, 1);", id);
 	MySQL::insert(query);
@@ -128,6 +139,19 @@ void Characters::createCharacter(PlayerLogin* player, unsigned char* packet){
 void Characters::deleteCharacter(PlayerLogin* player, unsigned char *packet){
 	int data = getInt(packet);
 	int ID = getInt(packet+4);
+	bool check=false;
+	int ids[3];
+	int num = player->getIDs(ids);
+	for(int i=0; i<num; i++){
+		if(ids[i] == ID){
+			check=true;
+			break;
+		}
+	}
+	if(!check){
+		// hacking
+		return;
+	}
 	MySQL::deleteRow("characters", ID);
 	char sql[200];
 	sprintf_s(sql, 200, "delete from equip where charid=%d;", ID);
@@ -136,11 +160,26 @@ void Characters::deleteCharacter(PlayerLogin* player, unsigned char *packet){
 	MySQL::insert(sql);
 	sprintf_s(sql, 200, "delete from items where charid=%d;", ID);
 	MySQL::insert(sql);
+	sprintf_s(sql, 200, "delete from skills where charid=%d;", ID);
+	MySQL::insert(sql);
 	LoginPacket::deleteCharacter(player, ID);
 }
 
 
 void Characters::connectGame(PlayerLogin* player, unsigned char *packet){
 	int charid = getInt(packet);
+	bool check=false;
+	int ids[3];
+	int num = player->getIDs(ids);
+	for(int i=0; i<num; i++){
+		if(ids[i] == charid){
+			check=true;
+			break;
+		}
+	}
+	if(!check){
+		// hacking
+		return;
+	}
 	LoginPacket::connectIP(player, charid);
 }

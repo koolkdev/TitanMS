@@ -22,6 +22,7 @@ public:
 	static void takeDrop(Player* player, vector <Player*> players, Drop* drop);
 	static void dontTake(Player* player);
 	static void removeDrop(vector <Player*> players, Drop* drop);
+	static void explodeDrop(vector <Player*> players, Drop* drop);
 };
 
 #endif

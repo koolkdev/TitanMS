@@ -2,10 +2,12 @@
 #include "Maps.h"
 #include "Player.h"
 #include "MobsPacket.h"
+#include "DropsPacket.h"
 #include "Drops.h"
 #include "Levels.h"
 #include "Quests.h"
 #include "Skills.h"
+#include "Inventory.h"
 
 hash_map <int, MobInfo> Mobs::mobinfo;
 hash_map <int, SpawnsInfo> Mobs::info;
@@ -91,6 +93,7 @@ void Mobs::checkSpawn(int mapid){
 }	
 
 void Mobs::showMobs(Player* player){
+	updateSpawn(player->getMap()); 
 	for(unsigned int i=0; i<mobs[player->getMap()].size(); i++){
 		MobsPacket::showMob(player, mobs[player->getMap()][i]);
 	}
@@ -145,9 +148,9 @@ void Mobs::damageMobSkill(Player* player, unsigned char* packet){
 	if(skillid > 0)
 		Skills::useAttackSkill(player, skillid);
 	for(int i=0; i<howmany; i++){
-		int mobid = getInt(packet+14+i*22);
+		int mobid = getInt(packet+14+i*(22+4*(hits-1)));
 		for(int k=0; k<hits; k++){
-			int damage = getInt(packet+32+i*22+k*4);
+			int damage = getInt(packet+32+i*(22+4*(hits-1))+k*4);
 			for(unsigned int j=0; j<mobs[map].size(); j++){
 				if(mobs[map][j]->getID() == mobid){
 					mobs[map][j]->setHP(mobs[map][j]->getHP()-damage);
@@ -170,12 +173,15 @@ void Mobs::damageMob(Player* player, unsigned char* packet){
 	int hits = packet[1]%0x10;
 	int map = player->getMap();
 	int skillid = getInt(packet+2);
+	bool s4211006 = false;
+	if(skillid == 4211006)
+		s4211006 = true;
 	if(skillid > 0)
 		Skills::useAttackSkill(player, skillid);
 	for(int i=0; i<howmany; i++){
-		int mobid = getInt(packet+14+i*22);
+        int mobid = getInt(packet+14+i*(22-s4211006+4*(hits-1)));
 		for(int k=0; k<hits; k++){
-			int damage = getInt(packet+32+i*22+k*4);
+            int  damage = getInt(packet+32-s4211006+i*(22-s4211006+4*(hits-1))+k*4);
 			for(unsigned int j=0; j<mobs[map].size(); j++){
 				if(mobs[map][j]->getID() == mobid){
 					mobs[map][j]->setHP(mobs[map][j]->getHP()-damage);
@@ -189,7 +195,20 @@ void Mobs::damageMob(Player* player, unsigned char* packet){
 				}
 			}
 		}
-	}	
+	}
+	if (s4211006){
+        unsigned char howmanyitems = packet[(14+howmany*(21+4*(hits-1)))+4];
+        for(int i=0; i<howmanyitems; i++){
+            int objID = getInt(packet+(14+howmany*(21+4*(hits-1)))+5+(5*i));
+            for(unsigned int i=0; i<Drops::drops[map].size(); i++){
+                if(Drops::drops[map][i]->getObjID() == objID){
+                    DropsPacket::explodeDrop(Maps::info[map].Players, Drops::drops[map][i]);
+                    Drops::drops[map].erase(Drops::drops[map].begin()+i);
+                    break;
+                }
+            }
+        }
+    }
 }
 void Mobs::damageMobS(Player* player, unsigned char* packet, int size){
 	int itemid=0;
@@ -203,14 +222,18 @@ void Mobs::damageMobS(Player* player, unsigned char* packet, int size){
 	MobsPacket::damageMobS(player, Maps::info[player->getMap()].Players, packet, itemid);
 	int howmany = packet[1]/0x10;
 	int hits = packet[1]%0x10;
+	//Inventory::takeItemSlot(player, pos, 2, hits); // TODO
 	int map = player->getMap();
 	int skillid = getInt(packet+2);
+	bool s3121004 = false;
+	if(skillid == 3121004)
+		s3121004 = true;
 	if(skillid > 0)
 		Skills::useAttackSkill(player, skillid);
 	for(int i=0; i<howmany; i++){
-		int mobid = getInt(packet+19+i*22);
+		int mobid = getInt(packet+19+4*s3121004+i*(22+4*(hits-1)));
 		for(int k=0; k<hits; k++){
-			int damage = getInt(packet+37+i*22+k*4);
+			int damage = getInt(packet+37+4*s3121004+i*(22+4*(hits-1))+k*4);
 			for(unsigned int j=0; j<mobs[map].size(); j++){
 				if(mobs[map][j]->getID() == mobid){
 					mobs[map][j]->setHP(mobs[map][j]->getHP()-damage);
@@ -237,8 +260,27 @@ void Mobs::spawnMob(Player* player, int mobid){
 	mob->setHP(mobinfo[mobid].hp);
 	mob->setMP(mobinfo[mobid].mp);
 	mob->setFH(0);
-	mob->setControl(player);
 	mob->setType(2);
+	mob->setControl(player);
+	for(unsigned int j=0; j<Maps::info[player->getMap()].Players.size(); j++)
+		MobsPacket::showMob(Maps::info[player->getMap()].Players[j], mob);
+}
+
+void Mobs::spawnMobPos(Player* player, int mobid, int xx, int yy){
+    Mob* mob = new Mob();
+    mobs[player->getMap()].push_back(mob);
+    Pos spawnPos;
+    spawnPos.x = xx;
+    spawnPos.y = yy;
+    mob->setPos(spawnPos);
+    mob->setID(mobscount++);
+    mob->setMobID(mobid);
+    mob->setMapID(-1);
+    mob->setHP(mobinfo[mobid].hp);
+    mob->setMP(mobinfo[mobid].mp);
+    mob->setFH(0);
+    mob->setControl(player);
+    mob->setType(2);
 	for(unsigned int j=0; j<Maps::info[player->getMap()].Players.size(); j++)
 		MobsPacket::showMob(Maps::info[player->getMap()].Players[j], mob);
 }

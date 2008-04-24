@@ -99,6 +99,15 @@ public:
 				amount+=getItem(i)->amount;
 		return amount;
 	}
+	int getItemBySlot(int itemid, int slot){
+		int amount=0;
+		for(int i=0; i<getItemNum(); i++)
+			if(getItem(i)->id == itemid && getItem(i)->pos == slot){
+				amount=getItem(i)->amount;
+				break;
+			}
+		return amount;
+	}
 private:
 	int maxslots;
 	int mesos;

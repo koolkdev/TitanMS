@@ -5,9 +5,13 @@
 #include "Characters.h"
 
 void Worlds::showWorld(PlayerLogin* player){
+	if(player->getStatus() != 4){
+		// hacking
+		return;
+	}
 	World world;
 	strcpy_s(world.name, 15, "Scania");
-	world.channels = 5;
+	world.channels = 1;
 	world.id = 0;
 	LoginPacket::showWorld(player, world);
 	LoginPacket::worldEnd(player);

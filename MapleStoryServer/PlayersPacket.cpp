@@ -70,3 +70,23 @@ void PlayersPacket::showInfo(Player* player, Player* getinfo){
 	packet.addByte(0);
 	packet.packetSend(player);
 }
+
+void PlayersPacket::findPlayer(Player* player, char* name, int map){
+	Packet packet = Packet();
+	packet.addHeader(0x5E);
+	packet.addByte(9);
+	packet.addShort(strlen(name));
+	packet.addString(name, strlen(name));
+	if(map>0){
+		packet.addByte(1);
+		packet.addInt(map);
+	}
+	else{
+		packet.addByte(0);
+		packet.addInt(0);
+	}
+	packet.addInt(0);
+	packet.addInt(-54);
+	packet.packetSend(player);
+
+}

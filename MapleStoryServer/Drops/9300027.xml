@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Monster [ Devil Slime ] -->
+	<!-- [9300027] -->
+	<!-- Level 23 -->
+	<!-- HP 1,000 -->
+	<!-- Speed -20 -->
+	<!-- EXP 170 -->
+	<!-- MP 0 -->
+	<!-- Knockback 100 -->
+<Mob>
+	<Drops>
+			<!-- etc -->
+			<!-- [Mark of Evil] -->
+		<Drop>
+			<ID>4001035</ID>
+			<Chance>100</Chance>
+		</Drop>
+	</Drops>
+	<Mesos>
+		<Min>100</Min>
+		<Max>200</Max>
+	</Mesos>
+</Mob>

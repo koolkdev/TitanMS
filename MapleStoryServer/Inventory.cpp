@@ -5,6 +5,7 @@
 #include "Shops.h"
 #include "Quests.h"
 #include "Maps.h"
+#include "Mobs.h"
 
 void Inventory::itemMove(Player* player, unsigned char* packet){
 	char inv = packet[4];
@@ -13,7 +14,7 @@ void Inventory::itemMove(Player* player, unsigned char* packet){
 	if(inv == 1){
 		if(slot2 == 0){
 			InventoryPacket::moveItem(player, inv, slot1, slot2);
-			Equip* equip;
+			Equip* equip = NULL;
 			int num;
 			for(int i=0; i<player->inv->getEquipNum(); i++){
 				if(player->inv->getEquipPos(i) == slot1){
@@ -87,6 +88,7 @@ void Inventory::itemMove(Player* player, unsigned char* packet){
 			}
 			if(item==NULL)
 				return;
+			if (ISSTAR(item->id)) amount = item->amount;
 			if(item->amount - amount == 0){
 				item->amount = 0;
 				InventoryPacket::moveItem(player, inv, slot1, slot2);
@@ -234,22 +236,24 @@ void Inventory::addEquip(Player* player, Equip* equip, bool is){
 }
 
 void Inventory::addItem(Player* player, Item* item, bool is){
-	for(int i=0; i<player->inv->getItemNum(); i++){
-		if(player->inv->getItem(i)->id == item->id && Drops::items[player->inv->getItem(i)->id].type == item->inv && player->inv->getItem(i)->amount < Drops::items[item->id].maxslot){
-			Item* olditem = player->inv->getItem(i);
-			if(item->amount + olditem->amount > Drops::items[item->id].maxslot){
-				int amount = Drops::items[item->id].maxslot-olditem->amount;
-				item->amount-=amount;
-				olditem->amount = Drops::items[item->id].maxslot;
-				InventoryPacket::addItem(player, olditem, is);
-			}
-			else{
-				item->amount += olditem->amount;
-				item->pos = olditem->pos;
-				player->inv->deleteItem(i);
-				player->inv->addItem(item);
-				InventoryPacket::addItem(player, item, is);
-				return;
+	if (!ISSTAR(item->id)){
+		for(int i=0; i<player->inv->getItemNum(); i++){
+			if(player->inv->getItem(i)->id == item->id && Drops::items[player->inv->getItem(i)->id].type == item->inv && player->inv->getItem(i)->amount < Drops::items[item->id].maxslot){
+				Item* olditem = player->inv->getItem(i);
+				if(item->amount + olditem->amount > Drops::items[item->id].maxslot){
+					int amount = Drops::items[item->id].maxslot-olditem->amount;
+					item->amount-=amount;
+					olditem->amount = Drops::items[item->id].maxslot;
+					InventoryPacket::addItem(player, olditem, is);
+				}
+				else{
+					item->amount += olditem->amount;
+					item->pos = olditem->pos;
+					player->inv->deleteItem(i);
+					player->inv->addItem(item);
+					InventoryPacket::addItem(player, item, is);
+					return;
+				}
 			}
 		}
 	}
@@ -258,14 +262,29 @@ void Inventory::addItem(Player* player, Item* item, bool is){
 }
 
 void Inventory::useShop(Player* player, unsigned char* packet){
-
 	char type = packet[0];
 	if(type == 0){
 		int item = getInt(packet+3);
 		short howmany = getShort(packet+7);
+		if(Shops::getPrice(player, item) == 0){
+			// hacking
+			return;
+		}
 		bool isequip=false;
 		if(Drops::equips.find(item) != Drops::equips.end())
 			isequip = 1;
+		if(isequip){
+			if(player->inv->getMesos() < Shops::getPrice(player, item)){
+				// hacking
+				return;
+			}
+		}
+		else{
+			if(player->inv->getMesos() < Shops::getPrice(player, item)*howmany){
+				// hacking
+				return;
+			}
+		}
 		if(isequip){
 			Equip* equip = setEquipStats(player, item);
 			addEquip(player, equip);
@@ -290,6 +309,10 @@ void Inventory::useShop(Player* player, unsigned char* packet){
 		short slot = getShort(packet+1);
 		int item = getInt(packet+3);
 		short amount = getShort(packet+7);
+		if(player->inv->getItemBySlot(item, slot) < amount){
+			// hacking
+			return;
+		}
 		char inv = packet[9];
 		if(item/1000000 == 1){
 			for(int i=0; i<player->inv->getEquipNum(); i++){
@@ -373,6 +396,10 @@ void Inventory::takeItemSlot(Player* player, short slot, char inv, short amount)
 void Inventory::useItem(Player *player, unsigned char *packet){
 	short slot = getShort(packet+4);
 	int itemid = getInt(packet+6);
+	if(player->inv->getItemBySlot(itemid, slot) == 0){
+		// hacking
+		return;
+	}
 	takeItemSlot(player, slot, 2, 1);
 	if(Drops::consumes[itemid].hp>0){
 		player->setHP(player->getHP()+Drops::consumes[itemid].hp);
@@ -401,4 +428,104 @@ void Inventory::useChair(Player* player, unsigned char* packet){
 void Inventory::stopChair(Player* player, unsigned char* packet){
 	player->setChair(0);
 	InventoryPacket::stopChair(player, Maps::info[player->getMap()].Players);
+}
+
+int Inventory::isCash(int itemid){
+	if(Drops::equips.find(itemid) != Drops::equips.end() && Drops::equips[itemid].cash)
+		return 1;
+	return 0;
+}
+
+void Inventory::useSummonBag(Player* player, unsigned char* packet){
+	short slot = getShort(packet+4);
+	int itemid = getInt(packet+6);
+	if(player->inv->getItemBySlot(itemid, slot) == 0){
+		// hacking
+		return;
+	}
+	if(Drops::items.find(itemid) == Drops::items.end())
+		return;
+	takeItemSlot(player, slot, 2, 1);
+	for(unsigned int i=0; i<Drops::consumes[itemid].mobs.size(); i++){
+		if(rand()%100<Drops::consumes[itemid].mobs[i].chance){
+			Mobs::spawnMob(player, Drops::consumes[itemid].mobs[i].mobid);
+		}
+	}
+}
+void Inventory::useReturnScroll(Player* player, unsigned char* packet){
+	short slot = getShort(packet+4);
+	int itemid = getInt(packet+6);
+	if(player->inv->getItemBySlot(itemid, slot) == 0){
+		// hacking
+		return;
+	}
+	if(Drops::items.find(itemid) == Drops::items.end())
+		return;
+	takeItemSlot(player, slot, 2, 1);
+	int map = Drops::consumes[itemid].moveTo;
+	if(map == 999999999)
+		Maps::changeMap(player, Maps::info[player->getMap()].rm, 0);
+	else
+		Maps::changeMap(player, map, 0);
+}
+void Inventory::useScroll(Player* player, unsigned char* packet){
+	short slot = getShort(packet+4);
+	short eslot = getShort(packet+6);
+	int itemid=0;
+	Equip* equip = NULL;
+	for(int i=0; i<player->inv->getItemNum(); i++){
+		if(player->inv->getItem(i)->pos == slot && player->inv->getItem(i)->inv == 2)	{
+			itemid = player->inv->getItem(i)->id;
+			break;
+		}
+	}
+	for(int i=0; i<player->inv->getEquipNum(); i++){
+		if(player->inv->getEquip(i)->pos == eslot)	{
+			equip = player->inv->getEquip(i);
+			break;
+		}
+	}
+	bool cursed=false;
+	if(itemid == 0 || equip == NULL)
+		return;
+	if(equip->slots > 0){
+		if(Drops::items.find(itemid) == Drops::items.end())
+			return;
+		takeItemSlot(player, slot, 2, 1);
+		equip->slots--;
+		if(rand()%100<Drops::consumes[itemid].success){
+			InventoryPacket::useScroll(player, Maps::info[player->getMap()].Players ,true);
+			equip->istr+=Drops::consumes[itemid].istr;
+			equip->idex+=Drops::consumes[itemid].idex;
+			equip->iint+=Drops::consumes[itemid].iint;
+			equip->iluk+=Drops::consumes[itemid].iluk;
+			equip->ihp+=Drops::consumes[itemid].ihp;
+			equip->imp+=Drops::consumes[itemid].imp;
+			equip->iwatk+=Drops::consumes[itemid].iwatk;
+			equip->imatk+=Drops::consumes[itemid].imatk;
+			equip->iwdef+=Drops::consumes[itemid].iwdef;
+			equip->imdef+=Drops::consumes[itemid].imdef;
+			equip->iacc+=Drops::consumes[itemid].iacc;
+			equip->iavo+=Drops::consumes[itemid].iavo;
+			equip->ihand+=Drops::consumes[itemid].ihand;
+			equip->ijump+=Drops::consumes[itemid].ijump;
+			equip->ispeed+=Drops::consumes[itemid].ispeed;
+		}
+		else{
+			if(rand()%100<Drops::consumes[itemid].cursed){
+				cursed = true;
+				for(int i=0; i<player->inv->getEquipNum(); i++){
+					if(player->inv->getEquip(i)->pos == eslot){
+						InventoryPacket::moveItem(player, 1, eslot, 0);
+						player->inv->deleteEquip(i);	
+						break;
+					}
+				}
+			}
+			InventoryPacket::useScroll(player, Maps::info[player->getMap()].Players , false);
+		}
+	}
+	if(!cursed) 
+		InventoryPacket::addEquip(player, equip, 1);
+	InventoryPacket::updatePlayer(player); 
 }

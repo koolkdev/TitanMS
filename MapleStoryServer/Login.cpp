@@ -7,12 +7,15 @@
 void Login::loginUser(PlayerLogin* player, unsigned char* packet){
 	int usersize = getShort(packet);
 	int passsize = getShort(packet+usersize+2);
+	if(usersize > 15 || passsize > 15){
+		return;
+	}
 	char username[MAX_FIELD_SIZE], password[MAX_FIELD_SIZE];
 	getString(packet+2, usersize, username);   
 	getString(packet+4+usersize, passsize, password);   
-	printf("Username: %s\nPassword: %s\n", username, password);
 	int s = checkLogin(username, password);
 	if(s == 1){
+		printf("%s logged in.\n", username);
 		player->setUserid(MySQL::getUserID(username));
 		player->setPin(MySQL::getInt("users", player->getUserid(), "pin"));
 		int pin = player->getPin();
