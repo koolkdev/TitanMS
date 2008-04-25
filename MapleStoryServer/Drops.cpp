@@ -311,7 +311,7 @@ void Drops::lootItem(Player* player, unsigned char*packet){
 
 void Drops::dropMesos(Player* player, unsigned char* packet){
 	int amount = getInt(packet+4);
-	if(amount < 10){
+	if(amount < 10 || amount >50000){
 		// hacking
 		return;
 	}

@@ -106,9 +106,12 @@ void InventoryPacket::addEquip(Player* player, Equip* equip, bool is){
 	packet.addShort(equip->ihand);
 	packet.addShort(equip->ispeed);
 	packet.addShort(equip->ijump);
-	packet.addInt(0);
-	packet.addInt(0);
-	packet.addInt(0);
+	packet.addShort(0);
+	packet.addShort(0);
+	packet.addShort(0);
+	packet.addShort(0);
+	packet.addShort(0);
+	packet.addShort(0);
 	packet.packetSend(player);
 }
 

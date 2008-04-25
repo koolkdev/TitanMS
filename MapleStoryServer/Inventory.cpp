@@ -309,22 +309,27 @@ void Inventory::useShop(Player* player, unsigned char* packet){
 		short slot = getShort(packet+1);
 		int item = getInt(packet+3);
 		short amount = getShort(packet+7);
-		char inv = packet[9];
-		if(player->inv->getItemBySlot(item, slot, inv) < amount){
-			// hacking
-			return;
-		}
-		if(item/1000000 == 1){
+		char inv = item/1000000;
+		if(inv == 1){
+			bool check=false;
 			for(int i=0; i<player->inv->getEquipNum(); i++){
-				if(player->inv->getEquip(i)->pos == slot){
+				if(player->inv->getEquip(i)->pos == slot && player->inv->getEquip(i)->id == item){
 					InventoryPacket::moveItem(player, 1, slot, 0);
 					player->inv->deleteEquip(i);	
 					break;
 				}
 			}
+			if(!check){
+				// hacking
+				return;
+			}
 			player->inv->setMesos(player->inv->getMesos() + Drops::equips[item].price*amount);
 		}
 		else{
+			if(player->inv->getItemBySlot(item, slot, inv) < amount){
+				// hacking
+				return;
+			}
 			takeItemSlot(player, slot, Drops::items[item].type, amount);
 			player->inv->setMesos(player->inv->getMesos() + Drops::items[item].price*amount);
 		}

@@ -49,7 +49,7 @@ void PlayerPacket::connectData(Player* player){
 			packet.addByte(equip->type);
 			packet.addByte(1);
 			packet.addInt(equip->id);
-			packet.addShort(0);
+			packet.addShort(equip->scrolls);
 			packet.addBytes("8005BB46E61702");
 			packet.addShort(equip->slots); // slots
 			packet.addShort(equip->istr); // STR
@@ -105,7 +105,7 @@ void PlayerPacket::connectData(Player* player){
 			packet.addShort(0);		
 			packet.addShort(0);		
 			packet.addShort(0);		
-			packet.addShort(0);
+			packet.addShort(equip->scrolls);
 		}
 	}
 	packet.addByte(0);

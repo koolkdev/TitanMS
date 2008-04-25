@@ -338,12 +338,6 @@ void Skills::startTimer(){
 	map.val = true;
 	skillsinfo[4101004].map.push_back(map);
 	skillsinfo[4201003].map.push_back(map);
-	map.type = 0x1;
-	map.byte = 2;
-	map.value = SKILL_JUMP;
-	map.val = false;
-	skillsinfo[4101004].map.push_back(map);
-	skillsinfo[4201003].map.push_back(map);
 
 }
 

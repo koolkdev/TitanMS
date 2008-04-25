@@ -9,7 +9,6 @@
 #include "Skills.h"
 #include "Inventory.h"
 #include <math.h>
-
 hash_map <int, MobInfo> Mobs::mobinfo;
 hash_map <int, SpawnsInfo> Mobs::info;
 hash_map <int, vector<Mob*>> Mobs::mobs;
@@ -71,6 +70,8 @@ void Mobs::checkSpawn(int mapid){
 			mob->setMP(mobinfo[info[mapid][i].id].mp);
 			mob->setFH(info[mapid][i].fh);
 			mob->setType(2);
+			if(Maps::info[mapid].Players.size()>0)
+				MobsPacket::spawnMob(Maps::info[mapid].Players[0], mob, Maps::info[mapid].Players, 1);
 		}
 		Mob* mob = NULL;
 		for(unsigned int j=0; j<mobs[mapid].size(); j++)
@@ -98,8 +99,6 @@ void Mobs::checkSpawn(int mapid){
 					posi = k;
 				}
 			}
-			if(!check)
-				MobsPacket::spawnMob(Maps::info[mapid].Players[posi], mob, Maps::info[mapid].Players, 1);
 			mob->setControl(Maps::info[mapid].Players[posi]);
 		}
 	}
@@ -176,7 +175,7 @@ void Mobs::damageMobSkill(Player* player, unsigned char* packet){
 		Skills::useAttackSkill(player, skillid);
 	for(int i=0; i<howmany; i++){
 		int mobid = getInt(packet+14+i*(22+4*(hits-1)));
-		Mob* mob = getMobByID(mobid, player->getMap());
+		Mob* mob = getMobByID(mobid, map);
 		for(int k=0; k<hits; k++){
 			int damage = getInt(packet+32+i*(22+4*(hits-1))+k*4);
 			if(mob!=NULL){
@@ -186,6 +185,7 @@ void Mobs::damageMobSkill(Player* player, unsigned char* packet){
 				MobsPacket::showHP(player, mobid ,mob->getHP()*100/mhp);
 				if(mob->getHP() <= 0){
 					dieMob(player, mob);
+					break;
 				}
 			}
 		}
@@ -205,7 +205,7 @@ void Mobs::damageMob(Player* player, unsigned char* packet){
 		Skills::useAttackSkill(player, skillid);
 	for(int i=0; i<howmany; i++){
         int mobid = getInt(packet+14+i*(22-s4211006+4*(hits-1)));
-		Mob* mob = getMobByID(mobid, player->getMap());
+		Mob* mob = getMobByID(mobid, map);
 		for(int k=0; k<hits; k++){
 			int damage = getInt(packet+32-s4211006+i*(22-s4211006+4*(hits-1))+k*4);
 			if(mob!=NULL){
@@ -218,6 +218,7 @@ void Mobs::damageMob(Player* player, unsigned char* packet){
 				MobsPacket::showHP(player, mobid ,mob->getHP()*100/mhp);
 				if(mob->getHP() <= 0){
 					dieMob(player, mob);
+					break;
 				}
 			}
 		}
@@ -258,7 +259,7 @@ void Mobs::damageMobS(Player* player, unsigned char* packet, int size){
 		Skills::useAttackSkill(player, skillid);
 	for(int i=0; i<howmany; i++){
 		int mobid = getInt(packet+19+4*s3121004+i*(22+4*(hits-1)));
-		Mob* mob = getMobByID(mobid, player->getMap());
+		Mob* mob = getMobByID(mobid, map);
 		for(int k=0; k<hits; k++){
 			int damage = getInt(packet+37+4*s3121004+i*(22+4*(hits-1))+k*4);
 			if(mob!=NULL){
@@ -268,6 +269,7 @@ void Mobs::damageMobS(Player* player, unsigned char* packet, int size){
 				MobsPacket::showHP(player, mobid ,mob->getHP()*100/mhp);
 				if(mob->getHP() <= 0){
 					dieMob(player, mob);
+					break;
 				}
 			}
 		}

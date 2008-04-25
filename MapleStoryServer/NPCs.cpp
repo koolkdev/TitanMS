@@ -252,6 +252,10 @@ void NPC::giveEXP(int exp){
 	Levels::giveEXP(player, exp, 1);	
 }
 
+int NPC::getLevel(){
+	return player->getLevel();	
+}
+
 void NPC::setStyle(int id){
 	if(id/10000 == 0){
 		player->setSkin((char)id);

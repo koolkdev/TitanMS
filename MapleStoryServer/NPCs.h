@@ -143,6 +143,7 @@ public:
 	void addQuest(short questid);
 	void endQuest(short questid);
 	void giveEXP(int exp);
+	int getLevel();
 
 };
 

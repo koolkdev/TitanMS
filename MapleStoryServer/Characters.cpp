@@ -119,7 +119,7 @@ void Characters::createCharacter(PlayerLogin* player, unsigned char* packet){
 	charc.level = MySQL::getInt("characters", id, "level");
 	charc.job = MySQL::getInt("characters", id, "job");
 	charc.str = MySQL::getInt("characters", id, "str");
-	charc.dex = charc.gender = MySQL::getInt("characters", id, "dex");
+	charc.dex = MySQL::getInt("characters", id, "dex");
 	charc.intt = MySQL::getInt("characters", id, "intt");
 	charc.luk = MySQL::getInt("characters", id, "luk");
 	charc.hp = MySQL::getInt("characters", id, "chp");

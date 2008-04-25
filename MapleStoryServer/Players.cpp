@@ -82,6 +82,7 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 			}
 		}
 		else if(strcmp(command, "summon") == 0 || strcmp(command, "spawn") == 0){
+			if(strlen(next_token) == 0) return;
 			int mobid = atoi(strtok_s(NULL, " ",&next_token));
 			if(Mobs::mobinfo.find(mobid) == Mobs::mobinfo.end())
 				return;
@@ -93,6 +94,7 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 			}
 		}
 		else if(strcmp(command, "notice") == 0){
+			if(strlen(next_token) == 0) return;
 			PlayersPacket::showMassage(next_token, 0);
 		}
 		else if(strcmp(command, "shop") == 0){
@@ -107,6 +109,7 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 			PlayersPacket::showMassage(text, 0);
 		}
 		else if(strcmp(command, "item") == 0){
+			if(strlen(next_token) == 0) return;
 			int itemid = atoi(strtok_s(NULL, " ",&next_token));
 			if(Drops::items.find(itemid) == Drops::items.end() && Drops::equips.find(itemid) == Drops::equips.end())
 				return;
@@ -116,15 +119,19 @@ void Players::chatHandler(Player* player, unsigned char* packet){
 			Inventory::addNewItem(player, itemid, count);
 		}
 		else if(strcmp(command, "level") == 0){
+			if(strlen(next_token) == 0) return;
 			Levels::setLevel(player, atoi(strtok_s(NULL, " ",&next_token)));
 		}
 		else if(strcmp(command, "job") == 0){
+			if(strlen(next_token) == 0) return;
 			Levels::setJob(player, atoi(strtok_s(NULL, " ",&next_token)));
 		}	
 		else if(strcmp(command, "ap") == 0){
+			if(strlen(next_token) == 0) return;
 			player->setAp(player->getAp()+atoi(strtok_s(NULL, " ",&next_token)));
 		}
 		else if(strcmp(command, "sp") == 0){
+			if(strlen(next_token) == 0) return;
 			player->setSp(player->getSp()+atoi(strtok_s(NULL, " ",&next_token)));
 		}
 		else if(strcmp(command, "killnpc") == 0){
