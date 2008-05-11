@@ -105,6 +105,12 @@
             <cy>8</cy>
             <fh>3</fh>
         </Mob>
+        <Mob>
+            <id>9400571</id>
+            <x>1679</x>
+            <cy>8</cy>
+            <fh>10</fh>
+        </Mob>
     </Mobs>
     <Portals>
         <Portal>

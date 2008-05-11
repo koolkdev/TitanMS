@@ -95,9 +95,9 @@
         </Mob>
         <Mob>
             <id>7130010</id>
-            <x>501</x>
+            <x>310</x>
             <cy>738</cy>
-            <fh>90</fh>
+            <fh>89</fh>
         </Mob>
         <Mob>
             <id>7130010</id>
@@ -176,6 +176,12 @@
             <x>872</x>
             <cy>1404</cy>
             <fh>7</fh>
+        </Mob>
+        <Mob>
+            <id>9500180</id>
+            <x>467</x>
+            <cy>738</cy>
+            <fh>90</fh>
         </Mob>
     </Mobs>
     <Portals>

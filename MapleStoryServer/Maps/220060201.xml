@@ -129,6 +129,12 @@
             <cy>-316</cy>
             <fh>63</fh>
         </Mob>
+        <Mob>
+            <id>9500180</id>
+            <x>35</x>
+            <cy>1960</cy>
+            <fh>136</fh>
+        </Mob>
     </Mobs>
     <Portals>
         <Portal>

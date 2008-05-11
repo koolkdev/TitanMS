@@ -6,7 +6,7 @@
             <id>2030000</id>
             <x>-29</x>
             <cy>-2584</cy>
-            <fh>200</fh>
+            <fh>74</fh>
             <rx0>-79</rx0>
             <rx1>21</rx1>
         </NPC>
@@ -14,7 +14,7 @@
             <id>2030009</id>
             <x>363</x>
             <cy>-2075</cy>
-            <fh>191</fh>
+            <fh>174</fh>
             <rx0>313</rx0>
             <rx1>413</rx1>
         </NPC>
@@ -30,37 +30,37 @@
             <id>6300000</id>
             <x>285</x>
             <cy>-542</cy>
-            <fh>48</fh>
+            <fh>81</fh>
         </Mob>
         <Mob>
             <id>6300000</id>
             <x>297</x>
             <cy>-1213</cy>
-            <fh>116</fh>
+            <fh>127</fh>
         </Mob>
         <Mob>
             <id>6300000</id>
             <x>-270</x>
             <cy>-1484</cy>
-            <fh>149</fh>
+            <fh>160</fh>
         </Mob>
         <Mob>
             <id>7130102</id>
             <x>-174</x>
             <cy>-519</cy>
-            <fh>66</fh>
+            <fh>17</fh>
         </Mob>
         <Mob>
             <id>7130102</id>
             <x>-92</x>
             <cy>-1490</cy>
-            <fh>152</fh>
+            <fh>163</fh>
         </Mob>
         <Mob>
             <id>7130102</id>
             <x>322</x>
             <cy>-240</cy>
-            <fh>10</fh>
+            <fh>20</fh>
         </Mob>
         <Mob>
             <id>6300000</id>
@@ -72,37 +72,43 @@
             <id>6300000</id>
             <x>-195</x>
             <cy>-1200</cy>
-            <fh>102</fh>
+            <fh>113</fh>
         </Mob>
         <Mob>
             <id>6300000</id>
             <x>35</x>
             <cy>-519</cy>
-            <fh>55</fh>
+            <fh>88</fh>
         </Mob>
         <Mob>
             <id>7130102</id>
             <x>533</x>
             <cy>-1218</cy>
-            <fh>119</fh>
+            <fh>130</fh>
         </Mob>
         <Mob>
             <id>6300000</id>
             <x>110</x>
             <cy>-1483</cy>
-            <fh>146</fh>
+            <fh>157</fh>
         </Mob>
         <Mob>
             <id>7130102</id>
             <x>494</x>
             <cy>-541</cy>
-            <fh>51</fh>
+            <fh>84</fh>
+        </Mob>
+        <Mob>
+            <id>9500171</id>
+            <x>-7</x>
+            <cy>-243</cy>
+            <fh>6</fh>
         </Mob>
         <Mob>
             <id>7130102</id>
             <x>51</x>
             <cy>-1184</cy>
-            <fh>110</fh>
+            <fh>121</fh>
         </Mob>
     </Mobs>
     <Portals>

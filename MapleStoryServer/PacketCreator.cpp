@@ -1,6 +1,24 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "PacketCreator.h"
 #include <stdio.h>
 #include "Player.h"
+#include "PlayerLogin.h"
+#include "MasterServer.h"
+#include "Channel.h"
 
 void Packet::addHeader(short headerid){
 	(*(short*)packet) = headerid;
@@ -70,7 +88,7 @@ void Packet::packetSend(Player* player){
 
 void Packet::sendTo(Player* player, vector <Player*> players, bool is){
 	for(unsigned int i=0; i<players.size(); i++){
-		if((player != NULL && player->getPlayerid() != players[i]->getPlayerid() && !is) || is)
+		if((player != NULL && player != players[i] && !is) || is)
 			this->packetSend(players[i]);
 	}
 }
@@ -81,4 +99,26 @@ void Packet::packetSendLogin(PlayerLogin* player){
 		tempbuf[i] = packet[i];
 	}
 	player->sendPacket(tempbuf, pos);
+}
+void Packet::packetSendMasterServer(MasterServer* masterServer){
+	unsigned char tempbuf[10000];
+	for(int i=0; i<pos; i++){
+		tempbuf[i] = packet[i];
+	}
+	masterServer->sendPacket(tempbuf, pos);
+}
+void Packet::packetSendChannel(Channel* channel){
+	unsigned char tempbuf[10000];
+	for(int i=0; i<pos; i++){
+		tempbuf[i] = packet[i];
+	}
+	channel->sendPacket(tempbuf, pos);
+}
+
+void Packet::sendToChannels(Channel* channel, Channel* channels[], bool is){
+	for(int i=0; i<20; i++){
+		if((channels[i] != NULL && channels[i] != channel && !is) || is)
+			this->packetSendChannel(channels[i]);
+	}
+	
 }

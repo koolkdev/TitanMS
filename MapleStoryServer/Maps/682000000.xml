@@ -27,7 +27,20 @@
             <rx1>-679</rx1>
         </NPC>
     </NPCs>
-    <Mobs />
+    <Mobs>
+        <Mob>
+            <id>9400571</id>
+            <x>-144</x>
+            <cy>238</cy>
+            <fh>9</fh>
+        </Mob>
+        <Mob>
+            <id>9400572</id>
+            <x>138</x>
+            <cy>238</cy>
+            <fh>4</fh>
+        </Mob>
+    </Mobs>
     <Portals>
         <Portal>
             <id>0</id>

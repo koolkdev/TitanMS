@@ -153,6 +153,10 @@
 				RelativePath=".\MapleEncryption.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\MasterDecoder.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -169,6 +173,10 @@
 			</File>
 			<File
 				RelativePath=".\MapleEncryption.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MasterDecoder.h"
 				>
 			</File>
 		</Filter>

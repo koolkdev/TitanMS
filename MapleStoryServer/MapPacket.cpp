@@ -1,12 +1,28 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "PacketCreator.h"
 #include "Player.h"
 #include "Maps.h"
 #include "MapPacket.h"
 #include "Inventory.h"
+#include "MasterServer.h"
 
 Packet MapPacket::playerPacket(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x65);
+	packet.addHeader(0x66);
 	packet.addInt(player->getPlayerid());
 	packet.addShort(strlen(player->getName()));
 	packet.addString(player->getName(), strlen(player->getName()));
@@ -74,7 +90,9 @@ Packet MapPacket::playerPacket(Player* player){
 	packet.addInt(0);
 	packet.addInt(0);   
 	packet.addInt(0);
-	packet.addInt(0); 
+	packet.addInt(0);
+	packet.addInt(0);
+	packet.addInt(player->getItemEffect());
 	packet.addInt(player->getChair());
 	packet.addShort(player->getPos().x);
 	packet.addShort(player->getPos().y);
@@ -97,7 +115,7 @@ void MapPacket::showPlayer(Player* player, vector <Player*> players){
 
 void MapPacket::removePlayer(Player* player, vector <Player*> players){
 	Packet packet = Packet();
-	packet.addHeader(0x70);
+	packet.addHeader(0x71);
 	packet.addInt(player->getPlayerid());
 	for(unsigned int i=0; i<players.size(); i++){
 		if(player->getPlayerid() != players[i]->getPlayerid())
@@ -116,8 +134,8 @@ void MapPacket::showPlayers(Player* player, vector <Player*> players){
 
 void MapPacket::changeMap(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x4D);
-	packet.addInt(0); // Channel
+	packet.addHeader(0x4E);
+	packet.addInt(MasterServer::getChannelID()); // Channel
 	packet.addShort(0); // 2?
 	packet.addInt(player->getMap());
 	packet.addByte(player->getMappos());
@@ -132,6 +150,6 @@ void MapPacket::changeMap(Player* player){
 
 void MapPacket::makeApple(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x5B);  
+	packet.addHeader(0x5C);  
 	packet.packetSend(player);
 }

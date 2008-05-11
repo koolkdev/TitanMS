@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "LevelsPacket.h"
 #include "PacketCreator.h"
 #include "Player.h"
@@ -30,7 +45,7 @@ void LevelsPacket::levelUP(Player* player, vector <Player*> players){
 	packet.addInt(player->getExp());
 	packet.packetSend(player); // TODO
 	packet = Packet();
-	packet.addHeader(0x85);
+	packet.addHeader(0x86);
 	packet.addInt(player->getPlayerid());
 	packet.addByte(0);
 	packet.sendTo(player, players, 0);
@@ -62,7 +77,7 @@ void LevelsPacket::jobChange(Player *player, std::vector<Player*> players){
 	packet.addShort(player->getJob());
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0x85);
+	packet.addHeader(0x86);
 	packet.addInt(player->getPlayerid());
 	packet.addByte(8);
 	packet.sendTo(player, players, 0);

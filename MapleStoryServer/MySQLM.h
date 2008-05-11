@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #ifndef MYSQL_H
 #define MYSQL_H
 
@@ -27,6 +42,7 @@ public:
 	static int getItems(int id, int equips[400][4]);
 	static void getKeys(int id, int keys[90]);
 	static int getSkills(int id, int skills[200][2]);
+	static int getIntEx(char* table, char* whr, char* wht, char* value);
 };
 
 #endif

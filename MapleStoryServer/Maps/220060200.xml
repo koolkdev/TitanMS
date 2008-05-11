@@ -171,6 +171,12 @@
             <cy>458</cy>
             <fh>179</fh>
         </Mob>
+        <Mob>
+            <id>9500180</id>
+            <x>460</x>
+            <cy>1304</cy>
+            <fh>105</fh>
+        </Mob>
     </Mobs>
     <Portals>
         <Portal>

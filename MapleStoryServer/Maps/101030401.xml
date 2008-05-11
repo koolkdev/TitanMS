@@ -16,55 +16,55 @@
             <id>130100</id>
             <x>481</x>
             <cy>1566</cy>
-            <fh>58</fh>
+            <fh>68</fh>
         </Mob>
         <Mob>
             <id>130100</id>
             <x>688</x>
             <cy>1560</cy>
-            <fh>61</fh>
+            <fh>71</fh>
         </Mob>
         <Mob>
             <id>130100</id>
             <x>919</x>
             <cy>1569</cy>
-            <fh>64</fh>
+            <fh>74</fh>
         </Mob>
         <Mob>
             <id>130100</id>
             <x>1119</x>
             <cy>1569</cy>
-            <fh>64</fh>
+            <fh>74</fh>
         </Mob>
         <Mob>
             <id>130100</id>
             <x>1293</x>
             <cy>1621</cy>
-            <fh>96</fh>
+            <fh>106</fh>
         </Mob>
         <Mob>
             <id>130100</id>
             <x>168</x>
             <cy>1589</cy>
-            <fh>75</fh>
+            <fh>78</fh>
         </Mob>
         <Mob>
             <id>130100</id>
             <x>777</x>
             <cy>1013</cy>
-            <fh>100</fh>
+            <fh>59</fh>
         </Mob>
         <Mob>
             <id>130100</id>
             <x>119</x>
             <cy>979</cy>
-            <fh>84</fh>
+            <fh>87</fh>
         </Mob>
         <Mob>
             <id>130100</id>
             <x>518</x>
             <cy>953</cy>
-            <fh>89</fh>
+            <fh>92</fh>
         </Mob>
         <Mob>
             <id>130100</id>
@@ -190,67 +190,73 @@
             <id>1110101</id>
             <x>177</x>
             <cy>976</cy>
-            <fh>84</fh>
+            <fh>87</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>365</x>
             <cy>963</cy>
-            <fh>87</fh>
+            <fh>90</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>451</x>
             <cy>961</cy>
-            <fh>87</fh>
+            <fh>90</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>598</x>
             <cy>948</cy>
-            <fh>91</fh>
+            <fh>94</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>690</x>
             <cy>1010</cy>
-            <fh>100</fh>
+            <fh>59</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>872</x>
             <cy>1015</cy>
-            <fh>101</fh>
+            <fh>60</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>328</x>
             <cy>963</cy>
-            <fh>87</fh>
+            <fh>90</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>277</x>
             <cy>965</cy>
-            <fh>86</fh>
+            <fh>89</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>560</x>
             <cy>952</cy>
-            <fh>89</fh>
+            <fh>92</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>537</x>
             <cy>1565</cy>
-            <fh>58</fh>
+            <fh>68</fh>
         </Mob>
         <Mob>
             <id>1110101</id>
             <x>802</x>
             <cy>1559</cy>
-            <fh>62</fh>
+            <fh>72</fh>
+        </Mob>
+        <Mob>
+            <id>9500168</id>
+            <x>1059</x>
+            <cy>2205</cy>
+            <fh>23</fh>
         </Mob>
     </Mobs>
     <Portals>

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Quest>
-    <NextQuest>0</NextQuest>
+    <NextQuest>2051</NextQuest>
     <Requests>
         <Request>
             <Mob>0</Mob>

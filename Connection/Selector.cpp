@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "Selector.h"
 #include <Winbase.h>
 
@@ -43,13 +58,8 @@ void Selector::unregisterSocket (int socket) {
 	FD_CLR(socket, &readfds);
 	FD_CLR(socket, &writefds);
 	FD_CLR(socket, &errorfds);
-	for (hash_map<int,SelectHandler*>::iterator iter = handlers.begin();
-				 iter != handlers.end(); iter++){
-					 if(iter->first == socket){
-						 handlers.erase(iter);
-						break;
-					 }
-	}
+	if(handlers.find(socket) != handlers.end())
+		handlers.erase(socket);
 }
 
 

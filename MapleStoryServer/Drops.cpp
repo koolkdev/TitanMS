@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "Drops.h"
 #include "Mobs.h"
 #include "Maps.h"
@@ -29,13 +44,19 @@ Pos Drops::findFloor(Pos pos, int map){
 	bool first=1;
 	short maxy;
 	for(unsigned int i=0; i<Drops::foots[map].size(); i++){
-		if((x>Drops::foots[map][i].x1 && x<Drops::foots[map][i].x2) || (x>Drops::foots[map][i].x2 && x<Drops::foots[map][i].x1)){
+		if((x>=Drops::foots[map][i].x1 && x<=Drops::foots[map][i].x2) || (x>=Drops::foots[map][i].x2 && x<=Drops::foots[map][i].x1)){
 			if(first){
+				if(Drops::foots[map][i].x1 == Drops::foots[map][i].x2){
+					continue;
+				}
 				maxy = (short) ( (float)( Drops::foots[map][i].y1 - Drops::foots[map][i].y2 ) / ( Drops::foots[map][i].x1 - Drops::foots[map][i].x2 ) * x - Drops::foots[map][i].x1 * (float) ( Drops::foots[map][i].y1 - Drops::foots[map][i].y2 ) / ( Drops::foots[map][i].x1 - Drops::foots[map][i].x2 ) + Drops::foots[map][i].y1 );
 				if(maxy >= y)
 					first=0;
 			}
 			else{
+				if(Drops::foots[map][i].x1 == Drops::foots[map][i].x2){
+					continue;
+				}
 				short cmax = (short) ( (float)( Drops::foots[map][i].y1 - Drops::foots[map][i].y2 ) / ( Drops::foots[map][i].x1 - Drops::foots[map][i].x2 ) * x - Drops::foots[map][i].x1 * (float) ( Drops::foots[map][i].y1 - Drops::foots[map][i].y2 ) / ( Drops::foots[map][i].x1 - Drops::foots[map][i].x2 ) + Drops::foots[map][i].y1 );
 				if(cmax < maxy && cmax >= y)
 					maxy = cmax;

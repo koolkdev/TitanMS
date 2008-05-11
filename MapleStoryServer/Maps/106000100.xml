@@ -189,6 +189,12 @@
             <cy>1961</cy>
             <fh>119</fh>
         </Mob>
+        <Mob>
+            <id>9500173</id>
+            <x>664</x>
+            <cy>2025</cy>
+            <fh>92</fh>
+        </Mob>
     </Mobs>
     <Portals>
         <Portal>

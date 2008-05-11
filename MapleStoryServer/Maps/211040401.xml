@@ -11,7 +11,14 @@
             <rx1>184</rx1>
         </NPC>
     </NPCs>
-    <Mobs />
+    <Mobs>
+        <Mob>
+            <id>9400572</id>
+            <x>7</x>
+            <cy>-266</cy>
+            <fh>40</fh>
+        </Mob>
+    </Mobs>
     <Portals>
         <Portal>
             <id>0</id>

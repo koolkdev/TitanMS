@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "LoginPacket.h"
 #include <string.h>
 #include "PlayerLogin.h"
@@ -104,13 +119,15 @@ void LoginPacket::showChannels(PlayerLogin* player){
 
 void LoginPacket::channelSelect(PlayerLogin* player){
 	Packet packet = Packet();
+	/*
 	packet.addHeader(0x10);
 	packet.addBytes("000500001040008612340097227400");
 	packet.addInt(4);
-	packet.addBytes("9F227400");
+	packet.addBytes("9F227400"); 
 	packet.addInt(4);
 	packet.addBytes("AC227400544D0500F073790028BC0000");
 	packet.packetSendLogin(player);
+	*/
 }
 
 void LoginPacket::showCharacters(PlayerLogin* player, vector <Character> chars){
@@ -126,6 +143,10 @@ void LoginPacket::showCharacters(PlayerLogin* player, vector <Character> chars){
 		packet.addByte(chars[i].skin);
 		packet.addInt(chars[i].eyes);
 		packet.addInt(chars[i].hair);
+		packet.addInt(0);
+		packet.addInt(0);
+		packet.addInt(0);
+		packet.addInt(0);
 		packet.addInt(0);
 		packet.addInt(0);
 		packet.addByte(chars[i].level);
@@ -156,6 +177,8 @@ void LoginPacket::showCharacters(PlayerLogin* player, vector <Character> chars){
 		packet.addShort(-1);
 		packet.addInt(0);
 		packet.addInt(0);
+		packet.addInt(0);
+		packet.addInt(0);
 		packet.addByte(0);
 	}
 	packet.packetSendLogin(player);
@@ -181,6 +204,10 @@ void LoginPacket::showCharacter(PlayerLogin* player, Character charc){
 	packet.addByte(charc.skin);
 	packet.addInt(charc.eyes);
 	packet.addInt(charc.hair);
+	packet.addInt(0);
+	packet.addInt(0);
+	packet.addInt(0);
+	packet.addInt(0);
 	packet.addInt(0);
 	packet.addInt(0);
 	packet.addByte(charc.level);
@@ -209,6 +236,10 @@ void LoginPacket::showCharacter(PlayerLogin* player, Character charc){
 		packet.addInt(charc.equips[j].id);
 	}
 	packet.addShort(-1);
+	packet.addInt(0);
+	packet.addInt(0);
+	packet.addInt(0);
+	packet.addInt(0);
 	packet.addInt(0);
 	packet.addInt(0);
 	packet.addByte(0);

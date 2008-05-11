@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "SkillsPacket.h"
 #include "Player.h"
 #include "PacketCreator.h"
@@ -18,7 +33,7 @@ void SkillsPacket::addSkill(Player* player, int skillid, int level){
 
 void SkillsPacket::showSkill(Player* player, vector <Player*> players, int skillid){
 	Packet packet = Packet();
-	packet.addHeader(0x85);
+	packet.addHeader(0x86);
 	packet.addInt(player->getPlayerid());
 	packet.addByte(1);
 	packet.addInt(skillid);
@@ -29,7 +44,7 @@ void SkillsPacket::showSkill(Player* player, vector <Player*> players, int skill
 
 void SkillsPacket::useSkill(Player* player, vector <Player*> players, int skillid, int time, SkillActiveInfo pskill, SkillActiveInfo mskill){
 	Packet packet = Packet();
-	packet.addHeader(0x3a);
+	packet.addHeader(0x3b);
 	packet.addByte(pskill.types[0]);
 	packet.addByte(pskill.types[1]);
 	packet.addByte(pskill.types[2]);
@@ -48,7 +63,7 @@ void SkillsPacket::useSkill(Player* player, vector <Player*> players, int skilli
 	packet.packetSend(player);
 	if(mskill.vals.size()>0){
 		packet = Packet();
-		packet.addHeader(0x86);
+		packet.addHeader(0x87);
 		packet.addInt(player->getPlayerid());
 		packet.addByte(mskill.types[0]);
 		packet.addByte(mskill.types[1]);
@@ -68,7 +83,7 @@ void SkillsPacket::useSkill(Player* player, vector <Player*> players, int skilli
 
 void SkillsPacket::healHP(Player* player, short hp){
 	Packet packet = Packet();
-	packet.addHeader(0x67);
+	packet.addHeader(0x68);
 	packet.addByte(0xA);
 	packet.addShort(hp);
 	packet.packetSend(player);
@@ -89,7 +104,7 @@ void SkillsPacket::endSkill(Player* player, vector <Player*> players, SkillActiv
 	packet.packetSend(player);
 	if(mskill.vals.size()>0){
 		packet = Packet();
-		packet.addHeader(0x8A);
+		packet.addHeader(0x8B);
 		packet.addInt(player->getPlayerid());
 		packet.addByte(mskill.types[0]);
 		packet.addByte(mskill.types[1]);

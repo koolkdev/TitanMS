@@ -183,6 +183,12 @@
             <cy>1703</cy>
             <fh>40</fh>
         </Mob>
+        <Mob>
+            <id>9500174</id>
+            <x>175</x>
+            <cy>2865</cy>
+            <fh>55</fh>
+        </Mob>
     </Mobs>
     <Portals>
         <Portal>

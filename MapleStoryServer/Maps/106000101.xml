@@ -153,6 +153,12 @@
             <cy>1470</cy>
             <fh>85</fh>
         </Mob>
+        <Mob>
+            <id>9500173</id>
+            <x>621</x>
+            <cy>2025</cy>
+            <fh>12</fh>
+        </Mob>
     </Mobs>
     <Portals>
         <Portal>

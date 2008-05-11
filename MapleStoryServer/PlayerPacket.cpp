@@ -1,14 +1,30 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "PlayerPacket.h"
 #include "PacketCreator.h"
 #include "Player.h"
 #include "Inventory.h"
 #include "Skills.h"
 #include "Server.h"
+#include "MasterServer.h"
 
 void PlayerPacket::connectData(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x4D);
-	packet.addInt(0); // Channel
+	packet.addHeader(0x4E);
+	packet.addInt(MasterServer::getChannelID()); // Channel
 	packet.addBytes("0101853D4B11F4836B3DBA9A4FA1");
 	packet.addShort(-1);
 	packet.addInt(player->getPlayerid());
@@ -18,6 +34,10 @@ void PlayerPacket::connectData(Player* player){
 	packet.addByte(player->getSkin());
 	packet.addInt(player->getEyes());
 	packet.addInt(player->getHair());
+	packet.addInt(0);
+	packet.addInt(0);
+	packet.addInt(0);
+	packet.addInt(0);
 	packet.addInt(0);
 	packet.addInt(0);
 	packet.addByte(player->getLevel());
@@ -51,7 +71,8 @@ void PlayerPacket::connectData(Player* player){
 			packet.addInt(equip->id);
 			packet.addShort(equip->scrolls);
 			packet.addBytes("8005BB46E61702");
-			packet.addShort(equip->slots); // slots
+			packet.addByte(equip->slots); // slots
+			packet.addByte((char)equip->scrolls); // slots
 			packet.addShort(equip->istr); // STR
 			packet.addShort(equip->idex); // DEX
 			packet.addShort(equip->iint); // INT
@@ -84,7 +105,8 @@ void PlayerPacket::connectData(Player* player){
 			packet.addInt(equip->id);
 			packet.addShort(0);
 			packet.addBytes("8005BB46E61702");
-			packet.addShort(equip->slots); // slots
+			packet.addByte(equip->slots); // slots
+			packet.addByte((char)equip->scrolls); // slots
 			packet.addShort(equip->istr); // STR
 			packet.addShort(equip->idex); // DEX
 			packet.addShort(equip->iint); // INT
@@ -117,7 +139,8 @@ void PlayerPacket::connectData(Player* player){
 			packet.addInt(equip->id);
 			packet.addShort(0);
 			packet.addBytes("8005BB46E61702");
-			packet.addShort(equip->slots); // slots
+			packet.addByte(equip->slots); // slots
+			packet.addByte((char)equip->scrolls); // slots
 			packet.addShort(equip->istr); // STR
 			packet.addShort(equip->idex); // DEX
 			packet.addShort(equip->iint); // INT
@@ -216,7 +239,7 @@ void PlayerPacket::newEXP(Player* player, int exp){
 
 void PlayerPacket::showKeys(Player* player, int keys[90]){
 	Packet packet = Packet();
-	packet.addHeader(0xf6);
+	packet.addHeader(0xf7);
 	packet.addByte(0);
 	for(int i=0; i<90; i++){
 		packet.addInt(keys[i]);

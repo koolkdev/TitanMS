@@ -82,14 +82,6 @@
             <rx0>2637</rx0>
             <rx1>2737</rx1>
         </NPC>
-        <NPC>
-            <id>9120024</id>
-            <x>-1522</x>
-            <cy>95</cy>
-            <fh>61</fh>
-            <rx0>-1572</rx0>
-            <rx1>-1472</rx1>
-        </NPC>
     </NPCs>
     <Mobs />
     <Portals>

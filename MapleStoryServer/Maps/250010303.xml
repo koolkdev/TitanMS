@@ -147,6 +147,12 @@
             <cy>543</cy>
             <fh>55</fh>
         </Mob>
+        <Mob>
+            <id>9500175</id>
+            <x>842</x>
+            <cy>543</cy>
+            <fh>51</fh>
+        </Mob>
     </Mobs>
     <Portals>
         <Portal>

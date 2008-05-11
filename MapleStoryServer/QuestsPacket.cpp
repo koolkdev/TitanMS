@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "QuestsPacket.h"
 #include "PacketCreator.h"
 #include "Player.h"
@@ -14,7 +29,7 @@ void QuestsPacket::acceptQuest(Player* player, short questid, int npcid){
 	packet.addShort(0);
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0x6C);
+	packet.addHeader(0x6D);
 	packet.addByte(6);
 	packet.addShort(questid);
 	packet.addInt(npcid);
@@ -61,18 +76,18 @@ void QuestsPacket::questFinish(Player* player, vector <Player*> players,short qu
 	packet.addInt64(time);
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0x6C);
+	packet.addHeader(0x6D);
 	packet.addByte(6);
 	packet.addShort(questid); 
 	packet.addInt(npcid); 
 	packet.addShort(nextquest); 
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0x67);
+	packet.addHeader(0x68);
 	packet.addByte(9);
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0x85);
+	packet.addHeader(0x86);
 	packet.addInt(player->getPlayerid());
 	packet.addByte(9);
 	packet.sendTo(player, players, 0);
@@ -80,7 +95,7 @@ void QuestsPacket::questFinish(Player* player, vector <Player*> players,short qu
 
 void QuestsPacket::giveItem(Player* player, int itemid, int amount){
 	Packet packet = Packet();
-	packet.addHeader(0x67); 
+	packet.addHeader(0x68); 
 	packet.addByte(3);
 	packet.addByte(1);
 	packet.addInt(itemid);

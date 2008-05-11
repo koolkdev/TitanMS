@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #ifndef SKILLS_H
 #define SKILLS_H
 
@@ -106,20 +121,15 @@ public:
 class PlayerSkills {
 public:
 	void addSkillLevel(int skillid, int level){
-		for (hash_map<int,int>::iterator iter = playerskills.begin(); iter != playerskills.end(); iter++){
-			if(iter->first == skillid){
-				iter->second += level;
-				return;
-			}
+		if(playerskills.find(skillid) != playerskills.end()){
+			playerskills[skillid] += level;	
+			return;
 		}
 		playerskills[skillid] = level;
 	}
 	int getSkillLevel(int skillid){
-		for (hash_map<int,int>::iterator iter = playerskills.begin(); iter != playerskills.end(); iter++){
-			if(iter->first == skillid){
-				return iter->second;
-			} 
-		}
+		if(playerskills.find(skillid) != playerskills.end())
+			return playerskills[skillid];
 		return 0;
 	}
 	int getSkillsNum(){

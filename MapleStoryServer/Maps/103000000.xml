@@ -11,6 +11,14 @@
             <rx1>-149</rx1>
         </NPC>
         <NPC>
+            <id>1052000</id>
+            <x>1005</x>
+            <cy>-503</cy>
+            <fh>77</fh>
+            <rx0>955</rx0>
+            <rx1>1055</rx1>
+        </NPC>
+        <NPC>
             <id>9000008</id>
             <x>1112</x>
             <cy>400</cy>
@@ -33,14 +41,6 @@
             <fh>69</fh>
             <rx0>1252</rx0>
             <rx1>1352</rx1>
-        </NPC>
-        <NPC>
-            <id>1052000</id>
-            <x>1005</x>
-            <cy>-503</cy>
-            <fh>77</fh>
-            <rx0>955</rx0>
-            <rx1>1055</rx1>
         </NPC>
         <NPC>
             <id>1052016</id>
@@ -147,7 +147,14 @@
             <rx1>-1340</rx1>
         </NPC>
     </NPCs>
-    <Mobs />
+    <Mobs>
+        <Mob>
+            <id>9400569</id>
+            <x>397</x>
+            <cy>-54</cy>
+            <fh>262</fh>
+        </Mob>
+    </Mobs>
     <Portals>
         <Portal>
             <id>0</id>

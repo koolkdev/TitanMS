@@ -81,30 +81,6 @@
             <cy>1075</cy>
             <fh>184</fh>
         </Mob>
-        <Mob>
-            <id>9400510</id>
-            <x>-191</x>
-            <cy>912</cy>
-            <fh>180</fh>
-        </Mob>
-        <Mob>
-            <id>9400510</id>
-            <x>223</x>
-            <cy>1075</cy>
-            <fh>182</fh>
-        </Mob>
-        <Mob>
-            <id>9400510</id>
-            <x>61</x>
-            <cy>1463</cy>
-            <fh>192</fh>
-        </Mob>
-        <Mob>
-            <id>9400510</id>
-            <x>-201</x>
-            <cy>1675</cy>
-            <fh>203</fh>
-        </Mob>
     </Mobs>
     <Portals>
         <Portal>

@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "MySQLM.h"
 #include <sstream>
 #include <string>
@@ -19,6 +34,30 @@ int MySQL::getInt(char* table, int id, char* value){
 	char query[255]; 
 	int ret = 0; 
 	sprintf_s(query, 255, "SELECT %s FROM %s WHERE ID=%d;",value, table, id);
+	mysql_real_query(&maple_db, query, strlen(query));
+	mres = mysql_store_result(&MySQL::maple_db);
+	if (mres == 0 ){
+		printf_s("\n\rError in getINT SQL returned no rows (Mysql_error: %s)",mysql_error(&maple_db)); 
+		printf_s("SQL Query is : %s",query);
+	}
+	else {
+		mrow = mysql_fetch_row(mres);
+
+		if(mysql_num_fields(mres) > 0){
+			string mr = string((char*)mrow[0]);
+			istringstream buffer(mr);
+			buffer >> ret;
+		}
+	}
+	mysql_free_result(mres);
+	return ret;
+}
+int MySQL::getIntEx(char* table, char* whr, char* wht, char* value){
+	MYSQL_RES *mres;
+	MYSQL_ROW mrow;
+	char query[255]; 
+	int ret = 0; 
+	sprintf_s(query, 255, "SELECT %s FROM %s WHERE %s=%s;",value, table, whr, wht);
 	mysql_real_query(&maple_db, query, strlen(query));
 	mres = mysql_store_result(&MySQL::maple_db);
 	if (mres == 0 ){

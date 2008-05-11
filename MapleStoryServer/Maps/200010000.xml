@@ -6,7 +6,7 @@
             <id>2012020</id>
             <x>85</x>
             <cy>-1506</cy>
-            <fh>128</fh>
+            <fh>100</fh>
             <rx0>35</rx0>
             <rx1>135</rx1>
         </NPC>
@@ -16,217 +16,223 @@
             <id>3230200</id>
             <x>-405</x>
             <cy>-337</cy>
-            <fh>69</fh>
+            <fh>72</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-488</x>
             <cy>83</cy>
-            <fh>109</fh>
+            <fh>176</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>491</x>
             <cy>-397</cy>
-            <fh>61</fh>
+            <fh>27</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-115</x>
             <cy>83</cy>
-            <fh>96</fh>
+            <fh>163</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>209</x>
             <cy>-637</cy>
-            <fh>86</fh>
+            <fh>89</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>259</x>
             <cy>83</cy>
-            <fh>116</fh>
+            <fh>183</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-219</x>
             <cy>-637</cy>
-            <fh>78</fh>
+            <fh>81</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>646</x>
             <cy>83</cy>
-            <fh>104</fh>
+            <fh>171</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-285</x>
             <cy>-337</cy>
-            <fh>75</fh>
+            <fh>78</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>899</x>
             <cy>-397</cy>
-            <fh>65</fh>
+            <fh>29</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>769</x>
             <cy>-397</cy>
-            <fh>59</fh>
+            <fh>25</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>640</x>
             <cy>-397</cy>
-            <fh>21</fh>
+            <fh>24</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>540</x>
             <cy>-397</cy>
-            <fh>60</fh>
+            <fh>26</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>523</x>
             <cy>-637</cy>
-            <fh>88</fh>
+            <fh>91</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>421</x>
             <cy>-637</cy>
-            <fh>85</fh>
+            <fh>88</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>258</x>
             <cy>-637</cy>
-            <fh>86</fh>
+            <fh>89</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>95</x>
             <cy>-637</cy>
-            <fh>83</fh>
+            <fh>86</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-66</x>
             <cy>-637</cy>
-            <fh>81</fh>
+            <fh>84</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-171</x>
             <cy>-637</cy>
-            <fh>80</fh>
+            <fh>83</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>435</x>
             <cy>-937</cy>
-            <fh>39</fh>
+            <fh>53</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>602</x>
             <cy>-937</cy>
-            <fh>40</fh>
+            <fh>54</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>753</x>
             <cy>-937</cy>
-            <fh>44</fh>
+            <fh>58</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>609</x>
             <cy>-1177</cy>
-            <fh>30</fh>
+            <fh>44</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>741</x>
             <cy>-1177</cy>
-            <fh>32</fh>
+            <fh>46</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>867</x>
             <cy>-1177</cy>
-            <fh>33</fh>
+            <fh>47</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-220</x>
             <cy>-877</cy>
-            <fh>52</fh>
+            <fh>65</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-309</x>
             <cy>-877</cy>
-            <fh>49</fh>
+            <fh>63</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-452</x>
             <cy>-877</cy>
-            <fh>50</fh>
+            <fh>64</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-565</x>
             <cy>-877</cy>
-            <fh>47</fh>
+            <fh>61</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-379</x>
             <cy>-1177</cy>
-            <fh>26</fh>
+            <fh>36</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-256</x>
             <cy>-1177</cy>
-            <fh>22</fh>
+            <fh>32</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-143</x>
             <cy>-1177</cy>
-            <fh>55</fh>
+            <fh>38</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-548</x>
             <cy>-337</cy>
-            <fh>72</fh>
+            <fh>75</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-447</x>
             <cy>-337</cy>
-            <fh>69</fh>
+            <fh>72</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-338</x>
             <cy>-337</cy>
-            <fh>75</fh>
+            <fh>78</fh>
         </Mob>
         <Mob>
             <id>3230200</id>
             <x>-235</x>
             <cy>-337</cy>
-            <fh>74</fh>
+            <fh>77</fh>
+        </Mob>
+        <Mob>
+            <id>9500170</id>
+            <x>-250</x>
+            <cy>83</cy>
+            <fh>164</fh>
         </Mob>
     </Mobs>
     <Portals>

@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "Players.h"
 #include "Player.h"
 #include "PlayersPacket.h"
@@ -18,10 +33,13 @@ int getInt(unsigned char* buf);
 void getString(unsigned char* buf, int len, char* out);
 
 char* toLow(char* s){
+	char* temps = new char[strlen(s)+1];
 	for(unsigned int i=0; i<strlen(s); i++)
 		if(s[i]>='A' && s[i]<='Z')
-			s[i]-=('A'-'a');
-	return s;
+			temps[i]= s[i] - ('A'-'a');
+		else
+			temps[i] = s[i];
+	return temps;
 }
 
 void Players::addPlayer(Player* player){
@@ -31,22 +49,10 @@ void Players::addPlayer(Player* player){
 
 void Players::deletePlayer(Player* player){
 	if(players.find(player->getPlayerid()) != players.end()){
-		for (hash_map<int,Player*>::iterator iter = players.begin();
-			 iter != players.end(); iter++){
-				 if(iter->first == player->getPlayerid()){
-					 players.erase(iter);
-					break;
-				 }
-		}
+		players.erase(player->getPlayerid());
 	}
 	if(names.find(toLow(player->getName())) != names.end()){
-		for (hash_map<char*,Player*>::iterator iter = names.begin();
-			 iter != names.end(); iter++){
-				 if(strcmp(iter->first,toLow(player->getName())) == 0){
-					 names.erase(iter);
-					 break;
-				 }
-		}
+		names.erase(toLow(player->getName()));
 	}
 }
 
@@ -277,11 +283,36 @@ void Players::searchPlayer(Player* player, unsigned char* packet){
 	getString(packet+3, namelen, name);
 	if(type == 5){ // find
 		if(names.find(toLow(name)) == names.end()){
-			PlayersPacket::findPlayer(player, name, 0);
+			PlayersPacket::findPlayer(player, name, -1);
 		}
 		else {
 			PlayersPacket::findPlayer(player, names[toLow(name)]->getName(), names[toLow(name)]->getMap());
 		}
 	}
+
+}
+
+void Players::findResponse(unsigned char* packet){
+	int playerid = getInt(packet);
+	char channel = packet[4];
+	short namelen = getShort(packet+5);
+	char name[15];
+	getString(packet+7, namelen, name);
+	if(players.find(playerid) != players.end())
+		PlayersPacket::findPlayer(players[playerid], name, -channel-2);
+
+}
+void Players::changeChannel(unsigned char* packet){
+	int playerid = getInt(packet);
+	char channelid = packet[4];
+	Player* player = NULL;
+	if(players.find(playerid) != players.end())
+		player = players[playerid];
+	else
+		return;
+	short port = getShort(packet+9);
+	player->save();
+	PlayersPacket::changeChannel(player, channelid, port, packet[5], packet[6], packet[7], packet[8]);
+	
 
 }

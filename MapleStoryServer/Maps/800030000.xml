@@ -377,6 +377,15 @@
             <x>-410</x>
             <y>34</y>
         </Portal>
+        <Portal>
+            <id>14</id>
+            <from>top00</from>
+            <to>west00</to>
+            <toid>801030000</toid>
+            <type>2</type>
+            <x>1818</x>
+            <y>-1259</y>
+        </Portal>
     </Portals>
     <Footholds>
         <Foothold>

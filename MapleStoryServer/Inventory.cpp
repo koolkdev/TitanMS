@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "Inventory.h"
 #include "Player.h"
 #include "InventoryPacket.h"
@@ -236,24 +251,22 @@ void Inventory::addEquip(Player* player, Equip* equip, bool is){
 }
 
 void Inventory::addItem(Player* player, Item* item, bool is){
-	if (!ISSTAR(item->id)){
-		for(int i=0; i<player->inv->getItemNum(); i++){
-			if(player->inv->getItem(i)->id == item->id && Drops::items[player->inv->getItem(i)->id].type == item->inv && player->inv->getItem(i)->amount < Drops::items[item->id].maxslot){
-				Item* olditem = player->inv->getItem(i);
-				if(item->amount + olditem->amount > Drops::items[item->id].maxslot){
-					int amount = Drops::items[item->id].maxslot-olditem->amount;
-					item->amount-=amount;
-					olditem->amount = Drops::items[item->id].maxslot;
-					InventoryPacket::addItem(player, olditem, is);
-				}
-				else{
-					item->amount += olditem->amount;
-					item->pos = olditem->pos;
-					player->inv->deleteItem(i);
-					player->inv->addItem(item);
-					InventoryPacket::addItem(player, item, is);
-					return;
-				}
+	for(int i=0; i<player->inv->getItemNum(); i++){
+		if(player->inv->getItem(i)->id == item->id && Drops::items[player->inv->getItem(i)->id].type == item->inv && player->inv->getItem(i)->amount < Drops::items[item->id].maxslot){
+			Item* olditem = player->inv->getItem(i);
+			if(item->amount + olditem->amount > Drops::items[item->id].maxslot){
+				int amount = Drops::items[item->id].maxslot-olditem->amount;
+				item->amount-=amount;
+				olditem->amount = Drops::items[item->id].maxslot;
+				InventoryPacket::addItem(player, olditem, is);
+			}
+			else{
+				item->amount += olditem->amount;
+				item->pos = olditem->pos;
+				player->inv->deleteItem(i);
+				player->inv->addItem(item);
+				InventoryPacket::addItem(player, item, is);
+				return;
 			}
 		}
 	}
@@ -316,6 +329,7 @@ void Inventory::useShop(Player* player, unsigned char* packet){
 				if(player->inv->getEquip(i)->pos == slot && player->inv->getEquip(i)->id == item){
 					InventoryPacket::moveItem(player, 1, slot, 0);
 					player->inv->deleteEquip(i);	
+					check = true;
 					break;
 				}
 			}
@@ -426,6 +440,10 @@ void Inventory::useItem(Player *player, unsigned char *packet){
 
 void Inventory::useChair(Player* player, unsigned char* packet){
 	int chairid = getInt(packet);
+	if(player->inv->getItemAmount(chairid) == 0){
+		// hacking
+		return;
+	}
 	player->setChair(chairid);
 	InventoryPacket::sitChair(player, Maps::info[player->getMap()].Players, chairid);
 }
@@ -476,6 +494,7 @@ void Inventory::useReturnScroll(Player* player, unsigned char* packet){
 void Inventory::useScroll(Player* player, unsigned char* packet){
 	short slot = getShort(packet+4);
 	short eslot = getShort(packet+6);
+	short wscroll = getShort(packet+8);
 	int itemid=0;
 	Equip* equip = NULL;
 	for(int i=0; i<player->inv->getItemNum(); i++){
@@ -497,7 +516,8 @@ void Inventory::useScroll(Player* player, unsigned char* packet){
 		if(Drops::items.find(itemid) == Drops::items.end())
 			return;
 		takeItemSlot(player, slot, 2, 1);
-		equip->slots--;
+		if(wscroll == 2)
+            takeItem(player, 2340000, 1);
 		if(rand()%100<Drops::consumes[itemid].success){
 			InventoryPacket::useScroll(player, Maps::info[player->getMap()].Players ,true);
 			equip->istr+=Drops::consumes[itemid].istr;
@@ -516,6 +536,7 @@ void Inventory::useScroll(Player* player, unsigned char* packet){
 			equip->ijump+=Drops::consumes[itemid].ijump;
 			equip->ispeed+=Drops::consumes[itemid].ispeed;
 			equip->scrolls++;
+			equip->slots--;
 		}
 		else{
 			if(rand()%100<Drops::consumes[itemid].cursed){
@@ -528,10 +549,21 @@ void Inventory::useScroll(Player* player, unsigned char* packet){
 					}
 				}
 			}
+			if(wscroll!=2)
+                equip->slots--;
 			InventoryPacket::useScroll(player, Maps::info[player->getMap()].Players , false);
 		}
 	}
 	if(!cursed) 
 		InventoryPacket::addEquip(player, equip, 1);
 	InventoryPacket::updatePlayer(player); 
+}
+void Inventory::useItemEffect(Player* player, unsigned char* packet){
+	int itemid = getInt(packet);
+	if(player->inv->getItemAmount(itemid) == 0){
+		// hacking
+		return;
+	}
+	player->setItemEffect(itemid);
+	InventoryPacket::useItemEffect(player, Maps::info[player->getMap()].Players, itemid);
 }

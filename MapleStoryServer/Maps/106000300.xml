@@ -288,6 +288,12 @@
             <cy>1365</cy>
             <fh>78</fh>
         </Mob>
+        <Mob>
+            <id>9500168</id>
+            <x>499</x>
+            <cy>2025</cy>
+            <fh>11</fh>
+        </Mob>
     </Mobs>
     <Portals>
         <Portal>

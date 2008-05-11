@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "InventoryPacket.h"
 #include "Inventory.h"
 #include "PacketCreator.h"
@@ -20,7 +35,7 @@ void InventoryPacket::moveItem(Player* player, char inv, short slot1, short slot
 
 void InventoryPacket::updatePlayer(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0x92);
+	packet.addHeader(0x93);
 	packet.addInt(player->getPlayerid());
 	packet.addByte(1);
 	packet.addByte(player->getGender());
@@ -72,6 +87,8 @@ void InventoryPacket::updatePlayer(Player* player){
 	}
 	packet.addByte(-1);
 	packet.addInt(0);
+	packet.addInt(0);
+	packet.addInt(0);
 	packet.addByte(0);
 	packet.addShort(0);
 	packet.addInt(0);
@@ -90,7 +107,8 @@ void InventoryPacket::addEquip(Player* player, Equip* equip, bool is){
 	packet.addInt(equip->id);
 	packet.addShort(0);
 	packet.addBytes("8005BB46E61702");
-	packet.addShort(equip->slots);
+	packet.addByte(equip->slots);
+	packet.addByte((char)equip->scrolls);
 	packet.addShort(equip->istr);
 	packet.addShort(equip->idex);
 	packet.addShort(equip->iint);
@@ -117,7 +135,7 @@ void InventoryPacket::addEquip(Player* player, Equip* equip, bool is){
 
 void InventoryPacket::bought(Player* player){
 	Packet packet = Packet();
-	packet.addHeader(0xD7);
+	packet.addHeader(0xD8);
 	packet.addByte(0);
 	packet.packetSend(player);
 }
@@ -201,7 +219,7 @@ void InventoryPacket::sitChair(Player* player, vector <Player*> players, int cha
 	packet.addInt(0);
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0x91);
+	packet.addHeader(0x92);
 	packet.addInt(player->getPlayerid());
 	packet.addInt(chairid);
 	packet.sendTo(player, players, 0);
@@ -210,20 +228,27 @@ void InventoryPacket::sitChair(Player* player, vector <Player*> players, int cha
 
 void InventoryPacket::stopChair(Player* player, vector <Player*> players){
 	Packet packet = Packet();
-	packet.addHeader(0x66);
+	packet.addHeader(0x67);
 	packet.addByte(0);
 	packet.packetSend(player);
 	packet = Packet();
-	packet.addHeader(0x91);
+	packet.addHeader(0x92);
 	packet.addInt(player->getPlayerid());
 	packet.addInt(0);
 	packet.sendTo(player, players, 0);
 }
 void InventoryPacket::useScroll(Player* player, vector <Player*> players, char s){
 	Packet packet = Packet();
-	packet.addHeader(0x7A);
+	packet.addHeader(0x7B);
 	packet.addInt(player->getPlayerid());
 	packet.addInt(s);
 	packet.sendTo(player, players, 1);
 }
 
+void InventoryPacket::useItemEffect(Player* player, vector <Player*> players, int itemid){
+	Packet packet = Packet();
+	packet.addHeader(0x8F);
+	packet.addInt(player->getPlayerid());
+	packet.addInt(itemid);
+	packet.sendTo(player, players, 0);
+}

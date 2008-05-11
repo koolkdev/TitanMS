@@ -153,6 +153,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Connector.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\PacketHandler.cpp"
 				>
 			</File>
@@ -172,6 +176,10 @@
 			</File>
 			<File
 				RelativePath=".\Acceptor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Connector.h"
 				>
 			</File>
 			<File

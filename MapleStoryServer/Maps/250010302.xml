@@ -71,9 +71,9 @@
         </Mob>
         <Mob>
             <id>5120500</id>
-            <x>588</x>
+            <x>518</x>
             <cy>543</cy>
-            <fh>87</fh>
+            <fh>85</fh>
         </Mob>
         <Mob>
             <id>5120500</id>
@@ -116,6 +116,12 @@
             <x>415</x>
             <cy>543</cy>
             <fh>84</fh>
+        </Mob>
+        <Mob>
+            <id>9500175</id>
+            <x>551</x>
+            <cy>543</cy>
+            <fh>85</fh>
         </Mob>
     </Mobs>
     <Portals>

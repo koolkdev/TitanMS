@@ -1,12 +1,30 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #ifndef PACKETCREATOR_H
 #define PACKETCREATOR_H
 
 #define MAX_LEN 10000
 #include <Winsock2.h>
-#include "PlayerLogin.h"
-#include "Player.h"
 #include <Vector>
 using namespace std;
+
+class Player;
+class PlayerLogin;
+class MasterServer;
+class Channel;
 
 class Packet {
 public:
@@ -23,6 +41,9 @@ public:
 	void addBytesHex(unsigned char* bytes, int len);
 	void packetSend(Player* player);	
 	void packetSendLogin(PlayerLogin* player);	
+	void packetSendMasterServer(MasterServer* masterServer);	
+	void packetSendChannel(Channel* channel);	
+	void sendToChannels(Channel* channel, Channel* channels[], bool is);	
 	void sendTo(Player* player, vector <Player*> players, bool is);
 private:
 	int pos;

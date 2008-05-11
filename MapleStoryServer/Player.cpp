@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include "Player.h"
 #include "Drops.h"
 #include "Inventory.h"
@@ -11,6 +26,7 @@
 #include "Skills.h"
 #include "Quests.h"
 #include "Server.h"
+#include "MasterServer.h"
 
 int distPos(Pos pos1, Pos pos2){
 	return (int)sqrt(pow((float)(pos1.x+pos2.x), 2)+pow((float)(pos1.y+pos2.y), 2));
@@ -23,48 +39,57 @@ Player::~Player(){
 		save();
 		Skills::stopTimerPlayer(this);
 		isconnect = false;
+		MasterServer::removePlayer(getPlayerid());
 	}
 }
 
 void Player::handleRequest(unsigned char* buf, int len){
 	short header = buf[0] + buf[1]*0x100;
-	switch(header){  
-		case 0x14: getUserID(buf+2); break;
-		case 0x21: NPCs::handleNPCIn(this ,buf+2); break;
-		case 0x22: Inventory::useShop(this ,buf+2); break;
-		case 0x23: NPCs::handleNPC(this, buf+2); break;
-		case 0x2A: Players::damagePlayer(this ,buf+2); break;
-		case 0x2B: Inventory::stopChair(this ,buf+2); break;
-		case 0x2C: Players::chatHandler(this ,buf+2); break;
-		case 0x2D: Inventory::useChair(this ,buf+2); break;
-		case 0x2E: Mobs::damageMobSkill(this ,buf+2); break;
-		case 0x2F: Maps::moveMap(this ,buf+2); break;
-		case 0x35: Players::handleMoving(this ,buf+2, len-2); break;
-		case 0x36: Mobs::damageMobS(this ,buf+2, len-2); break;
-		case 0x44: Players::getPlayerInfo(this, buf+2); break;
-		case 0x4B: Inventory::useSummonBag(this, buf+2); break;
-		case 0x4D: Skills::addSkill(this, buf+2); break;
-		case 0x4E: Skills::cancelSkill(this, buf+2); break;
-		case 0x51: Skills::useSkill(this, buf+2); break;
-		case 0x58: Players::searchPlayer(this ,buf+2); break;
-		case 0x59: Mobs::damageMob(this ,buf+2); break;
-		case 0x5C: Players::faceExperiment(this ,buf+2); break;
-		case 0x62: Inventory::itemMove(this ,buf+2); break;
-		case 0x63: Inventory::useItem(this, buf+2); break;
-		case 0x64: Inventory::useReturnScroll(this, buf+2); break; 
-		case 0x65: Inventory::useScroll(this, buf+2); break;
-		case 0x66: Levels::addStat(this, buf+2); break;
-		case 0x67: Players::healPlayer(this, buf+2); break;
-		case 0x68: Drops::dropMesos(this ,buf+2); break;
-		case 0x6B: Quests::getQuest(this, buf+2); break;
-		case 0x75: chaneKey(buf+2);
-		case 0x89: Drops::lootItem(this ,buf+2); break;
-		case 0x9D: Mobs::monsterControl(this ,buf+2, len-2); break;
-		case 0xA0: Mobs::monsterControlSkill(this ,buf+2); break;
+	try{
+		switch(header){  
+			case 0x14: getUserID(buf+2); break;
+			case 0x21: NPCs::handleNPCIn(this ,buf+2); break;
+			case 0x22: Inventory::useShop(this ,buf+2); break;
+			case 0x23: NPCs::handleNPC(this, buf+2); break;
+			case 0x27: MasterServer::changeChannel(this, buf+2); break;
+			case 0x2A: Players::damagePlayer(this ,buf+2); break;
+			case 0x2B: Inventory::stopChair(this ,buf+2); break;
+			case 0x2C: Players::chatHandler(this ,buf+2); break;
+			case 0x2D: Inventory::useChair(this ,buf+2); break;
+			case 0x2E: Mobs::damageMobSkill(this ,buf+2); break;
+			case 0x2F: Maps::moveMap(this ,buf+2); break;
+			case 0x35: Players::handleMoving(this ,buf+2, len-2); break;
+			case 0x36: Mobs::damageMobS(this ,buf+2, len-2); break;
+			case 0x44: Players::getPlayerInfo(this, buf+2); break;
+			case 0x4B: Inventory::useSummonBag(this, buf+2); break;
+			case 0x4D: Skills::addSkill(this, buf+2); break;
+			case 0x4E: Skills::cancelSkill(this, buf+2); break;
+			case 0x51: Skills::useSkill(this, buf+2); break;
+			case 0x58: Players::searchPlayer(this ,buf+2); break;
+			case 0x59: Mobs::damageMob(this ,buf+2); break;
+			case 0x5C: Players::faceExperiment(this ,buf+2); break;
+			case 0x5D: Inventory::useItemEffect(this, buf+2); break;
+			case 0x62: Inventory::itemMove(this ,buf+2); break;
+			case 0x63: Inventory::useItem(this, buf+2); break;
+			case 0x64: Inventory::useReturnScroll(this, buf+2); break; 
+			case 0x65: Inventory::useScroll(this, buf+2); break;
+			case 0x66: Levels::addStat(this, buf+2); break;
+			case 0x67: Players::healPlayer(this, buf+2); break;
+			case 0x68: Drops::dropMesos(this ,buf+2); break;
+			case 0x6B: Quests::getQuest(this, buf+2); break;
+			case 0x75: chaneKey(buf+2);
+			case 0x89: Drops::lootItem(this ,buf+2); break;
+			case 0x9D: Mobs::monsterControl(this ,buf+2, len-2); break;
+			case 0xA0: Mobs::monsterControlSkill(this ,buf+2); break;
+		}
+	}
+	catch(...){	
+		printf("Error with the header: %x\n", header);
 	}
 }
 
 void Player::playerConnect(){
+	MasterServer::addPlayer(getPlayerid());
 	MySQL::getStringI("characters", "ID", getPlayerid(), "name", name);
 	gender = (char)MySQL::getInt("characters", getPlayerid(), "gender");
 	skin = (char)MySQL::getInt("characters", getPlayerid(), "skin");

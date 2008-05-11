@@ -264,6 +264,10 @@
 				Name="Packets"
 				>
 				<File
+					RelativePath=".\ChannelsPacket.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\DropsPacket.cpp"
 					>
 				</File>
@@ -281,6 +285,10 @@
 				</File>
 				<File
 					RelativePath=".\MapPacket.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MasterServerPacket.cpp"
 					>
 				</File>
 				<File
@@ -364,6 +372,30 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="MasterServer"
+				>
+				<File
+					RelativePath=".\Channel.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Channels.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ChannelsPlayers.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ConnectMasterServer"
+				>
+				<File
+					RelativePath=".\MasterServer.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -442,6 +474,10 @@
 				Name="Packets"
 				>
 				<File
+					RelativePath=".\ChannelsPacket.h"
+					>
+				</File>
+				<File
 					RelativePath=".\DropsPacket.h"
 					>
 				</File>
@@ -459,6 +495,10 @@
 				</File>
 				<File
 					RelativePath=".\MapPacket.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MasterServerPacket.h"
 					>
 				</File>
 				<File
@@ -535,6 +575,30 @@
 				>
 				<File
 					RelativePath=".\Timer.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MasterServer"
+				>
+				<File
+					RelativePath=".\Channel.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Channels.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ChannelsPlayers.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ConnectMasterServer"
+				>
+				<File
+					RelativePath=".\MasterServer.h"
 					>
 				</File>
 			</Filter>

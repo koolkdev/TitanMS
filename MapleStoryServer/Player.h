@@ -1,3 +1,18 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -31,6 +46,7 @@ public:
 		shop=0;
 		npc=NULL;
 		chair=0;
+		itemEffect=0;
 		skill.types[0] = 0;
 		skill.types[1] = 0;
 		skill.types[2] = 0;
@@ -194,6 +210,12 @@ public:
 	int getChair(){
 		return chair;
 	}
+	void setItemEffect(int itemEffect){
+		this->itemEffect = itemEffect;
+	}
+	int getItemEffect(){
+		return itemEffect;
+	}
 	NPC* getNPC(){
 		return npc;
 	}
@@ -208,6 +230,7 @@ public:
 	}
 	void addWarning();
 	void save();
+	static void ave();
 	PlayerInventory* inv;
 	PlayerSkills* skills;
 	PlayerQuests* quests;
@@ -241,6 +264,7 @@ private:
 	int keys[90];
 	int shop;
 	int chair;
+	int itemEffect;
 	int gm;
 	Pos pos;
 	NPC* npc;

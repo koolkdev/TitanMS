@@ -1,9 +1,24 @@
+ /*This file is part of TitanMS.
+
+    TitanMS is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    TitanMS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
+
 #include <stdio.h>
 #include <Winsock2.h>
 #include "Acceptor.h"
 #include "PacketHandler.h"
 
-Acceptor::Acceptor(int port, Selector* selector, AbstractPlayerFactory* apf) {
+Acceptor::Acceptor(int port, Selector* selector, AbstractPlayerFactory* apf, bool master) {
 	abstractPlayerFactory = apf;
 
 	SOCKET acceptSocket = socket (AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -28,6 +43,8 @@ Acceptor::Acceptor(int port, Selector* selector, AbstractPlayerFactory* apf) {
 		return;
 	}
 
+	this->master = master;
+
 	selector->registerSocket (acceptSocket, true, false, true, this);
 
 }
@@ -41,7 +58,11 @@ void Acceptor::handle (Selector* selector, int socket) {
 	}
 
 	AbstractPlayer* player = abstractPlayerFactory->createPlayer();
-	PacketHandler* ph = new PacketHandler(sock, player);
+	PacketHandler* ph;
+	if(master)
+		ph = new PacketHandlerMaster(sock, player);
+	else
+		ph = new PacketHandlerMaple(sock, player);
 	player->setPacketHandler(ph);
 	selector->registerSocket (sock, true, false, true, ph);
 }
