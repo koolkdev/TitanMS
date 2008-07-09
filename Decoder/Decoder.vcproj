@@ -142,7 +142,7 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath=".\AESEncryption.cpp"
+				RelativePath=".\AES.cpp"
 				>
 			</File>
 			<File
@@ -164,7 +164,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\AESEncryption.h"
+				RelativePath=".\AES.h"
 				>
 			</File>
 			<File

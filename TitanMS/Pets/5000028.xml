@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<Pet>
+    <Name>Dragon</Name>
+    <Hungry>0</Hungry>
+    <Life>90</Life>
+    <NameTag>0</NameTag>
+    <ChatBalloon>0</ChatBalloon>
+    <Commands />
+</Pet>

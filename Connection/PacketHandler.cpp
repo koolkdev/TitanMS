@@ -1,29 +1,12 @@
- /*This file is part of TitanMS.
-
-    TitanMS is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    TitanMS is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with TitanMS.  If not, see <http://www.gnu.org/licenses/>.*/
-
 #include "PacketHandler.h"
 //#include "Decoder.h"
 #include <Winsock2.h>
 
 #define HEADER_LEN 4
 #define MASTER_HEADER_LEN 2
-#define BUFFER_LEN 10000
 
 PacketHandlerMaple::PacketHandlerMaple(int socket, AbstractPlayer* player) {
 	this->socket = socket;
-	buffer = new unsigned char[BUFFER_LEN];
 	bytesInBuffer = 0;
 	this->player = player;
 	decoder = new Decoder();
@@ -32,15 +15,18 @@ PacketHandlerMaple::PacketHandlerMaple(int socket, AbstractPlayer* player) {
 		//TODO
 	}
 }
+PacketHandlerMaple::~PacketHandlerMaple(){
+	delete decoder;
+	delete player;
+}
 
-void PacketHandlerMaple::handle (Selector* selector, int socket) {
+int PacketHandlerMaple::handle (Selector* selector, int socket) {
 	if (bytesInBuffer < HEADER_LEN) {
 		// read header
 		int l = recv(socket, (char*)(buffer + bytesInBuffer), HEADER_LEN - bytesInBuffer, 0);
 		if (l <= 0) {
-			selector->unregisterSocket(socket);
-			closesocket(socket);
-			delete player;
+			end();
+			return 0;
 		}
 		bytesInBuffer += l;
 	}
@@ -49,9 +35,8 @@ void PacketHandlerMaple::handle (Selector* selector, int socket) {
 		int packetSize = Decoder::getLength(buffer);
 		int l = recv(socket, (char*)(buffer + bytesInBuffer), HEADER_LEN + packetSize - bytesInBuffer, 0);
 		if (l <= 0) {
-			selector->unregisterSocket(socket);
-			closesocket(socket);
-			delete player;
+			end();
+			return 0;
 		}
 		bytesInBuffer += l;
 		if (bytesInBuffer == packetSize + HEADER_LEN){
@@ -60,6 +45,7 @@ void PacketHandlerMaple::handle (Selector* selector, int socket) {
 			bytesInBuffer = 0;
 		}
 	}
+	return 1;
 
 }
 
@@ -74,20 +60,22 @@ void PacketHandlerMaple::sendPacket(unsigned char *buff, int size){
 }
 PacketHandlerMaster::PacketHandlerMaster(int socket, AbstractPlayer* player) {
 	this->socket = socket;
-	buffer = new unsigned char[BUFFER_LEN];
 	bytesInBuffer = 0;
 	this->player = player;
 	decoder = new MasterDecoder();
 }
+PacketHandlerMaster::~PacketHandlerMaster(){
+	delete decoder;
+	delete player;
+}
 
-void PacketHandlerMaster::handle (Selector* selector, int socket) {
+int PacketHandlerMaster::handle (Selector* selector, int socket) {
 	if (bytesInBuffer < MASTER_HEADER_LEN) {
 		// read header
 		int l = recv(socket, (char*)(buffer + bytesInBuffer), MASTER_HEADER_LEN - bytesInBuffer, 0);
 		if (l <= 0) {
-			selector->unregisterSocket(socket);
-			closesocket(socket);
-			delete player;
+			end();
+			return 0;
 		}
 		bytesInBuffer += l;
 	}
@@ -96,9 +84,8 @@ void PacketHandlerMaster::handle (Selector* selector, int socket) {
 		int packetSize = MasterDecoder::getLength(buffer);
 		int l = recv(socket, (char*)(buffer + bytesInBuffer), MASTER_HEADER_LEN + packetSize - bytesInBuffer, 0);
 		if (l <= 0) {
-			selector->unregisterSocket(socket);
-			closesocket(socket);
-			delete player;
+			end();
+			return 0;
 		}
 		bytesInBuffer += l;
 		if (bytesInBuffer == packetSize + MASTER_HEADER_LEN){
@@ -107,7 +94,7 @@ void PacketHandlerMaster::handle (Selector* selector, int socket) {
 			bytesInBuffer = 0;
 		}
 	}
-
+	return 1;
 }
 
 
@@ -117,4 +104,10 @@ void PacketHandlerMaster::sendPacket(unsigned char *buff, int size){
 	decoder->encrypt(buff, size);
 	memcpy_s(bufs+MASTER_HEADER_LEN, size, buff, size);
 	send(socket, (const char*)bufs, size+MASTER_HEADER_LEN, 0);
+}
+void PacketHandlerMaple::disconnect(){
+	end();
+}
+void PacketHandlerMaster::disconnect(){
+	end();
 }

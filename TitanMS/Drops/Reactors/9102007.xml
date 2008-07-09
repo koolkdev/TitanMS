@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Reactor>
+	<DropsLimit>1</DropsLimit>
+	<Drops>
+		<Drop>
+			<ID>4001095</ID>
+			<Chance>1000</Chance>
+		</Drop>
+		<Drop>
+			<ID>4001096</ID>
+			<Chance>1000</Chance>
+		</Drop>
+		<Drop>
+			<ID>4001097</ID>
+			<Chance>1000</Chance>
+		</Drop>
+		<Drop>
+			<ID>4001098</ID>
+			<Chance>1000</Chance>
+		</Drop>
+		<Drop>
+			<ID>4001099</ID>
+			<Chance>1000</Chance>
+		</Drop>
+		<Drop>
+			<ID>4001100</ID>
+			<Chance>1000</Chance>
+		</Drop>
+	</Drops>
+</Reactor>

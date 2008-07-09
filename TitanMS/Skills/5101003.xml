@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<Skill>
+    <Levels>
+        <Level>
+            <Time>900</Time>
+            <MP>0</MP>
+            <HP>0</HP>
+            <Item>0</Item>
+            <ItemCount>0</ItemCount>
+            <X>0</X>
+            <Y>0</Y>
+            <Speed>0</Speed>
+            <Jump>0</Jump>
+            <WAtk>20</WAtk>
+            <WDef>100</WDef>
+            <MAtk>20</MAtk>
+            <MDef>100</MDef>
+            <Acc>100</Acc>
+            <Avo>100</Avo>
+            <HPP>0</HPP>
+        </Level>
+    </Levels>
+</Skill>
