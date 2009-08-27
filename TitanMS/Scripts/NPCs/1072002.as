@@ -1,11 +1,11 @@
-/* Made by monsoon2004 */
 void npc_main(NPC @npc){
 	int state = npc.getState();
+	Player@ player = npc.getPlayer();
 	if(state == 0){
-		if(npc.getPlayerJob() == 300){
-			if(npc.getPlayerLevel() >= 30){
-				if(npc.getItemAmount(4031012) == 0){
-					if(npc.getItemAmount(4031010) > 0){
+		if(player.getJob() == 300){
+			if(player.getLevel() >= 30){
+				if(player.getItemAmount(4031012) == 0){
+					if(player.getItemAmount(4031010) > 0){
 						npc.addText("Ah yes this is Athena's handwriting. She must have great faith in you. So are you ready to take the test?");
 						state = 1;
 						npc.sendYesNo();
@@ -37,8 +37,8 @@ void npc_main(NPC @npc){
 	else if(state == 1){
 		if(npc.getSelected() == YES){
 			npc.addText("Very well. Let the test commence.");
-			npc.giveItem(4031010, -1);
-			npc.teleport(108000100);
+			player.giveItem(4031010, -1);
+			player.changeMap(108000100);
 			npc.end();
 		}
 		else{

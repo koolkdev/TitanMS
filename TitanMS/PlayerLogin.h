@@ -21,11 +21,11 @@
 #define PLAYERLOGIN_H
 
 #include "../Connection/AbstractPlayer.h"
-#include "../Connection/PacketHandler.h"
 #include <string>
 
 class PacketWriter;
 class Character;
+template <class T> class Handler;
 class PlayerLoginHandler;
 
 class PlayerLogin:public AbstractPlayer {
@@ -94,7 +94,6 @@ public:
 	void loadCharacters();
 	void send(PacketWriter* packet);
 	int checkLogin(string username, string password);
-	void sendPacket(unsigned char* buf, int len){ packetHandler->sendPacket(buf,len); }
 
 private:
 	int status;
@@ -105,11 +104,11 @@ private:
 	int channel;
 	vector <int> ids;
 	vector <Character*> characters;
-	PlayerLoginHandler* handler;
+	Handler<PlayerLoginHandler>* handler;
 	
 };
 
-class PlayerLoginFactory:public AbstractPlayerFactory {
+class PlayerLoginFactory : public AbstractPlayerFactory {
 public:
 	AbstractPlayer* createPlayer(int port) {
 		return new PlayerLogin();

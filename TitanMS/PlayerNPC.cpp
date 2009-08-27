@@ -59,7 +59,7 @@ void NPCs::handleQuestNPC(Player* player, int npcid, string name){
 PlayerNPC::PlayerNPC(int npcid, Player* player, bool isquest, string sname){
 	this->isquest = isquest;
 	getnum=0;
-	gettext[0] = '\0';
+	gettext = "";
 	state=0;
 	selected=-1;
 	cend = false;

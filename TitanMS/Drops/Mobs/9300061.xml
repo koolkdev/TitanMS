@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mob>
+	<Drops>
+		<Drop>
+			<ID>4001101</ID>
+			<Chance>10000</Chance>
+		</Drop>
+	</Drops>
+</Mob>

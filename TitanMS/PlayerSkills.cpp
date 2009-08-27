@@ -53,11 +53,11 @@ hash_map <int, SkillsInfo> Skills::skillsinfo;
 
 #define BEGINNER_SKILL(x) (x<10000)
 
-class SkillTimer: public Timer::TimerHandler {
+class SkillTimer: public Timers::TimerHandler {
 public:
 	void setSkillTimer(Player* player, int skill, int time){
 		STimer timer;
-		timer.id = Timer::timer->setTimer(time, this);
+		timer.id = Timers::timer->setTimer(time, this);
 		timer.player = player;
 		timer.skill = skill;
 		timer.time = time;
@@ -66,7 +66,7 @@ public:
 	}
 	void setSkillTimer(Player* player, int skill, char* name, short value, int time){
 		SActTimer timer;
-		timer.id = Timer::timer->setTimer(time, this);
+		timer.id = Timers::timer->setTimer(time, this);
 		timer.player = player;
 		timer.skill = skill;
 		strcpy_s(timer.act, 50, name);
@@ -78,7 +78,7 @@ public:
 	void stop (Player* player, int skill){
 		for(unsigned int i=0; i<timers.size(); i++){
 			if(player == timers[i].player && timers[i].skill == skill){
-				Timer::timer->cancelTimer(timers[i].id);
+				Timers::timer->cancelTimer(timers[i].id);
 				break;
 			}
 		}
@@ -86,7 +86,7 @@ public:
 	void stop (Player* player, int skill, char* name){
 		for(unsigned int i=0; i<acttimers.size(); i++){
 			if(player == acttimers[i].player && strcmp(acttimers[i].act, name) == 0 && skill == acttimers[i].skill){
-				Timer::timer->cancelTimer(acttimers[i].id);
+				Timers::timer->cancelTimer(acttimers[i].id);
 				break;
 			}
 		}
@@ -94,12 +94,12 @@ public:
 	void stop (Player* player){
         for(unsigned int i=timers.size(); i>0; i--){
             if(player == timers[i-1].player){
-                Timer::timer->cancelTimer(timers[i-1].id);
+                Timers::timer->cancelTimer(timers[i-1].id);
             }
         } 
         for(unsigned int i=acttimers.size(); i>0; i--){ 
             if(player == acttimers[i-1].player){
-                Timer::timer->cancelTimer(acttimers[i-1].id);
+                Timers::timer->cancelTimer(acttimers[i-1].id);
             }
         } 
 	}
@@ -107,12 +107,12 @@ public:
         for(unsigned int i=timers.size(); i>0; i--){
             if(player == timers[i-1].player){
 				Skills::endSkill(player, timers[i].id);
-                Timer::timer->cancelTimer(timers[i-1].id);
+                Timers::timer->cancelTimer(timers[i-1].id);
             }
         } 
         for(unsigned int i=acttimers.size(); i>0; i--){ 
             if(player == acttimers[i-1].player){
-                Timer::timer->cancelTimer(acttimers[i-1].id);
+                Timers::timer->cancelTimer(acttimers[i-1].id);
             }
         } 
 	}
@@ -185,9 +185,9 @@ private:
 	}
 };
 
-vector <SkillTimer::STimer> SkillTimer::timers;
-vector <SkillTimer::SActTimer> SkillTimer::acttimers;
-hash_map <int, bool> SkillTimer::act;
+vector <SkillTimers::STimer> SkillTimers::timers;
+vector <SkillTimers::SActTimer> SkillTimers::acttimers;
+hash_map <int, bool> SkillTimers::act;
 SkillTimer* Skills::timer;
 
 void Skills::stopTimerPlayer(Player* player){

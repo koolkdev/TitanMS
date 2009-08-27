@@ -3,23 +3,23 @@
 	<NPC>9900000</NPC>
 	<Items>
 		<Item>
-			<ID>01062007</ID>
+			<ID>1062007</ID>
 			<Price>1</Price>
 		</Item>
 		<Item>
-			<ID>01002140</ID>
+			<ID>1002140</ID>
 			<Price>1</Price>
 		</Item>
 		<Item>
-			<ID>01042003</ID>
+			<ID>1042003</ID>
 			<Price>1</Price>
 		</Item>
 		<Item>
-			<ID>01072190</ID>
+			<ID>1072190</ID>
 			<Price>1</Price>
 		</Item>
 		<Item>
-			<ID>01322013</ID>
+			<ID>1322013</ID>
 			<Price>1</Price>
 		</Item>
 	</Items>

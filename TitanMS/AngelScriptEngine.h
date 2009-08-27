@@ -20,14 +20,17 @@
 #ifndef ANGELSCRIPTENGINE_H
 #define ANGELSCRIPTENGINE_H
 
-#include "angelscript.h"
+#include "../angelscript/angelscript.h"
 #include "ByteCodeMemory.h"
 #include <string>
+
 using namespace std;
 
 class PlayerNPC;
 class Player;
 class Reactor;
+class MapPortalData;
+class Channel;
 
 class AngelScriptEngine {
 private:
@@ -37,8 +40,13 @@ public:
 	static int handleNPC(PlayerNPC* npc);
 	static int handleReactor(Player* player, Reactor* reactor);
 	static ByteCodeMemory<int>* loadNPC(int id);
+	static ByteCodeMemory<string>* loadPortal(string id);
+	static ByteCodeMemory<string>* loadEvent(string id);
+	static ByteCodeMemory<string>* loadChannelEvent(string id);
 	static ByteCodeMemory<int>* loadReactor(int id);
-	static int handlePortal(Player* player, string portal);
+	static int handlePortal(Player* player, MapPortalData* portal);
+	static int handleEvent(Channel* channel, string& eventn);
+	static int handleChannelEvent(Channel* channel, string& eventn);
 	static int LoadScript(asIScriptEngine * pScriptEngine, const char *filename, const char * module = 0);
 };
 

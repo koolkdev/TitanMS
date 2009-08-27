@@ -1,3 +1,23 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+#include "DataProvider.h"
 #include "PlayerHandler.h"
 #include "PacketReader.h"
 #include "PacketWriter.h"
@@ -18,26 +38,28 @@
 #include "Skill.h"
 #include "Equip.h"
 #include "ItemData.h"
+#include "EquipData.h"
+#include <algorithm>
 #include "ItemEffectData.h"
 #include "PlayerBuffs.h"
 #include "Tools.h"
 using namespace Tools;
 
-void PlayerHandler::cancelChairHandle(PacketReader* packet){
+void PlayerHandler::cancelChairHandle(PacketReader& packet){
 	player->setChair(0);
 	player->send(PacketCreator().cancelChair());
 	player->getMap()->send(PacketCreator().useChair(player->getID(), 0), player); 
 }
-void PlayerHandler::useChairHandle(PacketReader* packet){
-	int chairid = packet->readInt();
+void PlayerHandler::useChairHandle(PacketReader& packet){
+	int chairid = packet.readInt();
 	Item* item = player->getInventories()->getItemByID(chairid);
 	if(item == NULL || MAJOR_TYPE(chairid) != 301) // not a chair
 		return;
 	player->setChair(chairid);
 	player->getMap()->send(PacketCreator().useChair(player->getID(), chairid), player); 
 }
-void PlayerHandler::useItemEffectHandle(PacketReader* packet){
-	int effect = packet->readInt();
+void PlayerHandler::useItemEffectHandle(PacketReader& packet){
+	int effect = packet.readInt();
 	Item* item = player->getInventories()->getItemByID(effect);
 	if((item == NULL || MAJOR_TYPE(effect) != 501) && effect != 0) 
 		return;
@@ -45,22 +67,20 @@ void PlayerHandler::useItemEffectHandle(PacketReader* packet){
 	player->getMap()->send(PacketCreator().useItemEffect(player->getID(), effect), player); 
 
 }
-void PlayerHandler::useCashItemHandle(PacketReader* packet){
-	short slot = packet->readShort();
-	int itemid = packet->readInt();
+void PlayerHandler::useCashItemHandle(PacketReader& packet){
+	short slot = packet.readShort();
+	int itemid = packet.readInt();
 	Item* item = player->getInventories()->getItemBySlot(CASH, slot);
 	if(item == NULL || item->getID() != itemid){
 		return;
 	}
-	bool takeitem = false;
 	switch(MAJOR_TYPE(itemid)){
 		//case 503: break; //TODO: Shops
 		//case 504: break; //TODO: VIP Rock
 		case 505:
 			{
-				takeitem = true;
-				int to = packet->readInt();
-				int from = packet->readInt();
+				int to = packet.readInt();
+				int from = packet.readInt();
 				if(itemid%10 == 0){
 					Values values;
 					Value v = player->removeStat(from);
@@ -71,7 +91,7 @@ void PlayerHandler::useCashItemHandle(PacketReader* packet){
 					if(v.getType() == 0)
 						return;
 					values.add(v);
-					player->send(PacketCreator().updateStats(&values, true));
+					player->send(PacketCreator().updateStats(values, true));
 				}
 				else{
 					int job = itemid%10;
@@ -86,7 +106,7 @@ void PlayerHandler::useCashItemHandle(PacketReader* packet){
 					vector <Skill*> skills;
 					skills.push_back(froms);
 					skills.push_back(tos);
-					player->send(PacketCreator().updateSkill(&skills));
+					player->send(PacketCreator().updateSkill(skills));
 
 				}
 				break;
@@ -96,21 +116,20 @@ void PlayerHandler::useCashItemHandle(PacketReader* packet){
 				switch(itemid%10){
 					case 0:
 						{
-							short pos = packet->readShort();
+							short pos = packet.readShort();
 							Equip* equip = (Equip*)player->getInventories()->getItemBySlot(EQUIPPED, pos);
 							if(equip == NULL || equip->getOwner() != "")
 								return;
 							equip->setOwner(player->getName());
 							player->send(PacketCreator().newItem(equip, true));
-							takeitem = true;
 							break;
 						}
 					/*
 					case 1:
 						{	 // How to unlock item??
-							packet->show();
-							int inv = packet->readInt();
-							int pos = packet->readInt();
+							packet.show();
+							int inv = packet.readInt();
+							int pos = packet.readInt();
 							Item* on = player->getInventories()->getItemBySlot(inv, pos);
 							if(on == NULL)
 								return;
@@ -129,14 +148,13 @@ void PlayerHandler::useCashItemHandle(PacketReader* packet){
 			/*
 		case 509:
 			{	
-				string receiver = packet->readString();
-				string note = packet->readString();
+				string receiver = packet.readString();
+				string note = packet.readString();
 				// TODO: Get note packet 0.o
 				break;
 			}
 		case 510: 
 			{
-				takeitem = true;
 				player->getMap()->send(PacketCreator().changeSound("Jukebox/Congratulation")); // need to add timer
 			}*/
 		case 530:
@@ -147,29 +165,30 @@ void PlayerHandler::useCashItemHandle(PacketReader* packet){
 				else
 					player->send(PacketCreator().enableAction());
 			}
-		default: player->send(PacketCreator().enableAction());
+		default:{ player->send(PacketCreator().enableAction()); return; };
 	}
-	if(takeitem)
-		player->getInventories()->removeItemBySlot(CASH, slot, 1);
+	player->getInventories()->removeItemBySlot(CASH, slot, 1);
 }
-void PlayerHandler::moveItemHandle(PacketReader* packet){
-	packet->readInt();
-	char inv1 = packet->read();
+void PlayerHandler::moveItemHandle(PacketReader& packet){
+	packet.readInt();
+	char inv1 = packet.read();
 	char inv2 = inv1;
-	short slot1 = packet->readShort();
+	short slot1 = packet.readShort();
 	if(slot1 < 0)
 		inv1 = 0;
-	short slot2 = packet->readShort();
+	short slot2 = packet.readShort();
 	if(slot2 < 0)
 		inv2 = 0;
 	Item* item1 = player->getInventories()->getItemBySlot(inv1, slot1);
 	Item* item2 = player->getInventories()->getItemBySlot(inv2, slot2);
-	short amount= packet->readShort();
-	if(item1 == NULL || amount == 0)
+	short amount= packet.readShort();
+	if(item1 == NULL || (amount == 0 && !IS_STAR(item1->getID())))
 		return;
 	if(slot2 == 0){ // Drop
-		if(amount > item1->getAmount() || amount < 1)
+		if((amount > item1->getAmount() || amount < 1) && !IS_STAR(item1->getID()))
 			return;
+		if(IS_STAR(item1->getID()))
+			amount = item1->getAmount();
 		if(amount!=item1->getAmount()){
 			Item* item = new Item(item1->getID(), amount);
 			item1->setAmount(item1->getAmount()-amount);
@@ -183,23 +202,23 @@ void PlayerHandler::moveItemHandle(PacketReader* packet){
 		}
 	}
 	else{
-		if(item2 == NULL){
+		if(item2 == NULL){ // move to empty pos
 			item1->setSlot(slot2);
 			player->getInventories()->getInventory(inv1)->removeItem(slot1, false, false, false);
-			player->getInventories()->getInventory(inv2)->addItem(item1, false);
+			player->getInventories()->getInventory(inv2)->addItem(item1, false, false, false);
 			player->send(PacketCreator().moveItem((inv1 == 0 || inv2 == 0) ? 1 : inv1, slot1, slot2, (inv1 == 0 || inv2 == 0)));
 		}
-		else if(item2->getID() != item1->getID() || inv1 <= 1 || inv2 <= 1){
+		else if(item2->getID() != item1->getID() || inv1 <= 1 || inv2 <= 1 || IS_STAR(item1->getID()) || IS_STAR(item2->getID())){ // switch positions
 			item1->setSlot(slot2);
 			item2->setSlot(slot1);
 			player->getInventories()->getInventory(inv1)->removeItem(slot1, false, false, false);
 			player->getInventories()->getInventory(inv2)->removeItem(slot2, false, false, false);
-			player->getInventories()->getInventory(inv2)->addItem(item1, false);
-			player->getInventories()->getInventory(inv1)->addItem(item2, false);
+			player->getInventories()->getInventory(inv2)->addItem(item1, false, false, false);
+			player->getInventories()->getInventory(inv1)->addItem(item2, false, false, false);
 			player->send(PacketCreator().moveItem((inv1 == 0 || inv2 == 0) ? 1 : inv1, slot1, slot2, (inv1 == 0 || inv2 == 0)));
 		}
-		else{
-			if(item1->getAmount() + item2->getAmount() <= DataProvider::getInstance()->getItemMaxPerSlot(item1->getID())){
+		else{ // merge
+			if(item1->getAmount() + item2->getAmount() <= DataProvider::getInstance()->getItemMaxPerSlot(item1->getID())){ 
 				item2->setAmount(item1->getAmount()+item2->getAmount());
 				player->send(PacketCreator().moveItemMerge(inv2, slot1, slot2, item2->getAmount()));
 				player->getInventories()->getInventory(inv1)->removeItem(slot1, true, true, false);
@@ -215,10 +234,10 @@ void PlayerHandler::moveItemHandle(PacketReader* packet){
 	if(inv1 == 0 || inv2 == 0)
 		player->getMap()->send(PacketCreator().updatePlayer(player), player);
 }
-void PlayerHandler::useItemHandle(PacketReader* packet){
-	packet->readInt();
-	short slot = packet->readShort();
-	int itemid = packet->readInt();
+void PlayerHandler::useItemHandle(PacketReader& packet){
+	packet.readInt();
+	short slot = packet.readShort();
+	int itemid = packet.readInt();
 	Item* item = player->getInventories()->getItemBySlot(USE, slot);
 	if(item == NULL || item->getID() != itemid){
 		player->send(PacketCreator().enableAction());
@@ -229,32 +248,46 @@ void PlayerHandler::useItemHandle(PacketReader* packet){
 	if(effect != NULL)
 		effect->use(player);	
 }
-void PlayerHandler::useReturnScrollHandle(PacketReader* packet){
-	packet->readInt();
-	short slot = packet->readShort();
-	int itemid = packet->readInt();
+void PlayerHandler::useReturnScrollHandle(PacketReader& packet){
+	packet.readInt();
+	short slot = packet.readShort();
+	int itemid = packet.readInt();
 	Item* item = player->getInventories()->getItemBySlot(USE, slot);
 	if(item == NULL || item->getID() != itemid || MAJOR_TYPE(itemid) != 203){
 		player->send(PacketCreator().enableAction());
 		return;
 	}
 	player->getInventories()->removeItemBySlot(USE, slot, 1);
-	int mapid = DataProvider::getInstance()->getItemMoveTo(itemid);
-	if(mapid == 999999999){
-		mapid = DataProvider::getInstance()->getReturnMap(player->getMap()->getID());
+	int tomapid = DataProvider::getInstance()->getItemMoveTo(itemid);
+	if(tomapid == 999999999){	
+		int mapid = player->getMap()->getReturnMap();
+		if(mapid == 999999999){
+			player->changeMap(player->getMap());
+		}
+		else{
+			Map* map = player->getChannel()->getMaps()->getMap(mapid);
+			if(map == NULL){
+				player->changeMap(player->getMap());
+			}
+			else{
+				player->changeMap(map);
+			}
+		}
 	}
-	Map* map = player->getChannel()->getMaps()->getMap(mapid);
-	if(map != NULL)
-		player->changeMap(map);
+	else{
+		Map* map = player->getChannel()->getMaps()->getMap(tomapid);
+		if(map != NULL)
+			player->changeMap(map);
+	}
 }
 int getRandomStat(){
 	return random(1,5)*((random(2) == 1) ? 1 : -1);
 }
-void PlayerHandler::useScrollHandle(PacketReader* packet){
-	packet->readInt();
-	short slot = packet->readShort();
-	short eslot = packet->readShort();
-	bool wscroll = packet->readShort() == 2;
+void PlayerHandler::useScrollHandle(PacketReader& packet){
+	packet.readInt();
+	short slot = packet.readShort();
+	short eslot = packet.readShort();
+	bool wscroll = packet.readShort() == 2;
 	Item* scroll = player->getInventories()->getItemBySlot(USE, slot);
 	Equip* equip = (Equip*)player->getInventories()->getItemBySlot(EQUIPPED, eslot);
 	if(scroll == NULL || equip == NULL || MAJOR_TYPE(scroll->getID()) != 204 || equip->getSlots() == 0 || (wscroll && player->getInventories()->getItemByID(2340000) == NULL)){
@@ -269,6 +302,10 @@ void PlayerHandler::useScrollHandle(PacketReader* packet){
 		return;
 	bool success = false, cursed = false;
 	ItemEffectData* effect = item->getEffectData();
+	if(effect->getRecover() && equip->getSlots() >= DataProvider::getInstance()->getEquipData(equip->getID())->getSlots()){
+		player->send(PacketCreator().enableAction());
+		return;
+	}
 	if(random(100) < effect->getSuccess()){
 		success = true;
 		equip->setStr(equip->getStr()+effect->getStr());
@@ -330,7 +367,7 @@ void PlayerHandler::useScrollHandle(PacketReader* packet){
 			cursed = true;
 		}
 	}
-	if(!(wscroll || effect->getRecover()))
+	if(!((wscroll && !success) || effect->getRecover()))
 		equip->setSlots(equip->getSlots()-1);
 	player->getMap()->send(PacketCreator().useScroll(player->getID(), success, cursed));
 	player->send(PacketCreator().scrollItem(scroll, equip, cursed));
@@ -340,10 +377,82 @@ void PlayerHandler::useScrollHandle(PacketReader* packet){
 		player->getInventories()->removeItemBySlot(EQUIPPED, eslot, 1, false);
 	}
 }
-void PlayerHandler::useSummonBugHandle(PacketReader* packet){
+void PlayerHandler::useSummonBugHandle(PacketReader& packet){
 }
 
-void PlayerHandler::cancelItemBuffHandle(PacketReader* packet){
-	int effect = packet->readInt();
+void PlayerHandler::cancelItemBuffHandle(PacketReader& packet){
+	int effect = packet.readInt();
 	player->getBuffs()->cancelBuff(effect);	
+}
+
+void PlayerHandler::usePetFoodHandle(PacketReader& packet){
+	packet.readInt();
+	short slot = packet.readShort();
+	int itemid = packet.readInt();
+	Item* item = player->getInventories()->getItemBySlot(USE, slot);
+	if(item == NULL || MAJOR_TYPE(itemid) != 212 || item->getID() != itemid) 
+		return;
+	vector <Pet*>* pets = player->getPets();
+	if(!pets->empty())
+		player->getInventories()->removeItemBySlot(USE, slot, 1);
+	else{
+		player->send(PacketCreator().emptyInventoryAction());
+		return;
+	}
+	ItemData* data = DataProvider::getInstance()->getItemData(itemid);
+	if(data == NULL)
+		return;
+	ItemEffectData* effect = data->getEffectData();
+	for(int i=0; i<(int)pets->size(); i++){
+		bool closeness = (*pets)[i]->getFullness() < 50;
+		(*pets)[i]->addFullness(effect->getFullness());
+		if(closeness && random(2))
+			(*pets)[i]->addCloseness(1, player);
+		else
+			player->send(PacketCreator().updatePet((*pets)[i]));
+	}
+}
+
+void PlayerHandler::autoArrangementHandle(PacketReader& packet){
+	// I need to get the packet ><
+	/*
+	packet.show();
+	packet.readInt();
+	int inv = packet.read();
+	hash_map <int, Item*>* hitems = player->getInventories()->getInventory(inv)->getItems();
+	vector <Item*> items;
+	for(hash_map<int, Item*>::iterator iter = hitems->begin(); iter != hitems->end(); iter++){
+		items.push_back(iter->second);	
+	}
+	sort<vector <Item*>::iterator, CompareItems>(items.begin(),items.end(), CompareItems());
+	//TODO: find the packets
+	bool check = true;
+	for(int i=0; i<(int)items.size(); i++)
+		if(items[i]->getSlot() != i+1) check = false;
+	if(check){ // TODO: stacking
+	}
+	else{
+		for(int i=0; i<(int)items.size(); i++){	
+			Item* item1 = items[i];
+			Item* item2 = player->getInventories()->getItemBySlot(inv, i+1);
+			if(item1 == item2) continue;
+			short slot1 = items[i]->getSlot();
+			short slot2 = i+1;
+			if(item2 == NULL){
+				item1->setSlot(slot2);
+				player->getInventories()->getInventory(inv)->removeItem(slot1, false, false, false);
+				player->getInventories()->getInventory(inv)->addItem(item1, false, false, false);
+			}
+			else {
+				item1->setSlot(slot2);
+				item2->setSlot(slot1);
+				player->getInventories()->getInventory(inv)->removeItem(slot1, false, false, false);
+				player->getInventories()->getInventory(inv)->removeItem(slot2, false, false, false);
+				player->getInventories()->getInventory(inv)->addItem(item1, false, false, false);
+				player->getInventories()->getInventory(inv)->addItem(item2, false, false, false);
+			}
+			player->send(PacketCreator().moveItem(inv, slot1, slot2, inv));
+		}
+	}
+	*/
 }

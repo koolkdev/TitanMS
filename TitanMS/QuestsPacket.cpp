@@ -23,7 +23,7 @@
 PacketWriter* PacketCreator::updateQuest(short questid, int npcid, int nextquest){
 	pw.writeShort(QUEST_UPDATE);
 
-	pw.write(6);
+	pw.write(8);
 	pw.writeShort(questid);
 	pw.writeInt(npcid);
 	pw.writeInt(nextquest);
@@ -58,7 +58,7 @@ PacketWriter* PacketCreator::itemGainChat(int itemid, int amount){
 	pw.writeShort(ITEM_GAIN_CHAT);
 	
 	pw.write(3);
-	pw.write(1);
+	pw.write(1); // TODO: items num
 	pw.writeInt(itemid);
 	pw.writeInt(amount);
 

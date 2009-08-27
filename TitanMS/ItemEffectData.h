@@ -1,3 +1,22 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef ITEMEFFECTDATA_H
 #define ITEMEFFECTDATA_H
 
@@ -35,6 +54,11 @@ private:
 	bool recover;
 	bool randstat;
 	int morph;
+	int fullness;
+	int thaw;
+	int masterLevel;
+	int reqSkillLevel;
+	vector<int> skills;
 	ItemSummonData* isd;
 public:
 	ItemEffectData(){
@@ -65,7 +89,11 @@ public:
 		recover=0;
 		randstat=0;
 		morph = 0;
+		thaw = 0;
+		fullness = 0;
 		time = 0;
+		masterLevel = 0;
+		reqSkillLevel = 0;
 		isd = new ItemSummonData();
 	}
 
@@ -236,6 +264,33 @@ public:
 	}
 	int getMorph(){
 		return morph;
+	}
+	void setFullness(int f){
+		fullness = f;
+	}
+	int getFullness(){
+		return fullness;
+	}
+	void setThaw(int t){
+		thaw = t;
+	}
+	int getThaw(){
+		return thaw;
+	}
+	void setMasterLevel(int ml){
+		masterLevel = ml;
+	}
+	int getMasterLevel(){
+		return masterLevel;
+	}
+	void setReqSkillLevel(int r){
+		reqSkillLevel = r;
+	}
+	int getReqSkillLevel(){
+		return reqSkillLevel;
+	}
+	void addSkill(int skillid){
+		skills.push_back(skillid);
 	}
 	ItemSummonData* getSummonData(){
 		return isd;

@@ -43,12 +43,8 @@ public:
 	PlayerSkills(Player* player){
 		this->player = player;
 	}
-	vector<Skill*> getSkillsInfo(){
-		vector <Skill*> ret;
-		for (hash_map<int,Skill*>::iterator iter = skills.begin(); iter != skills.end(); iter++){
-			ret.push_back(iter->second);
-		}
-		return ret;
+	hash_map<int, Skill*>* getSkillsInfo(){
+		return &skills;
 	}
 	void useAttackSkill(int skillid);
 	void addSkill(Skill* skill);

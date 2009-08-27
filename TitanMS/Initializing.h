@@ -20,6 +20,7 @@
 #ifndef INITIALIZE_H
 #define INITIALIZE_H
 
+#include <string>
 class DropsData;
 class MobData;
 class MapData;
@@ -30,12 +31,14 @@ class ItemData;
 class QuestData;
 class SkillData;
 class ReactorData;
+class EventData;
 
 class Initializing {
 public:
-	static void initializing();
+	static bool initializing();
+	static bool initializeSettings();
 	static void initializeMobs();
-	static void initializeNPCs();
+	static void initializeNPCsScripts();
 	static void initializeMobsDrops();
 	static void initializeReactorsDrops();
 	static void initializeMaps();
@@ -45,7 +48,12 @@ public:
 	static void initializeQuests();
 	static void initializeSkills();
 	static void initializeReactors();
+	static void initializePortals();
 	static void initializeReactorScripts();
+	static void initializeEvents();
+	static void initializeChannelEvents();
+	static void initializeEventsScripts();
+	static void initializeChannelEventsScripts();
 	static void initializePets();
 	static DropsData* loadMobDrops(int id);
 	static DropsData* loadReactorDrops(int id);
@@ -58,6 +66,7 @@ public:
 	static SkillData* loadSkill(int id);
 	static PetData* loadPet(int id);
 	static ReactorData* loadReactor(int id);
+	static EventData* loadEvent(std::string& id);
 };
 
 #endif

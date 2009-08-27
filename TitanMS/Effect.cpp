@@ -1,4 +1,26 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+#include "DataProvider.h"
 #include "Effect.h"
+#include "Party.h"
+#include "PartyMembers.h"
 #include "ItemData.h"
 #include "SkillData.h"
 #include "DataProvider.h"
@@ -33,19 +55,21 @@ private:
 	Player* player;
 	int rec;
 	int time;
-	int* ptr;
+	Timer** timer;
 public:
-	RecoverySkillTimer(Player* player, int rec, int time, int* ptr):player(player), rec(rec), time(time), ptr(ptr){}
+	RecoverySkillTimer(Player* player, int rec, int time, Timer** timer):player(player), rec(rec), time(time), timer(timer){}
 	void run(){
 		if(rec < 0 && player->getHP() < -rec){
-			*ptr = 0;
+			*timer = NULL;
 			player->getBuffs()->cancelBuff(1311008); // Drgoon blood
 			return;
 		}
-		player->addHP(rec);
-		if(rec > 0 && player->getHP() != player->getMaxHP())
-			player->send(PacketCreator().showPlayerEffect(Player::Effects::HEAL, rec));
-		*ptr = Timer::getInstance()->setTimer(time, new RecoverySkillTimer(player, rec, time, ptr));
+		if(player->getHP() > 0){
+			player->addHP(rec);
+			if(rec > 0 && player->getHP() != player->getMaxHP())
+				player->send(PacketCreator().showPlayerEffect(Player::Effects::HEAL, rec));
+		}
+		*timer = Timers::getInstance()->startTimer(time, new RecoverySkillTimer(player, rec, time, timer));
 	}
 };
 
@@ -131,6 +155,8 @@ Effect::Effect(int id, SkillLevelData* data){
 	itemConNo = data->getItemCount();
 	x = data->getX();
 	y = data->getY();
+	lt = data->getLT();
+	rb = data->getRB();
 	//TODO
 	prop = 0;
 	//lt, rb;
@@ -140,7 +166,7 @@ Effect::Effect(int id, SkillLevelData* data){
 			values.add(Value(MAGIC_GUARD, x)); break;
 		case 2301003: // invincible
 			values.add(Value(INVINCIBLE, x)); break;
-		case 5101004: // hide
+		case 9101004: // hide
 		case 4001003: // darksight
 			values.add(Value(DARK_SIGHT, x)); break;
 		case 4211003: // pickpocket
@@ -173,10 +199,13 @@ Effect::Effect(int id, SkillLevelData* data){
 		case 4201002:
 		case 2111005:
 		case 2211005:
+		case 5101006:
+		case 5101003:
 			values.add(Value(BOOSTER, x)); break;
 		case 1101007: // power guard
 		case 1201007:
 			values.add(Value(POWER_GUARD, x)); break;
+		case 9101008: // gm hyper body
 		case 1301007: // hyper body
 			values.add(Value(HYPERBODY_HP, x)); 
 			values.add(Value(HYPERBODY_MP, y)); break;
@@ -265,45 +294,59 @@ Effect::Effect(int id, SkillLevelData* data){
 void Effect::use(Player* player, bool by){
 	if(player->getHP() == 0 && !by)
 		return;
-	int ahp = hp - ((by) ? 0 : hpCon) + player->getHP()*hpR/100;
-	int amp = mp - ((by) ? 0 : mpCon )+ player->getMP()*mpR/100;
+	int ahp = hp - ((by) ? 0 : hpCon) + player->getMaxHP()*hpR/100;
+	int amp = mp - ((by) ? 0 : mpCon )+ player->getMaxMP()*mpR/100;
 	Values toupdate;
 	if(ahp != 0 && player->getHP() > 0){
-		player->addHP(ahp, false);
-		toupdate.add(Value(Player::Update::HP, player->getHP()));
+		player->addHP(ahp, true, true);
 	}
 	if((amp < 0 && player->getMP() < -amp) || (ahp < 0 && player->getHP() < -ahp)){
 		player->send(PacketCreator().enableAction());
 		return;
 	}
 	if(amp != 0){
-		player->addMP(amp, false);
-		toupdate.add(Value(Player::Update::MP, player->getMP()));
-	} 
-	player->send(PacketCreator().updateStats(&toupdate, !by));
+		player->addMP(amp, true, true);
+	}
+	if(amp == 0 && ahp == 0)
+		player->send(PacketCreator().enableAction());
 	// TODO: add check here
 	if(!by && itemConNo != 0){
 		player->getInventories()->getInventory(INVENTORY(itemCon))->removeItem(itemCon, itemConNo);
 	}
-	if(by && (id == 5101005 || id == 5001005 || id == 2321006)){ // esurrection
+	if(by && (id == 9101005 || id == 9001005 || id == 2321006)){ // esurrection
 		player->setStance(0);
 		player->setHP(player->getMaxHP());
 	}
 	if(skill){
 		player->getMap()->send(PacketCreator().showBuffEffect(player->getID(), by ? 2 : 1, id), player);
+		if(by)
+			player->send(PacketCreator().showPlayerBuffEffect(2, id));
 	}
-	// TODO party
+	// TODO: hpR/people to use on
+	if(!by && lt != 0 && rb != 0 && player->getParty() != NULL){
+		hash_map <int, Player*>* ps = player->getParty()->getMembers()->getPlayers();
+		for(hash_map<int,Player*>::iterator iter = ps->begin(); iter != ps->end(); iter++){
+			if(iter->second != player && iter->second->getMap() == player->getMap()){	
+				Position pos = player->getPosition();
+				Position fpos = iter->second->getPosition();
+				if(fpos.x > pos.x + lt.x && fpos.y > pos.y + lt.y && fpos.x < pos.x + rb.x && fpos.y < pos.y + rb.y){
+					if(iter->second->getHP() > 0 || id == 9101005 || id != 9001005 || id == 2321006)
+						use(iter->second, true);
+				}
+			}
+		}
+	}
 	if(time > 0){
 		// TODO hyper body
-		Buff* buff = new Buff(this, Timer::getInstance()->setTimer(time, new SkillTimer(player, id)));
-		player->getBuffs()->addBuff(buff);
-		int stimer = 0;
+		Buff* buff = new Buff(this, Timers::getInstance()->startTimer(time, new SkillTimer(player, id)));
+		Timer* stimer = NULL;
 		switch(id){
-			case 1001: stimer = Timer::getInstance()->setTimer(4900, new RecoverySkillTimer(player, x, 5000, buff->getTimerPtr())); break; //Recovery
-			case 1311008: stimer = Timer::getInstance()->setTimer(3900, new RecoverySkillTimer(player, -x, 4000, buff->getTimerPtr())); break; //Dragon Blood
+			case 1001: stimer = Timers::getInstance()->startTimer(4900, new RecoverySkillTimer(player, x, 5000, buff->getTimerPtr())); break; //Recovery
+			case 1311008: stimer = Timers::getInstance()->startTimer(3900, new RecoverySkillTimer(player, -x, 4000, buff->getTimerPtr())); break; //Dragon Blood
 		}
 		if(stimer != 0)
 			*buff->getTimerPtr() = stimer;
+		player->getBuffs()->addBuff(buff);
 		player->send(PacketCreator().showPlayerBuff(&values, id, time));
 		Values m = Values();
 		if(values.contain(DARK_SIGHT))m.add(Value(DARK_SIGHT, 0));
@@ -316,7 +359,6 @@ void Effect::use(Player* player, bool by){
 			player->getMap()->send(PacketCreator().showBuff(player->getID(), &m));
 	}
 	// TODO door
-
 }
 void Effect::use(Mob* mob){
 

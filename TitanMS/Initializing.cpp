@@ -18,7 +18,12 @@
 */
 
 #include "Initializing.h"
-#include "tinyxml.h"
+#include "ChannelEventData.h"
+#include "ChannelEventsData.h"
+#include "ChannelEventsScriptsData.h"
+#include "EventData.h"
+#include "EventsData.h"
+#include "EventsScriptsData.h"
 #include "DropsData.h"
 #include "DropData.h"
 #include "MobsDropData.h"
@@ -40,12 +45,14 @@
 #include "MapPortalsData.h"
 #include "MapFootholdData.h"
 #include "MapFootholdsData.h"
+#include "MapShipData.h"
 #include "MobData.h"
 #include "MobsData.h"
 #include "PetsData.h"
 #include "PetData.h"
 #include "PetCommandData.h"
-#include "NPCsData.h"
+#include "NPCsScriptsData.h"
+#include "PortalsData.h"
 #include "QuestRewardData.h"
 #include "QuestRewardsData.h"
 #include "QuestsData.h"
@@ -69,17 +76,24 @@
 #include "tchar.h" 
 #include "Markup.h"
 #include "Tools.h"
+#include "Worlds.h"
+#include "MySQLM.h"
 using namespace Tools;
 using namespace std;   
 MobsDropData* TopData<MobsDropData,DropsData>::instance;
 ReactorsDropData* TopData<ReactorsDropData,DropsData>::instance;
+PortalsData* TopData<PortalsData,ByteCodeMemory<string>,string>::instance;
+ChannelEventsScriptsData* TopData<ChannelEventsScriptsData,ByteCodeMemory<string>,string>::instance;
+ChannelEventsData* TopData<ChannelEventsData,ChannelEventData, string>::instance;
+EventsScriptsData* TopData<EventsScriptsData,ByteCodeMemory<string>,string>::instance;
+EventsData* TopData<EventsData,EventData, string>::instance;
 EquipsData* TopData<EquipsData,EquipData>::instance;
 ItemsData* TopData<ItemsData,ItemData>::instance;
 PetsData* TopData<PetsData,PetData>::instance;
 ReactorsData* TopData<ReactorsData,ReactorData>::instance;
 MapsData* TopData<MapsData,MapData>::instance;
 MobsData* TopData<MobsData,MobData>::instance;
-NPCsData* TopData<NPCsData,ByteCodeMemory<int>>::instance;
+NPCsScriptsData* TopData<NPCsScriptsData,ByteCodeMemory<int>>::instance;
 ReactorScriptsData* TopData<ReactorScriptsData,ByteCodeMemory<int>>::instance;
 QuestsData* TopData<QuestsData,QuestData>::instance;
 ShopsData* TopData<ShopsData,ShopData>::instance;
@@ -112,19 +126,25 @@ MobData* Initializing::loadMob(int id){
 		if(s == "HP") mob->setMaxHP(atoi((char*)xml.GetData().c_str()));
 		else if(s == "MP") mob->setMaxMP(atoi((char*)xml.GetData().c_str()));
 		else if(s == "exp") mob->setExp(atoi((char*)xml.GetData().c_str()));
+		else if(s == "Level") mob->setLevel(atoi((char*)xml.GetData().c_str()));
+		else if(s == "WAtk") mob->setWAtk(atoi((char*)xml.GetData().c_str()));
+		else if(s == "WDef") mob->setWDef(atoi((char*)xml.GetData().c_str()));
+		else if(s == "MAtk") mob->setMAtk(atoi((char*)xml.GetData().c_str()));
+		else if(s == "MDef") mob->setMDef(atoi((char*)xml.GetData().c_str()));
 		else if(s == "Boss") mob->setIsBoss(atoi((char*)xml.GetData().c_str()) == 1);
 		else if(s == "Color") mob->setColor(atoi((char*)xml.GetData().c_str()));
 		else if(s == "BgColor") mob->setBgColor(atoi((char*)xml.GetData().c_str()));
 		else if(s == "RemoveAfter") mob->setRemoveAfter(atoi((char*)xml.GetData().c_str()));
 		else if(s == "HPRecovery") mob->setHPRecovery(atoi((char*)xml.GetData().c_str()));
 		else if(s == "MPRecovery") mob->setMPRecovery(atoi((char*)xml.GetData().c_str()));
-		else if(s == "DieDelay") mob->setDieDelay(atoi((char*)xml.GetData().c_str()));
+		else if(s == "DamagedByMob") mob->setDamagedByMob(atoi((char*)xml.GetData().c_str()) == 1);
 		else if(s == "FirstAttack") mob->setFirstAttack(atoi((char*)xml.GetData().c_str()) == 1);
+		else if(s == "DropItemDelay") mob->setDropDelay(atoi((char*)xml.GetData().c_str()));
 		else if(s == "Summon"){
 			xml.IntoElem();
-			while(xml.FindChildElem())
-				if(xml.GetChildTagName() == "Mob")
-					mob->getSummonData()->add(atoi((char*)xml.GetChildData().c_str()));
+			while(xml.FindElem())
+				if(xml.GetTagName() == "ID")
+					mob->getSummonData()->add(atoi((char*)xml.GetData().c_str()));
 			xml.OutOfElem();
 		}
 	
@@ -155,10 +175,15 @@ ItemData* Initializing::loadItem(int id){
 	ItemData* item = new ItemData(id);
 	while(xml.FindElem()){
 		string s = xml.GetTagName();
-		if(s == "Price") item->setPrice(atoi((char*)xml.GetData().c_str()));
+		if(s == "Name") item->setName(xml.GetData());
+		else if(s == "Price") item->setPrice(atoi((char*)xml.GetData().c_str()));
 		else if(s == "UnitPrice") item->setUnitPrice(strtod((char*)xml.GetData().c_str(), NULL));
 		else if(s == "MaxSlot") item->setMaxPerSlot(atoi((char*)xml.GetData().c_str()));
 		else if(s == "Quest") item->setQuest(atoi((char*)xml.GetData().c_str()) == 1);
+		else if(s == "TradeBlock") item->setTradeBlock(atoi((char*)xml.GetData().c_str()) == 1);
+		else if(s == "NotSale") item->setNotSale(atoi((char*)xml.GetData().c_str()) == 1);
+		else if(s == "Only") item->setOnly(atoi((char*)xml.GetData().c_str()) == 1);
+		else if(s == "ExpireOnLogout") item->setExpireOnLogout(atoi((char*)xml.GetData().c_str()) == 1);
 		else if(s == "Consume") item->setConsume(atoi((char*)xml.GetData().c_str()) == 1);
 		else if(s == "Bullet") item->setBullet(atoi((char*)xml.GetData().c_str()) == 1);
 		else if(s == "Effect"){
@@ -191,6 +216,25 @@ ItemData* Initializing::loadItem(int id){
 				else if(s == "ItemOnMap") item->getEffectData()->setItemOnMap(atoi((char*)xml.GetData().c_str()));
 				else if(s == "Msg") item->getEffectData()->setMsg((char*)xml.GetData().c_str());
 				else if(s == "Morph") item->getEffectData()->setMorph(atoi((char*)xml.GetData().c_str()));
+				else if(s == "Fullness") item->getEffectData()->setFullness(atoi((char*)xml.GetData().c_str()));
+				else if(s == "Thaw") item->getEffectData()->setThaw(atoi((char*)xml.GetData().c_str()));
+				else if(s == "recover") item->getEffectData()->setRecover(atoi((char*)xml.GetData().c_str()));
+				else if(s == "randstat") item->getEffectData()->setRandStat(atoi((char*)xml.GetData().c_str()));
+				else if(s == "MasterLevel") item->getEffectData()->setMasterLevel(atoi((char*)xml.GetData().c_str()));
+				else if(s == "ReqSkillLevel") item->getEffectData()->setReqSkillLevel(atoi((char*)xml.GetData().c_str()));
+				else if(s == "Skills"){
+					xml.IntoElem();
+					while(xml.FindElem()){
+						if(xml.GetTagName() != "Skill") continue;
+						xml.IntoElem();
+						while(xml.FindElem()){
+							string s = xml.GetTagName();
+							if(s == "ID") item->getEffectData()->addSkill(atoi((char*)xml.GetData().c_str()));
+						}
+						xml.OutOfElem();
+						xml.OutOfElem();
+					}
+				}
 				else if(s == "Mobs"){
 					xml.IntoElem();
 					while(xml.FindElem()){
@@ -224,13 +268,40 @@ void Initializing::initializeItems(){
 		ItemsData::getInstance()->registerData(atoi((char*)string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')).c_str()));
 	}
 }
-void Initializing::initializeNPCs(){
+void Initializing::initializeNPCsScripts(){
 	WIN32_FIND_DATAA FindFileData;
 	HANDLE hFind = FindFirstFileA("Scripts\\NPCs\\*.as", &FindFileData);
-	NPCsData::getInstance()->registerData(atoi((char*)string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')).c_str()));
+	NPCsScriptsData::getInstance()->registerData(atoi((char*)string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')).c_str()));
 	while (FindNextFileA(hFind, &FindFileData)) 
 	{
-		NPCsData::getInstance()->registerData(atoi((char*)string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')).c_str()));
+		NPCsScriptsData::getInstance()->registerData(atoi((char*)string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')).c_str()));
+	}
+}
+void Initializing::initializePortals(){
+	WIN32_FIND_DATAA FindFileData;
+	HANDLE hFind = FindFirstFileA("Scripts\\Portals\\*.as", &FindFileData);
+	PortalsData::getInstance()->registerData(string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')));
+	while (FindNextFileA(hFind, &FindFileData)) 
+	{
+		PortalsData::getInstance()->registerData(string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')));
+	}
+}
+void Initializing::initializeEventsScripts(){
+	WIN32_FIND_DATAA FindFileData;
+	HANDLE hFind = FindFirstFileA("Scripts\\Events\\*.as", &FindFileData);
+	EventsScriptsData::getInstance()->registerData(string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')));
+	while (FindNextFileA(hFind, &FindFileData)) 
+	{
+		EventsScriptsData::getInstance()->registerData(string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')));
+	}
+}
+void Initializing::initializeChannelEventsScripts(){
+	WIN32_FIND_DATAA FindFileData;
+	HANDLE hFind = FindFirstFileA("Scripts\\ChannelEvents\\*.as", &FindFileData);
+	ChannelEventsScriptsData::getInstance()->registerData(string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')));
+	while (FindNextFileA(hFind, &FindFileData)) 
+	{
+		ChannelEventsScriptsData::getInstance()->registerData(string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')));
 	}
 }
 void Initializing::initializeReactorScripts(){
@@ -351,7 +422,8 @@ EquipData* Initializing::loadEquip(int id){
 	EquipData* equip = new EquipData(id);
 	while(xml.FindElem()){
 		string s = xml.GetTagName();
-		if(s == "Price") equip->setPrice(atoi((char*)xml.GetData().c_str()));
+		if(s == "Name") equip->setName(xml.GetData());
+		else if(s == "Price") equip->setPrice(atoi((char*)xml.GetData().c_str()));
 		else if(s == "Slots") equip->setSlots(atoi((char*)xml.GetData().c_str()));
 		else if(s == "STR") equip->setStr(atoi((char*)xml.GetData().c_str()));
 		else if(s == "DEX") equip->setDex(atoi((char*)xml.GetData().c_str()));
@@ -370,6 +442,7 @@ EquipData* Initializing::loadEquip(int id){
 		else if(s == "Jump") equip->setJump(atoi((char*)xml.GetData().c_str()));
 		else if(s == "Cash") equip->setCash(atoi((char*)xml.GetData().c_str()) == 1);
 		else if(s == "Quest") equip->setQuest(atoi((char*)xml.GetData().c_str()) == 1);
+		else if(s == "TradeBlock") equip->setTradeBlock(atoi((char*)xml.GetData().c_str()) == 1);
 	}
 	EquipsData::getInstance()->add(equip);
 	return equip;
@@ -521,6 +594,14 @@ SkillData* Initializing::loadSkill(int id){
 			else if(s == "Acc") level->setAcc(atoi((char*)xml.GetChildData().c_str()));
 			else if(s == "Avo") level->setAvo(atoi((char*)xml.GetChildData().c_str()));
 			else if(s == "HPP") level->setHPPer(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "Cooltime") level->setCooltime(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "LTX") level->setLTX(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "LTY") level->setLTY(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "RBX") level->setRBX(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "RBY") level->setRBY(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "prop") level->setProp(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "AttackCount") level->setAttackCount(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "MobCount") level->setMobCount(atoi((char*)xml.GetChildData().c_str()));
 		}
 		skill->add(level);
 		xml.OutOfElem();
@@ -649,8 +730,26 @@ MapData* Initializing::loadMap(int id){
 	if(xml.GetTagName() != "Map") return NULL;
 	xml.IntoElem();
 	MapData* map = new MapData(id);
-	xml.FindChildElem("returnMap");
+	xml.FindElem("returnMap");
 	map->setReturnMap(atoi((char*)xml.GetData().c_str()));
+	xml.FindElem("fieldType");
+	map->setFieldType(atoi((char*)xml.GetData().c_str()));
+	xml.FindElem("Music");
+	map->setMusic(xml.GetData());
+	xml.FindElem("timeLimit");
+	map->setTimeLimit(atoi((char*)xml.GetData().c_str()));
+	xml.FindElem("forcedReturn");
+	map->setForcedReturn(atoi((char*)xml.GetData().c_str()));
+	xml.FindElem("mobRate");
+	map->setMobRate(strtod((char*)xml.GetData().c_str(), NULL));
+	xml.FindElem("DecHP");
+	map->setHPDecrease(atoi((char*)xml.GetData().c_str()));
+	xml.FindElem("protectedItem");
+	map->setProtectedItem(atoi((char*)xml.GetData().c_str()));
+	xml.FindElem("Clock");
+	map->setClock(atoi((char*)xml.GetData().c_str()) == 1);
+	xml.FindElem("personalShop");
+	map->setPersonalShop(atoi((char*)xml.GetData().c_str()) == 1);
 	xml.FindElem("NPCs");
 	while(xml.FindChildElem()){
 		if(xml.GetChildTagName() != "NPC") continue;
@@ -732,13 +831,25 @@ MapData* Initializing::loadMap(int id){
 		xml.IntoElem();
 		while(xml.FindChildElem()){
 			string s = xml.GetChildTagName();
-			if(s == "x1") foot->setX1(atoi((char*)xml.GetChildData().c_str()));
+			if(s == "id") foot->setID(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "x1") foot->setX1(atoi((char*)xml.GetChildData().c_str()));
 			else if(s == "y1") foot->setY1(atoi((char*)xml.GetChildData().c_str()));
 			else if(s == "x2") foot->setX2(atoi((char*)xml.GetChildData().c_str()));
 			else if(s == "y2") foot->setY2(atoi((char*)xml.GetChildData().c_str()));
 		}
 		map->getFootholdsData()->add(foot);
 		xml.OutOfElem();
+	}
+
+	if(xml.FindElem("Ship")){
+		MapShipData* ship = new MapShipData();
+		while(xml.FindChildElem()){
+			string s = xml.GetChildTagName();
+			if(s == "Type") ship->setType(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "x") ship->setX(atoi((char*)xml.GetChildData().c_str()));
+			else if(s == "y") ship->setY(atoi((char*)xml.GetChildData().c_str()));
+		}
+		map->setShip(ship);
 	}
 	MapsData::getInstance()->add(map);
 	return map;
@@ -752,15 +863,103 @@ void Initializing::initializeMaps(){
 		MapsData::getInstance()->registerData(atoi((char*)string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')).c_str()));
 	}
 }
-void Initializing::initializing(){
+void Initializing::initializeChannelEvents(){
+	CMarkup xml;
+	xml.Load("Events.xml");
+	xml.FindElem();
+	if(xml.GetTagName() != "Events") return;
+	xml.IntoElem();
+	while(xml.FindElem()){
+		if(xml.GetTagName() != "Event") continue;
+		ChannelEventData* eventd = new ChannelEventData();
+		xml.IntoElem();
+		while(xml.FindElem()){
+			string s = xml.GetTagName();
+			if(s == "Name") eventd->setName(xml.GetData().c_str());
+			else if(s == "First") eventd->setFirst(atoi((char*)xml.GetData().c_str()));
+			else if(s == "Time") eventd->setTime(atoi((char*)xml.GetData().c_str()));
+		}
+		ChannelEventsData::getInstance()->add(eventd);
+		xml.OutOfElem();
+	}
+}
+EventData* Initializing::loadEvent(string& id){
+	CMarkup xml;
+	xml.Load("Events/" + id + ".xml");
+	xml.FindElem();
+	if(xml.GetTagName() != "Event") return NULL;
+	xml.IntoElem();
+	EventData* eventd = new EventData(id);
+	while(xml.FindElem()){
+		string s = xml.GetTagName();
+		if(s == "Time") eventd->setTime(atoi((char*)xml.GetData().c_str()));
+		else if(s == "Start") eventd->setStartMap(atoi((char*)xml.GetData().c_str()));
+		else if(s == "End") eventd->setEndMap(atoi((char*)xml.GetData().c_str()));
+		else if(s == "Maps"){
+			xml.IntoElem();
+			while(xml.FindElem())
+				if(xml.GetTagName() == "Map")
+					eventd->getMapsData()->add(atoi((char*)xml.GetData().c_str()));
+			xml.OutOfElem();
+		}
+	
+	}
+	EventsData::getInstance()->add(eventd);
+	return eventd;
+}
+void Initializing::initializeEvents(){
+	  WIN32_FIND_DATAA FindFileData;
+   HANDLE hFind = FindFirstFileA(("Events\\*.xml"), &FindFileData);
+	EventsData::getInstance()->registerData(string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')));
+	while (FindNextFileA(hFind, &FindFileData)) 
+	{
+		EventsData::getInstance()->registerData(string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')));
+	}
+}
+bool Initializing::initializeSettings(){
+	CMarkup xml;
+	if(!xml.Load("Server.xml")) return false;
+	xml.FindElem();
+	if(xml.GetTagName() != "Server") return false;
+	xml.IntoElem();
+	while(xml.FindElem()){
+		string s = xml.GetTagName();
+		if(s == "IP") Worlds::getInstance()->setIP(stringToIP(xml.GetData()));
+		else if(s == "Password") Worlds::getInstance()->setPassword(xml.GetData().c_str());
+		else if(s == "Worlds") Worlds::getInstance()->setWorldsCount(atoi((char*)xml.GetData().c_str()));
+		else if(s == "Channels") Worlds::getInstance()->setChannelsCount(atoi((char*)xml.GetData().c_str()));
+		else if(s == "DefaultNotice") Worlds::getInstance()->setDefaultNotice(xml.GetData());
+		else if(s == "EXP") Worlds::getInstance()->setEXP(atoi((char*)xml.GetData().c_str()));
+		else if(s == "MySQL"){
+			xml.IntoElem();
+			while(xml.FindElem()){
+				string s = xml.GetTagName();
+				if(s == "Host") MySQL::getInstance()->setHost(xml.GetData());
+				else if(s == "Port") MySQL::getInstance()->setPort(atoi((char*)xml.GetData().c_str()));
+				else if(s == "Database") MySQL::getInstance()->setDatabase(xml.GetData());
+				else if(s == "Username") MySQL::getInstance()->setUsername(xml.GetData());
+				else if(s == "Password") MySQL::getInstance()->setPassword(xml.GetData());
+			}
+			xml.OutOfElem();
+		}
+	}
+	return true;
+}
+bool Initializing::initializing(){
+	printf("Initializing Settings... ");
+	if(initializeSettings()) printf("DONE\n");
+	else return 0;
 	printf("Initializing Mobs... ");
 	initializeMobs();
 	printf("DONE\n");
 	printf("Initializing Items... ");
 	initializeItems();
 	printf("DONE\n");
-	printf("Initializing NPCs... ");
-	initializeNPCs();
+	printf("Initializing NPCs Scripts... ");
+	initializeNPCsScripts();
+	printf("DONE\n");
+	printf("Initializing Portals Scripts... ");
+	initializePortals();
 	printf("DONE\n");
 	printf("Initializing Mobs Drops... ");
 	initializeMobsDrops();
@@ -789,7 +988,20 @@ void Initializing::initializing(){
 	printf("Initializing Reactors Drops... ");
 	initializeReactorsDrops();
 	printf("DONE\n");
+	printf("Initializing Events... ");
+	initializeEvents();
+	printf("DONE\n");
+	printf("Initializing Channel Events... ");
+	initializeChannelEvents();
+	printf("DONE\n");
+	printf("Initializing Events Scripts... ");
+	initializeEventsScripts();
+	printf("DONE\n");
+	printf("Initializing Channel Events... ");
+	initializeChannelEventsScripts();
+	printf("DONE\n");
 	printf("Initializing Maps... ");
 	initializeMaps();
 	printf("DONE\n");
+	return true;
 }

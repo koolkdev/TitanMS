@@ -117,6 +117,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				IgnoreDefaultLibraryNames=""
 			/>
 			<Tool
 				Name="VCALinkTool"

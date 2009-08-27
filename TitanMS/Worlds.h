@@ -1,7 +1,28 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef WORLDS_H
 #define WORLDS_H
 
 #include <vector>
+#include <string>
+#include "Tools.h"
 
 using namespace std;
 
@@ -14,23 +35,50 @@ private:
 	static const char* names [];
 	vector <World*> worlds;
 	static Worlds* instance;
+	int channelc;
+	int worldc;
+	string password;
+	string defaultNotice;
 	Selector* selector;
+	IP ip;
+	int exp;
 	static int openPort;
 public:
-	Worlds(Selector* s, int worlds, int channels){
+	Worlds(){
 		instance = this;
-		selector = s;
-		for(int i=0; i<worlds; i++)
-			newWorld(i, channels);
+	}
+	void start(Selector* s){
+		for(int i=0; i<worldc; i++)
+			newWorld(i, channelc);
 	}
 	void newWorld(int id, int channels);
 
 	static Worlds* getInstance(){
+		if(instance == NULL)
+			return new Worlds();
 		return instance;
+	}
+	void setChannelsCount(int c){
+		channelc = c;
+	}
+	void setWorldsCount(int c){
+		worldc = c;
+	}
+	void setIP(IP ip){
+		this->ip = ip;
+	}
+	IP* getIP(){
+		return &ip;
 	}
 	int getWorldsCount(){
 		return worlds.size();
 	}	
+	void setEXP(int e){
+		exp = e;
+	}
+	int getEXP(){
+		return exp;
+	}
 	World* getWorld(unsigned int id){
 		if(id > worlds.size())
 			return NULL;
@@ -48,7 +96,21 @@ public:
 			return string(names[id]);
 		return string("");
 	}
+	void setPassword(string pass){
+		password = pass;
+	}
+	string getPassword(){
+		return password;
+	}
+	void setDefaultNotice(string a){
+		defaultNotice = a;
+	}
+	string getDefaultNotice(){
+		return defaultNotice;
+	}
+	void commandListener();
 	bool isPlayerConnected(int charid);
+	string handleCommand(string cmd);
 };
 
 #endif

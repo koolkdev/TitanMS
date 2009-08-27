@@ -54,10 +54,20 @@ void Decoder::next(){
 }
  
 void Decoder::decrypt(unsigned char *buffer, int size){
-	aes->DecryptOFB(buffer, Decoder::ivRecv, size);
+	int pos=0,first=1;
+	while(size > pos){
+		if(size>pos+1460-first*4){
+			aes->DecryptOFB(buffer+pos, Decoder::ivRecv, 1460 - first*4);
+		}
+		else
+			aes->DecryptOFB(buffer+pos, Decoder::ivRecv, size-pos);
+		pos+=1460-first*4;
+		if(first)
+			first=0;
+	}
 	MapleEncryption::nextIV(Decoder::ivRecv); 
 	MapleEncryption::mapleDecrypt(buffer, size);
-} 
+}
 
 void Decoder::createHeader (unsigned char* header, short size) {
 	short a = ivSend[3]*0x100 + ivSend[2];

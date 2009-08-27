@@ -1,3 +1,24 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+#include "../Connection/PacketHandler.h"
+#include "DataProvider.h"
 #include "PlayerLoginHandler.h"
 #include "PlayerLogin.h"
 #include "PacketReader.h"
@@ -11,29 +32,29 @@
 #include "Tools.h"
 using namespace Tools;
 
-void PlayerLoginHandler::handle(PacketReader* packet){
-	switch(packet->getHeader()){
-		case PING: pingHandle(packet); break;
-		case LOGIN_REQUEST: loginRequestHandle(packet); break;
-		case CHANNEL_SELECT: channelSelectHandle(packet); break;
-		case WORLD_SELECT: worldSelectHandle(packet); break;
-		case HANDLE_LOGIN: loginHandle(packet); break;
-		case SHOW_WORLD: showWorldRequestHandle(packet); break;
-		case WORLD_BACK: showWorldRequestHandle(packet); break;
-		case CHARACTER_SELECT: characterSelectHandle(packet); break;
-		case NAME_CHECK: nameSelectHandle(packet); break;
-		case CREATE_CHARACTER: createCharacterHandle(packet); break;
-		case DELETE_CHARACTER: deleteCharacterHandle(packet); break;
-		case LOGIN_BACK: loginBackHandle(packet); break;
-	}
+hash_map <short, PlayerLoginHandler::handlerf> Handler<PlayerLoginHandler>::handlers;
+
+void PlayerLoginHandler::loadPackets(){
+	handlers[PING] = &PlayerLoginHandler::pingHandle;
+	handlers[LOGIN_REQUEST] = &PlayerLoginHandler::loginRequestHandle;
+	handlers[CHANNEL_SELECT] = &PlayerLoginHandler::channelSelectHandle;
+	handlers[WORLD_SELECT] = &PlayerLoginHandler::worldSelectHandle;
+	handlers[HANDLE_LOGIN] = &PlayerLoginHandler::loginHandle;
+	handlers[SHOW_WORLD] = &PlayerLoginHandler::showWorldRequestHandle;
+	handlers[WORLD_BACK] = &PlayerLoginHandler::showWorldRequestHandle;
+	handlers[CHARACTER_SELECT] = &PlayerLoginHandler::characterSelectHandle;
+	handlers[NAME_CHECK] = &PlayerLoginHandler::nameSelectHandle;
+	handlers[CREATE_CHARACTER] = &PlayerLoginHandler::createCharacterHandle;
+	handlers[DELETE_CHARACTER] = &PlayerLoginHandler::deleteCharacterHandle;
+	handlers[LOGIN_BACK] = &PlayerLoginHandler::loginBackHandle;
 }
 
-void PlayerLoginHandler::pingHandle(PacketReader* packet){
+void PlayerLoginHandler::pingHandle(PacketReader& packet){
 }
-void PlayerLoginHandler::loginRequestHandle(PacketReader* packet){
+void PlayerLoginHandler::loginRequestHandle(PacketReader& packet){
 	string username, password;
-	username = packet->readString();
-	password = packet->readString();
+	username = packet.readString();
+	password = packet.readString();
 	int s = player->checkLogin(username, password);
 	if(s == 1){
 		player->setUserid(MySQL::getInstance()->getUserID((char*)username.c_str()));
@@ -60,28 +81,28 @@ void PlayerLoginHandler::loginRequestHandle(PacketReader* packet){
 	else{
 		short error = 0;
 		switch(s){
-			case -2: error=7;break;
-			case -1: error=5;break;
-			case 0: error=4;break;
+			case -2: error=7; break;
+			case -1: error=5; break;
+			case 0: error=4; break;
 		}
 		player->send(PacketCreator().loginError(error));
 	}
 	
 }
-void PlayerLoginHandler::channelSelectHandle(PacketReader* packet){
-	packet->read();
-	player->setChannel(packet->read());
+void PlayerLoginHandler::channelSelectHandle(PacketReader& packet){
+	packet.read();
+	player->setChannel(packet.read());
 	vector <Character* > toshow;
 	for(int i=0; i<(int)player->getCharacters()->size(); i++)
 		if((*player->getCharacters())[i]->getWorld() == player->getServer())
 			toshow.push_back((*player->getCharacters())[i]);
-	player->send(PacketCreator().showCharacters(&toshow));
+	player->send(PacketCreator().showCharacters(toshow));
 }
-void PlayerLoginHandler::worldSelectHandle(PacketReader* packet){
-	player->setServer(packet->read());
+void PlayerLoginHandler::worldSelectHandle(PacketReader& packet){
+	player->setServer(packet.read());
 	player->send(PacketCreator().showChannels());
 }
-void PlayerLoginHandler::loginHandle(PacketReader* packet){
+void PlayerLoginHandler::loginHandle(PacketReader& packet){
 	int status = player->getStatus();
 	if(status == 1)
 		player->send(PacketCreator().loginProcess(0x01));
@@ -96,39 +117,39 @@ void PlayerLoginHandler::loginHandle(PacketReader* packet){
 	else if(status == 4)
 		player->send(PacketCreator().loginProcess(0x00));
 }
-void PlayerLoginHandler::showWorldRequestHandle(PacketReader* packet){
+void PlayerLoginHandler::showWorldRequestHandle(PacketReader& packet){
 	for(int i=0; i<Worlds::getInstance()->getWorldsCount(); i++){
 		player->send(PacketCreator().showWorld(Worlds::getInstance()->getWorld(i)));
 	}
 	player->send(PacketCreator().endWorlds());
 
 }
-void PlayerLoginHandler::characterSelectHandle(PacketReader* packet){
-	int id = packet->readInt();
+void PlayerLoginHandler::characterSelectHandle(PacketReader& packet){
+	int id = packet.readInt();
 	if(player->getCharacter(id) == NULL) return;
 	MySQL::getInstance()->setString("characters", "ip", id, (char*)player->getIP().c_str());
 	Channel* channel = Worlds::getInstance()->getWorld(player->getServer())->getChannels()->getChannel(player->getChannel());
 	if(channel == NULL) return;
 	player->send(PacketCreator().connectChannel(id, channel->getPort()));
 }
-void PlayerLoginHandler::nameSelectHandle(PacketReader* packet){
-	string name = packet->readString();
+void PlayerLoginHandler::nameSelectHandle(PacketReader& packet){
+	string name = packet.readString();
 	player->send(PacketCreator().checkName(name, MySQL::getInstance()->isString("characters", "name", name)));
 }
-void PlayerLoginHandler::createCharacterHandle(PacketReader* packet){
-	string name = packet->readString();
+void PlayerLoginHandler::createCharacterHandle(PacketReader& packet){
+	string name = packet.readString();
 	if(MySQL::getInstance()->isString("characters", "name", name))
 		return;
-	int face = packet->readInt();
-	int hair = packet->readInt();
-	int haircolor = packet->readInt();
-	int skin = packet->readInt();
-	int e1 = packet->readInt();
-	int e2 = packet->readInt();
-	int e3 = packet->readInt();
-	int e4 = packet->readInt();
-	int gender = packet->read();
-	int str=packet->read(),dex=packet->read(),intt=packet->read(), luk=packet->read();
+	int face = packet.readInt();
+	int hair = packet.readInt();
+	int haircolor = packet.readInt();
+	int skin = packet.readInt();
+	int e1 = packet.readInt();
+	int e2 = packet.readInt();
+	int e3 = packet.readInt();
+	int e4 = packet.readInt();
+	int gender = packet.read();
+	int str=packet.read(),dex=packet.read(),intt=packet.read(), luk=packet.read();
 	if(str + dex + intt + luk != 25 || str < 4 || dex < 4 || intt < 4 || luk < 4)
 		return;
 
@@ -144,9 +165,9 @@ void PlayerLoginHandler::createCharacterHandle(PacketReader* packet){
 	if(character == NULL) return;
 	player->send(PacketCreator().addCharacter(character));
 }
-void PlayerLoginHandler::deleteCharacterHandle(PacketReader* packet){
-	int date = packet->readInt();
-	int id = packet->readInt();
+void PlayerLoginHandler::deleteCharacterHandle(PacketReader& packet){
+	int date = packet.readInt();
+	int id = packet.readInt();
 	Character* character =  player->getCharacter(id);
 	if(character == NULL)
 		return;
@@ -155,6 +176,6 @@ void PlayerLoginHandler::deleteCharacterHandle(PacketReader* packet){
 	player->removeCharacter(id);
 	player->send(PacketCreator().removeCharacter(id));
 }
-void PlayerLoginHandler::loginBackHandle(PacketReader* packet){
+void PlayerLoginHandler::loginBackHandle(PacketReader& packet){
 	player->send(PacketCreator().logBack());
 }

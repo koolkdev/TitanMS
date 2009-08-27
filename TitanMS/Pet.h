@@ -1,12 +1,32 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef PET_H
 #define PET_H
 
 #include "Item.h"
-#include "MapObject.h"
+#include "LifeMapObject.h"
 
 class Player;
+class Timer;
 
-class Pet : public Item, public MapObject {
+class Pet : public Item, public LifeMapObject {
 private:
 	static int ids;
 	static int levels[30];
@@ -14,11 +34,14 @@ private:
 	string name;
 	char level;
 	short closeness;
-	char fullness;
-	char stance;
+	unsigned char fullness;
 	int lastTime;
-	int timer;
+	int petSlot;
+	Timer* timer;
 public:
+	Pet(int id);
+	Pet(const Pet &pet): LifeMapObject(), Item(pet), time(pet.time), name(pet.name), level(pet.level), closeness(pet.closeness), fullness(pet.fullness), lastTime(0), petSlot(-1), timer(NULL) { Item::Item(pet); }
+	~Pet();
 	void setTime(__int64 time){
 		this->time = time;
 	}
@@ -45,8 +68,11 @@ public:
 	short getCloseness(){
 		return closeness;
 	}
-	void setFullness(char fullness){
-		this->fullness = fullness;
+	void setFullness(unsigned char fullness){
+		if(fullness > 100)
+			this->fullness = 100;
+		else
+			this->fullness = fullness;
 	}
 	char getFullness(){
 		return fullness;
@@ -54,17 +80,11 @@ public:
 	void addLevel(char level){
 		setLevel(this->level + level);
 	}
-	void addFullness(char fullness){
+	void addFullness(unsigned char fullness){
 		setFullness(this->fullness + fullness);
 	}
 	void addCloseness(char closeness, Player* player = NULL){
 		setCloseness(this->closeness + closeness, player);
-	}
-	void setStance(char stance){
-		this->stance = stance;
-	}
-	char getStance(){
-		return stance;
 	}
 	int getObjectID(){
 		return ((MapObject*)this)->getID();
@@ -78,13 +98,17 @@ public:
 	int getLastTime(){
 		return lastTime;
 	}
-	int* getTimer(){
+	Timer** getTimer(){
 		return &timer;
+	}
+	void setPetSlot(int slot){
+		petSlot = slot;
+	}
+	int getPetSlot(){
+		return petSlot;
 	}
 	void startTimer(Player* Player);
 	void stopTimer();
-	Pet(int id);
-	string getCommandReplay(string command);
 };
 
 #endif

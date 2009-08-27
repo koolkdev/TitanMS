@@ -1,0 +1,13 @@
+<Event>
+	<Time>1800</Time>
+	<Start>103000800</Start>
+	<End>103000890</End>
+	<Maps>
+		<Map>103000800</Map>
+		<Map>103000801</Map>
+		<Map>103000802</Map>
+		<Map>103000803</Map>
+		<Map>103000804</Map>
+		<Map>103000805</Map>
+	</Maps>
+</Event>

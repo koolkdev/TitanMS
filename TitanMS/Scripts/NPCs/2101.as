@@ -18,7 +18,7 @@ void npc_main(NPC @npc){
 	}
 	else if(state == 2){
 		if(npc.getSelected() == 1){
-			npc.teleport(3);
+			npc.getPlayer().changeMap(3);
 		}
 		npc.end();
 	}

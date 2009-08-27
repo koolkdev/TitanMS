@@ -21,10 +21,13 @@
 #include "PlayerInventories.h"
 #include "DataProvider.h"
 #include "Item.h"
+#include "Pet.h"
+#include "Equip.h"
 #include "PacketCreator.h"
 #include "Player.h"
 
-bool Inventory::addItem(Item* item, bool findslot, bool drop){
+bool Inventory::addItem(Item* item, bool findslot, bool drop, bool send){
+	short oAmount = item->getAmount();
 	if(findslot){
 		int pos = 0;
 		for(bool j=false, first = true; j || first; j=!j, first = false){
@@ -32,24 +35,32 @@ bool Inventory::addItem(Item* item, bool findslot, bool drop){
 				if(items.find(i) == items.end() || items[i] == NULL){
 					if(j){
 						item->setSlot(i);
-						items[i] = item;
-						player->send(PacketCreator().newItem(item, drop));
+						if(send){
+							items[i] = item;
+							player->send(PacketCreator().newItem(item, drop));
+						}
 						return true;
 					}
 				}
 				else {
-					if(items[i]->getID() == item->getID() && items[i]->getAmount() < DataProvider::getInstance()->getItemMaxPerSlot(item->getID())){
+					if(items[i]->getID() == item->getID() && !IS_STAR(item->getID()) && items[i]->getAmount() < DataProvider::getInstance()->getItemMaxPerSlot(item->getID())){
 						if(item->getAmount() + items[i]->getAmount() <= DataProvider::getInstance()->getItemMaxPerSlot(item->getID())){
-							items[i]->setAmount(items[i]->getAmount()+item->getAmount());
-							player->send(PacketCreator().updateSlot(items[i], drop));
-							delete item;
+							if(send){
+								items[i]->setAmount(items[i]->getAmount()+item->getAmount());
+								player->send(PacketCreator().updateSlot(items[i], drop));
+								delete item;
+							}
+							else
+								item->setAmount(oAmount);
 							return true;
 						}
-						else{
+					  	else{
 							int change = DataProvider::getInstance()->getItemMaxPerSlot(item->getID()) - items[i]->getAmount();
 							item->setAmount(item->getAmount()-change);
-							items[i]->setAmount(DataProvider::getInstance()->getItemMaxPerSlot(item->getID()));
-							player->send(PacketCreator().updateSlot(items[i], drop));										
+							if(send){
+								items[i]->setAmount(DataProvider::getInstance()->getItemMaxPerSlot(item->getID()));
+								player->send(PacketCreator().updateSlot(items[i], drop));										
+							}
 						}
 					}
 				}
@@ -57,9 +68,30 @@ bool Inventory::addItem(Item* item, bool findslot, bool drop){
 		}
 	}
 	else{
+		if(items.find(item->getSlot()) != items.end()){
+			if(items[item->getSlot()]->getID() == item->getID()){
+				item->setAmount(items[item->getSlot()]->getAmount() + item->getAmount());
+				if(item->getAmount() > DataProvider::getInstance()->getItemMaxPerSlot(item->getID()))
+					item->setAmount(DataProvider::getInstance()->getItemMaxPerSlot(item->getID()));
+				if(send)
+					player->send(PacketCreator().updateSlot(item, drop));
+				delete items[item->getSlot()];
+			}
+			else{
+				delete items[item->getSlot()];
+				if(send)
+					player->send(PacketCreator().newItem(item, drop));
+			}
+		}
+		else{
+			if(send)
+				player->send(PacketCreator().newItem(item, drop));
+		}
 		items[item->getSlot()] = item;
 		return true;
 	}
+	if(!send)
+		item->setAmount(oAmount);
 	return false;
 }
 
@@ -100,25 +132,28 @@ int Inventory::getItemAmount(int itemid){
 	return amount;
 }
 Item* Inventory::getItemByType(int type){
+	Item* min = NULL;
 	for (hash_map<int,Item*>::iterator iter = items.begin(); iter != items.end(); iter++){
-		if(iter->second != NULL && iter->second->getID()%10000 == type){
-			return iter->second;
+		if((min == NULL || (min != NULL && iter->first < min->getSlot())) && iter->second->getID()/10000 == type){
+			min = iter->second;
 		}
 	}
-	return NULL;
+	return min;
 }
 
 void Inventory::removeItem(int itemid, int amount){
 	vector <Item*> todel;
-	for (hash_map<int,Item*>::iterator iter = items.begin(); iter != items.end(); iter++){
+	for (hash_map<int,Item*>::iterator iter = items.begin(); iter != items.end() && amount; iter++){
 		if(iter->second != NULL && iter->second->getID() == itemid){
-			if(iter->second->getAmount() < amount){
+			if(iter->second->getAmount() <= amount){
 				amount -= iter->second->getAmount();
 				todel.push_back(iter->second);
+				if(amount == 0) break;
 			}
 			else{
 				iter->second->setAmount(iter->second->getAmount()-amount);
 				player->send(PacketCreator().updateSlot(iter->second, true));
+				break;
 			}
 		}
 	}
@@ -130,16 +165,26 @@ void Inventory::removeItemBySlot(int slot, int amount, bool send){
 	if(items.find(slot) == items.end())
 		return;
 	items[slot]->setAmount(items[slot]->getAmount()-amount);
-	if(items[slot]->getAmount() <= 0){
+	if(items[slot]->getAmount() <= 0 && !IS_STAR(items[slot]->getID())){
 		removeItem(slot, true, true, send);
 	}
 	else{
+		if(items[slot]->getAmount() < 0){
+			items[slot]->setAmount(0);
+		}
 		player->send(PacketCreator().updateSlot(items[slot], true));
 	}
 	
 }
 
 void Inventory::deleteAll(){
-	for (hash_map<int,Item*>::iterator iter = items.begin(); iter != items.end(); iter++)
-		delete iter->second;
+	for (hash_map<int,Item*>::iterator iter = items.begin(); iter != items.end(); iter++){
+		if(IS_EQUIP(iter->second->getID()))
+			delete (Equip*)iter->second;
+		else if(IS_PET(iter->second->getID()))
+			delete (Pet*)iter->second;
+		else
+			delete iter->second;
+
+	}
 }

@@ -46,20 +46,20 @@ PacketWriter* PacketCreator::loginConnect(char gender, string username, bool fir
 
 	pw.writeInt(0);
 	pw.writeShort(0);
-	pw.writeBytes("2A7949");
-	pw.write(0);
+	pw.writeInt(0);
 	if(firstlogin)
 		pw.write(0x0A);
 	else
 		pw.write(gender);
-	pw.writeBytes("0465");
-	pw.writeString(username);
-	pw.writeInt(0);
-	pw.writeInt(0);
-	pw.writeBytes("000000A6B89C2B4CC701");
-	pw.writeInt(8);
-	pw.writeShort(0);
 	pw.write(0);
+	pw.write(0);
+	pw.write(0);
+	pw.writeString(username);
+	pw.write(0);
+	pw.write(0);
+	pw.writeLong(0);
+	pw.writeLong(0);
+	pw.writeInt(0);
 	return &pw;
 }
 PacketWriter* PacketCreator::processOk(){
@@ -89,9 +89,7 @@ PacketWriter* PacketCreator::showWorld(World* world){
 		pw.write(world->getID());
 		pw.writeShort(i);
 	}
-	//0.57
-	//pw.writeShort(0);
-	//
+	pw.writeShort(0);
 	return &pw;
 }
 PacketWriter* PacketCreator::endWorlds(){
@@ -106,17 +104,15 @@ PacketWriter* PacketCreator::showChannels(){
 	pw.writeShort(0);
 	return &pw;
 }
-PacketWriter* PacketCreator::showCharacters(vector <Character*>* chars){
+PacketWriter* PacketCreator::showCharacters(vector <Character*>& chars){
 	pw.writeShort(SHOW_CHARACTERS);
 
 	pw.write(0);
-	pw.write(chars->size());
-	for(int i=0; i<(int)chars->size(); i++){
-		showCharacter((*chars)[i]);
+	pw.write(chars.size());
+	for(int i=0; i<(int)chars.size(); i++){
+		showCharacter(chars[i]);
 	}
-	//0.57
-	//pw.writeInt(3); //
-	//
+	pw.writeInt(3); //
 	return &pw;
 }
 void PacketCreator::showCharacter(Character* character){
@@ -148,8 +144,10 @@ void PacketCreator::showCharacter(Character* character){
 	pw.writeShort(character->getSP());
 	pw.writeInt(character->getExp());
 	pw.writeShort(character->getFame());
+	pw.writeInt(0);
 	pw.writeInt(character->getMap());
 	pw.write(character->getMappos());
+	pw.writeInt(0);
 	pw.write(character->getGender());
 	pw.write(character->getSkin());
 	pw.writeInt(character->getFace());
@@ -229,10 +227,12 @@ PacketWriter* PacketCreator::connectChannel(int charid, short port){
 
 	pw.writeShort(0);
 
-	pw.write(5); // IP
-	pw.write(208);
-	pw.write(91);
-	pw.write(218);
+	IP* ip = Worlds::getInstance()->getIP();
+
+	pw.write(ip->p1); // IP
+	pw.write(ip->p2);
+	pw.write(ip->p3);
+	pw.write(ip->p4); 
 
 	pw.writeShort(port);
 	pw.writeInt(charid);

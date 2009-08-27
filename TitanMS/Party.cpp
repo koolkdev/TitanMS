@@ -16,29 +16,43 @@
 	along with this program; if not, write to the Free Software
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-/*
+
 #include "Party.h"
 #include "Player.h"
-#include "Players.h"
-#include "PartyPacket.h"
+#include "PartyMembers.h"
+#include "Map.h"
+#include "World.h"
+#include <Winsock2.h>
+#include "MySQLM.h"
+#include "..\mysql++\mysql++.h"
 
-hash_map <int, Party*> Party::parties;
+string valstr(int id);
 
-PartyMember::PartyMember(int playerid, Party* party, bool lead){
-	this->player = Players::getPlayerByID(playerid);
-	leader = lead;
-	if(player == NULL){
-		status = 0;
-		Players::getPlayerStatus(playerid);
-	}
-	else
-		status = 1;
-	player->setParty(party);
-	player->setPartyMember(this);
-}	
+Party::Party(World* world, Player* player){
+	members = new PartyMembers();
+	id = (int)MySQL::getInstance()->getDataBase()->query("insert into party(world, leader) values(" + valstr(world->getID()) + "," + valstr(player->getID()) + ")").execute().insert_id();
+	MySQL::getInstance()->getDataBase()->query("update characters set party=" + valstr(id) + " where id=" + valstr(player->getID())).execute();
+	members->addMember(player);
+	leader = player->getID();
+}
+Party::Party(int id, int leader){
+	members = new PartyMembers();
+	this->id = id;
+	this->leader = leader;
+}
+Party::~Party(){
+	MySQL::getInstance()->getDataBase()->query("delete from party where id=" + valstr(id)).execute();
+	struct {
+		void operator()(Player* player){
+			player->setParty(NULL);
+		}
+	} removeParty;
+	members->run(&removeParty);
+	//		MySQL::getInstance()->getDataBase()->query("update characters set party=0 where party=" + valstr(id)).execute();
+	delete members;
+}
 
-Party::Party(Player* player){
-	members.push_back(new PartyMember(player->getPlayerid(), this, true));
-	parties[player->getPlayerid()] = this;
-	PartyPacket::createParty(player);
-}*/
+void Party::removeMember(int playerid){
+	members->deleteMember(playerid);
+	//MySQL::getInstance()->getDataBase()->query("update characters set party=0 where id=" + valstr(playerid)).execute();
+}

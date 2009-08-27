@@ -35,6 +35,7 @@
 #include "PlayerKeys.h"
 #include "DataProvider.h"
 #include "PlayerBuffs.h"
+#include "Worlds.h"
 #include "Pet.h"
 #include "Effect.h"
 
@@ -43,6 +44,11 @@ using namespace std;
 using namespace stdext;
 using namespace Tools;
 
+PacketWriter* PacketCreator::ping(){
+	pw.writeShort(PING);
+
+	return &pw;
+}
 
 PacketWriter* PacketCreator::updatePlayer(Player* player){
 	pw.writeShort(UPDATE_LOOK);
@@ -99,7 +105,7 @@ PacketWriter* PacketCreator::showEffect(int playerid, char effect, int what, boo
 		pw.write(1);
 	}
 	else{
-		pw.writeShort(0);
+		pw.writeShort(what);
 	}
 
 	return &pw;
@@ -128,7 +134,12 @@ PacketWriter* PacketCreator::showPlayerBuffEffect(char effect, int source){
 PacketWriter* PacketCreator::showPlayerBuff(Values* values, int buffid, int time){
 	pw.writeShort(SHOW_PLAYER_BUFF);
 
-	pw.writeLong(getStatsType(values));
+	pw.writeLong(0);
+
+	__int64 type = getStatsType(values);
+	pw.writeInt((int)(type/0x100000000));	
+	pw.writeInt((int)(type%0x100000000));
+
 	values->sort();
 	vector <Value>* v = values->getValues();
 	for(int i=0; i<(int)v->size(); i++){
@@ -137,7 +148,7 @@ PacketWriter* PacketCreator::showPlayerBuff(Values* values, int buffid, int time
 		pw.writeInt(time);
 	}
 	pw.writeShort(0);
-	pw.write(0);
+	pw.writeInt(0);
 
 	pw.show();
 
@@ -147,8 +158,12 @@ PacketWriter* PacketCreator::showBuff(int playerid, Values* values){
 	pw.writeShort(SHOW_BUFF);
 
 	pw.writeInt(playerid);
+	pw.writeLong(0);
 
-	pw.writeLong(getStatsType(values));
+	__int64 type = getStatsType(values);
+	pw.writeInt((int)(type/0x100000000));	
+	pw.writeInt((int)(type%0x100000000));	
+
 	values->sort();
 	vector <Value>* v = values->getValues();
 	for(int i=0; i<(int)v->size(); i++){
@@ -161,7 +176,12 @@ PacketWriter* PacketCreator::showBuff(int playerid, Values* values){
 PacketWriter* PacketCreator::cancelPlayerBuff(Values* values){
 	pw.writeShort(CANCEL_PLAYER_BUFF);
 
-	pw.writeLong(getStatsType(values));
+	pw.writeLong(0);
+
+	__int64 type = getStatsType(values);
+	pw.writeInt((int)(type/0x100000000));	
+	pw.writeInt((int)(type%0x100000000));	
+
 	pw.write(0);
 
 	return &pw;
@@ -170,10 +190,15 @@ PacketWriter* PacketCreator::cancelBuff(int playerid, Values* values){
 	pw.writeShort(CANCEL_BUFF);
 
 	pw.writeInt(playerid);
-	pw.writeLong(getStatsType(values));
+	pw.writeLong(0);
+
+	__int64 type = getStatsType(values);
+	pw.writeInt((int)(type/0x100000000));	
+	pw.writeInt((int)(type%0x100000000));
 
 	return &pw;
 }
+
 void PacketCreator::playerInfo(Player* player){
 	pw.writeInt(player->getID());
 	pw.writeString(player->getName(), 13);
@@ -198,8 +223,10 @@ void PacketCreator::playerInfo(Player* player){
 	pw.writeShort(player->getSP());
 	pw.writeInt(player->getExp());
 	pw.writeShort(player->getFame());
+	pw.writeInt(0);
 	pw.writeInt(player->getMap()->getID());
 	pw.write(player->getMappos());
+	pw.writeInt(0);
 }
 void PacketCreator::playerShow(Player* player, bool smega){
 	pw.write(player->getGender());
@@ -211,9 +238,9 @@ void PacketCreator::playerShow(Player* player, bool smega){
 	Inventory* i = player->getInventories()->getInventory(EQUIPPED);
 	hash_map<char, int> visible;
 	hash_map<char, int> invisible;;
-	vector<Item*> items = i->getItems();
-	Item* item = NULL;
-	for(int i=0; i<(int)items.size() && (item = items[i]) != NULL; i++){
+	hash_map<int, Item*>* items = i->getItems();
+	for(hash_map<int, Item*>::iterator iter = items->begin(); iter!=items->end(); iter++){
+		Item* item = iter->second;
 		if(item->getSlot() != -111){ // For cash weapons
 			char epos = item->getSlot()*-1;
 			if(epos < 100){
@@ -245,12 +272,11 @@ void PacketCreator::playerShow(Player* player, bool smega){
 	pw.write(-1);
 	Item* w = i->getItemBySlot(-111);
 	pw.writeInt(w ? w->getID() : 0);
-	if(player->getPet() != NULL)
-		pw.writeInt(player->getPet()->getItemID());
-	else
+	vector <Pet*>* pets = player->getPets();
+	for(int i=0; i<(int)pets->size(); i++)
+		pw.writeInt((*pets)[i]->getItemID());
+	for(int i=(int)pets->size(); i<3; i++)
 		pw.writeInt(0);
-	pw.writeInt(0); // Pet2?
-	pw.writeInt(0); // Pet3?
 }
 PacketWriter* PacketCreator::makeApple(){
 	pw.writeShort(MAKE_APPLE);
@@ -261,19 +287,15 @@ PacketWriter* PacketCreator::connectionData(Player* player){
 	pw.writeShort(CHANGE_MAP);
 
 	pw.writeInt(player->getChannel()->getID());
+
 	pw.write(1);
 	pw.write(1);
-	//0.57
-	//pw.writeShort(0);
-	//
+	pw.writeShort(0);
 	pw.writeInt(randomInt());	
 	pw.writeInt(randomInt());	
 	pw.writeInt(randomInt());	
-	//0.57
-	pw.writeShort(-1);
-	//pw.writeInt(-1);
-	//pw.writeInt(-1);
-	//
+	pw.writeInt(-1);
+	pw.writeInt(-1);
 	playerInfo(player);
 	pw.write(0x14);
 	pw.writeInt(player->getMesos());
@@ -281,28 +303,31 @@ PacketWriter* PacketCreator::connectionData(Player* player){
 		pw.write(player->getInventories()->getInventory(i)->getSlots());
 	for(int i=0; i<=5; i++){
 		Inventory* in = player->getInventories()->getInventory(i);
-		vector<Item*> items = in->getItems();
-		Item* item = NULL;
-		if(i == 0){
-			for(int j=0; j<(int)items.size() && (item = items[j]) != NULL && !DataProvider::getInstance()->isItemCash(items[j]->getID()); j++){
-				itemInfo(item);
+		hash_map<int, Item*>* items = in->getItems();
+		if(i == EQUIPPED){
+			for(hash_map<int, Item*>::iterator iter = items->begin(); iter!=items->end(); iter++){
+				Item* item = iter->second;
+				if(!DataProvider::getInstance()->isItemCash(item->getID()))
+					itemInfo(item);
 			}
 			pw.write(0);
-			for(int j=0; j<(int)items.size() && (item = items[j]) != NULL && DataProvider::getInstance()->isItemCash(items[j]->getID()); j++){
-				itemInfo(item);
+			for(hash_map<int, Item*>::iterator iter = items->begin(); iter!=items->end(); iter++){
+				Item* item = iter->second;
+				if(DataProvider::getInstance()->isItemCash(item->getID()))
+					itemInfo(item);
 			}
 		}
 		else{
-			for(int j=0; j<(int)items.size() && (item = items[j]) != NULL; j++){
-				itemInfo(item);
+			for(hash_map<int, Item*>::iterator iter = items->begin(); iter!=items->end(); iter++){
+				itemInfo(iter->second);
 			}
 		}
 		pw.write(0);
 	}
-	vector <Skill*> skills = player->getSkills()->getSkillsInfo();
-	pw.writeShort(skills.size());
-	Skill* skill= NULL;
-	for(int i=0; i<(int)skills.size() && (skill = skills[i]) != NULL; i++){
+	hash_map <int, Skill*>* skills = player->getSkills()->getSkillsInfo();
+	pw.writeShort(skills->size());
+	for(hash_map<int, Skill*>::iterator iter = skills->begin(); iter!=skills->end(); iter++){
+		Skill* skill = iter->second;
 		pw.writeInt(skill->getID());
 		pw.writeInt(skill->getLevel());
 		if(FOURTH_JOB(skill->getID())){
@@ -323,11 +348,20 @@ PacketWriter* PacketCreator::connectionData(Player* player){
 		pw.writeLong(quest->getCompleteTime());
 	}
 	pw.writeLong(0);
-	for(int i=0; i<15; i++)
-		pw.writeBytes("FFC99A3B");
-	//0.57
-	//pw.writeInt(0);
-	//
+	// The Teleport Rock maps
+	for(int i=0; i<5; i++)
+		pw.writeInt(999999999);
+	// VIP Teleport Rock maps
+	for(int i=0; i<10; i++)
+		pw.writeInt(999999999);
+	pw.writeInt(0);
+	pw.write(0);
+
+	pw.writeShort(0);
+	
+	pw.writeInt(0);
+	pw.writeShort(0);
+
 	pw.writeLong(getLongTime());
 
 	return &pw;
@@ -351,12 +385,12 @@ PacketWriter* PacketCreator::showKeys(PlayerKeys* keys){
 
 	return &pw;
 }
-PacketWriter* PacketCreator::showMoving(int playerid, ObjectMoving* moving){
+PacketWriter* PacketCreator::showMoving(int playerid, ObjectMoving& moving){
 	pw.writeShort(PLAYER_MOVE);
 	
 	pw.writeInt(playerid);
 	pw.writeInt(0);
-	pw.write(moving->getPacket()->getBytes(), moving->getPacket()->getLength());
+	pw.write(moving.getPacket()->getBytes(), moving.getPacket()->getLength());
 
 	return &pw;
 }
@@ -368,12 +402,13 @@ PacketWriter* PacketCreator::faceExpression(int playerid, int face){
 
 	return &pw;
 }
-PacketWriter* PacketCreator::showChatMassage(int playerid, string msg, bool gm){
-	pw.writeShort(CHAT_MASSAGE);
+PacketWriter* PacketCreator::showChatMessage(int playerid, string msg, bool macro, bool gm){
+	pw.writeShort(CHAT_MESSAGE);
 
 	pw.writeInt(playerid);
 	pw.write(gm);
 	pw.writeString(msg);
+	pw.write(macro);
 
 	return &pw;
 }
@@ -393,12 +428,12 @@ PacketWriter* PacketCreator::damagePlayer(int playerid, int skill, int dmg, int 
 
 	return &pw;
 }
-PacketWriter* PacketCreator::showMassage(string msg, char type, int channel, bool server){
-	pw.writeShort(SHOW_MASSAGE);
+PacketWriter* PacketCreator::showMessage(string msg, char type, int channel, bool server){
+	pw.writeShort(SHOW_MESSAGE);
 	
 	pw.write(type);
 	if(server){
-		pw.write(1);
+		pw.write(msg != "");
 	}
 	pw.writeString(msg);
 	if(type == 3){
@@ -417,31 +452,21 @@ PacketWriter* PacketCreator::showInfo(Player* player){
 	pw.writeShort(player->getFame());
 	pw.write(0); // Married
 	pw.writeString("-"); // Guild Name
-	if(player->getPet() != NULL){
+	pw.writeString("");
+	pw.write(0);
+	vector <Pet*>* pets = player->getPets();
+	for(int i=0; i<(int)pets->size(); i++){
 		pw.write(1);
-		Pet* pet = player->getPet();
+		Pet* pet = (*pets)[i];
 		pw.writeInt(pet->getItemID());
 		pw.writeString(pet->getName());
 		pw.write(pet->getLevel());
 		pw.writeShort(pet->getCloseness());
 		pw.write(pet->getFullness());
-		pw.writeShort(0);
-		pw.write(0);
 		pw.writeInt(0);
+		pw.writeShort(0);
 	}
-	else{
-		pw.write(0); 
-	}
-	/*
-		Pet:
-		ID int
-		Name string
-		Level byte
-		Closeness short
-		Fullness byte
-		Unk int (48?)
-		
-	*/
+	pw.write(0); // end of pets
 	bool taming = player->getBuffs()->isBuffActive(Effect::MONSTER_RIDING);
 	pw.write(taming); 
 	if(taming){
@@ -451,6 +476,9 @@ PacketWriter* PacketCreator::showInfo(Player* player){
 
 	}
 	pw.write(0);
+	pw.writeLong(1);
+	pw.writeLong(0);
+	pw.writeLong(0);
 
 	return &pw;
 }
@@ -463,17 +491,19 @@ PacketWriter* PacketCreator::findPlayerReplay(string name, bool success){
 
 	return &pw;
 }
-PacketWriter* PacketCreator::findPlayerMap(string name, int map, int channel){
+PacketWriter* PacketCreator::findPlayerMap(string name, int map){
 	pw.writeShort(FIND_PLAYER);
 
 	pw.write(0x9);
 	pw.writeString(name);
 	pw.write(1);
 	pw.writeInt(map);
+	pw.writeInt(0);
+	pw.writeInt(0);
 
 	return &pw;
 }
-PacketWriter* PacketCreator::findPlayerChannel(string name, int map, int channel){
+PacketWriter* PacketCreator::findPlayerChannel(string name, int channel){
 	pw.writeShort(FIND_PLAYER);
 
 	pw.write(0x9);
@@ -497,11 +527,24 @@ PacketWriter* PacketCreator::changeChannel(char channelid, short port){
 	pw.writeShort(CHANGE_CHANNEL);
 		
 	pw.write(channelid);
-	// TODO
-	pw.write(127);
-	pw.write(0);
-	pw.write(0);
-	pw.write(1);
+
+	IP* ip = Worlds::getInstance()->getIP();
+
+	pw.write(ip->p1);
+	pw.write(ip->p2);
+	pw.write(ip->p3);
+	pw.write(ip->p4);
+
 	pw.writeShort(port);
+	return &pw;
+}
+
+PacketWriter* PacketCreator::showSpecialChat(char type, string& msg, string& sender){
+	pw.writeShort(SPECIAL_CHAT);
+
+	pw.write(type);
+	pw.writeString(sender);
+	pw.writeString(msg);
+	
 	return &pw;
 }

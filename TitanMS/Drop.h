@@ -1,3 +1,22 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef DROP_H
 #define DROP_H
 
@@ -17,6 +36,7 @@ private:
 	bool quest;
 	int questid;
 	int exptime;
+	int dropTime;
 public:
 	Drop(Map* map, Item* item);
 	Drop(Map* map, Item* item, Position pos);
@@ -69,9 +89,15 @@ public:
 	int getAmount(){
 		return amount;
 	}
-	void drop(MapObject* dropper);
+	void setDropTime(int time){
+		dropTime = time;
+	}
+	int getDropTime(){
+		return dropTime;
+	}
+	void drop(MapObject* dropper, int delay = 0);
 	void showDrop(Player* player);
-	void takeDrop(Player* player);
+	bool takeDrop(Player* player);
 	void removeDrop(bool explode = false);
 };
 

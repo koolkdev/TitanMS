@@ -4,31 +4,36 @@
 	<NPC>9201020</NPC>
 	<Items>
 		<Item>
-			<ID>01050131</ID>
+			<ID>1050131</ID>
 			<Price>100000</Price>
 		</Item>
 		<Item>
-			<ID>01050132</ID>
+			<ID>1050132</ID>
 			<Price>100000</Price>
 		</Item>
 		<Item>
-			<ID>01050133</ID>
+			<ID>1050133</ID>
 			<Price>100000</Price>
 		</Item>
 		<Item>
-			<ID>01050134</ID>
+			<ID>1050134</ID>
 			<Price>100000</Price>
 		</Item>
-			<Item>
-			<ID>01012011</ID>
+		<Item>
+			<ID>1051150</ID>
 			<Price>100000</Price>
 		</Item>
-			<Item>
-			<ID>01472062</ID>
-			<Price>900000000</Price>
-		</Item>			<Item>
-			<ID>01082223</ID>
-			<Price>500000000</Price>
+		<Item>
+			<ID>1051151</ID>
+			<Price>100000</Price>
+		</Item>
+		<Item>
+			<ID>1051152</ID>
+			<Price>100000</Price>
+		</Item>
+		<Item>
+			<ID>1051153</ID>
+			<Price>100000</Price>
 		</Item>
 	</Items>
 </Shop>

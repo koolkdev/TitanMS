@@ -22,18 +22,19 @@
 
 #pragma warning (disable:4275)
 
-#include <stdio.h>
-#include <Winsock2.h>
-#include "mysql.h"
-#include "MySQL\mysql++.h"
+#include "..\mysql++\mysql.h"
+#include "..\mysql++\mysql++.h"
 #include <string>
-
-using namespace mysqlpp;
 
 class MySQL {
 private:
-	static Connection MySQL::maple_db;
+	static mysqlpp::Connection MySQL::maple_db;
 	static MySQL* instance;
+	std::string host;
+	std::string username;
+	std::string password;
+	std::string database;
+	int port;
 public:
 	MySQL(){
 		instance = this;
@@ -43,6 +44,22 @@ public:
 			return new MySQL();
 		return instance;
 	}
+	void setHost(string h){
+		host = h;
+	}
+	void setUsername(string u){
+		username = u;
+	}
+	void setPassword(string p){
+		password = p;
+	}
+	void setDatabase(string b){
+		database = b;
+	}
+	void setPort(int p){
+		port = p;
+	}
+
 	int connectToMySQL();
 	int getUserID(char* username);
 	int getInt(char* table, int id, char* value);
@@ -57,14 +74,13 @@ public:
 	void deleteRow(char* table, int id);
 	void insert(char* query);
 	int showEquips(int id, int equips[30][2]);
-	int showEquipsIn(int id, std::string equips[130][22]);
-	int getItems(int id, int equips[400][4]);
-	int getKeys(int id, int keys[90][3]);
-	int getSkills(int id, int skills[200][3]);
 	int getInt(char* table, char* whr, char* wht, char* value);
 	void createEquip(int equipid, int type, int charid);
-	void getCharacter(int id, std::string info[28]);
+	void getCharacter(int id, std::string info[29]);
 	void deletePlayer(int id);
+	mysqlpp::Connection* getDataBase(){
+		return &maple_db;
+	}
 };
 
 #endif

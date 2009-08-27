@@ -20,14 +20,13 @@
 #ifndef NPCS_H
 #define NPCS_H
 
-#include "MapObject.h"
+#include "LifeMapObject.h"
 
 class MapNPCData;
 
-class NPC : public MapObject {
+class NPC : public LifeMapObject {
 private:
 	int npcid;
-	int fh;
 	int rx0;
 	int rx1;
 	bool flip;
@@ -48,9 +47,6 @@ public:
 	void setNPCID(int id){
 		npcid= id;
 	}
-	void setFH(int fh){
-		this->fh = fh;
-	}
 	void setRX0(int rx0){
 		this->rx0 = rx0;
 	}
@@ -62,9 +58,6 @@ public:
 	}
 	int getNPCID(){
 		return npcid;
-	}
-	int getFH(){
-		 return fh;
 	}
 	int getRX0(){
 		return rx0;

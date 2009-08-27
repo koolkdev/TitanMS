@@ -17,8 +17,8 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef MAPDROPS_H
-#define MAPDROPS_H
+#ifndef MAPDROPs_H
+#define MAPDROPs_H
 
 #include <hash_map>
 #include <vector>
@@ -54,12 +54,12 @@ public:
 	void showDropsToPlayer(Player* player);
 	void checkDrops(bool timer = true);
 	void show(Player* player);
-	void dropFromMob(Mob* mob, int killer);
-	void dropFromReactor(Reactor* reactor);
-	void dropFromObject(DropsData* drops, MapObject* obj, int owner);
-	Position findFoothold(Position pos);
-	void dropFromObject(Item* item, Position pos, MapObject* obj, int own = 0, Player* player = NULL);
-	void dropMesosFromObject(int amount, Position pos, MapObject* obj, int own);
+	void dropFromMob(Mob* mob, Player* killer = 0);
+	void dropFromReactor(Reactor* reactor, Player* player);
+	void dropFromObject(DropsData* drops, MapObject* obj, Player* owner);
+	void dropFromObject(Item* item, Position pos, MapObject* obj, int own = 0, Player* player = NULL, int delay = 0);
+	void dropMesosFromObject(int amount, Position pos, MapObject* obj, int own, int delay = 0);
+	void lootDrop(Player* player, Drop* drop);
 	bool findDrop(Drop* drop){
 		for (hash_map<int,Drop*>::iterator iter = drops.begin(); iter != drops.end(); iter++)
 			if(iter->second == drop)
@@ -67,6 +67,7 @@ public:
 		return false;
 	}
 	void clear(){
+		hash_map<int,Drop*> drops = hash_map<int,Drop*>(this->drops);
 		for (hash_map<int,Drop*>::iterator iter = drops.begin(); iter != drops.end(); iter++)
 			removeDrop(iter->second);
 	}

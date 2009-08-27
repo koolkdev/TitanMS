@@ -27,20 +27,28 @@
 #include "Item.h"
 
 
-PacketWriter* PacketCreator::controlMob(Mob* mob, bool spawn, bool agrs){
+PacketWriter* PacketCreator::controlMob(Mob* mob, char type, bool agrs, int from){
 	pw.writeShort(CONTROL_MOB);
 
 	pw.write((agrs)? 2 : 1);
 	pw.writeInt(mob->getID());
 	pw.write(1);
 	pw.writeInt(mob->getMobID());
+	pw.write(0);
+	pw.writeShort(0);
+	pw.write(8);
 	pw.writeInt(0);
 	pw.writeShort(mob->getPosition().x);
-	pw.writeShort(mob->getPosition().y-1);
+	pw.writeShort(mob->getPosition().y);
 	pw.write(mob->getStance());
-	pw.writeShort(0);
-	pw.writeShort(mob->getFH());
-	pw.writeShort((spawn) ? -2 : -1);
+	pw.writeShort(mob->getFoothold()); // fh
+	pw.writeShort(mob->getStartFH());//?
+	pw.write(type);
+	if(from != 0)
+		pw.writeInt(from);
+	pw.write(-1); // spawn effect(+ pw.writeInt(delay))
+	pw.writeInt(0);
+
 	return &pw;
 }
 PacketWriter* PacketCreator::endControlMob(int mobid){
@@ -50,22 +58,31 @@ PacketWriter* PacketCreator::endControlMob(int mobid){
 	pw.writeInt(mobid);	
 	return &pw;
 }
-PacketWriter* PacketCreator::showMob(Mob* mob, bool spawn){
+PacketWriter* PacketCreator::showMob(Mob* mob, char type, int from){
 	pw.writeShort(SPAWN_MOB);
 
 	pw.writeInt(mob->getID());
 	pw.write(1);
 	pw.writeInt(mob->getMobID());
+	pw.write(0);
+	pw.writeShort(0);
+	pw.write(8);
 	pw.writeInt(0);
 	pw.writeShort(mob->getPosition().x);
-	pw.writeShort(mob->getPosition().y-1);
+	pw.writeShort(mob->getPosition().y);
 	pw.write(mob->getStance());
-	pw.writeShort(0);
-	pw.writeShort(mob->getFH());
-	pw.writeShort((spawn) ? -2 : -1);
+	pw.writeShort(mob->getFoothold()); //fh
+	pw.writeShort(mob->getStartFH()); // original FH?
+	pw.write(type);
+	if(from != 0)
+		pw.writeInt(from);
+	pw.write(-1); // spawn effect(+ pw.writeInt(delay))
+
+	pw.writeInt(0);
+
 	return &pw;
 }
-PacketWriter* PacketCreator::moveMob(int mobid, Position pos, ObjectMoving* moving, char skill, int skillid){
+PacketWriter* PacketCreator::moveMob(int mobid, Position& pos, ObjectMoving& moving, char skill, int skillid){
 	pw.writeShort(MOVE_MOB);
 	
 	pw.writeInt(mobid);
@@ -74,15 +91,15 @@ PacketWriter* PacketCreator::moveMob(int mobid, Position pos, ObjectMoving* movi
 	pw.write(0);
 	pw.writeShort(pos.x);
 	pw.writeShort(pos.y);
-	pw.write(moving->getPacket()->getBytes(), moving->getPacket()->getLength());
+	pw.write(moving.getPacket()->getBytes(), moving.getPacket()->getLength());
 
 	return &pw;
 }
-PacketWriter* PacketCreator::moveMobResponse(Mob* mob, int type, bool agrs){
+PacketWriter* PacketCreator::moveMobResponse(Mob* mob, int count, bool agrs){
 	pw.writeShort(MOVE_MOB_RESPONSE);
 
 	pw.writeInt(mob->getID());
-	pw.writeShort(type);
+	pw.writeShort(count);
 	pw.write(agrs);
 	pw.writeInt(mob->getMP());
 
@@ -97,7 +114,7 @@ PacketWriter* PacketCreator::showHP(int mobid, char per){
 	return &pw;
 }
 PacketWriter* PacketCreator::showBossHP(int mobid, int hp, int maxhp, char per, int color, int bgcolor){
-	pw.writeShort(BOSS_MOB);
+	pw.writeShort(MAP_EFFECT);
 	
 	pw.write(5);
 	pw.writeInt(mobid);
@@ -117,34 +134,37 @@ PacketWriter* PacketCreator::killMob(int mobid, bool animation){
 	return &pw;
 
 }
-void PacketCreator::damage(int playerid, Damage* damage, int itemid){
+void PacketCreator::damage(int playerid, Damage& damage, int itemid){
 	pw.writeInt(playerid);
-	pw.write(damage->getInfoByte());
-	int skill = damage->getSkill();
+	pw.write(damage.getInfoByte());
+	int skill = damage.getSkill();
 	if(skill){
 		pw.write(-1);
 		pw.writeInt(skill);
 	}
 	else
 		pw.write(0);
-	pw.write(damage->getStance());
-	pw.write(2);
+	pw.write(0);
+	pw.write(damage.getStance());
+	pw.write(damage.getSpeed());
 	pw.write(10);
 	pw.writeInt(itemid);
-	vector <int>* mobs = damage->getMobs();
+	vector <int>* mobs = damage.getMobs();
 
 	for(int i=0; i<(int)mobs->size(); i++){
 		pw.writeInt((*mobs)[i]);
 		pw.write(-1);
 		
-		vector<int>* damages = damage->getDamageForMob((*mobs)[i]);
+		vector<int>* damages = damage.getDamageForMob((*mobs)[i]);
 
 		for(int j=0; j<(int)damages->size(); j++){
 			pw.writeInt((*damages)[j]);
 		}
 	}
+	if(damage.getCharge() > 0)
+		pw.writeInt(damage.getCharge());
 }
-PacketWriter* PacketCreator::damageMob(int playerid, Damage* dmg){
+PacketWriter* PacketCreator::damageMob(int playerid, Damage& dmg){
 	pw.writeShort(DAMAGE_REGULAR);
 
 	damage(playerid, dmg);
@@ -162,7 +182,7 @@ PacketWriter* PacketCreator::damageMob(int mobid, int damage){
 	return &pw;
 
 }
-PacketWriter* PacketCreator::damageMobMagic(int playerid, Damage* dmg){
+PacketWriter* PacketCreator::damageMobMagic(int playerid, Damage& dmg){
 	pw.writeShort(DAMAGE_MAGIC);
 
 	damage(playerid, dmg);
@@ -170,10 +190,23 @@ PacketWriter* PacketCreator::damageMobMagic(int playerid, Damage* dmg){
 	return &pw;
 
 }
-PacketWriter* PacketCreator::damageMobRanged(int playerid, Damage* dmg, int itemid){
+PacketWriter* PacketCreator::damageMobRanged(int playerid, Damage& dmg, int itemid){
 	pw.writeShort(DAMAGE_RANGED);
 
 	damage(playerid, dmg, itemid);
+
+	return &pw;
+}
+
+
+PacketWriter* PacketCreator::damageByMob(int mobid, int damage, int hp, int maxhp){
+	pw.writeShort(DAMAGE_BY_MOB);
+	
+	pw.writeInt(mobid);
+	pw.write(1);
+	pw.writeInt(damage);
+	pw.writeInt(hp);
+	pw.writeInt(maxhp);
 
 	return &pw;
 }

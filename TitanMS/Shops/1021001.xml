@@ -4,328 +4,260 @@
 	<NPC>1021001</NPC>
 	<Items>
 		<Item>
-			<ID>01002002</ID>
+			<ID>1002043</ID>
 			<Price>2400</Price>
 		</Item>
 		<Item>
-			<ID>01002043</ID>
-			<Price>2400</Price>
-		</Item>
-		<Item>
-			<ID>01002044</ID>
-			<Price>2400</Price>
-		</Item>
-		<Item>
-			<ID>01002003</ID>
+			<ID>1002039</ID>
 			<Price>2700</Price>
 		</Item>
 		<Item>
-			<ID>01002039</ID>
-			<Price>2700</Price>
-		</Item>
-		<Item>
-			<ID>01002040</ID>
-			<Price>2700</Price>
-		</Item>
-		<Item>
-			<ID>01002007</ID>
+			<ID>1002051</ID>
 			<Price>3500</Price>
 		</Item>
 		<Item>
-			<ID>01002051</ID>
+			<ID>1002055</ID>
+			<Price>8700</Price>
+		</Item>
+		<Item>
+			<ID>1002059</ID>
 			<Price>3500</Price>
 		</Item>
 		<Item>
-			<ID>01002052</ID>
-			<Price>3500</Price>
-		</Item>
-		<Item>
-			<ID>01002011</ID>
-			<Price>8700</Price>
-		</Item>
-		<Item>
-			<ID>01002058</ID>
-			<Price>8700</Price>
-		</Item>
-		<Item>
-			<ID>01002059</ID>
-			<Price>8700</Price>
-		</Item>
-		<Item>
-			<ID>01002009</ID>
-			<Price>8500</Price>
-		</Item>
-		<Item>
-			<ID>01002055</ID>
-			<Price>8500</Price>
-		</Item>
-		<Item>
-			<ID>01002056</ID>
-			<Price>8500</Price>
-		</Item>
-		<Item>
-			<ID>01002027</ID>
+			<ID>1002027</ID>
 			<Price>11500</Price>
 		</Item>
 		<Item>
-			<ID>01002087</ID>
-			<Price>11500</Price>
+			<ID>1002005</ID>
+			<Price>19000</Price>
 		</Item>
 		<Item>
-			<ID>01002088</ID>
-			<Price>11500</Price>
-		</Item>
-		<Item>
-			<ID>01002005</ID>
-			<Price>11900</Price>
-		</Item>
-		<Item>
-			<ID>01002049</ID>
-			<Price>11900</Price>
-		</Item>
-		<Item>
-			<ID>01002050</ID>
-			<Price>11900</Price>
-		</Item>
-		<Item>
-			<ID>01040015</ID>
+			<ID>1040015</ID>
 			<Price>3200</Price>
 		</Item>
 		<Item>
-			<ID>01040038</ID>
+			<ID>1040038</ID>
 			<Price>3200</Price>
 		</Item>
 		<Item>
-			<ID>01040009</ID>
+			<ID>1040009</ID>
 			<Price>5500</Price>
 		</Item>
 		<Item>
-			<ID>01040009</ID>
+			<ID>1040037</ID>
 			<Price>5500</Price>
 		</Item>
 		<Item>
-			<ID>01040012</ID>
+			<ID>1040012</ID>
 			<Price>9000</Price>
 		</Item>
 		<Item>
-			<ID>01040016</ID>
+			<ID>1040039</ID>
 			<Price>9000</Price>
 		</Item>
 		<Item>
-			<ID>01040039</ID>
-			<Price>9000</Price>
+			<ID>1040040</ID>
+			<Price>16000</Price>
 		</Item>
 		<Item>
-			<ID>01040040</ID>
-			<Price>9000</Price>
+			<ID>1040016</ID>
+			<Price>16000</Price>
 		</Item>
 		<Item>
-			<ID>01040041</ID>
-			<Price>9000</Price>
+			<ID>1040041</ID>
+			<Price>16000</Price>
 		</Item>
 		<Item>
-			<ID>01040021</ID>
+			<ID>1040021</ID>
 			<Price>40000</Price>
 		</Item>
 		<Item>
-			<ID>01040026</ID>
+			<ID>1040026</ID>
 			<Price>40000</Price>
 		</Item>
 		<Item>
-			<ID>01041014</ID>
+			<ID>1041014</ID>
 			<Price>3200</Price>
 		</Item>
 		<Item>
-			<ID>01041064</ID>
+			<ID>1041064</ID>
 			<Price>3200</Price>
 		</Item>
 		<Item>
-			<ID>01041019</ID>
+			<ID>1041019</ID>
 			<Price>9000</Price>
 		</Item>
 		<Item>
-			<ID>01041020</ID>
+			<ID>1041020</ID>
 			<Price>9000</Price>
 		</Item>
 		<Item>
-			<ID>01041021</ID>
+			<ID>1041021</ID>
 			<Price>9000</Price>
 		</Item>
 		<Item>
-			<ID>01041022</ID>
+			<ID>1041022</ID>
 			<Price>16000</Price>
 		</Item>
 		<Item>
-			<ID>01041023</ID>
+			<ID>1041023</ID>
 			<Price>16000</Price>
 		</Item>
 		<Item>
-			<ID>01041024</ID>
+			<ID>1041024</ID>
 			<Price>16000</Price>
 		</Item>
 		<Item>
-			<ID>01050005</ID>
+			<ID>1050005</ID>
 			<Price>15000</Price>
 		</Item>
 		<Item>
-			<ID>01050006</ID>
+			<ID>1050006</ID>
 			<Price>15000</Price>
 		</Item>
 		<Item>
-			<ID>01050007</ID>
+			<ID>1050007</ID>
 			<Price>15000</Price>
 		</Item>
 		<Item>
-			<ID>01050011</ID>
+			<ID>1050011</ID>
 			<Price>70000</Price>
 		</Item>
 		<Item>
-			<ID>01051000</ID>
+			<ID>1051000</ID>
 			<Price>8000</Price>
 		</Item>
 		<Item>
-			<ID>01051010</ID>
+			<ID>1051010</ID>
 			<Price>60000</Price>
 		</Item>
 		<Item>
-			<ID>01051011</ID>
+			<ID>1051011</ID>
 			<Price>60000</Price>
 		</Item>
 		<Item>
-			<ID>01051012</ID>
+			<ID>1051012</ID>
 			<Price>60000</Price>
 		</Item>
 		<Item>
-			<ID>01051013</ID>
+			<ID>1051013</ID>
 			<Price>60000</Price>
 		</Item>
 		<Item>
-			<ID>01060008</ID>
+			<ID>1060008</ID>
 			<Price>3000</Price>
 		</Item>
 		<Item>
-			<ID>01060028</ID>
+			<ID>1060028</ID>
 			<Price>3000</Price>
 		</Item>
 		<Item>
-			<ID>01060009</ID>
+			<ID>1060009</ID>
 			<Price>5000</Price>
 		</Item>
 		<Item>
-			<ID>01060027</ID>
+			<ID>1060027</ID>
 			<Price>5000</Price>
 		</Item>
 		<Item>
-			<ID>01060010</ID>
+			<ID>1060010</ID>
 			<Price>9000</Price>
 		</Item>
 		<Item>
-			<ID>01060011</ID>
-			<Price>9000</Price>
-		</Item>
-		<Item>
-			<ID>01060029</ID>
-			<Price>9000</Price>
-		</Item>
-		<Item>
-			<ID>01060030</ID>
-			<Price>9000</Price>
-		</Item>
-		<Item>
-			<ID>01060060</ID>
-			<Price>9000</Price>
-		</Item>
-		<Item>
-			<ID>01060016</ID>
-			<Price>38000</Price>
-		</Item>
-		<Item>
-			<ID>01060017</ID>
-			<Price>38000</Price>
-		</Item>
-		<Item>
-			<ID>01060018</ID>
-			<Price>38000</Price>
-		</Item>
-		<Item>
-			<ID>01060019</ID>
-			<Price>38000</Price>
-		</Item>
-		<Item>
-			<ID>01060020</ID>
-			<Price>38000</Price>
-		</Item>
-		<Item>
-			<ID>01061023</ID>
-			<Price>3000</Price>
-		</Item>
-		<Item>
-			<ID>01061014</ID>
-			<Price>3000</Price>
-		</Item>
-		<Item>
-			<ID>01061016</ID>
-			<Price>9000</Price>
-		</Item>
-		<Item>
-			<ID>01061017</ID>
-			<Price>9000</Price>
-		</Item>
-		<Item>
-			<ID>01061018</ID>
-			<Price>9000</Price>
-		</Item>
-		<Item>
-			<ID>01061015</ID>
+			<ID>1060029</ID>
 			<Price>14000</Price>
 		</Item>
 		<Item>
-			<ID>01061019</ID>
+			<ID>1060011</ID>
 			<Price>14000</Price>
 		</Item>
 		<Item>
-			<ID>01061020</ID>
+			<ID>1060030</ID>
 			<Price>14000</Price>
 		</Item>
 		<Item>
-			<ID>01072009</ID>
+			<ID>1060060</ID>
+			<Price>14000</Price>
+		</Item>
+		<Item>
+			<ID>1060016</ID>
+			<Price>38000</Price>
+		</Item>
+		<Item>
+			<ID>1060017</ID>
+			<Price>38000</Price>
+		</Item>
+		<Item>
+			<ID>1060018</ID>
+			<Price>38000</Price>
+		</Item>
+		<Item>
+			<ID>1060019</ID>
+			<Price>38000</Price>
+		</Item>
+		<Item>
+			<ID>1061014</ID>
+			<Price>3000</Price>
+		</Item>
+		<Item>
+			<ID>1061023</ID>
+			<Price>3000</Price>
+		</Item>
+		<Item>
+			<ID>1061016</ID>
+			<Price>9000</Price>
+		</Item>
+		<Item>
+			<ID>1061017</ID>
+			<Price>9000</Price>
+		</Item>
+		<Item>
+			<ID>1061018</ID>
+			<Price>9000</Price>
+		</Item>
+		<Item>
+			<ID>1061015</ID>
+			<Price>14000</Price>
+		</Item>
+		<Item>
+			<ID>1061019</ID>
+			<Price>14000</Price>
+		</Item>
+		<Item>
+			<ID>1061020</ID>
+			<Price>14000</Price>
+		</Item>
+		<Item>
+			<ID>1072009</ID>
 			<Price>5000</Price>
 		</Item>
 		<Item>
-			<ID>01072050</ID>
+			<ID>1072050</ID>
 			<Price>5000</Price>
 		</Item>
 		<Item>
-			<ID>01072007</ID>
+			<ID>1072007</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01072046</ID>
+			<ID>1072046</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01072047</ID>
+			<ID>1072047</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01072011</ID>
+			<ID>1072011</ID>
 			<Price>15000</Price>
 		</Item>
 		<Item>
-			<ID>01072039</ID>
-			<Price>30000</Price>
+			<ID>1092005</ID>
+			<Price>4000</Price>
 		</Item>
 		<Item>
-			<ID>01072039</ID>
-			<Price>30000</Price>
+			<ID>1092000</ID>
+			<Price>6000</Price>
 		</Item>
-		<Item>
-			<ID>01072040</ID>
-			<Price>30000</Price>
-		</Item>
-		<Item>
-			<ID>01072041</ID>
-			<Price>30000</Price>
-		</Item>		
 	</Items>
 </Shop>

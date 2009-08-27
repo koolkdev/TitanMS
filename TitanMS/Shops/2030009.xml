@@ -3,136 +3,104 @@
 	<NPC>2030009</NPC>
 	<Items>
 		<Item>
-			<ID>2000000</ID>
-			<Price>25</Price>
-		</Item>
-		<Item>
 			<ID>2000001</ID>
-			<Price>80</Price>
+			<Price>166</Price>
 		</Item>
 		<Item>
 			<ID>2000002</ID>
-			<Price>160</Price>
+			<Price>332</Price>
 		</Item>
 		<Item>
 			<ID>2000003</ID>
-			<Price>100</Price>
+			<Price>208</Price>
 		</Item>
 		<Item>
 			<ID>2000006</ID>
-			<Price>310</Price>
+			<Price>644</Price>
 		</Item>
 		<Item>
 			<ID>2002000</ID>
-			<Price>250</Price>
+			<Price>520</Price>
 		</Item>
 		<Item>
 			<ID>2002001</ID>
-			<Price>250</Price>
+			<Price>416</Price>
 		</Item>
 		<Item>
 			<ID>2002002</ID>
-			<Price>250</Price>
-		</Item>
-		<Item>
-			<ID>2002003</ID>
-			<Price>250</Price>
+			<Price>520</Price>
 		</Item>
 		<Item>
 			<ID>2002004</ID>
-			<Price>250</Price>
+			<Price>520</Price>
 		</Item>
 		<Item>
 			<ID>2002005</ID>
-			<Price>250</Price>
+			<Price>520</Price>
 		</Item>
 		<Item>
- 	     <ID>2010003</ID>
-      <Price>100</Price>
-    </Item>
-    <Item>
-      <ID>2010004</ID>
-      <Price>310</Price>
-    </Item>
-    <Item>
-      <ID>2020001</ID>
-      <Price>220</Price>
-    </Item>
-    <Item>
-      <ID>2020005</ID>
-      <Price>320</Price>
-    </Item>
-    <Item>
-      <ID>2020003</ID>
-      <Price>450</Price>
-    </Item>
-    <Item>
-      <ID>2020004</ID>
-      <Price>450</Price>
-    </Item>
-    <Item>
-      <ID>2020006</ID>
-      <Price>530</Price>
-    </Item>
-		<Item>
 			<ID>2001000</ID>
-			<Price>1600</Price>
+			<Price>3328</Price>
 		</Item>
 		<Item>
 			<ID>2001001</ID>
-			<Price>1150</Price>
+			<Price>2392</Price>
 		</Item>
 		<Item>
 			<ID>2001002</ID>
-			<Price>2000</Price>
+			<Price>4160</Price>
 		</Item>
 		<Item>
-			<ID>2010000</ID>
-			<Price>15</Price>
-		</Item>
-		<Item>
-			<ID>2010002</ID>
-			<Price>25</Price>
-		</Item>
-		<Item>
-			<ID>2010001</ID>
-			<Price>53</Price>
-		</Item>
-		<Item>
-			<ID>2010003</ID>
-			<Price>50</Price>
+			<ID>2020005</ID>
+			<Price>332</Price>
 		</Item>
 		<Item>
 			<ID>2010004</ID>
-			<Price>155</Price>
+			<Price>322</Price>
+		</Item>
+		<Item>
+			<ID>2020001</ID>
+			<Price>228</Price>
+		</Item>
+		<Item>
+			<ID>2020003</ID>
+			<Price>468</Price>
+		</Item>
+		<Item>
+			<ID>2020004</ID>
+			<Price>468</Price>
+		</Item>
+		<Item>
+			<ID>2020006</ID>
+			<Price>551</Price>
+		</Item>
+		<Item>
+			<ID>2022003</ID>
+			<Price>1144</Price>
+		</Item>
+		<Item>
+			<ID>2022000</ID>
+			<Price>1716</Price>
 		</Item>
 		<Item>
 			<ID>2020012</ID>
-			<Price>2250</Price>
+			<Price>4680</Price>
 		</Item>
 		<Item>
 			<ID>2020013</ID>
-			<Price>2750</Price>
+			<Price>5824</Price>
 		</Item>
 		<Item>
 			<ID>2020014</ID>
-			<Price>4050</Price>
+			<Price>8424</Price>
 		</Item>
 		<Item>
 			<ID>2020015</ID>
-			<Price>5100</Price>
+			<Price>10608</Price>
 		</Item>
 		<Item>
-			<ID>2050000</ID>
-			<Price>100</Price>
-		</Item>
-		<Item>
-			<ID>2050001</ID>
-			<Price>100</Price>
-		</Item>
-		<Item>
-			<ID>2050002</ID>
-			<Price>150</Price>
+			<ID>2030000</ID>
+			<Price>400</Price>
 		</Item>
 		<Item>
 			<ID>2060000</ID>
@@ -143,12 +111,8 @@
 			<Price>1</Price>
 		</Item>
 		<Item>
-			<ID>2030000</ID>
-			<Price>200</Price>
-		</Item>
-		<Item>
-			<ID>2020003</ID>
-			<Price>225</Price>
+			<ID>2070000</ID>
+			<Price>500</Price>
 		</Item>
 	</Items>
 </Shop>

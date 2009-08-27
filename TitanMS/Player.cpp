@@ -17,6 +17,7 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "../Connection/PacketHandler.h"
 #include "Player.h"
 #include "Worlds.h"
 #include "Channel.h"
@@ -25,10 +26,16 @@
 #include "PacketReader.h"
 #include "Pet.h"
 #include "PacketWriter.h"
+#include "Transportations.h"
+#include "PartyMember.h"
+#include "PartyMembers.h"
+#include "Party.h"
 #include "PlayerNPC.h"
 #include "MySQLM.h"
 #include "Map.h"
 #include "Maps.h"
+#include "MapsData.h"
+#include "MapData.h"
 #include "MapPlayers.h"
 #include "PlayerInventories.h"
 #include "MapPortalData.h"
@@ -46,10 +53,28 @@
 #include "Quest.h"
 #include "Key.h"
 #include "PacketCreator.h"
+#include "PacketHandlingError.h"
+#include "Trade.h"
+#include "Event.h"
+#include "Events.h"
+#include <algorithm>
+#include "Timer.h"
+#include "World.h"
+#include "Parties.h"
 #include "Tools.h"
 using namespace Tools;
+using namespace mysqlpp;
 
 int strval(string& str);
+__int64 strval64(string& num);
+
+struct ComparePets : public std::binary_function<Pet*, Pet*, bool>
+{
+	bool operator()(Pet* x, Pet* y) const
+	{
+		return x->getPetSlot() < y->getPetSlot();
+	}
+};
 
 const int Player::exps[200] = {15, 34, 57, 92, 135, 372, 560, 840, 1242, 1716, 2360, 3216, 4200,
 	5460, 7050, 8840, 11040, 13716, 16680, 20216, 24402, 28980, 34320, 40512, 47216, 54900,
@@ -75,22 +100,29 @@ const int Player::exps[200] = {15, 34, 57, 92, 135, 372, 560, 840, 1242, 1716, 2
 Player::Player(int port){
 	channel = Worlds::getInstance()->getChannelByPort(port);
 	isconnect = false;
+	loaded = false;
 	stance = 0;
 	chair = 0;
 	itemEffect = 0;
-	shop = 0;
-	npc = 0;
-	pet = NULL;
+	npcShop = NULL;
+	npc = NULL;
+	trade = NULL;
+	party = NULL;
+	partyInvite = 0;
 	handler = new PlayerHandler(this);
 }
 Player::~Player(){
 	if(isconnect){
-		if(pet!=NULL)
-			pet->stopTimer();
-		buffs->cancelAll();
+		if(map->getEvent() != NULL) channel->getEvents()->deleteEventForPlayer(map->getEvent()->getName(), this, true);
+		if(trade != NULL) channel->getTransportations()->closeTrade(trade);
+		if(party != NULL){
+			party->getMembers()->removeMember(id);
+			party->getMembers()->send(PacketCreator().updateParty(party));
+		}
 		map->getPlayers()->remove(this);
 		channel->getPlayers()->remove(this);
-		save();
+		if(loaded) save();
+		buffs->cancelAll();
 		inv->deleteAll();
 		skills->deleteAll();
 		keys->deleteAll();
@@ -107,6 +139,12 @@ Player::~Player(){
 	}
 }
 
+
+void Player::disconnect(){
+	packetHandler->disconnect();
+	for(int i=0; i<100000; i++)
+	send(PacketCreator().ping());
+}
 void Player::send(PacketWriter* packet){
 	unsigned char bytes [MAX_LENGTH];
 	memcpy_s(bytes, packet->getLength(), packet->getBytes(), packet->getLength());
@@ -115,27 +153,31 @@ void Player::send(PacketWriter* packet){
 
 void Player::handleRequest(unsigned char* buf, int len){
 	try{
-		int c = 0;
-		for(int i=0; i<len; i++)
-			if(buf[i] == 0x10)
-				c++;
-		if(c>1)
-			printf("A");
-		handler->handle(&PacketReader(buf, len, id));
+		handler->handle(PacketReader(buf, len, id));
+	}
+#ifdef _DEBUG
+	catch(PacketHandlingError ph){
+		cout << ph.getError();
 	}
 	catch (BadQuery er ) {
 		printf("%s\n", er.what());
 	}
+	catch (char* er ) {
+		printf("%s\n", er);
+	}
+	catch( const std::exception &e ) {
+		std::cerr << "Exception catch: " << e.what() << std::endl;
+	}
+#endif
 	catch(...){
 		//TODO
 	}
 }
 
 void Player::playerConnect(){
-	// to improve
-	string values[28];
+	string values[29];
 	MySQL::getInstance()->getCharacter(id, values);
-	if(values[25] != getIP() && values[25] != "127.0.0.1"){ // localhost
+	if(values[25] != getIP() && values[25] != "127.0.0.1" && getIP() != "127.0.0.1" && stringToIP(getIP()) != *Worlds::getInstance()->getIP() && stringToIP(values[25]) != *Worlds::getInstance()->getIP()){ // localhost
 		disconnect();
 		return;
 	}
@@ -159,75 +201,122 @@ void Player::playerConnect(){
 		disconnect();
 		return;
 	}
+	if(MapsData::getInstance()->getDataByID(map->getID())->getForcedReturn() != 999999999){
+		Map* fmap = channel->getMaps()->getMap(MapsData::getInstance()->getDataByID(map->getID())->getForcedReturn());
+		if(fmap != NULL)
+			map = fmap;
+	}
 	mappos = strval(values[19]);
 	gender = strval(values[20]);
 	skin = strval(values[21]);
 	face = strval(values[22]);
 	hair = strval(values[23]);
 	mesos = strval(values[24]);
-	mesos = strval(values[26]);
-	mesos = strval(values[27]);
+	hpap = strval(values[26]);
+	mpap = strval(values[27]);
+	int partyid = strval(values[28]);
+	if(partyid != 0)
+		party = channel->getWorld()->getParties()->getParty(partyid);
 	gm = MySQL::getInstance()->getInt("users", MySQL::getInstance()->getInt("characters", id, "userid"), "gm");
-	string equips[150][22];
-	int many = MySQL::getInstance()->showEquipsIn(id, equips);
+	Query query = MySQL::getInstance()->getDataBase()->query();
+	StoreQueryResult res;
 	inv = new PlayerInventories(this);
 	skills = new PlayerSkills(this);
 	quests = new PlayerQuests(this);
 	keys = new PlayerKeys(this);
 	buffs = new PlayerBuffs(this);
 	isconnect = true;
-	for(int i=0; i<many; i++){
+	query << "SELECT * FROM equips WHERE charid=" << id;
+	res = query.store();
+	for(int i=0; i<(int)res.num_rows(); i++){
 		Equip* equip = new Equip();
-		equip->setID(strval(equips[i][0]));
-		equip->setSlots(strval(equips[i][3]));
-		equip->setScrolls(strval(equips[i][4]));
-		equip->setSlot(strval(equips[i][2]));
-		equip->setStr(strval(equips[i][5]));
-		equip->setDex(strval(equips[i][6]));
-		equip->setInt(strval(equips[i][7]));
-		equip->setLuk(strval(equips[i][8]));
-		equip->setHP(strval(equips[i][9]));
-		equip->setMP(strval(equips[i][10]));
-		equip->setWAtk(strval(equips[i][11]));
-		equip->setMAtk(strval(equips[i][12]));
-		equip->setWDef(strval(equips[i][13]));
-		equip->setMDef(strval(equips[i][14]));
-		equip->setAcc(strval(equips[i][15]));
-		equip->setAvo(strval(equips[i][16]));
-		equip->setHand(strval(equips[i][17]));
-		equip->setSpeed(strval(equips[i][18]));
-		equip->setJump(strval(equips[i][19]));
-		equip->setOwner(equips[i][20]);
-		equip->setLocked(equips[i][21] == "1");
-		inv->getInventory(equip->getSlot()>0)->addItem(equip, false);
+		equip->setID(strval(string(res[i][0])));
+		equip->setSlots(strval(string(res[i][3])));
+		equip->setScrolls(strval(string(res[i][4])));
+		equip->setSlot(strval(string(res[i][2])));
+		equip->setStr(strval(string(res[i][5])));
+		equip->setDex(strval(string(res[i][6])));
+		equip->setInt(strval(string(res[i][7])));
+		equip->setLuk(strval(string(res[i][8])));
+		equip->setHP(strval(string(res[i][9])));
+		equip->setMP(strval(string(res[i][10])));
+		equip->setWAtk(strval(string(res[i][11])));
+		equip->setMAtk(strval(string(res[i][12])));
+		equip->setWDef(strval(string(res[i][13])));
+		equip->setMDef(strval(string(res[i][14])));
+		equip->setAcc(strval(string(res[i][15])));
+		equip->setAvo(strval(string(res[i][16])));
+		equip->setHand(strval(string(res[i][17])));
+		equip->setSpeed(strval(string(res[i][18])));
+		equip->setJump(strval(string(res[i][19])));
+		equip->setOwner(string(res[i][20]));
+		equip->setLocked(string(res[i][21]) == "1");
+		inv->getInventory(equip->getSlot()>0)->addItem(equip, false, false, false);
 	}
-	int items[400][4];
-	many = MySQL::getInstance()->getItems(id, items);
-	for(int i=0; i<many; i++){
+	query << "SELECT * FROM items WHERE charid=" << id;
+	res = query.store();
+	for(int i=0; i<(int)res.num_rows(); i++){
 		Item* item = new Item();
-		item->setID(items[i][0]);
-		item->setSlot(items[i][2]);
-		item->setAmount(items[i][3]);
-		inv->getInventory(items[i][1])->addItem(item, false);
+		item->setID(strval(string(res[i][0])));
+		item->setSlot(strval(string(res[i][3])));
+		item->setAmount(strval(string(res[i][4])));
+		inv->getInventory(strval(string(res[i][2])))->addItem(item, false, false, false);
 	}
-	int skilld[200][3];
-	many = MySQL::getInstance()->getSkills(id, skilld);
-	for(int i=0; i<many; i++){
-		Skill* skill = new Skill(skilld[i][0], skilld[i][1], skilld[i][2]);
+	query << "SELECT * FROM skills WHERE charid=" << id;
+	res = query.store();
+	for(int i=0; i<(int)res.num_rows(); i++){
+		Skill* skill = new Skill(strval(string(res[i][1])), strval(string(res[i][2])), strval(string(res[i][3])));
 		skills->addSkill(skill);
 	}
 
-	int keya[90][3];
-	many = MySQL::getInstance()->getKeys(id, keya);
-	for(int i=0; i<many; i++){
-		Key* key = new Key(keya[i][1], keya[i][2]);
-		keys->setKey(keya[i][0], key);
+	query << "SELECT * FROM keymap WHERE charid=" << id;
+	res = query.store();
+	for(int i=0; i<(int)res.num_rows(); i++){
+		Key* key = new Key(strval(string(res[i][2])), strval(string(res[i][3])));
+		keys->setKey(strval(string(res[i][1])), key);
+	}
+	query << "SELECT * FROM pets WHERE charid=" << id;
+	res = query.store();
+	for(int i=0; i<(int)res.num_rows(); i++){
+		Pet* pet = new Pet(strval(string(res[i][0])));
+		pet->setSlot(strval(string(res[i][2])));
+		pet->setPetSlot(strval(string(res[i][3])));
+		pet->setName(string(res[i][4]));
+		pet->setLevel(strval(string(res[i][5])));
+		pet->setCloseness(strval(string(res[i][6])));
+		pet->setFullness(strval(string(res[i][7])));
+		pet->setTime(strval64(string(res[i][8])));
+		inv->getInventory(CASH)->addItem(pet, false, false, false);
+		if(pet->getPetSlot() >= 0)
+			pets.push_back(pet);	
+	}
+	query << "SELECT * FROM vars WHERE charid=" << id;
+	res = query.store();
+	for(int i=0; i<(int)res.num_rows(); i++){
+		setGlobalVariable(string(res[i][1]), strval(string(res[i][2])));
 	}
 	setPosition(map->getPortalPosition(mappos));
 	stance = 0;
 	send(PacketCreator().connectionData(this));
+	loaded = true;
 	send(PacketCreator().showKeys(keys));
 	channel->addPlayer(this);
+	if(party != NULL){
+		party->getMembers()->addMember(this);
+		party->getMembers()->send(PacketCreator().updateParty(party));
+		party->getMembers()->send(PacketCreator().updatePartyHP(this), map, this);
+		hash_map <int, Player*>* players = party->getMembers()->getPlayers();
+			for(hash_map<int, Player*>::iterator iter = players->begin(); iter != players->end(); iter++)
+				if(iter->second->getMap() == map && iter->second != this)
+					send(PacketCreator().updatePartyHP(iter->second));
+	}
+	sort<vector <Pet*>::iterator, ComparePets>(pets.begin(), pets.end(), ComparePets());
+	for(int i=0; i<(int)pets.size(); i++){
+		pets[i]->setPosition(pos);
+		pets[i]->setStance(0);
+		pets[i]->startTimer(this);
+		map->send(PacketCreator().showPet(id, pets[i]));
+	}
 }
 
 
@@ -242,6 +331,10 @@ void Player::setLevel(int level, bool send){
 	if(send){
 		updateStat(Update::LEVEL, this->level);
 		map->send(PacketCreator().showEffect(id, Effects::LEVEL_UP), this);
+		if(party != NULL){
+			party->getMembers()->getMember(id)->setLevel(level);
+			party->getMembers()->send(PacketCreator().updateParty(party));
+		}
 	}
 }
 void Player::setJob(short job, bool send){
@@ -249,6 +342,10 @@ void Player::setJob(short job, bool send){
 	if(send){
 		updateStat(Update::JOB, this->job);
 		map->send(PacketCreator().showEffect(id, Effects::JOB_CHANGE), this);
+		if(party != NULL){
+			party->getMembers()->getMember(id)->setJob(job);
+			party->getMembers()->send(PacketCreator().updateParty(party));
+		}
 	}
 }
 void Player::setStr(short str, bool send){
@@ -283,6 +380,9 @@ void Player::setHP(int hp, bool send, bool item){
 	else
 		this->hp=hp;
 	if(send){
+		if(party != NULL){
+			party->getMembers()->send(PacketCreator().updatePartyHP(this), map);
+		}
 		updateStat(Update::HP, this->hp, item);
 	}
 }
@@ -298,22 +398,33 @@ void Player::setMP(int mp, bool send, bool item){
 	}
 }
 void Player::setMaxHP(int mhp, bool send, bool item){
+	if(mhp > 30000)
+		mhp = 30000;
 	this->mhp=mhp;
+	if(party != NULL){
+		party->getMembers()->send(PacketCreator().updatePartyHP(this), map);
+	}
 	if(send){
 		updateStat(Update::MAXHP, this->mhp, item);
 	}
 }
 void Player::setBaseMaxHP(int rmhp){
+	if(rmhp > 30000)
+		rmhp = 30000;
 	this->rmhp=rmhp;
 	mhp=rmhp;
 }
 void Player::setMaxMP(int mmp, bool send, bool item){
+	if(mmp > 30000)
+		mmp = 30000;
 	this->mmp=mmp;
 	if(send){
 		updateStat(Update::MAXMP, this->mmp, item);
 	}
 }
 void Player::setBaseMaxMP(int rmmp){
+	if(rmmp > 30000)
+		rmmp = 30000;
 	this->rmmp=rmmp;
 	mmp=rmmp;
 }
@@ -357,6 +468,10 @@ void Player::setExp(int exp, bool send){
 }
 void Player::levelUP(){
 	level++;
+	if(party != NULL){
+		party->getMembers()->getMember(id)->setLevel(level);
+		party->getMembers()->send(PacketCreator().updateParty(party));
+	}
 	int jobt = job/100;
 	if(jobt == 0){
 		rmhp += 15;
@@ -382,6 +497,8 @@ void Player::levelUP(){
 		if(level != NULL)
 			rmmp += level->getY();
 	}
+	rmhp = (rmhp > 30000) ? 30000 : rmhp;
+	rmmp = (rmmp > 30000) ? 30000 : rmmp;
 	mhp = rmhp;
 	mmp = rmmp;
 	hp = mhp;
@@ -398,42 +515,69 @@ void Player::levelUP(){
 	values.add(Value(Update::MP, mp));
 	values.add(Value(Update::EXP, exp));
 	values.add(Value(Update::LEVEL, level));
-	send(PacketCreator().updateStats(&values));
+	send(PacketCreator().updateStats(values));
 
 
 }
-void Player::updateStat(int stat, int value, bool item){
+void Player::updateStat(int stat, int value, bool item, char pet){
 	Values v = Values();
 	v.add(Value(stat, value));
-	send(PacketCreator().updateStats(&v, item));
+	send(PacketCreator().updateStats(v, item, pet));
 }
 
 void Player::setMap(int mapid){
 	Map* map = channel->getMaps()->getMap(mapid);
 	if(map != NULL)
 		changeMap(map);
-		
+}
+void Player::setMapPos(int mapid, int pos){
+	Map* map = channel->getMaps()->getMap(mapid);
+	if(map != NULL)
+		if(map->getPortal(pos) != NULL)
+			changeMap(map, pos);
+}
+void Player::setMapPortal(int mapid, string& portalname){
+	Map* map = channel->getMaps()->getMap(mapid);
+	if(map != NULL){
+		MapPortalData* portal = map->getPortal(portalname);
+		if(portal != NULL)
+			changeMap(map, portal->getID());
+	}
 }
 void Player::changeMap(Map* map, int portal){
 	Map* oldmap = this->map;
 	this->map = map;
+	if(oldmap->getEvent() != NULL && map->getEvent() != oldmap->getEvent()){
+		channel->getEvents()->deleteEventForPlayer(oldmap->getEvent()->getName(), this);
+	}
+	else if(map->getEvent() != NULL) map->getEvent()->getPlayers()->add(this);
 	oldmap->removePlayer(this);
 	mappos = portal;
 	send(PacketCreator().changeMap(this));
 	MapPortalData* tportal = map->getPortal(portal);
-	Position npos;
-	npos.x = tportal->getX();
-	npos.y = tportal->getY();
-	pos = npos;
+	this->pos.x = tportal->getX();
+	this->pos.y = tportal->getY();
+	if(hp == 0) hp = 50;
 	stance = 0;
+	fh = 0;
 	chair = 0;
-	if(pet!=NULL){
-		pet->setPosition(getPosition());
-		pet->setStance(getStance());
-		send(PacketCreator().showPet(id, pet));
-	}
-	itemEffect = 0;
+	if(pvp)
+		pvp = false;
 	map->addPlayer(this);
+	if(party != NULL){
+		party->getMembers()->getMember(id)->setMap(map->getID());
+		party->getMembers()->send(PacketCreator().updateParty(party));
+		party->getMembers()->send(PacketCreator().updatePartyHP(this), map, this);
+		hash_map <int, Player*>* players = party->getMembers()->getPlayers();
+			for(hash_map<int, Player*>::iterator iter = players->begin(); iter != players->end(); iter++)
+				if(iter->second->getMap() == map && iter->second != this)
+					send(PacketCreator().updatePartyHP(iter->second));
+	}
+	for(int i=0; i<(int)pets.size(); i++){
+		pets[i]->setPosition(getPosition());
+		pets[i]->setStance(getStance());
+		map->send(PacketCreator().showPet(id, pets[i]));
+	}
 		
 }
 Value Player::removeStat(int stat){
@@ -497,26 +641,26 @@ Value Player::removeStat(int stat){
 Value Player::addStat(int stat, bool rrandom){
 	int value = -1;
 	if(stat == Update::STR){
-		if(getStr() >= 999)
-			return Value(0, 0);
+		//if(getStr() >= 999)
+		//	return Value(0, 0);
 		addSTR(1, false);
 		value = getStr();
 	}
 	else if(stat == Update::DEX){
-		if(getDex() >= 999)
-			return Value(0, 0);
+		//if(getDex() >= 999)
+		//	return Value(0, 0);
 		addDEX(1, false);
 		value = getDex();
 	}
 	else if(stat == Update::LUK){
-		if(getLuk() >= 999)
-			return Value(0, 0);
+		//if(getLuk() >= 999)
+		//	return Value(0, 0);
 		addLUK(1, false);
 		value = getLuk();
 	}
 	else if(stat == Update::INT){
-		if(getInt() >= 999)
-			return Value(0, 0);
+		//if(getInt() >= 999)
+		//	return Value(0, 0);
 		addINT(1, false);
 		value = getInt();
 	}
@@ -589,24 +733,49 @@ Value Player::addStat(int stat, bool rrandom){
 	return Value(stat, value);
 }
 
-void Player::setPet(Pet* pet, bool send){
-	if(pet == NULL){
-		if(this->pet != NULL)
-			this->pet->stopTimer();
+void Player::addPet(Pet* pet){
+	if(pets.size() >= 3){  // instead the first pet
+		pets[0]->stopTimer();
+		pets[0]->setPetSlot(-1);
+		pet->setPetSlot(0);
+		pets[0] = pet;
 	}
-	else
-		pet->startTimer(this);
-	this->pet = pet;
-	if(send){
-		if(pet == NULL)
-			map->send(PacketCreator().removePet(id));
-		else
-			map->send(PacketCreator().showPet(id, pet));
-		updateStat(Update::PET, (pet == NULL) ? 0 : pet->getItemID(), true);
-		map->send(PacketCreator().updatePlayer(this), this);
+	else{
+		pet->setPetSlot(pets.size());
+		pets.push_back(pet);
+	}
+	pet->setStance(0);
+	pet->setPosition(getPosition());
+	pet->startTimer(this);
+	map->send(PacketCreator().showPet(id, pet));
+	updateStat(Update::PET, (pet == NULL) ? 0 : pet->getItemID(), false, 3-pets.size());
+	send(PacketCreator().enableAction());
+	map->send(PacketCreator().updatePlayer(this), this);
+}
+void Player::removePet(Pet* pet, bool die){
+	for(int i=0; i<(int)pets.size(); i++){
+		if(pets[i] == pet){
+			map->send(PacketCreator().removePet(id, pet->getPetSlot(), die));
+			pet->stopTimer();
+			pet->setPetSlot(-1);
+			updateStat(Update::PET, (pet == NULL) ? 0 : pet->getItemID(), false);
+	send(PacketCreator().enableAction());
+			pets.erase(pets.begin()+i);
+			break;
+		}
+	}
+	for(int i=0; i<(int)pets.size(); i++){
+		pets[i]->setPetSlot(i);
 	}
 }
-
+Pet* Player::getPet(int id){
+	for(int i=0; i<(int)pets.size(); i++){
+		if(pets[i]->getObjectID() == id){
+			return pets[i];
+		}
+	}
+	return NULL;	
+}
 void Player::setSkin(char id, bool send){
 	skin = id;
 	if(send){
@@ -617,14 +786,14 @@ void Player::setSkin(char id, bool send){
 void Player::setFace(int id, bool send){
 	face= id;
 	if(send){
-		updateStat(Update::SKIN, face, true);
+		updateStat(Update::FACE, face, true);
 		map->send(PacketCreator().updatePlayer(this), this);
 	}
 }
 void Player::setHair(int id, bool send){
 	hair = id;
 	if(send){
-		updateStat(Update::SKIN, hair, true);
+		updateStat(Update::HAIR, hair, true);
 		map->send(PacketCreator().updatePlayer(this), this);
 	}
 }
@@ -646,10 +815,18 @@ int Player::getItemAmount(int itemid){
 }
 
 bool Player::giveItem(int itemid, short amount){
-	if(inv->giveItem(itemid, amount))
+	if(amount < 0){
+		if(-amount > inv->getItemAmount(itemid))
+			return 0;
+		inv->getInventory(INVENTORY(itemid))->removeItem(itemid, -amount);
 		send(PacketCreator().itemGainChat(itemid, amount));
-	else
-		return false;
+	}
+	else{
+		if(inv->giveItem(itemid, amount))
+			send(PacketCreator().itemGainChat(itemid, amount));
+		else
+			return false;
+	}
 	return true;
 	
 }
@@ -657,97 +834,164 @@ void Player::giveMesos(int amount){
 	addMesos(amount);
 	send(PacketCreator().mesosGainChat(amount));
 }
+void Player::giveExp(int e){
+	addExp(e);
+	send(PacketCreator().gainEXP(e, true));
+}
+bool Player::checkSlot(int inv){
+	return this->inv->getInventory(inv)->getItems()->size() < (unsigned int)this->inv->getInventory(inv)->getSlots();
+
+}
 void Player::save(){
-}
-/*
-void Player::chaneKey(unsigned char* packet){
-	int howmany = getIntg(packet+4);
-	for(int i=0; i<howmany; i++){
-		int pos = getIntg(packet+8+i*9);
-		int key = getIntg(packet+12+i*9);
-		if(packet[12+i*9] == 0) // TODO 1st type byte, than key int
-			key=0;
-		if(pos>=0 && pos<90)
-			keys[pos] = key;
-	}
-}
-void Player::addWarning(){
-	int t = GetTickCount();
-	// Deleting old warnings
-	for(unsigned int i=0; i<warnings.size(); i++){
-		if(warnings[i] + 300000 < t){
-			warnings.erase(warnings.begin()+i);
-			i--;
+	try {
+		Connection* con = MySQL::getInstance()->getDataBase();
+		stringstream q;
+
+		q << "update characters set level=" << (int)level << " ,job=" << (int)job << ", str=" << (int)str << ", dex=" << (int)dex << ", intt=" << (int)intt << ", luk=" << (int)luk << ", chp=" << (int)hp << ", mhp=" << (int)rmhp << ", cmp=" << (int)mp << ", mmp=" << (int)rmmp << ", ap=" << (int)ap << ", sp=" << (int)sp << ", exp=" << (int)exp << ", fame=" << (int)fame << ", map=" << map->getID() << ", pos=" << (int)map->getClosestSpawnPos(pos) << ", gender=" << (int)gender << ", face=" << (int)face << ", hair=" << (int)hair << ", mesos=" << mesos << ", hpap=" << (int)hpap << ", mpap=" << (int)mpap << ", party=" << (int)((party == NULL) ? 0 : party->getID()) << " where ID="<< id;
+		con->query(q.str()).execute();
+		q.str("");
+		q << "delete from equips where charid=" << id;
+		con->query(q.str()).execute();
+		q.str("");
+		bool first = true;
+		for(int i=EQUIPPED; i<=EQUIP; i++){
+			hash_map <int, Item*>* items = inv->getInventory(i)->getItems();
+			for(hash_map<int, Item*>::iterator iter = items->begin(); iter!=items->end(); iter++){
+				Item* item = iter->second;
+				if(IS_EQUIP(item->getID())){
+					if(!first)
+						q << ",";
+					else{
+						q << "insert into equips values";
+						first = false;
+					}
+					Equip* equip = (Equip*)item;
+					q << "(" << equip->getID() << "," << id << "," << (int)equip->getSlot() << "," << (int)equip->getSlots() << "," << (int)equip->getScrolls() << "," << (int)equip->getStr() << "," << (int)equip->getDex() << "," << (int)equip->getInt() << "," << (int)equip->getLuk() << "," << (int)equip->getHP() << "," << (int)equip->getMP() << "," << (int)equip->getWAtk() << "," << (int)equip->getMAtk() << "," << (int)equip->getWDef() << "," << (int)equip->getMDef() << "," << (int)equip->getAcc() << "," << (int)equip->getAvo() << "," << (int)equip->getHand() << "," << (int)equip->getSpeed() << "," << (int)equip->getJump() << ",'" << equip->getOwner() << "'," << ((equip->getLocked()) ? 1 : 0) << ")";
+				}
+			}
 		}
+		if(!first) con->query(q.str()).execute();
+		q.str("");
+		q << "delete from items where charid=" << id;
+		con->query(q.str()).execute();
+		q.str("");
+		first = true;
+		for(int i=USE; i<=CASH; i++){
+			hash_map <int, Item*>* items = inv->getInventory(i)->getItems();
+			for(hash_map<int, Item*>::iterator iter = items->begin(); iter!=items->end(); iter++){
+				Item* item = iter->second;
+
+				if(!IS_PET(item->getID())){
+					if(!first)
+						q << ",";
+					else{
+						q << "insert into items values";
+						first = false;
+					}
+					q << "(" << item->getID() << "," << id << "," << (int)item->getType() << "," << (int)item->getSlot() << "," << (int)item->getAmount() << ")";
+				}
+			}
+		}
+		if(!first) con->query(q.str()).execute();
+		q.str("");
+		q << "delete from pets where charid=" << id;
+		MySQL::getInstance()->getDataBase()->query(q.str()).execute();
+		q.str("");
+		first = true;
+		for(int i=CASH; i<=CASH; i++){
+			hash_map <int, Item*>* items = inv->getInventory(i)->getItems();
+			for(hash_map<int, Item*>::iterator iter = items->begin(); iter!=items->end(); iter++){
+				Item* item = iter->second;
+				if(IS_PET(item->getID())){
+					if(!first)
+						q << ",";
+					else{
+						q << "insert into pets values";
+						first = false;
+					}
+					Pet* pet = (Pet*)item;
+					char number[50];
+					sprintf_s(number, 50, "%I64d", pet->getTime());
+					q << "(" << pet->getItemID() << "," << id << "," << (int)pet->getSlot() << "," << (int)pet->getPetSlot() << ",'" << pet->getName() << "'," << (int)pet->getLevel() << "," << (int)pet->getCloseness() << "," << (int)pet->getFullness() << "," << number << ")";
+				}
+			}
+		}
+		if(!first) con->query(q.str()).execute();
+		q.str("");
+		first = true;
+		q << "delete from keymap where charid=" << id;
+		con->query(q.str()).execute();
+		q.str("");
+		for(int i=0; i<90; i++){
+			Key* key = keys->getKey(i);
+			if(key != NULL){
+				if(!first)
+					q << ",";
+				else{
+					q << "insert into keymap values";
+					first = false;
+				}
+				q << "(" << id << "," << i << "," << (int)key->getType() << "," << key->getAction() << ")";
+			}
+		}
+		if(!first) con->query(q.str()).execute();
+		q.str("");
+		q << "delete from skills where charid=" << id;
+		con->query(q.str()).execute();
+		q.str("");
+		hash_map <int, Skill*>* skillsd = skills->getSkillsInfo();
+		first = true;
+		for(hash_map<int, Skill*>::iterator iter = skillsd->begin(); iter!=skillsd->end(); iter++){
+			Skill* skill = iter->second;
+			if(skill->getLevel() > 0 || skill->getMasterLevel() > 0){
+				if(!first)
+					q << ",";
+				else{
+					q << "insert into skills values";
+					first = false;
+				}
+				q << "(" << id << "," << skill->getID() << "," << (int)skill->getLevel() << "," << (int)skill->getMasterLevel() << ")";
+			}
+		}
+		if(!first) con->query(q.str()).execute();
+		q.str("");
+		q << "delete from vars where charid=" << id;
+		con->query(q.str()).execute();
+		q.str("");
+		first = true;
+		for(hash_map<string, int>::iterator iter = global.begin(); iter!=global.end(); iter++){
+			if(!first)
+				q << ",";
+			else{
+				q << "insert into vars values";
+				first = false;
+			}
+			q << "(" << id << ", '" << iter->first << "' , '" << iter->second << "')";
+		}
+		if(!first) con->query(q.str()).execute();
+		q.str("");
 	}
-	warnings.push_back(t);
-	if(warnings.size()>50){
-		// Hacker - Temp DCing
-		//int tmap = map;
-		//Maps::changeMap(this, 999999999, 0);
-		//Maps::changeMap(this, tmap, 0);
+	catch (BadQuery er ) {
+		printf("%s\n", er.what());
 	}
 }
 
-void Player::save(){
-	char sql[10000];
-	sprintf_s(sql, 10000, "update keymap set ");
-	for(int i=0; i<90; i++){
-		char temp[100];
-		if(i!=89)
-			sprintf_s(temp, 100, "pos%d=%d, ", i, keys[i]);
-		else
-			sprintf_s(temp, 100, "pos%d=%d where charid=%d; ", i, keys[i], getPlayerid());
-		strcat_s(sql, 10000, temp);
+int Player::getWDef(){
+	int wdef = 0;
+	hash_map<int, Item*>* items = inv->getInventory(EQUIPPED)->getItems();
+	for(hash_map<int, Item*>::iterator iter = items->begin(); iter != items->end(); iter++){
+		wdef += ((Equip*)iter->second)->getWDef();
 	}
-	MySQL::insert(sql);
-	sprintf_s(sql, 10000, "update characters set level=%d, job=%d, str=%d, dex=%d, intt=%d, luk=%d, chp=%d, mhp=%d, cmp=%d, mmp=%d, ap=%d, sp=%d, exp=%d, fame=%d, map=%d, gender=%d, skin=%d, eyes=%d, hair=%d, mesos=%d where id=%d", getLevel(), getJob(), getStr(), getDex(), getInt(), getLuk(), getHP(), getRMHP(), getMP(), getRMMP(), getAp(), getSp(), getExp(), getFame(), getMap(), getGender(), getSkin(), getEyes(), getHair(), inv->getMesos() ,getPlayerid());
-	MySQL::insert(sql);
-	char temp[1000];
-	sprintf_s(sql, 10000, "delete from equip where charid=%d;", getPlayerid());
-	MySQL::insert(sql);
-	bool firstrun = true;
-	for(int i=0; i<inv->getEquipNum(); i++){
-		if(firstrun == true){
-			sprintf_s(sql, 10000, "INSERT INTO equip VALUES (%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)", inv->getEquip(i)->id, Drops::equips[inv->getEquip(i)->id].type ,getPlayerid(), inv->getEquipPos(i), inv->getEquip(i)->slots, inv->getEquip(i)->scrolls,
-				inv->getEquip(i)->istr, inv->getEquip(i)->idex, inv->getEquip(i)->iint, inv->getEquip(i)->iluk, inv->getEquip(i)->ihp, inv->getEquip(i)->imp, inv->getEquip(i)->iwatk, inv->getEquip(i)->imatk, inv->getEquip(i)->iwdef, 
-				inv->getEquip(i)->imdef, inv->getEquip(i)->iacc, inv->getEquip(i)->iavo, inv->getEquip(i)->ihand, inv->getEquip(i)->ijump, inv->getEquip(i)->ispeed);
-			firstrun = false;
-		}
-		else{
-			sprintf_s(temp, 1000, ",(%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)", inv->getEquip(i)->id, Drops::equips[inv->getEquip(i)->id].type ,getPlayerid(), inv->getEquipPos(i), inv->getEquip(i)->slots, inv->getEquip(i)->scrolls,
-				inv->getEquip(i)->istr, inv->getEquip(i)->idex, inv->getEquip(i)->iint, inv->getEquip(i)->iluk, inv->getEquip(i)->ihp, inv->getEquip(i)->imp, inv->getEquip(i)->iwatk, inv->getEquip(i)->imatk, inv->getEquip(i)->iwdef, 
-				inv->getEquip(i)->imdef, inv->getEquip(i)->iacc, inv->getEquip(i)->iavo, inv->getEquip(i)->ihand, inv->getEquip(i)->ijump, inv->getEquip(i)->ispeed);
-			strcat_s(sql, 10000, temp);
-		}
+	return wdef;
+}
+int Player::getMDef(){
+	int mdef = 0;
+	hash_map<int, Item*>* items = inv->getInventory(EQUIPPED)->getItems();
+	for(hash_map<int, Item*>::iterator iter = items->begin(); iter != items->end(); iter++){
+		mdef += ((Equip*)iter->second)->getMDef();
 	}
-	MySQL::insert(sql);
-	sprintf_s(sql, 10000, "delete from skills where charid=%d;", getPlayerid());
-	MySQL::insert(sql);
-	firstrun = true;
-	for(int i=0; i<skills->getSkillsNum(); i++){
-		if(firstrun == true){
-			sprintf_s(sql, 10000, "INSERT INTO skills VALUES (%d, %d, %d)", getPlayerid(), skills->getSkillID(i), skills->getSkillLevel(skills->getSkillID(i)));
-			firstrun = false;
-		}
-		else{
-			sprintf_s(temp, 1000, ",(%d, %d, %d)", getPlayerid(), skills->getSkillID(i), skills->getSkillLevel(skills->getSkillID(i)));
-			strcat_s(sql, 10000, temp);
-		}
-	}
-	MySQL::insert(sql);
-	sprintf_s(sql, 10000, "DELETE FROM items WHERE charid=%d;", getPlayerid());
-	MySQL::insert(sql);
-	firstrun = true;
-	for(int i=0; i<inv->getItemNum(); i++){
-		if(firstrun == true){
-			sprintf_s(sql, 10000, "INSERT INTO items VALUES (%d, %d, %d, %d, %d)", inv->getItem(i)->id, getPlayerid() ,inv->getItem(i)->inv, inv->getItem(i)->pos, inv->getItem(i)->amount);
-			firstrun = false;
-		}
-		else{
-			sprintf_s(temp, 1000, ",(%d, %d, %d, %d, %d)", inv->getItem(i)->id, getPlayerid() ,inv->getItem(i)->inv, inv->getItem(i)->pos, inv->getItem(i)->amount);
-			strcat_s(sql, 10000, temp);
-		}
-	}
-	MySQL::insert(sql);
-}*/
+	return mdef + intt;
+}
+void Player::setEvent(string& name){
+	channel->getEvents()->addPlayer(name, this);
+}

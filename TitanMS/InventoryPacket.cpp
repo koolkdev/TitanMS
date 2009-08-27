@@ -42,8 +42,8 @@ void PacketCreator::itemInfo(Item* item, bool showPosition, bool showZeroPositio
 	if(showPosition){
 		if(slot < 0){ // EQUIPED
 			if(slot < -100){
-				cash = true;
-				pw.write(0);
+				//cash = true;
+				//pw.write(0);
 				pw.write(-(slot+100));
 			}
 			else{
@@ -65,12 +65,12 @@ void PacketCreator::itemInfo(Item* item, bool showPosition, bool showZeroPositio
 		pw.write(0);
 		pw.writeBytes("8005"); // Cash?
 
-	}/*
-	else if(DataProvider::getInstance()->getItemCash(item->getID())){
+	}
+	else if(cash){
 		pw.write(1); 
 		pw.writeLong(getTimeByDays(90)); // Time?
 		pw.writeBytes("80206F"); // Cash?
-	}*/
+	}
 	else{
 		pw.writeShort(0);
 		pw.writeBytes("8005");
@@ -96,8 +96,8 @@ void PacketCreator::itemInfo(Item* item, bool showPosition, bool showZeroPositio
 		pw.writeShort(equip->getAcc());
 		pw.writeShort(equip->getAvo());
 		pw.writeShort(equip->getHand());
-		pw.writeShort(equip->getJump());
 		pw.writeShort(equip->getSpeed());
+		pw.writeShort(equip->getJump());
 		pw.writeString(equip->getOwner());
 		pw.write(equip->getLocked());
 		if(!cash){
@@ -258,8 +258,8 @@ PacketWriter* PacketCreator::showPet(int playerid, Pet* pet){
 	pw.writeShort(USE_PET);
 	// 7E 00 C4 E6 1F 00 00 01 01 67 4B 4C 00 09 00 50 6F 72 63 75 70 69 6E 65 3B FC 33 00 00 00 00 00 0F F3 5E 00 00 EE 00 00 00
 	pw.writeInt(playerid);
-	pw.write(0);
-	pw.write(2); /// pet count?
+	pw.write(pet->getPetSlot());
+	pw.write(1); //
 	pw.write(1); // 
 
 	pw.writeInt(pet->getItemID());
@@ -269,26 +269,26 @@ PacketWriter* PacketCreator::showPet(int playerid, Pet* pet){
 	pw.writeShort(pet->getPosition().x);
 	pw.writeShort(pet->getPosition().y);
 	pw.write(pet->getStance());
-	pw.writeInt(0); // unk
+	pw.writeInt(pet->getFoothold()); 
 
 	return &pw;
 }
-PacketWriter* PacketCreator::removePet(int playerid){
+PacketWriter* PacketCreator::removePet(int playerid, int petSlot, bool die){
 	pw.writeShort(USE_PET);
 
 	pw.writeInt(playerid);
+	pw.write(petSlot);
 	pw.write(0);
-	pw.write(0);
-	pw.write(0);
+	pw.write(die);
 
 	return &pw;
 }
 
-PacketWriter* PacketCreator::petCommandReplay(int playerid, int id, bool success){
+PacketWriter* PacketCreator::petCommandReplay(int playerid, int petSlot, int id, bool success){
 	pw.writeShort(PET_COMMAND_REPLAY);
 
 	pw.writeInt(playerid);
-	pw.writeShort(0);
+	pw.writeShort(petSlot);
 	pw.write(id);
 	pw.writeShort(success);
 
@@ -296,24 +296,24 @@ PacketWriter* PacketCreator::petCommandReplay(int playerid, int id, bool success
 
 }
 
-PacketWriter* PacketCreator::movePet(int playerid, ObjectMoving* moving, Position pos){
+PacketWriter* PacketCreator::movePet(int playerid, int petSlot, ObjectMoving& moving, Position& pos){
 	pw.writeShort(PET_MOVE);
 	
 	pw.writeInt(playerid);
-	pw.write(0);
+	pw.write(petSlot);
 	pw.writeShort(pos.x);
 	pw.writeShort(pos.y);
-	pw.write(moving->getPacket()->getBytes(), moving->getPacket()->getLength());
+	pw.write(moving.getPacket()->getBytes(), moving.getPacket()->getLength());
 
 	return &pw;
 
 }
 
-PacketWriter* PacketCreator::showPetText(int playerid, string text, int chatBalloon, int act){
-	pw.writeShort(PET_TEXT-3);
+PacketWriter* PacketCreator::showPetText(int playerid, int petSlot, string text, int act){
+	pw.writeShort(PET_TEXT);
 	//81 00 C1 57 43 00 00 00 0F 0F 00 49 20 66 65 65 6C 20 73 70 65 63 69 61 6C 21 00
 	pw.writeInt(playerid);
-	pw.writeShort(0);
+	pw.writeShort(petSlot);
 	pw.write(act);
 	pw.writeString(text);
 	pw.write(0);

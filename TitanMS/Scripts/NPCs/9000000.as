@@ -77,13 +77,13 @@ void npc_main(NPC @npc){
 			npc.sendNext();
 		}
 		else if(eventtype == 9){
-			npc.teleport(922010900);//Crack
+			npc.getPlayer().changeMap(922010900);//Crack
 		}
 		else if(eventtype == 10){
-			npc.teleport(109060002);//Snow
+			npc.getPlayer().changeMap(109060002);//Snow
 		}
 		else if(eventtype == 11){
-			npc.teleport(109010100);//Field
+			npc.getPlayer().changeMap(109010100);//Field
 		}
 	}
 	if(state == 4){

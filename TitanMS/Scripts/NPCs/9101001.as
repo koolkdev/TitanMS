@@ -10,7 +10,7 @@ void npc_main(NPC @npc){
 		npc.sendBackNext();
 	}
 	else if(state == 2){
-		npc.teleport(40000);
+		npc.getPlayer().changeMap(40000);
 		npc.end();
 
 	}

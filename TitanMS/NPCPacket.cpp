@@ -18,6 +18,7 @@
 */
 
 #include "PacketCreator.h"
+#include "PlayerNPC.h"
 #include "PacketWriter.h"
 #include "PlayerInventories.h"
 #include "NPC.h"
@@ -35,10 +36,11 @@ PacketWriter* PacketCreator::showNPC(NPC* npc){
 	pw.writeInt(npc->getNPCID());
 	pw.writeShort(npc->getPosition().x);
 	pw.writeShort(npc->getPosition().y);
-	pw.write(npc->getFlip());
-	pw.writeShort(npc->getFH());
+	pw.write(!npc->getFlip());
+	pw.writeShort(npc->getFoothold());
 	pw.writeShort(npc->getRX0());
 	pw.writeShort(npc->getRX1());
+	pw.write(1);
 
 	return &pw;
 }
@@ -49,7 +51,7 @@ PacketWriter* PacketCreator::bought(){
 
 	return &pw;	
 }
-PacketWriter* PacketCreator::showShop(ShopData* data){
+PacketWriter* PacketCreator::showNPCShop(ShopData* data){
 	pw.writeShort(SHOW_SHOP);
 
 	pw.writeInt(data->getNPC());
@@ -60,9 +62,7 @@ PacketWriter* PacketCreator::showShop(ShopData* data){
 		pw.writeInt(item->getID());
 		pw.writeInt(item->getPrice());
 		if(IS_STAR(item->getID())){
-			pw.writeShort(0);
-			pw.writeInt(0);
-			pw.writeShort((short)doubleAsLong(DataProvider::getInstance()->getItemUnitPrice(item->getID())));
+			pw.writeLong(doubleAsLong(DataProvider::getInstance()->getItemUnitPrice(item->getID())));
 		}
 		else{
 			pw.writeShort(1);
@@ -81,31 +81,31 @@ void PacketCreator::npcPacket(int npcid, string text, char type){
 	pw.writeString(text);
 }
 PacketWriter* PacketCreator::sendSimple(int npcid, string text){
-	npcPacket(npcid, text, 5);
+	npcPacket(npcid, text, PlayerNPC::SIMPLE);
 	return &pw;
 }
 PacketWriter* PacketCreator::sendYesNo(int npcid, string text){
-	npcPacket(npcid, text, 1);
+	npcPacket(npcid, text, PlayerNPC::YES_NO);
 	return &pw;
 }
 PacketWriter* PacketCreator::sendBackNext(int npcid, string text, bool back, bool next){
-	npcPacket(npcid, text, 0);
+	npcPacket(npcid, text, PlayerNPC::BACK_NEXT);
 	pw.write(back);
 	pw.write(next);
 	return &pw;
 }
 PacketWriter* PacketCreator::sendAcceptDecline(int npcid, string text){
-	npcPacket(npcid, text, 2);
+	npcPacket(npcid, text, PlayerNPC::ACCEPT_DECLINE);
 	return &pw;
 }
 PacketWriter* PacketCreator::sendGetText(int npcid, string text){
-	npcPacket(npcid, text, 3);
+	npcPacket(npcid, text, PlayerNPC::GET_TEXT);
 	pw.writeInt(0);
 	pw.writeInt(0);
 	return &pw;
 }
 PacketWriter* PacketCreator::sendGetNumber(int npcid, string text, int def, int min, int max){
-	npcPacket(npcid, text, 4);
+	npcPacket(npcid, text, PlayerNPC::GET_NUMBER);
 	pw.writeInt(def);
 	pw.writeInt(min);
 	pw.writeInt(max);
@@ -113,7 +113,7 @@ PacketWriter* PacketCreator::sendGetNumber(int npcid, string text, int def, int 
 	return &pw;
 }
 PacketWriter* PacketCreator::sendStyle(int npcid, string text, int styles[], char size){
-	npcPacket(npcid, text, 7);
+	npcPacket(npcid, text, PlayerNPC::STYLE);
 	pw.write(size);
 	for(int i=0; i<size; i++)
 		pw.writeInt(styles[i]);

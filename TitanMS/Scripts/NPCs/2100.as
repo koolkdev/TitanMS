@@ -1,7 +1,7 @@
 void npc_main(NPC @npc){
 	int state = npc.getState();
-	int map = npc.getPlayerMap();
-	if(npc.getPlayerMap() == 0){
+	int map = npc.getPlayer().getMap().getID();
+	if(map == 0){
 		if(state == 0){
 			npc.addText("Welcome to the world of MapleStory. The purpose of this training camp is to ");
 			npc.addText("help beginners. Would you like to enter this training camp? Some people start thier journey ");
@@ -20,7 +20,7 @@ void npc_main(NPC @npc){
 			}
 		}
 		else if(state == 2){
-			npc.teleport(1);
+			npc.getPlayer().changeMap(1);
 			npc.end();
 		}
 		else if(state == 3){
@@ -36,7 +36,7 @@ void npc_main(NPC @npc){
 			}
 		}
 		else if(state == 4){
-			npc.teleport(40000);
+			npc.getPlayer().changeMap(40000);
 			npc.end();
 		}
 	}

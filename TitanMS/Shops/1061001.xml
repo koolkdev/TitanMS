@@ -45,11 +45,15 @@
 		</Item>
 		<Item>
 			<ID>2060000</ID>
-			<Price>1</Price>
+			<Price>2</Price>
 		</Item>
 		<Item>
 			<ID>2061000</ID>
-			<Price>1</Price>
+			<Price>2</Price>
+		</Item>
+		<Item>
+			<ID>2070000</ID>
+			<Price>500</Price>
 		</Item>
 	</Items>
 </Shop>

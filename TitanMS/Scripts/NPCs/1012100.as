@@ -1,9 +1,10 @@
 /* Made by monsoon2004 */
 void npc_main(NPC @npc){
 	int state = npc.getState();
+	Player@ player = npc.getPlayer();
 	if(state == 0){
-		if(npc.getPlayerJob() == 0){
-			if(npc.getPlayerLevel() >= 10 && npc.getPlayerDex() >= 25){
+		if(player.getJob() == 0){
+			if(player.getLevel() >= 10 && player.getDex() >= 25){
 				npc.addText("Would you like to become an Archer?");
 				npc.sendYesNo();
 			}
@@ -13,9 +14,9 @@ void npc_main(NPC @npc){
 				npc.end();
 			}
 		}
-		else if(npc.getPlayerJob() == 300 && npc.getPlayerLevel() >= 30){
-			if(npc.getItemAmount(4031010) == 0){
-				if(npc.getItemAmount(4031012) > 0){
+		else if(player.getJob() == 300 && player.getLevel() >= 30){
+			if(player.getItemAmount(4031010) == 0){
+				if(player.getItemAmount(4031012) > 0){
 					npc.addText("I knew the test wouldn't be a problem for you. Are you ready to choose your next path?");
 					npc.sendYesNo();
 				}
@@ -38,16 +39,16 @@ void npc_main(NPC @npc){
 	}
 	else if(state == 1){
 		if(npc.getSelected() == YES){
-			if(npc.getPlayerJob() == 0){
-				npc.setPlayerJob(300);
+			if(player.getJob() == 0){
+				player.setJob(300);
 				npc.addText("You are now an Archer.");
-				npc.setPlayerSp(npc.getPlayerSp() + 1);
+				player.setSP(player.getSP() + 1);
 				npc.sendOK();
 				npc.end();
 			}
-			else if(npc.getPlayerJob() == 300){
-				if(npc.getItemAmount(4031010) == 0){
-					if(npc.getItemAmount(4031012) == 1){
+			else if(player.getJob() == 300){
+				if(player.getItemAmount(4031010) == 0){
+					if(player.getItemAmount(4031012) == 1){
 						npc.addText("Choose your path. \r\n#L0#Hunter#l\r\n#L1#Crossbowman#l");
 						npc.sendSimple();
 					}
@@ -55,7 +56,7 @@ void npc_main(NPC @npc){
 						npc.addText("Very well, I will give you my recommendation letter. Take it to my assistant and she will give you your next task.");
 						npc.sendOK();
 						npc.end();
-						npc.giveItem(4031010, 1);
+						player.giveItem(4031010, 1);
 					}
 				}
 			}
@@ -70,16 +71,16 @@ void npc_main(NPC @npc){
 		int type = npc.getSelected();
 		npc.setVariable("type", type);
 		if(type == 0){
-			npc.setPlayerJob(310);
+			player.setJob(310);
 			npc.addText("You are now a Hunter, nothing escapes your bow.");
 		}
 		else if(type == 1){
-			npc.giveItem(4031012, -1);
-			npc.setPlayerJob(320);
+			player.giveItem(4031012, -1);
+			player.setJob(320);
 			npc.addText("You are now a Sniper, extremely accurate and deadly.");
 		}
-		npc.giveItem(4031012, -1);
-		npc.setPlayerSp(npc.getPlayerSp() + 1);
+		player.giveItem(4031012, -1);
+		player.setSP(player.getSP() + 1);
 		npc.sendOK();
 		npc.end();
 	}

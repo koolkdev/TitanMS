@@ -1,0 +1,32 @@
+<Events>
+	<Event>
+		<Name>elliniashipin</Name>
+		<First>10</First>
+		<Time>15</Time>
+	</Event>
+	<Event>
+		<Name>elliniashipout</Name>
+		<First>0</First>
+		<Time>15</Time>
+	</Event>
+	<Event>
+		<Name>rogsshipin</Name>
+		<First>1</First>
+		<Time>15</Time>
+	</Event>
+	<Event>
+		<Name>rogsshipout</Name>
+		<First>9</First>
+		<Time>15</Time>
+	</Event>
+	<Event>
+		<Name>ludishipin</Name>
+		<First>5</First>
+		<Time>10</Time>
+	</Event>
+	<Event>
+		<Name>ludishipout</Name>
+		<First>0</First>
+		<Time>10</Time>
+	</Event>
+</Events>

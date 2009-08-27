@@ -17,6 +17,7 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "../Connection/PacketHandler.h"
 #include "PlayerLogin.h"
 #include "PlayerLoginHandler.h"
 #include "Character.h"
@@ -39,14 +40,16 @@ PlayerLogin::~PlayerLogin() {
 }
 void PlayerLogin::handleRequest(unsigned char* buf, int len){
 	try{
-		handler->handle(&PacketReader(buf, len, userid));
+		handler->handle(PacketReader(buf, len, userid));
+	}
+#ifdef _DEBUG
+	catch(PacketHandlingError ph){
+		cout << ph.getError();
 	}
 	catch (BadQuery er ) {
 		printf("%s\n", er.what());
 	}
-	catch(PacketHandlingError ph){
-		cout << ph.getError();
-	}
+#endif
 	catch(...){
 		//TODO
 	}
@@ -57,7 +60,7 @@ int PlayerLogin::checkLogin(string username, string password){
 		return -1;
 	}
 	string rpassword = MySQL::getInstance()->getString("users", "username",(char*)username.c_str(),"password");
-	if(password == string(rpassword))
+	if(password == rpassword)
 		return 1;
 	return 0;
 }
@@ -74,7 +77,7 @@ void PlayerLogin::loadCharacters(){
 			continue;
 		Character* character = new Character();
 		character->setID(id);
-		string values[28];
+		string values[29];
 		MySQL::getInstance()->getCharacter(id, values);
 		character->setName(values[1]);
 		character->setWorld(strval(values[3]));	

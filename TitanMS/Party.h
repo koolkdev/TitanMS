@@ -1,4 +1,4 @@
- /*
+/*
 	This file is part of TitanMS.
 	Copyright (C) 2008 koolk
 
@@ -21,33 +21,54 @@
 #define PARTY_H
 
 #include <hash_map>
-#include <vector>
-
-using namespace std;
-using namespace stdext;
-
+#include <string>
+class PartyMembers;
 class Player;
-class Party;
+class World;
+class Map;
 
-class PartyMember {
-private:
-	Player* player;
-	int playerid;
-	bool leader;
-	int status;
-public:
-	PartyMember(int playerid, Party* party, bool lead = false);
-};
-class Party {
+class Party{
 private:
 	int id;
-	vector <PartyMember*> members;
-	static hash_map <int, Party*> parties;
+	PartyMembers* members;
+	World* world;
+	int leader;
+	stdext::hash_map <std::string, int> vars;
 public:
-	Party(Player* player);
-	int getPartyID(){
+	Party(World* world, Player* player);
+	Party(int id, int leader);
+	~Party();
+	int getID(){
 		return id;
 	}
+	PartyMembers* getMembers(){
+		return members;
+	}
+	int getLeader(){
+		return leader;
+	}
+	void setLeader(int leader){
+		this->leader = leader;
+	}
+	bool checkMembers(int members, Map* map, int minlevel, int maxlevel);
+	void removeMember(int playerid);
+	void setVariable(std::string &name, int val){
+		vars[name] = val;
+	}
+	int getVariable(std::string &name){
+		if(vars.find(name) == vars.end())
+			return -1;
+		else
+			return vars[name];
+	}
+	void deleteVariable(std::string &name){
+		if(vars.find(name) != vars.end())
+			vars.erase(name);
+	}
+	void clear(){
+		vars.clear();
+	}
 };
+
 
 #endif

@@ -947,18 +947,19 @@ void AES::DecryptOFB(unsigned char* buffer, unsigned char* iv, int size){
 	int numBlocks = size/16 + (size/16.0 != (double)size);
 	unsigned char temp[16] = {0};
 	EncryptBlock(IV,temp);
-	for (unsigned int pos = 0; pos < 16; ++pos)
+	unsigned int j = (size < 16) ? size : 16;
+	for (unsigned int pos = 0; pos < j; ++pos)
 		*buffer++ ^= temp[pos];
 	memcpy(IV, temp, 16);
 	numBlocks--;
 	while (numBlocks){
 		EncryptBlock(IV,temp);
-		for (int pos = 0; pos < ((numBlocks == 1) ? (size% 16) : (16)); ++pos)
+		j = (numBlocks == 1) ? size% 16 : 16;
+		for (unsigned int pos = 0; pos < j; ++pos)
 			*buffer++ ^= temp[pos];
 		memcpy(IV, temp, 16);
 		--numBlocks;
 	}
-	*buffer -= size + 1;
 }
 // the constructor - makes sure local things are initialized
 AES::AES(void)

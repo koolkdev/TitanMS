@@ -1,3 +1,23 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+#include "DataProvider.h"
 #include "Player.h"
 #include "MapReactors.h"
 #include "MapsData.h"
@@ -42,7 +62,7 @@ public:
 	void run(){
 		if(reactor->getMap()->getDrops()->findDrop(drop)){
 			reactor->getMap()->getDrops()->removeDrop(drop);
-			reactor->hit(NULL, 0, 0);
+			reactor->hit(reactor->getMap()->getPlayers()->find(player) ? player : NULL, 0, 0);
 		}
 	}
 
@@ -63,7 +83,7 @@ void MapReactors::show(Player* player){
 	}
 }
 void MapReactors::checkSpawn(bool timer){
-	if(map->getPlayers()->getPlayers()->size() == 0){
+	if(map->getPlayers()->getPlayers()->empty()){
 		timeron = false;
 		return;
 	}
@@ -87,11 +107,12 @@ void MapReactors::checkSpawn(bool timer){
 			}	
 			if(spawned) continue;
 			if(last.find(i) == last.end()) last[i] = 0;
+			else if((*sreactors)[i]->getDelay() == -1) continue;
 			else if(last[i] + (*sreactors)[i]->getDelay()*1000 > (int)GetTickCount()) continue;
 			spawnReactor((*sreactors)[i]->getID(), (*sreactors)[i]->getX(), (*sreactors)[i]->getY(), (*sreactors)[i]->getInMapID());	
 		}
 		if(sreactors->size() > 0)
-			Timer::getInstance()->setTimer(10000, new MapReactorsTimer(this));
+			Timers::getInstance()->startTimer(10000, new MapReactorsTimer(this));
 	}
 }
 void MapReactors::show(Reactor* reactor){
@@ -116,12 +137,7 @@ void MapReactors::destroy(Reactor* reactor){
 		last[reactor->getOriginalID()] = GetTickCount();
 	}
 	map->send(PacketCreator().destroyReactor(reactor));
-	for(int i=0; i<(int)reactors.size(); i++){
-		if(reactors[i] == reactor){
-			reactors.erase(reactors.begin() + i);
-			break;
-		}
-	}
+	reactors.erase(find(reactors.begin(), reactors.end(), reactor));
 	delete reactor;
 }
 Reactor* MapReactors::spawnReactor(int reactorid, int x, int y, int orgID){
@@ -157,22 +173,24 @@ void MapReactors::checkDrop(Drop* drop, Player* player){
 		if(s->getType() == 100){ 
 			if(s->getItemID() == drop->getItem()->getID() && drop->getItem()->getAmount() >= s->getAmount()){
 				if(reactors[i]->inArea(drop->getPosition())){
-					Timer::getInstance()->setTimer(5000, new ReactorTakeItemTimer(reactors[i], drop, player));
+					Timers::getInstance()->startTimer(5000, new ReactorTakeItemTimer(reactors[i], drop, player));
 					break;
 				}
 			}
 		}
 	}
 }
-void MapReactors::respawn(){
-	for(int i=0; i<(int)reactors.size(); i++){
+void MapReactors::clear(){
+	for(int i=0; i<(int)reactors.size();){
 		destroy(reactors[0]);
 	}
+	last.clear();
+	// ?? : 
 	MapData* md = MapsData::getInstance()->getDataByID(map->getID());
 	if(md == NULL)
 		return;
 	vector <MapReactorData*>* sreactors = md->getReactorsData()->getData();
 	for(int i=0; i<(int)sreactors->size(); i++){
-			spawnReactor((*sreactors)[i]->getID(), (*sreactors)[i]->getX(), (*sreactors)[i]->getY(), (*sreactors)[i]->getInMapID());	
+		spawnReactor((*sreactors)[i]->getID(), (*sreactors)[i]->getX(), (*sreactors)[i]->getY(), (*sreactors)[i]->getInMapID());	
 	}
 }

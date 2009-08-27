@@ -40,13 +40,9 @@ public:
 	Item* getItemByID(int id);
 	void removeItem(int slot, bool drop = false, bool del = false, bool send = true);
 	void removeItem(Item* item, bool drop = false, bool del = false, bool send = true);
-	bool addItem(Item* item, bool findslot = true, bool drop = false);
-	vector <Item*> getItems(){
-		vector <Item*> ret;
-		for (hash_map<int,Item*>::iterator iter = items.begin(); iter != items.end(); iter++){
-			ret.push_back(iter->second);
-		}
-		return ret;
+	bool addItem(Item* item, bool findslot = true, bool drop = false, bool send = true);
+	hash_map <int, Item*>* getItems(){
+		return &items;
 	}
 	int getSlots(){
 		return maxslots;
@@ -54,7 +50,7 @@ public:
 	int getItemAmount(int itemid);
 	Item* getItemByType(int type);
 	void removeItem(int itemid, int amount);
-	void removeItemBySlot(int slot, int amount, bool send = true);
+	void removeItemBySlot(int slot, int amount = 1, bool send = true);
 	void deleteAll();
 private:
 	char inv;

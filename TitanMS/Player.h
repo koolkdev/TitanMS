@@ -21,40 +21,56 @@
 #define PLAYER_H
 
 #include "../Connection/AbstractPlayer.h"
-#include "../Connection/PacketHandler.h"
 
 #include <string.h>
 #include <math.h>
 #include <vector>
+#include <hash_map>
 
-#include "MapObject.h"
+#include "LifeMapObject.h"
 
-
+class Trade;
 class PlayerNPC;
 class PlayerSkills;
 class PlayerQuests;
 class PlayerInventories;
 class PlayerBuffs;
-class PlayerHandler;
 class Map;
+class Party;
 class PlayerKeys;
 class ShopData;
 class Party;
 class Channel;
 class PacketWriter;
 class Pet;
+template <class T> class Handler;
+class PlayerHandler;
 
 struct SkillMapEnterActiveInfo;
 
-class Player:public AbstractPlayer, public MapObject{
+class Player:public AbstractPlayer, public LifeMapObject{
 public:
 	Player (int port);
 
 	~Player();
 
+
+//
+
+	int getID(){
+		return id;
+	}
+	Position getPosition(){
+		return pos;
+	}
+	short getFoothold(){
+		return fh;
+	}
+
+//
 	void handleRequest(unsigned char* buf, int len);
-	void sendPacket(unsigned char* buf, int len){ packetHandler->sendPacket(buf,len); }
-	void disconnect(){ packetHandler->disconnect(); }
+
+	void disconnect();
 	void setName(string name){
 		this->name = name;
 	}
@@ -80,6 +96,8 @@ public:
 		return this->hair;
 	}
 	void setMap(int mapid);
+	void setMapPos(int mapid, int pos);
+	void setMapPortal(int mapid, string& portalname);
 	Map* getMap(){
 		return this->map;
 	}
@@ -89,23 +107,14 @@ public:
 	char getMappos(){
 		return this->mappos;
 	}
-	void setStance(char stance){
-		this->stance=stance;
+	void setNPCShop(ShopData* shop){
+		this->npcShop=shop;
 	}
-	char getStance(){
-		return this->stance;
-	}
-	void setShop(ShopData* shop){
-		this->shop=shop;
-	}
-	ShopData* getShop(){
-		return shop;
+	ShopData* getNPCShop(){
+		return npcShop;
 	}
 	void setNPC(PlayerNPC* npc){
 		this->npc = npc;
-	}
-	void setParty(Party* party){
-		this->party = party;
 	}
 	void setChair(int chair){
 		this->chair = chair;
@@ -122,8 +131,20 @@ public:
 	PlayerNPC* getNPC(){
 		return npc;
 	}
-	int isGM(){
-		return gm;
+	void setTrade(Trade* trade){
+		this->trade = trade;
+	}
+	Trade* getTrade(){
+		return trade;
+	}
+	void setParty(Party* party){
+		this->party = party;
+	}
+	Party* getParty(){
+		return party;
+	}
+	bool isGM(){
+		return gm == 1;
 	}
 	PlayerInventories* getInventories(){
 		return inv;	
@@ -286,12 +307,15 @@ public:
 	void addFame(short f, bool send = true){
 		setFame(fame + f, send);
 	}
-	Pet* getPet(){
-		return pet;
+	Pet* getPet(int id);
+	vector <Pet*>* getPets(){
+		return &pets;
 	}
-	void setPet(Pet* pet, bool send = true);
+	void addPet(Pet* pet);
+	void removePet(Pet* pet, bool die = false);
+	void setEvent(string& name);
 	void levelUP();
-	void updateStat(int stat, int value, bool item = false);
+	void updateStat(int stat, int value, bool item = false, char pet=0);
 	Value removeStat(int stat);
 	Value addStat(int stat, bool random = false);
 	void changeMap(Map* map, int portal = 0);
@@ -300,7 +324,42 @@ public:
 	void setStyle(int id);
 	int getItemAmount(int itemid);
 	bool giveItem(int itemid, short amount);
-	void giveMesos(int amount);
+	void giveMesos(int amount);	
+	void giveExp(int e);
+	bool checkSlot(int inv);
+	void setJobS(short j){
+		setJob(j);
+	}
+	void setLevelS(unsigned char l){
+		setLevel(l);
+	}
+	void setHPS(int hp){
+		setHP(hp);
+	}
+	void setSPS(short sp){
+		setSP(sp);
+	}
+	void setAPS(short ap){
+		setAP(ap);
+	}
+	void setStrS(short s){
+		setStr(s);
+	}
+	void setDexS(short s){
+		setDex(s);
+	}
+	void setIntS(short s){
+		setInt(s);
+	}
+	void setLukS(short s){
+		setLuk(s);
+	}
+	void setPartyInvite(int i){
+		partyInvite = i;
+	}
+	int getPartyInvite(){
+		return partyInvite;
+	}
 	static class Update {
 	public:
 		static const int NOTHING = 0x0;
@@ -334,8 +393,55 @@ public:
 	};
 	static const int exps[200];
 	void send(PacketWriter* packet);
+	/// PvP
+		
+	void setPvP(bool pvp){
+		this->pvp = pvp;
+	}
+	bool getPvP(){
+		return pvp;
+	}
+	void setPvPMaskMob(int mobid){
+		mask = mobid;
+	}
+	int getPvPMaskMob(){
+		return mask;
+	}	
+	int getWDef();
+	int getMDef();
+
+	///
+
+	
+	void setVariable(string &name, int val){
+		vars[name] = val;
+	}
+	int getVariable(string &name){
+		if(vars.find(name) == vars.end())
+			return -1;
+		else
+			return vars[name];
+	}
+	void deleteVariable(string &name){
+		if(vars.find(name) != vars.end())
+			vars.erase(name);
+	}
+	void setGlobalVariable(string &name, int val){
+		global[name] = val;
+	}
+	int getGlobalVariable(string &name){
+		if(global.find(name) == global.end())
+			return -1;
+		else
+			return global[name];
+	}
+	void deleteGlobalVariable(string &name){
+		if(global.find(name) != global.end())
+			global.erase(name);
+	}
 private:	
 	bool isconnect;
+	bool loaded;
 	string name;
 	char gender;
 	char skin;
@@ -343,13 +449,15 @@ private:
 	int hair;
 	Map* map;
 	char mappos;
-	char stance;
 	int chair;
 	int itemEffect;
 	int gm;
 	int mesos;
 	int hpap;
 	int mpap;
+	int mask;
+	int partyInvite;
+	bool pvp;
 	Channel* channel;
 	std::vector <Pet*> pets;
 	void playerConnect();
@@ -359,10 +467,11 @@ private:
 	PlayerQuests* quests;
 	PlayerNPC* npc;
 	PlayerKeys* keys;
-	ShopData* shop;
-	Party* party;
-	PlayerHandler* handler;
+	ShopData* npcShop;
 	PlayerBuffs* buffs;
+	Handler <PlayerHandler>* handler;
+	Trade* trade;
+	Party* party;
 
 	unsigned char level;
 	short job;
@@ -380,7 +489,9 @@ private:
 	short sp;
 	int exp;
 	short fame;
-	Pet* pet;
+
+	stdext::hash_map <string, int> global;
+	stdext::hash_map <string, int> vars;
 };
 
 class PlayerFactory:public AbstractPlayerFactory {

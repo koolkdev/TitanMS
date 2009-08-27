@@ -1,0 +1,15 @@
+<Server>
+	<IP>127.0.0.1</IP>
+	<Password>pass</Password>
+	<Worlds>2</Worlds>
+	<Channels>2</Channels>
+	<MySQL>
+		<Host>localhost</Host>
+		<Port>3306</Port>
+		<Database>maplestory</Database>
+		<Username>root</Username>
+		<Password></Password>
+	</MySQL>
+	<DefaultNotice>Welcome to TitanMS!</DefaultNotice>
+	<EXP>10</EXP>
+</Server>

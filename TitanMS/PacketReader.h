@@ -1,3 +1,22 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef PACKETREADER_H
 #define PACKETREADER_H
 
@@ -5,6 +24,7 @@
 #include <string>
 #include "PacketOutOfRangeError.h"
 using namespace std;
+//?
 #define MAX_LEN 10000
 class PacketReader {
 private:
@@ -17,6 +37,7 @@ public:
 	PacketReader(unsigned char* buf, int len, int playerid){
 		this->playerid = playerid;
 		length = len-2;
+		if(length > MAX_LEN) throw "Too big packet\n";
 		header = buf[0] + buf[1]*0x100;
 		pos = 0;
 		this->buf = buf+2;

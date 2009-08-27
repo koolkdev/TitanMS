@@ -25,14 +25,20 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <time.h>
+#include <string>
+using namespace std;
 
 class MasterDecoder {
 private:
+	static string pass;
 	unsigned char ivRecv[4];
 	unsigned char ivSend[4];
 	unsigned char connectBuffer[15];
 
 public:
+	static void Initialize(string pass){
+		MasterDecoder::pass = pass;
+	}
 	static int getLength (unsigned char* header) {
 		return ((header[0] + header[1]*0x100)); 
 	}

@@ -1,3 +1,23 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+#include "DataProvider.h"
 #include "PlayerHandler.h"
 #include "PacketReader.h" 
 #include "PacketCreator.h" 
@@ -7,98 +27,105 @@
 #include "MapMobs.h"
 #include "Map.h"
 #include "Effect.h"
+#include "PvP.h"
+#include "MobsData.h"
 #include "Mob.h"
 #include "Maps.h"
+#include "Item.h"
+#include "Pet.h"
+#include "Equip.h"
 #include "ObjectMoving.h"
 #include "Channel.h"
 #include "MapPortalData.h"
 #include "PlayerInventories.h"
 #include "PacketHandlingError.h"
+#include "Handler.h"
 #include "Inventory.h"
 #include "MapPlayers.h"
+#include "AngelScriptEngine.h"
+#include "Trade.h"
+#include "Transportations.h"
 #include <iostream>
 #include "Tools.h"
 using namespace Tools;
 
-void PlayerHandler::handle(PacketReader* packet){
-	//int time = (int)(getLongTime()/10000);
-	try{
-		switch(packet->getHeader()){
-			case PING: pingHandle(packet); break;
-			case CONNECT: connectionRequestHandle(packet); break;
-			case NPC_CHAT: NPCChatHandle(packet); break;
-			case HANDLE_NPC: NPCHandle(packet); break;
-			case USE_SHOP: useShopHandle(packet); break;
-			case CHANGE_CHANNEL: changeChannelHandle(packet); break;
-			case TAKE_DAMAGE: playerTakeDamageHandle(packet); break;
-			case PLAYER_MOVE: playerMovingHandle(packet); break;
-			case CHANGE_MAP: changeMapHandle(packet); break;
-			case PLAYER_INFO: getPlayerInformationHandle(packet); break;
-			case FACE_EXP: useFaceExpressionHandle(packet); break;
-			case RECOVERY: recoveryHealthHandle(packet); break;
-			case DAMAGE_MOB_MAGIC: damageMobMagicHandle(packet); break;
-			case DAMAGE_MOB: damageMobHandle(packet); break;
-			case DAMAGE_MOB_RANGED: damageMobRangedHandle(packet); break;
-			case CONTROL_MOB: controlMobHandle(packet); break;
-			case CONTROL_MOB_SKILL: controlMobSkillHandle(packet); break;
-			case ADD_SKILL: addSkillHandle(packet); break;
-			case STOP_SKILL: stopSkillHandle(packet); break;
-			case USE_SKILL: useSkillHandle(packet); break;
-			case USE_CHAT: useChatHandle(packet); break;
-			case CHAT_COMMAND: chatCommandHandle(packet); break;
-			case MOVE_ITEM: moveItemHandle(packet); break;
-			case USE_CHAIR: useChairHandle(packet); break;
-			case CANCEL_CHAIR: cancelChairHandle(packet); break;
-			case USE_ITEM_EFFECT: useItemEffectHandle(packet); break;
-			case USE_CASH_ITEM: useCashItemHandle(packet); break;
-			case USE_ITEM: useItemHandle(packet); break;
-			case USE_SCROLL: useScrollHandle(packet); break;
-			case USE_RETURN_SCROLL: useReturnScrollHandle(packet); break;
-			case USE_SUMMON_BUG: useSummonBugHandle(packet); break;
-			case CANCEL_ITEM_BUFF: cancelItemBuffHandle(packet); break;
-			case ADD_STAT: addStatHandle(packet); break;
-			case DROP_MESOS: dropMesosHandle(packet); break;
-			case LOOT_DROP: lootDropHandle(packet); break;
-			case QUEST_HANDLE: questHandle(packet); break;
-			case CHANGE_KEY: changeKeyHandle(packet); break;
-			case USE_PET: usePetHandle(packet); break;
-			case MOVE_PET: movePetHandle(packet); break;
-			case PET_COMMAND: petCommandHandle(packet); break;
-			case PET_COMMAND_TEXT: petCommandTextHandle(packet); break;
-			case HIT_REACTOR: hitReactorHandle(packet); break;
-			case HIT_BY_MOB: hitByMobHandle(packet);
-			case 0x11: break; // stupid check or something
-			default: printf("Unk header: %x\n", packet->getHeader()); packet->show();
-		}
-	}
-	catch(PacketHandlingError ph){
-		cout << ph.getError();
-	}
-	catch(...){
+hash_map <short, PlayerHandler::handlerf> Handler<PlayerHandler>::handlers;
 
-	}
-	//printf("%d ", getLongTime()/10000 - time);
+void PlayerHandler::loadPackets(){
+	handlers[PING] = &pingHandle;
+	handlers[CONNECT] = &connectionRequestHandle;
+	handlers[NPC_CHAT] = &NPCChatHandle;
+	handlers[HANDLE_NPC] = &NPCHandle;
+	handlers[USE_SHOP] = &useShopHandle;
+	handlers[CHANGE_CHANNEL] = &changeChannelHandle;
+	handlers[TAKE_DAMAGE] = &playerTakeDamageHandle;
+	handlers[PLAYER_MOVE] = &playerMovingHandle;
+	handlers[CHANGE_MAP] = &changeMapHandle;
+	handlers[PLAYER_INFO] = &getPlayerInformationHandle;
+	handlers[FACE_EXP] = &useFaceExpressionHandle;
+	handlers[RECOVERY] = &recoveryHealthHandle;
+	handlers[DAMAGE_MOB_MAGIC] = &damageMobMagicHandle;
+	handlers[DAMAGE_MOB] = &damageMobHandle;
+	handlers[DAMAGE_MOB_RANGED] = &damageMobRangedHandle;
+	handlers[CONTROL_MOB] = &controlMobHandle;
+	handlers[CONTROL_MOB_SKILL] = &controlMobSkillHandle;
+	handlers[ADD_SKILL] = &addSkillHandle;
+	handlers[STOP_SKILL] = &stopSkillHandle;
+	handlers[USE_SKILL] = &useSkillHandle;
+	handlers[USE_CHAT] = &useChatHandle;
+	handlers[CHAT_COMMAND] = &chatCommandHandle;
+	handlers[MOVE_ITEM] = &moveItemHandle;
+	handlers[USE_CHAIR] = &useChairHandle;
+	handlers[CANCEL_CHAIR] = &cancelChairHandle;
+	handlers[USE_ITEM_EFFECT] = &useItemEffectHandle;
+	handlers[USE_CASH_ITEM] = &useCashItemHandle;
+	handlers[USE_ITEM] = &useItemHandle;
+	handlers[USE_SCROLL] = &useScrollHandle;
+	handlers[USE_RETURN_SCROLL] = &useReturnScrollHandle;
+	handlers[USE_SUMMON_BAG] = &useSummonBugHandle;
+	handlers[CANCEL_ITEM_BUFF] = &cancelItemBuffHandle;
+	handlers[AUTO_ARRANGEMENT] = &autoArrangementHandle;
+	handlers[ADD_STAT] = &addStatHandle;
+	handlers[DROP_MESOS] = &dropMesosHandle;
+	handlers[LOOT_DROP] = &lootDropHandle;
+	handlers[QUEST_HANDLE] = &questHandle;
+	handlers[CHANGE_KEY] = &changeKeyHandle;
+	handlers[USE_PET] = &usePetHandle;
+	handlers[MOVE_PET] = &movePetHandle;
+	handlers[PET_COMMAND] = &petCommandHandle;
+	handlers[PET_COMMAND_TEXT] = &petCommandTextHandle;
+	handlers[HIT_REACTOR] = &hitReactorHandle;
+	handlers[HIT_BY_MOB] = &hitByMobHandle;
+	handlers[TRANSPORTATION] = &itemsTransportationHandle;
+	handlers[CHANGE_MAP_SPECIAL] = &changeMapSpecialHandle;
+	handlers[USE_PET_FOOD] = &usePetFoodHandle;
+	handlers[PARTY_OPERATION] = &partyOperationHandle;
+	handlers[DENIED_PARTY] = &deniedPartyInviteHandle;
+	handlers[SPECIAL_CHAT] = &specialChatHandle;
 }
 
-void PlayerHandler::pingHandle(PacketReader* packet){
+void PlayerHandler::pingHandle(PacketReader& packet){
 }
 
-void PlayerHandler::connectionRequestHandle(PacketReader* packet){
-	player->setUserID(packet->readInt());
+void PlayerHandler::connectionRequestHandle(PacketReader& packet){
+	player->setUserID(packet.readInt());
 }
-void PlayerHandler::playerTakeDamageHandle(PacketReader* packet){
-	packet->readInt();
-	char damagetype = packet->read(); 
-	int damage = packet->readInt();
+void PlayerHandler::playerTakeDamageHandle(PacketReader& packet){
+	packet.readInt();
+	char damagetype = packet.read(); 
+	packet.read();
+	int damage = packet.readInt();
 	if(damage < 0)
 		return;
 	int mobid = 0;
 	int objid = 0;
+	if(player->getPvP() && player->getMap()->getPvP() != NULL)
+		player->getMap()->getPvP()->hitPlayer(NULL, player, damage);
 	if(damagetype != -2){ // Damage from monster...
-		mobid = packet->readInt();
-		objid = packet->readInt();
-	}
-	
+		mobid = packet.readInt();
+		if(MobsData::getInstance()->getDataByID(mobid) == NULL) return;
+		objid = packet.readInt();
+	}	
 
 	if(damage > 0){ 
 		if(damagetype == -1 && player->getBuffs()->isBuffActive(Effect::POWER_GUARD)){ // only regular body attack from mobs..
@@ -142,30 +169,45 @@ void PlayerHandler::playerTakeDamageHandle(PacketReader* packet){
 	}
 	player->getMap()->send(PacketCreator().damagePlayer(player->getID(), damagetype, damage, mobid), player); 
 }
-void PlayerHandler::playerMovingHandle(PacketReader* packet){
-	packet->read(5);
-	ObjectMoving moving = ObjectMoving(packet);
-	if(moving.isError())
-		return;
-	player->getMap()->send(PacketCreator().showMoving(player->getID(), &moving), player);
-	player->setStance(moving.getStance());
-	player->setPosition(moving.getPosition());	
+void PlayerHandler::playerMovingHandle(PacketReader& packet){
+	Position pos = player->getPosition();
+	packet.read(5);
+	ObjectMoving moving = ObjectMoving(packet, player);
+	player->getMap()->send(PacketCreator().showMoving(player->getID(), moving), player);
+	if(player->getPvP() && player->getMap()->getPvP() != NULL)
+		player->getMap()->getPvP()->movePlayer(player, pos, moving);
 }
-void PlayerHandler::changeMapHandle(PacketReader* packet){
-	packet->read();
-	int type = packet->readInt();
+void PlayerHandler::changeMapHandle(PacketReader& packet){
+	packet.read();
+	int type = packet.readInt();
 	if(type == 0){
+		if(player->getHP() > 0) return;
 		player->getBuffs()->cancelAll();
 		player->setHP(50, false);
-		Map* map = player->getChannel()->getMaps()->getMap(player->getMap()->getReturnMap());
-		player->changeMap(map);
+		int mapid = player->getMap()->getReturnMap();
+		if(mapid == 999999999){
+			player->changeMap(player->getMap());
+		}
+		else{
+			Map* map = player->getChannel()->getMaps()->getMap(mapid);
+			if(map == NULL){
+				player->changeMap(player->getMap());
+			}
+			else{
+				player->changeMap(map);
+			}
+		}
 	}
 	else{
-		string toname = packet->readString();
+		string toname = packet.readString();
 		MapPortalData* portal = player->getMap()->getPortal(toname);
 		if(portal != NULL && portal->getScript() != ""){
-			if(!true)// Run script
-				player->send(PacketCreator().enableAction());
+			AngelScriptEngine::handlePortal(player, portal);
+			player->send(PacketCreator().enableAction());
+		}
+		else if(portal->getType() == 5 && !player->getMap()->getPortalStatus(portal->getFromPortal())){
+			player->send(PacketCreator().showMessage("The portal is closed for now.", 5)); //?
+			player->send(PacketCreator().enableAction());
 		}
 		else if(portal != NULL && portal->getToMapID() != 999999999){
 			Map* map = player->getChannel()->getMaps()->getMap(portal->getToMapID());
@@ -178,33 +220,170 @@ void PlayerHandler::changeMapHandle(PacketReader* packet){
 	}
 
 }
-void PlayerHandler::getPlayerInformationHandle(PacketReader* packet){
-	packet->readInt();
-	int playerid = packet->readInt();
+void PlayerHandler::getPlayerInformationHandle(PacketReader& packet){
+	packet.readInt();
+	int playerid = packet.readInt();
 	Player* to = player->getMap()->getPlayers()->getPlayerByID(playerid);
 	if(to == NULL)
 		to = player;
 	player->send(PacketCreator().showInfo(to));
 }
-void PlayerHandler::useFaceExpressionHandle(PacketReader* packet){
-	int face = packet->readInt();
+void PlayerHandler::useFaceExpressionHandle(PacketReader& packet){
+	int face = packet.readInt();
 	if(face >= 8){
 		if(player->getInventories()->getInventory(CASH)->getItemByID(5160000 + face - 8) == NULL)
 			return;
 	}
 	player->getMap()->send(PacketCreator().faceExpression(player->getID(), face), player);
 }
-void PlayerHandler::recoveryHealthHandle(PacketReader* packet){
-	packet->read(4);
+void PlayerHandler::recoveryHealthHandle(PacketReader& packet){
+	packet.read(4);
 
-	short hp = packet->readShort();
-	short mp = packet->readShort();
+	short hp = packet.readShort();
+	short mp = packet.readShort();
 	if(hp > 150 || mp > 300){ // too much >_>, checks for passive skills and chairs would be nice
 		return;
 	}
 	player->addHP(hp);
 	player->addMP(mp);
 }
-void PlayerHandler::changeChannelHandle(PacketReader* packet){
+void PlayerHandler::changeChannelHandle(PacketReader& packet){
 		// TODO
+}
+void PlayerHandler::itemsTransportationHandle(PacketReader& packet){
+	char type = packet.read();
+	if(type == Transportations::OPEN){
+		char create = packet.read();
+		if(create == Transportations::TYPE_TRADE){ 
+			if(player->getTrade() == NULL){
+				Trade* trade = new Trade(player);
+				trade->open();
+			}
+			else{
+				player->send(PacketCreator().showMessage("You are already in a trade", 5));
+			}
+		}
+		else if(create == Transportations::TYPE_SHOP){ 
+
+		}
+	}
+	else if(type == Transportations::INVITE){ 
+		Trade* trade = player->getTrade();
+		if(trade != NULL && trade->getInviteID() == 0){
+			int invitedid = packet.readInt();
+			Player* invited = player->getMap()->getPlayer(invitedid);
+			if(!trade->invite(invited)){
+				trade->close();
+				player->setTrade(NULL);
+				delete trade;
+			}
+		}
+	}
+	else if(type == Transportations::DECLINE){ 
+		int tradeid = packet.readInt();
+		Trade* trade = player->getChannel()->getTransportations()->getTradeByInvite(tradeid);
+		if(trade != NULL && trade->getInvited() == player){
+			trade->decline();
+			player->getChannel()->getTransportations()->closeTrade(trade);
+		}
+	}
+	else if(type == Transportations::JOIN){ 
+		int id = packet.readInt();
+		Trade* trade = player->getChannel()->getTransportations()->getTradeByInvite(id);
+		if(trade != NULL){ // trade
+			if(trade->getInvited() == player){
+				if(trade->getPlayer()->getMap() != player->getMap())
+					player->send(PacketCreator().tradeError(9));
+				else
+					trade->accept();
+			}
+			
+		}
+		else if(false){ // shop
+		}
+		else{
+			player->send(PacketCreator().showMessage("The room is already closed.", 1));
+		}
+	}
+	else if(type == Transportations::CHAT){ 
+		if(player->getTrade() != NULL){
+			player->getTrade()->chat(packet.readString());
+		}
+	}
+	else if(type == Transportations::CLOSE){ 
+		Trade* trade = player->getTrade();
+		if(trade != NULL){
+			player->getChannel()->getTransportations()->closeTrade(trade);
+		}
+	}
+	else if(type == Transportations::OPEN_SHOP){
+	}
+	else if(type == Transportations::TRADE_ADD_ITEM){
+		Trade* trade = player->getTrade();
+		if(trade != NULL){
+			if(trade->isConfirmed()) return;
+			char inv = packet.read();
+			short islot = packet.readShort();
+			Item* item = player->getInventories()->getItemBySlot(inv, islot);
+			if(item == NULL)
+				return;
+			short amount = packet.readShort();
+			char slot = packet.read();
+			if(IS_STAR(item->getID()))
+				amount = item->getAmount();
+			if((amount >= 0 && amount <= item->getAmount())){
+				Item* tItem = NULL;
+				if(IS_EQUIP(item->getID())){
+					tItem = new Equip(*(Equip*)item);				
+				}
+				else if(IS_PET(item->getID())){
+					tItem = new Pet(*(Pet*)item);
+				}
+				else{
+					tItem = new Item(*item);
+					tItem->setAmount(amount);
+				}
+				player->getInventories()->removeItemBySlot(inv, islot, amount);
+				trade->addItem(tItem, slot);
+			}
+		}
+	}
+	else if(type == Transportations::ADD_MESOS){
+		int mesos = packet.readInt();
+		if(mesos <= 0 || mesos > player->getMesos())
+			return;
+		Trade* trade = player->getTrade();
+		if(trade != NULL && !trade->isConfirmed()){
+			trade->addMesos(mesos);
+		}
+	}
+	else if(type == Transportations::CONFIRM){
+		Trade* trade = player->getTrade();
+		if(trade != NULL && !trade->isConfirmed() && trade->getTrader() != NULL){
+			trade->confirm();
+			if(trade->getTrader()->isConfirmed()){
+				trade->complete();
+				player->setTrade(NULL);
+				trade->getTrader()->getPlayer()->setTrade(NULL);
+				delete trade->getTrader();
+				delete trade;
+			}
+		}
+	}
+	else if(type == Transportations::SHOP_ADD_ITEM){
+	}
+	else if(type == Transportations::BUY){
+	}
+	else if(type == Transportations::REMOVE_ITEM){ 
+	}
+}
+void PlayerHandler::changeMapSpecialHandle(PacketReader& packet){
+	packet.read();
+	
+	string toname = packet.readString();
+	MapPortalData* portal = player->getMap()->getPortal(toname);
+	if(portal == NULL)
+		return;
+	AngelScriptEngine::handlePortal(player, portal);
+	player->send(PacketCreator().enableAction());
 }

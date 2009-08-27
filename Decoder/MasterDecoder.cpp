@@ -18,13 +18,25 @@
 */
 
 #include "MasterDecoder.h"
-#include "string.h"
+
+string MasterDecoder::pass;
 
 void MasterDecoder::encrypt(unsigned char *buffer, int size){
-	char key[] = "password";
-	int j=0;
-	for(int i=0; i<size; i++){
-		buffer[i] ^= key[j%strlen(key)];
+	string tpass = string(pass);; 
+	char* key = (char*)tpass.c_str();
+	int len = strlen(key);
+	char last = 'a';
+	for(int j=0; j<3; j++){
+		for(int i=size-1; i>=0; i--){
+			key[len-i%len-1] += last;
+			buffer[i] ^= key[len-i%len-1];
+			last -= key[len-i%len-1];
+		}
+		for(int i=0; i<size; i++){
+			key[i%len] ^= (last-4);
+			buffer[i] ^= key[i%len];
+			last ^= (key[i%len]+8);
+		}
 	}
 } 
 

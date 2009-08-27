@@ -39,6 +39,12 @@ PacketWriter* PacketCreator::showPlayer(Player* player){
 	pw.writeShort(0); // guild symbol
 	pw.write(0); // guild symbol color
 
+	pw.writeInt(0);
+	pw.writeInt(1);
+	pw.writeShort(0);
+	pw.write(0);
+	pw.write(0xF8);
+
 	__int64 var = 0;
 	
 	if(player->getBuffs()->isBuffActive(Effect::DARK_SIGHT)){
@@ -66,6 +72,9 @@ PacketWriter* PacketCreator::showPlayer(Player* player){
 	if(player->getBuffs()->isBuffActive(Effect::MORPH)){
 		pw.writeShort(player->getBuffs()->getBuffValue(Effect::MORPH));
 	}
+	
+	for(int i=0; i<22; i++)
+		pw.writeInt(0); // ._.
 
 	playerShow(player);
 
@@ -75,12 +84,12 @@ PacketWriter* PacketCreator::showPlayer(Player* player){
 	pw.writeShort(player->getPosition().x);
 	pw.writeShort(player->getPosition().y);
 	pw.write(player->getStance());
-	
-	pw.write(0); // unl
-	pw.writeShort(0);
-	if(player->getPet() != NULL){
+	pw.writeShort(player->getFoothold());
+	pw.write(0); 
+	vector <Pet*>* pets = player->getPets();
+	for(int i=0; i<(int)pets->size(); i++){
 		pw.write(1);
-		Pet* pet = player->getPet();
+		Pet* pet = (*pets)[i];
 		pw.writeInt(pet->getItemID());
 		pw.writeString(pet->getName());
 		pw.writeInt(pet->getObjectID());
@@ -88,12 +97,9 @@ PacketWriter* PacketCreator::showPlayer(Player* player){
 		pw.writeShort(pet->getPosition().x);
 		pw.writeShort(pet->getPosition().y);
 		pw.write(pet->getStance());
-		pw.writeInt(0); // unk
-		pw.write(0);
+		pw.writeInt(pet->getFoothold());
 	}
-	else{
-		pw.write(0);
-	}
+	pw.write(0); // end of pets
 	pw.writeInt(1);
 
 	pw.writeLong(0);
@@ -117,7 +123,7 @@ PacketWriter* PacketCreator::changeMap(Player* player){
 	pw.writeShort(CHANGE_MAP);
 
 	pw.writeInt(player->getChannel()->getID());
-	pw.writeShort(0); // 2?
+	pw.writeInt(0);
 	pw.writeInt(player->getMap()->getID());
 	pw.write(player->getMappos());
 	pw.writeShort(player->getHP());
@@ -129,7 +135,7 @@ PacketWriter* PacketCreator::changeMap(Player* player){
 
 	return &pw;
 }
-PacketWriter* PacketCreator::changeSound(string sound){
+PacketWriter* PacketCreator::changeMusic(string sound){
 	return mapChange(6, sound);
 }
 PacketWriter* PacketCreator::showEffect(string effect){
@@ -138,11 +144,48 @@ PacketWriter* PacketCreator::showEffect(string effect){
 PacketWriter* PacketCreator::playSound(string sound){
 	return mapChange(4, sound);
 }
-PacketWriter* PacketCreator::mapChange(char mode, string name){
-	pw.writeShort(MAP_CHANGE);
+PacketWriter* PacketCreator::showObject(string object){
+	return mapChange(2, object);
+}
+PacketWriter* PacketCreator::mapChange(char mode, string& name){
+	pw.writeShort(MAP_EFFECT);
 
 	pw.write(mode);
 	pw.writeString(name);
+
+	return &pw;
+}
+PacketWriter* PacketCreator::showShip(char mode, char type){
+	if(type == 0){
+		pw.writeShort(SHOW_SHIP0);
+
+		pw.write(mode);
+		pw.write(0);
+	}
+	else{
+		pw.writeShort(SHOW_SHIP1);
+
+		pw.write(10);
+		pw.write(mode);
+	}
+
+	return &pw;
+}
+PacketWriter* PacketCreator::showClock(Time& time){
+	pw.writeShort(SHOW_TIMER);
+	
+	pw.write(1);
+	pw.write(time.hour);
+	pw.write(time.minute);
+	pw.write(time.second);
+
+	return &pw;
+}
+PacketWriter* PacketCreator::showTimer(int seconds){
+	pw.writeShort(SHOW_TIMER);
+	
+	pw.write(2);
+	pw.writeInt(seconds);
 
 	return &pw;
 }

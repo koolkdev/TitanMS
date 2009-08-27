@@ -1,4 +1,4 @@
- /*
+/*
 	This file is part of TitanMS.
 	Copyright (C) 2008 koolk
 
@@ -17,6 +17,7 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "DataProvider.h"
 #include "PacketWriter.h"
 #include "BytesStream.h"
 #include <stdio.h>
@@ -94,52 +95,3 @@ unsigned char* PacketWriter::getBytes(){
 int PacketWriter::getLength(){
 	return stream.getLength();
 }
-/*
-void Packet::packetSend(Player* player){
-	unsigned char tempbuf[10000]; 
-	//if(packet[0] == 0xa5)
-		printf("\n");
-	for(int i=0; i<pos; i++){
-	//	if(packet[0] == 0xa5)
-			printf("%x ", packet[i]);
-		tempbuf[i] = packet[i];
-	}
-	player->sendPacket(tempbuf, pos);
-}
-
-void Packet::sendTo(Player* player, vector <Player*> players, bool is){
-	for(unsigned int i=0; i<players.size(); i++){
-		if((player != NULL && player != players[i] && !is) || is)
-			this->packetSend(players[i]);
-	}
-}
-
-void Packet::packetSendLogin(PlayerLogin* player){
-	unsigned char tempbuf[10000];
-	for(int i=0; i<pos; i++){
-		tempbuf[i] = packet[i];
-	}
-	player->sendPacket(tempbuf, pos);
-}
-void Packet::packetSendMasterServer(MasterServer* masterServer){
-	unsigned char tempbuf[10000];
-	for(int i=0; i<pos; i++){
-		tempbuf[i] = packet[i];
-	}
-	masterServer->sendPacket(tempbuf, pos);
-}
-void Packet::packetSendChannel(ChannelTemp* channel){
-	unsigned char tempbuf[10000];
-	for(int i=0; i<pos; i++){
-		tempbuf[i] = packet[i];
-	}
-	channel->sendPacket(tempbuf, pos);
-}
-
-void Packet::sendToChannels(ChannelTemp* channel, ChannelTemp* channels[], bool is){
-	for(int i=0; i<20; i++){
-		if((channels[i] != NULL && channels[i] != channel && !is) || is)
-			this->packetSendChannel(channels[i]);
-	}
-	
-}*/

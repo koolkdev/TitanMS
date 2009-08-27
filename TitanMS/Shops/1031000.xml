@@ -4,48 +4,48 @@
 	<NPC>1031000</NPC>
 	<Items>
 		<Item>
-			<ID>01322002</ID>
-			<Price>10000</Price>
-		</Item>
-		<Item>
-			<ID>01372002</ID>
-			<Price>9000</Price>
-		</Item>
-		<Item>
-			<ID>01372003</ID>
-			<Price>38000</Price>
-		</Item>
-		<Item>
-			<ID>01372004</ID>
-			<Price>18000</Price>
-		</Item>
-		<Item>
-			<ID>01372005</ID>
+			<ID>1372005</ID>
 			<Price>2000</Price>
 		</Item>
 		<Item>
-			<ID>01372006</ID>
+			<ID>1372006</ID>
 			<Price>5000</Price>
 		</Item>
 		<Item>
-			<ID>01382000</ID>
+			<ID>1372002</ID>
+			<Price>9000</Price>
+		</Item>
+		<Item>
+			<ID>1372004</ID>
+			<Price>18000</Price>
+		</Item>
+		<Item>
+			<ID>1372003</ID>
+			<Price>38000</Price>
+		</Item>
+		<Item>
+			<ID>1382000</ID>
 			<Price>3000</Price>
 		</Item>
 		<Item>
-			<ID>01382002</ID>
+			<ID>1382003</ID>
 			<Price>20000</Price>
 		</Item>
 		<Item>
-			<ID>01382003</ID>
+			<ID>1382005</ID>
 			<Price>6000</Price>
 		</Item>
 		<Item>
-			<ID>01382004</ID>
+			<ID>1382004</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01382005</ID>
+			<ID>1382002</ID>
 			<Price>6000</Price>
-		</Item>	
+		</Item>
+		<Item>
+			<ID>1322002</ID>
+			<Price>10000</Price>
+		</Item>
 	</Items>
 </Shop>

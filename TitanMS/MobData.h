@@ -1,3 +1,22 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef MOBDATA_H
 #define MOBDATA_H
 
@@ -10,14 +29,16 @@ private:
 	int maxmp;
 	unsigned char level;
 	int exp;
+	int watk, wdef, matk, mdef;
 	bool boss;
 	char color;
 	char bgcolor;
 	int removeAfter;
 	int hpRecovery;
 	int mpRecovery;
-	int dieDelay;
 	bool firstAttack;
+	bool damagedByMob;
+	int dropItemDelay;
 	MobSummonData* msd;
 public:
 	MobData(int id){
@@ -25,14 +46,19 @@ public:
 		maxhp=0;
 		maxmp=0;
 		level=0;
+		watk=0;
+		wdef=0;
+		matk=0;
+		mdef=0;
 		boss = false;
 		color = 0;
 		bgcolor = 0;
 		removeAfter = 0;
 		hpRecovery = 0;
 		mpRecovery = 0;
-		dieDelay = 0;
 		firstAttack = false;
+		damagedByMob = false;
+		dropItemDelay = 0;
 		msd = new MobSummonData();
 	}
 
@@ -48,6 +74,18 @@ public:
 	void setExp(int exp){
 		this->exp = exp;
 	}
+	void setWAtk(int watk){
+		this->watk = watk;
+	}
+	void setWDef(int wdef){
+		this->wdef = wdef;
+	}
+	void setMAtk(int matk){
+		this->matk = matk;
+	}
+	void setMDef(int mdef){
+		this->matk = matk;
+	}
 	int getMaxHP(){
 		return maxhp;
 	}
@@ -59,6 +97,18 @@ public:
 	}
 	int getExp(){
 		return exp;
+	}
+	int getWAtk(){
+		return watk;
+	}
+	int getWDef(){
+		return wdef;
+	}
+	int getMAtk(){
+		return matk;
+	}
+	int getMDef(){
+		return mdef;
 	}
 	void setIsBoss(bool i){
 		boss = i;
@@ -96,17 +146,23 @@ public:
 	int getMPRecovery(){
 		return mpRecovery;
 	}
-	void setDieDelay(int d){
-		dieDelay = d;
-	}
-	int getDieDelay(){
-		return dieDelay;
-	}
 	void setFirstAttack(bool b){
 		firstAttack = b;
 	}
 	bool getFirstAttack(){
 		return firstAttack;
+	}
+	void setDamagedByMob(bool d){
+		damagedByMob = d;
+	}
+	bool getDamagedByMob(){
+		return damagedByMob;
+	}
+	void setDropDelay(int d){
+		dropItemDelay = d;
+	}
+	int getDropDelay(){
+		return dropItemDelay;
 	}
 	MobSummonData* getSummonData(){
 		return msd;

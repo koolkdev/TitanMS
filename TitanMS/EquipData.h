@@ -1,7 +1,28 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef EQUIPDATA_H
 #define EQUIPDATA_H
 
 #include "DataStruct.h"
+#include <string>
+using namespace std;
 
 class EquipData : public DataStruct {
 private:
@@ -9,9 +30,8 @@ private:
 	char slots;
 	short str, dex, intt, luk, hp, mp, watk, matk, wdef, mdef, acc, avo, hand, jump, speed;
 	bool cash;
-	bool quest;
-
-
+	bool quest, tradeBlock;
+	string name;
 public:
 	EquipData(int id){
 		this->id = id;
@@ -34,6 +54,8 @@ public:
 		speed = 0;
 		cash = 0;
 		quest = 0;
+		tradeBlock = 0;
+		name = "";
 	}
 	void setPrice(int price){
 		this->price = price;
@@ -148,6 +170,18 @@ public:
 	}
 	bool getQuest(){
 		return quest;
+	}
+	void setTradeBlock(bool b){
+		this->tradeBlock = b;
+	}
+	bool getTradeBlock(){
+		return tradeBlock;
+	}
+	void setName(string name){
+		this->name = name;
+	}
+	string getName(){
+		return name;
 	}
 };
 

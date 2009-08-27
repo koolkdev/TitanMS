@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -60,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib libmysql.lib angelscriptd.lib mysqlpp_d.lib"
+				AdditionalDependencies="ws2_32.lib libmysql.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -94,6 +95,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"
+			ManagedExtensions="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -115,6 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="MySQL"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -133,10 +136,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib libmysql.lib angelscript.lib mysqlpp.lib"
+				AdditionalDependencies="ws2_32.lib libmysql.lib"
 				LinkIncremental="1"
 				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames="libcmt.lib;msvcprt.lib"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -190,14 +193,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Login.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\LoginWorlds.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\PlayerLogin.cpp"
 					>
 				</File>
@@ -246,6 +241,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\PvPPacket.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\QuestsPacket.cpp"
 					>
 				</File>
@@ -254,7 +253,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\RemoteControlPacket.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\StatsPacket.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\TransportationPacket.cpp"
 					>
 				</File>
 			</Filter>
@@ -273,22 +280,6 @@
 					RelativePath=".\Markup.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\tinystr.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\tinyxml.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\tinyxmlerror.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\tinyxmlparser.cpp"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="Timer"
@@ -297,14 +288,22 @@
 					RelativePath=".\Timer.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\TimerTest.cpp"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="WorldServer"
 				>
+				<File
+					RelativePath=".\Parties.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Party.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\PartyMembers.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\World.cpp"
 					>
@@ -370,11 +369,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\MovingHandlingError.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\NPCsHandler.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\PacketOutOfRangeError.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\PartyHandler.cpp"
 					>
 				</File>
 				<File
@@ -410,6 +417,10 @@
 				Name="GameServer"
 				>
 				<File
+					RelativePath=".\BuddyList.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Channel.cpp"
 					>
 				</File>
@@ -434,11 +445,15 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Inventory.cpp"
+					RelativePath=".\Event.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Inventoryold.cpp"
+					RelativePath=".\Events.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Inventory.cpp"
 					>
 				</File>
 				<File
@@ -486,10 +501,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Party.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\Pet.cpp"
 					>
 				</File>
@@ -502,7 +513,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\PlayerInventories.cpp"
+					RelativePath=".\PlayerInventorys.cpp"
 					>
 				</File>
 				<File
@@ -530,6 +541,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\PvP.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Quests.cpp"
 					>
 				</File>
@@ -538,11 +553,23 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Server.cpp"
+					RelativePath=".\Trade.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Shops.cpp"
+					RelativePath=".\Transportations.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="RemoteControl"
+				>
+				<File
+					RelativePath=".\RemoteControl.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\RemoteControlHandler.cpp"
 					>
 				</File>
 			</Filter>
@@ -552,13 +579,21 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\MySQL\mysql++.h"
-				>
-			</File>
 			<Filter
 				Name="GameServer"
 				>
+				<File
+					RelativePath=".\AntiCheat.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Buddy.h"
+					>
+				</File>
+				<File
+					RelativePath=".\BuddyList.h"
+					>
+				</File>
 				<File
 					RelativePath=".\Buff.h"
 					>
@@ -588,11 +623,15 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Inventory.h"
+					RelativePath=".\Event.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Inventoryold.h"
+					RelativePath=".\Events.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Inventory.h"
 					>
 				</File>
 				<File
@@ -601,6 +640,10 @@
 				</File>
 				<File
 					RelativePath=".\Key.h"
+					>
+				</File>
+				<File
+					RelativePath=".\LifeMapObject.h"
 					>
 				</File>
 				<File
@@ -640,19 +683,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Mobs.h"
-					>
-				</File>
-				<File
 					RelativePath=".\NPC.h"
 					>
 				</File>
 				<File
 					RelativePath=".\ObjectMoving.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Party.h"
 					>
 				</File>
 				<File
@@ -692,6 +727,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\PvP.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Quest.h"
 					>
 				</File>
@@ -700,21 +739,29 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Server.h"
-					>
-				</File>
-				<File
 					RelativePath=".\Skill.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Skills.h"
+					RelativePath=".\Trade.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Transportations.h"
 					>
 				</File>
 			</Filter>
 			<Filter
 				Name="Packets"
 				>
+				<File
+					RelativePath=".\Handler.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MovingHandlingError.h"
+					>
+				</File>
 				<File
 					RelativePath=".\PacketCreator.h"
 					>
@@ -748,10 +795,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\LoginWorlds.h"
-					>
-				</File>
-				<File
 					RelativePath=".\PlayerLogin.h"
 					>
 				</File>
@@ -759,6 +802,18 @@
 			<Filter
 				Name="DataBase"
 				>
+				<File
+					RelativePath=".\ChannelEventData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ChannelEventsData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ChannelEventsScriptsData.h"
+					>
+				</File>
 				<File
 					RelativePath=".\DataProvider.h"
 					>
@@ -781,6 +836,22 @@
 				</File>
 				<File
 					RelativePath=".\EquipsData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\EventData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\EventMapsData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\EventsData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\EventsScriptsData.h"
 					>
 				</File>
 				<File
@@ -852,6 +923,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\MapShipData.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Markup.h"
 					>
 				</File>
@@ -872,7 +947,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\NPCsData.h"
+					RelativePath=".\NPCsScriptsData.h"
 					>
 				</File>
 				<File
@@ -885,6 +960,10 @@
 				</File>
 				<File
 					RelativePath=".\PetsData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PortalsData.h"
 					>
 				</File>
 				<File
@@ -956,14 +1035,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\tinystr.h"
-					>
-				</File>
-				<File
-					RelativePath=".\tinyxml.h"
-					>
-				</File>
-				<File
 					RelativePath=".\TopData.h"
 					>
 				</File>
@@ -987,6 +1058,22 @@
 			<Filter
 				Name="WorldServer"
 				>
+				<File
+					RelativePath=".\Parties.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Party.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PartyMember.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PartyMembers.h"
+					>
+				</File>
 				<File
 					RelativePath=".\World.h"
 					>
@@ -1036,7 +1123,23 @@
 				Name="DataBaseManager"
 				>
 				<File
+					RelativePath=".\MySQL\mysql++.h"
+					>
+				</File>
+				<File
 					RelativePath=".\MySQLM.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="RemoteControl"
+				>
+				<File
+					RelativePath=".\RemoteControl.h"
+					>
+				</File>
+				<File
+					RelativePath=".\RemoteControlHandler.h"
 					>
 				</File>
 			</Filter>

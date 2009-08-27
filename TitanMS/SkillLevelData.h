@@ -1,11 +1,32 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef SKILLLEVELDATA_H
 #define SKILLLEVELDATA_H
 
 #include "DataStruct.h"
+#include "Tools.h"
 
 class SkillLevelData : public DataStruct {
 private:
-	int time, hp, mp, item, itemCount, x, y, speed, jump, watk, wdef, matk, mdef,acc, avo, hpp, attackCount, mobCount;
+	int time, hp, mp, item, itemCount, x, y, speed, jump, watk, wdef, matk, mdef,acc, avo, hpp, attackCount, mobCount, prop, cooltime;
+	Position rb, lt;
 public:
 	SkillLevelData(int level){
 		id=level;
@@ -27,6 +48,12 @@ public:
 		hpp = 0;
 		attackCount = 0;
 		mobCount = 0;
+		prop = 0;
+		cooltime = 0;
+		rb.x = 0;
+		rb.y = 0;
+		lt.x = 0;
+		lt.y = 0;
 	}
 	void setTime(int time){
 		this->time = time;
@@ -124,7 +151,48 @@ public:
 	int getHPPer(){
 		return hpp;
 	}
-
+	void setRBX(int x){
+		rb.x = x;
+	}
+	void setRBY(int y){
+		rb.y = y;
+	}
+	void setLTX(int x){
+		lt.x = x;
+	}
+	void setLTY(int y){
+		lt.y = y;
+	}
+	Position& getRB(){
+		return rb;
+	}
+	Position& getLT(){
+		return lt;
+	}
+	void setAttackCount(int a){
+		attackCount = a;
+	}
+	int getAttackCount(){
+		return attackCount;
+	}
+	void setMobCount(int m){
+		mobCount = m;
+	}
+	int getMobCount(){
+		return mobCount;
+	}
+	void setCooltime(int c){
+		this->cooltime = c;
+	}
+	int getCooltime(){
+		return cooltime;;
+	}
+	void setProp(int p){
+		prop = p;
+	}
+	int getProp(){
+		return prop;;
+	}
 
 };
 

@@ -1,3 +1,23 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+#include "DataProvider.h"
 #include "Reactor.h"
 #include "DataProvider.h"
 #include "PacketCreator.h"
@@ -19,18 +39,18 @@ void Reactor::hit(Player* player, short stance, char pos){
 		int nstate = DataProvider::getInstance()->getReactorNextState(rid, state);
 		if(nstate == -1){
 			if(type < 100){ //
-				if(DataProvider::getInstance()->getReactorDelay(map->getID(), mapid) > 0)
+				//if(DataProvider::getInstance()->getReactorDelay(map->getID(), mapid) > 0)
 					destroyed = true;
-				else
-					map->send(PacketCreator().updateReactor(this, stance));
+				//else
+				//	map->send(PacketCreator().updateReactor(this, stance), player);
 			}
 			else{
-				map->send(PacketCreator().updateReactor(this, stance));
+				map->send(PacketCreator().updateReactor(this, stance), player);
 			}
 			AngelScriptEngine::handleReactor(player, this);
 		}
 		else{
-			map->send(PacketCreator().updateReactor(this, stance));
+			map->send(PacketCreator().updateReactor(this, stance), player);
 			if(nstate == state)
 				AngelScriptEngine::handleReactor(player, this);
 
@@ -50,14 +70,13 @@ void Reactor::setState(int s){
 		AngelScriptEngine::handleReactor(NULL, this);
 	}
 }
-void Reactor::drop(){
-	map->getDrops()->dropFromReactor(this);
+void Reactor::drop(Player* player){
+	map->getDrops()->dropFromReactor(this, player);
 }
 bool Reactor::inArea(Position fpos){
 	Position lt = DataProvider::getInstance()->getReactorLT(rid, state);
 	Position rb = DataProvider::getInstance()->getReactorRB(rid, state);
 	
-	//TODO fix
-	return fpos.x > pos.x + lt.x && fpos.y > pos.y + lt.y - 10 && fpos.x < pos.x + rb.x && fpos.y < pos.y + rb.y + 10;
+	return fpos.x > pos.x + lt.x && fpos.y > pos.y + lt.y && fpos.x < pos.x + rb.x && fpos.y < pos.y + rb.y;
 		
 }

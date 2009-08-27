@@ -1,19 +1,44 @@
+/*
+	This file is part of TitanMS.
+	Copyright (C) 2008 koolk
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef MOB_H
 #define MOB_H
 
-#include "MapObject.h"
+#define MOB_SHOW		-1
+#define MOB_SPAWN		-2
+#define MOB_TRANSFORM	-3
+
+#include "LifeMapObject.h"
 class Player;
 class Map;
+class Timer;
 #include <hash_map>
 using namespace std;
 using namespace stdext;
 
-class Mob : public MapObject {
+class Mob : public LifeMapObject {
 public:
 	Mob (Map* map){
 		control=NULL;
 		this->map = map;
 		aggressive = 0;
+		dropTimer = NULL;
 	}
 	void setMobID(int mobid){
 		this->mobid=mobid;
@@ -27,11 +52,11 @@ public:
 	int getOriginalID(){
 		return mapid;
 	}
-	void setFH(short fh){
-		this->fh=fh;
+	void setStartFH(short fh){
+		sfh = fh;
 	}
-	short getFH(){
-		return fh;
+	short getStartFH(){
+		return sfh;
 	}
 	void setHP(int hp){
 		this->hp=hp;
@@ -52,16 +77,8 @@ public:
 	int getMP(){
 		return mp;
 	}
-	void setStance(char stance){
-		this->stance=stance;
-	}
-	char getStance(){
-		return stance;
-	}
-	void setControl(Player* control, bool spawn = false, bool agrs = false, bool switchc = true);
-	Player* getControl(){
-		return control;
-	}
+	void setControl(Player* control, bool agrs = false, bool switchc = true);
+	Player* getControl();
 	Map* getMap(){
 		return map;
 	}
@@ -75,16 +92,22 @@ public:
 		return aggressive;
 	}
 	int getKillerID();
+	void setDropTimer(Timer* timer){
+		dropTimer = timer;
+	}
+	Timer* getDropTimer(){
+		return dropTimer;
+	}
 private:
 	char aggressive;
 	int mapid;
 	int mobid;
-	short fh;
 	int hp;
 	int mp;
-	char stance;
+	short sfh;
 	Player* control;
 	Map* map;
+	Timer* dropTimer;
 	hash_map<int, int> playersa;
 };
 

@@ -8,11 +8,11 @@
 		</Item>
 		<Item>
 			<ID>2000000</ID>
-			<Price>12</Price>
+			<Price>1</Price>
 		</Item>
 		<Item>
 			<ID>4001004</ID>
-			<Price>12</Price>
+			<Price>1</Price>
 		</Item>
 		<Item>
 			<ID>5071000</ID>
@@ -20,7 +20,7 @@
 		</Item>
 		<Item>
 			<ID>2070000</ID>
-			<Price>500</Price>
+			<Price>1</Price>
 		</Item>
 	</Items>
 </Shop>

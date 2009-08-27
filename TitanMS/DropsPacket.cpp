@@ -25,7 +25,7 @@
 #include "PlayerInventories.h"
 #include "Item.h"
 
-PacketWriter* PacketCreator::dropObject(Drop* drop, char mode, MapObject* dropper){
+PacketWriter* PacketCreator::dropObject(Drop* drop, char mode, MapObject* dropper, int delay){
 	pw.writeShort(SHOW_DROP);
 
 	pw.write(mode);
@@ -40,20 +40,20 @@ PacketWriter* PacketCreator::dropObject(Drop* drop, char mode, MapObject* droppe
 	pw.writeShort(drop->getPosition().x);
 	pw.writeShort(drop->getPosition().y);
 	if(mode != 2){
-		pw.writeInt(drop->getOwner());//pw.writeInt((drop->getOwner() == 0) ? 0 : dropper->getID());
+		pw.writeInt((drop->getOwner() == 0) ? 0 : dropper->getID());
 		pw.writeShort(dropper->getPosition().x);
 		pw.writeShort(dropper->getPosition().y);
-		pw.writeShort(0);
+		pw.writeShort(delay);
 	}
 	else
 		pw.writeInt(0);
-	pw.write(0);
+	pw.write(drop->getMesos());
 	if(!drop->isMesos()){
 		pw.writeBytes("8005BB46E617");
 		pw.write(2);
 		pw.write(0);
 	}
-
+	
 	return &pw;
 }
 PacketWriter* PacketCreator::showDrop(Drop* drop){

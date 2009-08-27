@@ -1,9 +1,10 @@
 void npc_main(NPC @npc){
 	int state = npc.getState();
 	int type = npc.getSelected();
+	Player@ player = npc.getPlayer();
 	int [] cities = {102000000, 101000000, 100000000, 103000000};
 	int [] cost = {1200, 1200, 800, 1000}; 
-	if(npc.getPlayerJob() == 0){
+	if(player.getJob() == 0){
 		cost[0] /= 10; cost[1] /= 10; cost[2] /=10; cost[3] /=10;
 	}	
 	if(state == 0){
@@ -23,13 +24,7 @@ void npc_main(NPC @npc){
 		else{
 			npc.addText("There's a special 90% discount for all beginners. Alright, where would you like to go? #b");
 			for(int i=0; i<4; i++){
-				npc.addText("\r\n#L");
-				npc.addText(valstr(i));
-				npc.addText("##m");
-				npc.addText(valstr(cities[i]));
-				npc.addText("#(");
-				npc.addText(valstr(cost[i]));
-				npc.addText(" mesos)#l");
+				npc.addText("\r\n#L" + i + "##m" + cities[i] + "#(" + cost[i] + " mesos)#l");
 			}
 			npc.sendSimple();
 		}
@@ -64,11 +59,7 @@ void npc_main(NPC @npc){
 			}
 		}
 		else{ // Please take me somewhere else.
-			npc.addText("I guess you don't need to be here. Do you really want to move to #b#m");
-			npc.addText(valstr(cities[city]));
-			npc.addText("##k? Well it'll cost you #b");
-			npc.addText(valstr(cost[city]));
-			npc.addText(" meso#k. What do you think?");
+			npc.addText("I guess you don't need to be here. Do you really want to move to #b#m" + cities[city] + "##k? Well it'll cost you #b" + cost[city] + " meso#k. What do you think?");
 			npc.sendYesNo();
 		}
 
@@ -103,13 +94,13 @@ void npc_main(NPC @npc){
 		}
 		else{
 			if(npc.getSelected() == YES){
-				if(npc.getMesos() < cost[type]){
+				if(player.getMesos() < cost[type]){
 					npc.addText("You don't have enough mesos. With your abilities, you should have more than that!");
 	                   			npc.sendOK();
 				}
 				else {
-					npc.giveMesos(-cost[type]);
-					npc.teleport(cities[type]);
+					player.giveMesos(-cost[type]);
+					player.changeMap(cities[type]);
 				}
 			}
 			else{

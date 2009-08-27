@@ -4,11 +4,11 @@
 	<NPC>9110005</NPC>
 	<Items>
 		<Item>
-			<ID>02022024</ID>
+			<ID>2022024</ID>
 			<Price>2000</Price>
 		</Item>
 		<Item>
-			<ID>02022025</ID>
+			<ID>2022025</ID>
 			<Price>4200</Price>
 		</Item>		
 	</Items>

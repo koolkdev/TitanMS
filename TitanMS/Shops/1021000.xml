@@ -4,162 +4,140 @@
 	<NPC>1021000</NPC>
 	<Items>
 		<Item>
-			<ID>01302007</ID>
+			<ID>1302007</ID>
 			<Price>3000</Price>
 		</Item>
 		<Item>
-			<ID>01302005</ID>
+			<ID>1302005</ID>
 			<Price>6000</Price>
 		</Item>
 		<Item>
-			<ID>01302002</ID>
+			<ID>1302002</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01302006</ID>
+			<ID>1302006</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01302003</ID>
+			<ID>1302003</ID>
 			<Price>20000</Price>
 		</Item>
 		<Item>
-			<ID>01302008</ID>
+			<ID>1302008</ID>
 			<Price>40000</Price>
 		</Item>
 		<Item>
-			<ID>01332006</ID>
+			<ID>1332006</ID>
 			<Price>7000</Price>
 		</Item>
 		<Item>
-			<ID>01332008</ID>
+			<ID>1332008</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01332010</ID>
+			<ID>1332010</ID>
 			<Price>22000</Price>
 		</Item>
 		<Item>
-			<ID>01312001</ID>
+			<ID>1312001</ID>
 			<Price>6000</Price>
 		</Item>
 		<Item>
-			<ID>01312003</ID>
+			<ID>1312003</ID>
 			<Price>20000</Price>
 		</Item>
 		<Item>
-			<ID>01312005</ID>
+			<ID>1312005</ID>
 			<Price>40000</Price>
 		</Item>
 		<Item>
-			<ID>01322000</ID>
+			<ID>1322000</ID>
 			<Price>6000</Price>
 		</Item>
 		<Item>
-			<ID>01322002</ID>
+			<ID>1322002</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01322004</ID>
+			<ID>1322004</ID>
 			<Price>22000</Price>
 		</Item>
 		<Item>
-			<ID>01322014</ID>
+			<ID>1322014</ID>
 			<Price>40000</Price>
 		</Item>
 		<Item>
-			<ID>01322031</ID>
-			<Price>350000</Price>
-		</Item>
-		<Item>
-			<ID>01402000</ID>
-			<Price>12000</Price>
-		</Item>
-		<Item>
-			<ID>01402008</ID>
-			<Price>22000</Price>
-		</Item>
-		<Item>
-			<ID>01402002</ID>
-			<Price>30000</Price>
-		</Item>
-		<Item>
-			<ID>01402006</ID>
-			<Price>60000</Price>
-		</Item>
-		<Item>
-			<ID>01402007</ID>
-			<Price>100000</Price>
-		</Item>
-		<Item>
-			<ID>01412001</ID>
+			<ID>1402001</ID>
 			<Price>3000</Price>
 		</Item>
 		<Item>
-			<ID>01412002</ID>
-			<Price>10000</Price>
+			<ID>1402000</ID>
+			<Price>12000</Price>
 		</Item>
 		<Item>
-			<ID>01412000</ID>
+			<ID>1402008</ID>
 			<Price>22000</Price>
 		</Item>
 		<Item>
-			<ID>01412006</ID>
+			<ID>1412001</ID>
+			<Price>3000</Price>
+		</Item>
+		<Item>
+			<ID>1412002</ID>
+			<Price>10000</Price>
+		</Item>
+		<Item>
+			<ID>1412000</ID>
+			<Price>22000</Price>
+		</Item>
+		<Item>
+			<ID>1412006</ID>
 			<Price>45000</Price>
 		</Item>
 		<Item>
-			<ID>01422000</ID>
+			<ID>1422000</ID>
 			<Price>3000</Price>
 		</Item>
 		<Item>
-			<ID>01422002</ID>
+			<ID>1422002</ID>
 			<Price>6000</Price>
 		</Item>
 		<Item>
-			<ID>01422003</ID>
+			<ID>1422003</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01422006</ID>
+			<ID>1422006</ID>
 			<Price>10000</Price>
 		</Item>
 		<Item>
-			<ID>01422004</ID>
+			<ID>1422004</ID>
 			<Price>20000</Price>
 		</Item>
 		<Item>
-			<ID>01432000</ID>
+			<ID>1432000</ID>
 			<Price>3000</Price>
 		</Item>
 		<Item>
-			<ID>01432001</ID>
+			<ID>1432001</ID>
 			<Price>7000</Price>
 		</Item>
 		<Item>
-			<ID>01442000</ID>
+			<ID>1442000</ID>
 			<Price>3000</Price>
 		</Item>
 		<Item>
-			<ID>01442006</ID>
+			<ID>1442006</ID>
 			<Price>8000</Price>
 		</Item>
 		<Item>
-			<ID>01442007</ID>
+			<ID>1442007</ID>
 			<Price>12000</Price>
 		</Item>
 		<Item>
-			<ID>01442004</ID>
+			<ID>1442004</ID>
 			<Price>24000</Price>
 		</Item>
-		<Item>
-			<ID>01442011</ID>
-			<Price>20000</Price>
-		</Item>
-		<Item>
-			<ID>01442013</ID>
-			<Price>30000</Price>
-		</Item>
-
-		
 	</Items>
 </Shop>
