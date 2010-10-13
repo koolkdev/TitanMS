@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Green Pirate Top</Name>
+    <Price>140000</Price>
+    <Slots>7</Slots>
+    <DEX>5</DEX>
+    <LUK>1</LUK>
+    <MP>15</MP>
+    <WDef>64</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

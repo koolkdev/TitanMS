@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Fruity Bamboo</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>40</WAtk>
+    <MAtk>37</MAtk>
+    <Speed>8</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

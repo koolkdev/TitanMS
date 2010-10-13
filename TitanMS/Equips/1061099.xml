@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Purple Mystique Pants</Name>
+    <Price>80000</Price>
+    <Slots>7</Slots>
+    <STR>2</STR>
+    <WDef>45</WDef>
+    <Avo>2</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

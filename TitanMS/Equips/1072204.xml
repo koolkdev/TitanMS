@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Green Ades Shoes</Name>
+    <Price>140000</Price>
+    <Slots>5</Slots>
+    <STR>1</STR>
+    <DEX>4</DEX>
+    <WDef>52</WDef>
+    <Avo>1</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

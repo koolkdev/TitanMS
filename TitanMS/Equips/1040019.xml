@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Orange Split Piece</Name>
+    <Price>4250</Price>
+    <Slots>7</Slots>
+    <HP>10</HP>
+    <WDef>15</WDef>
+    <MDef>10</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

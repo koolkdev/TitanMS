@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>The Blessing</Name>
+    <Price>190000</Price>
+    <Slots>7</Slots>
+    <WAtk>82</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

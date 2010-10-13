@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Silver Deputy Star</Name>
+    <Price>150000</Price>
+    <Slots>3</Slots>
+    <STR>5</STR>
+    <DEX>5</DEX>
+    <INT>5</INT>
+    <LUK>5</LUK>
+    <HP>100</HP>
+    <MP>100</MP>
+    <WDef>35</WDef>
+    <MDef>35</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

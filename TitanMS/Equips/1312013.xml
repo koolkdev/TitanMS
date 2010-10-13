@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Green Paint Brush</Name>
+    <Price>20000</Price>
+    <Slots>7</Slots>
+    <HP>30</HP>
+    <WAtk>48</WAtk>
+    <MAtk>45</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

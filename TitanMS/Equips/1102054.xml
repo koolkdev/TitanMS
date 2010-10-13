@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Icarus Cape (1)</Name>
+    <Price>40000</Price>
+    <Slots>5</Slots>
+    <Avo>15</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

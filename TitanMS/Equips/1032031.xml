@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Shield Earrings</Name>
+    <Price>200000</Price>
+    <Slots>5</Slots>
+    <MDef>80</MDef>
+    <Acc>1</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

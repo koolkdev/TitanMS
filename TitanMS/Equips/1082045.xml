@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Gold Arbion</Name>
+    <Price>40000</Price>
+    <Slots>5</Slots>
+    <LUK>2</LUK>
+    <WDef>14</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<Mob>
+    <HP>25000</HP>
+    <MP>200</MP>
+    <exp>400</exp>
+    <Level>70</Level>
+    <WAtk>285</WAtk>
+    <WDef>280</WDef>
+    <MAtk>335</MAtk>
+    <MDef>280</MDef>
+    <Boss>1</Boss>
+    <Color>0</Color>
+    <BgColor>0</BgColor>
+    <RemoveAfter>60</RemoveAfter>
+    <HPRecovery>30</HPRecovery>
+    <MPRecovery>2</MPRecovery>
+    <DamagedByMob>0</DamagedByMob>
+    <FirstAttack>0</FirstAttack>
+    <DropItemDelay>0</DropItemDelay>
+    <Summon />
+</Mob>

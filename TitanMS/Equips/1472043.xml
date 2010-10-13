@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Mamba</Name>
+    <Price>400000</Price>
+    <Slots>5</Slots>
+    <DEX>5</DEX>
+    <LUK>2</LUK>
+    <WAtk>43</WAtk>
+    <WDef>4</WDef>
+    <Acc>5</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

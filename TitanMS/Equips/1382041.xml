@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Nocturnal Staff</Name>
+    <Price>80000</Price>
+    <Slots>7</Slots>
+    <HP>100</HP>
+    <MP>50</MP>
+    <WAtk>39</WAtk>
+    <MAtk>58</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

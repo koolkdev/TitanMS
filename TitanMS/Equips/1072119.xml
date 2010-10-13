@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Yellow Pierre Shoes</Name>
+    <Price>35000</Price>
+    <Slots>5</Slots>
+    <STR>1</STR>
+    <DEX>1</DEX>
+    <MP>5</MP>
+    <WDef>22</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

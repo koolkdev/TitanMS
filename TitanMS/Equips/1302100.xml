@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Lunch box (Lv 90)</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>93</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

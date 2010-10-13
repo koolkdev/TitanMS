@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Maple Crossbow</Name>
+    <Price>90000</Price>
+    <Slots>7</Slots>
+    <WAtk>60</WAtk>
+    <Speed>7</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

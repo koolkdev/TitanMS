@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Halloween Pumpkin Hat</Name>
+    <Price>1</Price>
+    <Slots>0</Slots>
+    <WAtk>2</WAtk>
+    <MAtk>2</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

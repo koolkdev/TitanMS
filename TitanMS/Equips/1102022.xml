@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Gaia Cape</Name>
+    <Price>140000</Price>
+    <Slots>5</Slots>
+    <WDef>19</WDef>
+    <MDef>24</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

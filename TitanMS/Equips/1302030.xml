@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Maple Soul Singer</Name>
+    <Price>75000</Price>
+    <Slots>7</Slots>
+    <WAtk>60</WAtk>
+    <Acc>30</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

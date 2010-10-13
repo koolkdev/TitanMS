@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Silver Ancient Shield</Name>
+    <Price>210000</Price>
+    <Slots>7</Slots>
+    <DEX>2</DEX>
+    <WDef>56</WDef>
+    <MDef>20</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

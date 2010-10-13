@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Duck tube</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>90</WAtk>
+    <Avo>3</Avo>
+    <Speed>5</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

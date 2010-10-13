@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Frantic Strige</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>79</WAtk>
+    <Avo>10</Avo>
+    <Speed>12</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

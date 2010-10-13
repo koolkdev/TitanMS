@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Magicshoes</Name>
+    <Price>15000</Price>
+    <Slots>5</Slots>
+    <INT>2</INT>
+    <WDef>12</WDef>
+    <MDef>5</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Sage</Name>
+    <Price>235000</Price>
+    <Slots>5</Slots>
+    <INT>4</INT>
+    <LUK>2</LUK>
+    <WDef>35</WDef>
+    <MDef>10</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

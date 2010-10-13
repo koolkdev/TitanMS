@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Emerald Battle Grieves</Name>
+    <Price>15000</Price>
+    <Slots>5</Slots>
+    <STR>1</STR>
+    <WDef>18</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

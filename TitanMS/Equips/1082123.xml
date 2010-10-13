@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dark Clarity</Name>
+    <Price>210000</Price>
+    <Slots>5</Slots>
+    <INT>4</INT>
+    <LUK>2</LUK>
+    <MP>30</MP>
+    <WDef>32</WDef>
+    <MDef>9</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

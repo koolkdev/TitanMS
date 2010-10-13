@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dark Lorin</Name>
+    <Price>150000</Price>
+    <Slots>5</Slots>
+    <INT>4</INT>
+    <LUK>1</LUK>
+    <WDef>28</WDef>
+    <MDef>7</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

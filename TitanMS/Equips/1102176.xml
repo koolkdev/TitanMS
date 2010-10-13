@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Stirgeman Cape</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <HP>1</HP>
+    <MP>1</MP>
+    <WDef>2</WDef>
+    <Avo>1</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

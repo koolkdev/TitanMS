@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Stirge-on-a-String</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>25</WAtk>
+    <Speed>3</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

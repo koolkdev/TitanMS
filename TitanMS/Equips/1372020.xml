@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Evil Tale</Name>
+    <Price>230000</Price>
+    <Slots>7</Slots>
+    <INT>5</INT>
+    <WAtk>45</WAtk>
+    <MAtk>83</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

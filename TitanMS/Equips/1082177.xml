@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Purple Marker</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <DEX>2</DEX>
+    <WDef>7</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

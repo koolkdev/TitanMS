@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Gold Drop Earrings</Name>
+    <Price>115000</Price>
+    <Slots>5</Slots>
+    <MDef>45</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

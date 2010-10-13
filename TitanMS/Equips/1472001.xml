@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Steel Titans</Name>
+    <Price>4000</Price>
+    <Slots>7</Slots>
+    <WAtk>12</WAtk>
+    <WDef>1</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

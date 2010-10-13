@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Bennis Chainmail</Name>
+    <Price>7500</Price>
+    <Slots>7</Slots>
+    <STR>2</STR>
+    <WDef>22</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

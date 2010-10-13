@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1E6DFC91-DEF3-4F5F-BFB2-8F28A95A332C}</ProjectGuid>
+    <RootNamespace>mysql</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="beemutex.cpp" />
+    <ClCompile Include="connection.cpp" />
+    <ClCompile Include="cpool.cpp" />
+    <ClCompile Include="datetime.cpp" />
+    <ClCompile Include="dbdriver.cpp" />
+    <ClCompile Include="field_names.cpp" />
+    <ClCompile Include="field_types.cpp" />
+    <ClCompile Include="manip.cpp" />
+    <ClCompile Include="myset.cpp" />
+    <ClCompile Include="mysql++.cpp" />
+    <ClCompile Include="mystring.cpp" />
+    <ClCompile Include="null.cpp" />
+    <ClCompile Include="options.cpp" />
+    <ClCompile Include="qparms.cpp" />
+    <ClCompile Include="query.cpp" />
+    <ClCompile Include="result.cpp" />
+    <ClCompile Include="row.cpp" />
+    <ClCompile Include="sql_buffer.cpp" />
+    <ClCompile Include="stadapter.cpp" />
+    <ClCompile Include="tcp_connection.cpp" />
+    <ClCompile Include="transaction.cpp" />
+    <ClCompile Include="type_info.cpp" />
+    <ClCompile Include="uds_connection.cpp" />
+    <ClCompile Include="vallist.cpp" />
+    <ClCompile Include="wnp_connection.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="autoflag.h" />
+    <ClInclude Include="beemutex.h" />
+    <ClInclude Include="common.h" />
+    <ClInclude Include="comparable.h" />
+    <ClInclude Include="connection.h" />
+    <ClInclude Include="cpool.h" />
+    <ClInclude Include="custom.h" />
+    <ClInclude Include="datetime.h" />
+    <ClInclude Include="dbdriver.h" />
+    <ClInclude Include="exceptions.h" />
+    <ClInclude Include="field.h" />
+    <ClInclude Include="field_names.h" />
+    <ClInclude Include="field_types.h" />
+    <ClInclude Include="manip.h" />
+    <ClInclude Include="my_alloc.h" />
+    <ClInclude Include="my_list.h" />
+    <ClInclude Include="myset.h" />
+    <ClInclude Include="mysql++.h" />
+    <ClInclude Include="mysql.h" />
+    <ClInclude Include="mysql_com.h" />
+    <ClInclude Include="mysql_embed.h" />
+    <ClInclude Include="mysql_time.h" />
+    <ClInclude Include="mysql_version.h" />
+    <ClInclude Include="mysqld_ername.h" />
+    <ClInclude Include="mysqld_error.h" />
+    <ClInclude Include="mystring.h" />
+    <ClInclude Include="noexceptions.h" />
+    <ClInclude Include="null.h" />
+    <ClInclude Include="options.h" />
+    <ClInclude Include="qparms.h" />
+    <ClInclude Include="query.h" />
+    <ClInclude Include="querydef.h" />
+    <ClInclude Include="refcounted.h" />
+    <ClInclude Include="result.h" />
+    <ClInclude Include="row.h" />
+    <ClInclude Include="sql_buffer.h" />
+    <ClInclude Include="sql_types.h" />
+    <ClInclude Include="ssqls.h" />
+    <ClInclude Include="stadapter.h" />
+    <ClInclude Include="stream2string.h" />
+    <ClInclude Include="tcp_connection.h" />
+    <ClInclude Include="tiny_int.h" />
+    <ClInclude Include="transaction.h" />
+    <ClInclude Include="type_info.h" />
+    <ClInclude Include="typelib.h" />
+    <ClInclude Include="uds_connection.h" />
+    <ClInclude Include="vallist.h" />
+    <ClInclude Include="wnp_connection.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

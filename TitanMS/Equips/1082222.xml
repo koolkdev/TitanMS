@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Mechanical Glove</Name>
+    <Price>150000</Price>
+    <Slots>5</Slots>
+    <WDef>20</WDef>
+    <MDef>20</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Snail&apos;s Eye</Name>
+    <Price>62500</Price>
+    <Slots>5</Slots>
+    <MDef>15</MDef>
+    <Jump>3</Jump>
+    <Speed>2</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

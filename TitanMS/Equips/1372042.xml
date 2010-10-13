@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Elemental Wand 8</Name>
+    <Price>120000</Price>
+    <Slots>7</Slots>
+    <LUK>2</LUK>
+    <WAtk>92</WAtk>
+    <MAtk>145</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

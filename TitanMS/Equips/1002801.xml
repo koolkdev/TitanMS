@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Raven Ninja Bandana</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <STR>2</STR>
+    <DEX>3</DEX>
+    <LUK>3</LUK>
+    <WDef>8</WDef>
+    <Avo>7</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

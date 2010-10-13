@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Pooh Pooh Shovel</Name>
+    <Price>500000</Price>
+    <Slots>7</Slots>
+    <WAtk>105</WAtk>
+    <Acc>3</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

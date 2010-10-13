@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Bullseye Board</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>78</WAtk>
+    <Acc>3</Acc>
+    <Jump>5</Jump>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

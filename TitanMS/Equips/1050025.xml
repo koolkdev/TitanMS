@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>White Doros Robe</Name>
+    <Price>8000</Price>
+    <Slots>10</Slots>
+    <INT>3</INT>
+    <WDef>24</WDef>
+    <MDef>12</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

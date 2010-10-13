@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dark Moon Conehat</Name>
+    <Price>1900</Price>
+    <Slots>7</Slots>
+    <WDef>8</WDef>
+    <MDef>20</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

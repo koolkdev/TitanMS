@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Brown Leather Krag</Name>
+    <Price>35000</Price>
+    <Slots>5</Slots>
+    <STR>1</STR>
+    <DEX>1</DEX>
+    <WDef>22</WDef>
+    <Avo>1</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

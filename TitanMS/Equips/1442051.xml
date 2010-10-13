@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Maple Karstan</Name>
+    <Price>240000</Price>
+    <Slots>7</Slots>
+    <STR>3</STR>
+    <WAtk>85</WAtk>
+    <Acc>35</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

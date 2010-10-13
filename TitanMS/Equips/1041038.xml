@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Cloth Vest</Name>
+    <Price>1500</Price>
+    <Slots>7</Slots>
+    <WDef>10</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

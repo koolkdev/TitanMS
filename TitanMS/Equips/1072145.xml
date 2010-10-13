@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Gore Boots</Name>
+    <Price>65000</Price>
+    <Slots>5</Slots>
+    <STR>2</STR>
+    <DEX>2</DEX>
+    <WDef>34</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

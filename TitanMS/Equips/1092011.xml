@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Adamantium Legend Shield</Name>
+    <Price>190000</Price>
+    <Slots>7</Slots>
+    <STR>2</STR>
+    <WDef>52</WDef>
+    <MDef>25</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

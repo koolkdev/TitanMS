@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Noel</Name>
+    <Price>35000</Price>
+    <Slots>5</Slots>
+    <INT>1</INT>
+    <WDef>13</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Flame Golden Circlet</Name>
+    <Price>40000</Price>
+    <Slots>7</Slots>
+    <INT>1</INT>
+    <LUK>2</LUK>
+    <WDef>24</WDef>
+    <MDef>55</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

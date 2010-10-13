@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Hunter&apos;s Bow</Name>
+    <Price>5000</Price>
+    <Slots>7</Slots>
+    <DEX>1</DEX>
+    <WAtk>35</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

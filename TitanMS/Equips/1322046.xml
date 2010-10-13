@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>War Hammer</Name>
+    <Price>20000</Price>
+    <Slots>7</Slots>
+    <WAtk>49</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

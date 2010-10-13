@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Raven&apos;s Beak</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <LUK>2</LUK>
+    <WAtk>85</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

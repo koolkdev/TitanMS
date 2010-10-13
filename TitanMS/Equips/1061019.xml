@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Sky Shark Skirt</Name>
+    <Price>7000</Price>
+    <Slots>7</Slots>
+    <WDef>24</WDef>
+    <Speed>5</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

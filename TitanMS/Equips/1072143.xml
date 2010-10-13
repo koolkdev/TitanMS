@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Green Goldwind Shoes</Name>
+    <Price>55000</Price>
+    <Slots>5</Slots>
+    <INT>3</INT>
+    <WDef>19</WDef>
+    <MDef>9</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Lapiz Sandals</Name>
+    <Price>80000</Price>
+    <Slots>5</Slots>
+    <INT>2</INT>
+    <LUK>2</LUK>
+    <MAtk>1</MAtk>
+    <WDef>27</WDef>
+    <MDef>13</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

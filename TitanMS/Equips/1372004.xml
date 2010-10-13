@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Ice Wand</Name>
+    <Price>9000</Price>
+    <Slots>7</Slots>
+    <WAtk>24</WAtk>
+    <MAtk>38</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

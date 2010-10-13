@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Independence Day Hat</Name>
+    <Price>1000</Price>
+    <Slots>7</Slots>
+    <WDef>10</WDef>
+    <MDef>10</MDef>
+    <Jump>2</Jump>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

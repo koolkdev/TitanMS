@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Bosshunter Helm</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <STR>3</STR>
+    <DEX>3</DEX>
+    <HP>100</HP>
+    <WDef>75</WDef>
+    <MDef>20</MDef>
+    <Acc>8</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

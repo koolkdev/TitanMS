@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Stirge Grappler</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>73</WAtk>
+    <Jump>13</Jump>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

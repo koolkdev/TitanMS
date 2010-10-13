@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Stirgeman Utility Skirt Mk II</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WDef>20</WDef>
+    <MDef>5</MDef>
+    <Avo>1</Avo>
+    <Jump>1</Jump>
+    <Speed>1</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

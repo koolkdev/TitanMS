@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dawn Raven&apos;s Wing </Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <STR>4</STR>
+    <WAtk>99</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

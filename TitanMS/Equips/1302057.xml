@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>The Stars and Stripes</Name>
+    <Price>0</Price>
+    <Slots>7</Slots>
+    <STR>10</STR>
+    <WAtk>30</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

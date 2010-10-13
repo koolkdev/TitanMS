@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Swooping Stirge</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>78</WAtk>
+    <MAtk>80</MAtk>
+    <Speed>13</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

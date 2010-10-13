@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Brown Sonata</Name>
+    <Price>40000</Price>
+    <Slots>7</Slots>
+    <LUK>3</LUK>
+    <WDef>33</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

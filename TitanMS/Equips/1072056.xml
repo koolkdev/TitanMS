@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Whitebottom Boots</Name>
+    <Price>7500</Price>
+    <Slots>5</Slots>
+    <WDef>13</WDef>
+    <Speed>3</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

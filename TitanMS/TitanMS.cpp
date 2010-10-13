@@ -36,11 +36,15 @@
 #include "AngelScriptEngine.h"
 #include "Run.h"
 #include "Tools.h"
+#include <algorithm>
 using namespace Tools;
 
 int main(){ 
-	int Version = 74;
-
+ 
+	int Version = 83;
+	int a =  0x51EB851F ;
+	float b = (*((float*)(&a)));
+	float c = 100 * b;
 	printf("Initializing Angel Script Engine... ");
 	if(AngelScriptEngine::Initialize())
 		printf("DONE\n");

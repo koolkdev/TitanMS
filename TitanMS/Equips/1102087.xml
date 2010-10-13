@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Green Gaia Cape</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <WDef>22</WDef>
+    <MDef>18</MDef>
+    <Avo>5</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

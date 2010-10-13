@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Purple Osfa Hat</Name>
+    <Price>115000</Price>
+    <Slots>7</Slots>
+    <STR>2</STR>
+    <LUK>3</LUK>
+    <WDef>57</WDef>
+    <Avo>1</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

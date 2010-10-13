@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Daiwa Sword</Name>
+    <Price>240000</Price>
+    <Slots>7</Slots>
+    <DEX>2</DEX>
+    <WAtk>82</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

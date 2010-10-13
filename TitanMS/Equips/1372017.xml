@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Streetlight</Name>
+    <Price>1000</Price>
+    <Slots>7</Slots>
+    <INT>1</INT>
+    <WAtk>38</WAtk>
+    <MAtk>56</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

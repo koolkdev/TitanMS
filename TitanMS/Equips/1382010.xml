@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dark Ritual</Name>
+    <Price>250000</Price>
+    <Slots>7</Slots>
+    <WAtk>59</WAtk>
+    <MAtk>90</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

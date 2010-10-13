@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Flamekeeper Cordon </Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <MAtk>8</MAtk>
+    <Acc>20</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

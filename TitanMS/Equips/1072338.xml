@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Purple Snowshoes</Name>
+    <Price>14500</Price>
+    <Slots>7</Slots>
+    <WDef>18</WDef>
+    <MDef>5</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

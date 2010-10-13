@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Fork on a Stick</Name>
+    <Price>3500</Price>
+    <Slots>7</Slots>
+    <WAtk>37</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

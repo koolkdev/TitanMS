@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Duke</Name>
+    <Price>25000</Price>
+    <Slots>7</Slots>
+    <DEX>1</DEX>
+    <WDef>40</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

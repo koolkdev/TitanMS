@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Pink Adventurer Cape</Name>
+    <Price>50000</Price>
+    <Slots>5</Slots>
+    <WAtk>2</WAtk>
+    <WDef>7</WDef>
+    <MDef>7</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

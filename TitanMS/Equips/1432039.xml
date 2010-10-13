@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Fishing Pole</Name>
+    <Price>120000</Price>
+    <Slots>7</Slots>
+    <WAtk>67</WAtk>
+    <Acc>15</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

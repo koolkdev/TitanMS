@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Metus</Name>
+    <Price>400000</Price>
+    <Slots>7</Slots>
+    <WAtk>90</WAtk>
+    <Speed>11</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

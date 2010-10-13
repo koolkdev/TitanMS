@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Versalmas Cactus</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <HP>100</HP>
+    <WAtk>54</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

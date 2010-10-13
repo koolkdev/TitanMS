@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Spider Venom Earrings</Name>
+    <Price>170000</Price>
+    <Slots>5</Slots>
+    <WDef>5</WDef>
+    <MDef>75</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

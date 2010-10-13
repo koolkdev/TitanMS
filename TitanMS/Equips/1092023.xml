@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Steel Aquila Shield</Name>
+    <Price>220000</Price>
+    <Slots>7</Slots>
+    <WDef>60</WDef>
+    <MDef>25</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

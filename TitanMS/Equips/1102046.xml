@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Musketeer Cape</Name>
+    <Price>340000</Price>
+    <Slots>5</Slots>
+    <WDef>37</WDef>
+    <MDef>42</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

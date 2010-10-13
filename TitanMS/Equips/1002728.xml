@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Rudolph&apos;s Horn</Name>
+    <Price>1</Price>
+    <Slots>3</Slots>
+    <STR>4</STR>
+    <DEX>4</DEX>
+    <INT>4</INT>
+    <LUK>4</LUK>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

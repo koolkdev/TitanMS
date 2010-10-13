@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Star gem Wedding Ring</Name>
+    <Price>0</Price>
+    <Slots>3</Slots>
+    <MDef>30</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

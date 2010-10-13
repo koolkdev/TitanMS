@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Crimson Arcglaive</Name>
+    <Price>1200000</Price>
+    <Slots>7</Slots>
+    <STR>2</STR>
+    <WAtk>102</WAtk>
+    <MAtk>89</MAtk>
+    <Speed>5</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

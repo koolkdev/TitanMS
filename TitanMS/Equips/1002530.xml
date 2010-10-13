@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Grace Helmet</Name>
+    <Price>210000</Price>
+    <Slots>7</Slots>
+    <STR>2</STR>
+    <WDef>90</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

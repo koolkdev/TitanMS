@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Arten</Name>
+    <Price>40000</Price>
+    <Slots>5</Slots>
+    <INT>1</INT>
+    <WDef>14</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

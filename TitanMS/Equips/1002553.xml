@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Genesis Bandana</Name>
+    <Price>0</Price>
+    <Slots>7</Slots>
+    <STR>1</STR>
+    <DEX>1</DEX>
+    <INT>1</INT>
+    <LUK>1</LUK>
+    <WDef>15</WDef>
+    <Cash>0</Cash>
+    <Quest>1</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

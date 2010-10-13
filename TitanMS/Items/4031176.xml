@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Item>
+    <Name>Piece of Cracked Dimension A</Name>
+    <Type>4</Type>
+    <Price>1</Price>
+    <UnitPrice>0.000000e+000</UnitPrice>
+    <MaxSlot>100</MaxSlot>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+    <NotSale>0</NotSale>
+    <Only>0</Only>
+    <ExpireOnLogout>0</ExpireOnLogout>
+    <Consume>0</Consume>
+    <Bullet>0</Bullet>
+</Item>

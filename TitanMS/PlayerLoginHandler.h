@@ -33,7 +33,7 @@ private:
 	static const short HANDLE_LOGIN = 0x09;
 	static const short SHOW_WORLD = 0xB;
 	static const short WORLD_BACK = 0x4;
-	static const short CHARACTER_SELECT = 0x13;
+	static const short CHARACTER_SELECT = 0x1D;
 	static const short NAME_CHECK = 0x15;
 	static const short CREATE_CHARACTER = 0x16;
 	static const short DELETE_CHARACTER = 0x17;

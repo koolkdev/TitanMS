@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Umbrella</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>73</WAtk>
+    <Jump>3</Jump>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

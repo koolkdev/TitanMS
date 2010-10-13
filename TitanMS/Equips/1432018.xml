@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Sky Ski</Name>
+    <Price>20000</Price>
+    <Slots>7</Slots>
+    <WAtk>94</WAtk>
+    <Acc>10</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Tiberian</Name>
+    <Price>10000</Price>
+    <Slots>7</Slots>
+    <HP>5</HP>
+    <WDef>18</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

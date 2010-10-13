@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Bath Towel (Black)</Name>
+    <Price>500</Price>
+    <Slots>10</Slots>
+    <DEX>3</DEX>
+    <WDef>20</WDef>
+    <Speed>5</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

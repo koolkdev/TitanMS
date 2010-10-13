@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Wizard Staff</Name>
+    <Price>10000</Price>
+    <Slots>7</Slots>
+    <WAtk>29</WAtk>
+    <MAtk>40</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

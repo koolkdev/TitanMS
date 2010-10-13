@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Varuna</Name>
+    <Price>240000</Price>
+    <Slots>10</Slots>
+    <INT>6</INT>
+    <LUK>4</LUK>
+    <MP>45</MP>
+    <WDef>84</WDef>
+    <MDef>42</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

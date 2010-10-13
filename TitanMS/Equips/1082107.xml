@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Gold Eyes</Name>
+    <Price>150000</Price>
+    <Slots>5</Slots>
+    <DEX>3</DEX>
+    <WDef>27</WDef>
+    <Avo>1</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

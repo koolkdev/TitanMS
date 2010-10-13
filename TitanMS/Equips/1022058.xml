@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Raccoon Mask</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <MDef>2</MDef>
+    <Acc>1</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

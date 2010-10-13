@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Crushed Skull</Name>
+    <Price>1500000</Price>
+    <Slots>7</Slots>
+    <WAtk>115</WAtk>
+    <Acc>12</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

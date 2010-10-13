@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Brown Cotton Lagger</Name>
+    <Price>4000</Price>
+    <Slots>10</Slots>
+    <STR>1</STR>
+    <MP>5</MP>
+    <WDef>20</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

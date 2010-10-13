@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Silver / Black Stealer Pants</Name>
+    <Price>20000</Price>
+    <Slots>7</Slots>
+    <MP>10</MP>
+    <WDef>21</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

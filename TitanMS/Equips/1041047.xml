@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Steal</Name>
+    <Price>22500</Price>
+    <Slots>7</Slots>
+    <HP>20</HP>
+    <WDef>26</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Stirgeman Power Pants</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <HP>10</HP>
+    <MP>15</MP>
+    <WDef>59</WDef>
+    <MDef>30</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

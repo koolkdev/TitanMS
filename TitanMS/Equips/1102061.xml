@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Oxygen Tank</Name>
+    <Price>32000</Price>
+    <Slots>5</Slots>
+    <WDef>5</WDef>
+    <MDef>5</MDef>
+    <Cash>0</Cash>
+    <Quest>1</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

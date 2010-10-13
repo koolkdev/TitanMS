@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Anakarune</Name>
+    <Price>100000</Price>
+    <Slots>10</Slots>
+    <INT>1</INT>
+    <LUK>5</LUK>
+    <MP>25</MP>
+    <WDef>52</WDef>
+    <MDef>26</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Mystic Shield</Name>
+    <Price>30000</Price>
+    <Slots>7</Slots>
+    <INT>1</INT>
+    <WDef>10</WDef>
+    <MDef>10</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

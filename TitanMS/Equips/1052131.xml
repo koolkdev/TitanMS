@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Belly Duke</Name>
+    <Price>240000</Price>
+    <Slots>10</Slots>
+    <STR>7</STR>
+    <DEX>3</DEX>
+    <WDef>105</WDef>
+    <Avo>2</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

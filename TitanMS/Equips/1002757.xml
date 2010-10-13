@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>football steel helmet</Name>
+    <Price>5250</Price>
+    <Slots>7</Slots>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Arnah Cap</Name>
+    <Price>130000</Price>
+    <Slots>7</Slots>
+    <STR>2</STR>
+    <DEX>4</DEX>
+    <MP>20</MP>
+    <WDef>63</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

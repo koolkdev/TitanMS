@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Glitter Gloves</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <INT>2</INT>
+    <MP>200</MP>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

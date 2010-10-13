@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Seal Cushion</Name>
+    <Price>1500</Price>
+    <Slots>7</Slots>
+    <STR>5</STR>
+    <WAtk>102</WAtk>
+    <Acc>1</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

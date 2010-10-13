@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Pumpkin Spear</Name>
+    <Price>1000</Price>
+    <Slots>7</Slots>
+    <STR>1</STR>
+    <WAtk>47</WAtk>
+    <Acc>15</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

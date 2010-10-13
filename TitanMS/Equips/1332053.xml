@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Kebob</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <HP>50</HP>
+    <WAtk>82</WAtk>
+    <MAtk>90</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

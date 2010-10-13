@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<Item>
+    <Name>&amp;#52488;&amp;#48372;&amp;#32;&amp;#54644;&amp;#51201;&amp;#51032;&amp;#32;&amp;#48520;&amp;#47551;</Name>
+    <Type>2</Type>
+    <Price>20000</Price>
+    <UnitPrice>0.000000e+000</UnitPrice>
+    <MaxSlot>600</MaxSlot>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+    <NotSale>0</NotSale>
+    <Only>0</Only>
+    <ExpireOnLogout>0</ExpireOnLogout>
+    <Consume>1</Consume>
+    <Bullet>1</Bullet>
+    <Effect>
+        <HP>0</HP>
+        <MP>0</MP>
+        <HPR>0</HPR>
+        <MPR>0</MPR>
+        <moveTo>0</moveTo>
+        <success>0</success>
+        <cursed>0</cursed>
+        <recover>0</recover>
+        <randstat>0</randstat>
+        <Time>0</Time>
+        <iSTR>0</iSTR>
+        <iDEX>0</iDEX>
+        <iINT>0</iINT>
+        <iLUK>0</iLUK>
+        <iHP>0</iHP>
+        <iMP>0</iMP>
+        <iWAtk>10</iWAtk>
+        <iMAtk>0</iMAtk>
+        <iWDef>0</iWDef>
+        <iMDef>0</iMDef>
+        <iAcc>0</iAcc>
+        <iAvo>0</iAvo>
+        <iHand>0</iHand>
+        <iJump>0</iJump>
+        <iSpeed>0</iSpeed>
+        <ItemOnMap>0</ItemOnMap>
+        <Msg></Msg>
+        <Morph>0</Morph>
+        <Fullness>0</Fullness>
+        <Thaw>0</Thaw>
+        <MasterLevel>0</MasterLevel>
+        <ReqSkillLevel>-858993460</ReqSkillLevel>
+        <Skills />
+        <Mobs />
+    </Effect>
+</Item>

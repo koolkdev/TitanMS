@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Brown Apprentice Hat</Name>
+    <Price>600</Price>
+    <Slots>7</Slots>
+    <WDef>5</WDef>
+    <MDef>15</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

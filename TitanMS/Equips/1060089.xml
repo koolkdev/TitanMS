@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dark Scorpio Pants</Name>
+    <Price>70000</Price>
+    <Slots>7</Slots>
+    <LUK>2</LUK>
+    <WDef>39</WDef>
+    <Avo>1</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

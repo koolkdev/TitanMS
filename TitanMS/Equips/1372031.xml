@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Heart Staff</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <INT>2</INT>
+    <HP>50</HP>
+    <WAtk>45</WAtk>
+    <MAtk>68</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

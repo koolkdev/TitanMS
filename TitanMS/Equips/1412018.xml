@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>The Shining</Name>
+    <Price>190000</Price>
+    <Slots>5</Slots>
+    <STR>5</STR>
+    <WAtk>92</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Maple Storm Finger</Name>
+    <Price>75000</Price>
+    <Slots>7</Slots>
+    <STR>3</STR>
+    <WAtk>46</WAtk>
+    <Acc>20</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

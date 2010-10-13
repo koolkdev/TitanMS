@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Crystal Wand</Name>
+    <Price>160000</Price>
+    <Slots>7</Slots>
+    <WAtk>33</WAtk>
+    <MAtk>53</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

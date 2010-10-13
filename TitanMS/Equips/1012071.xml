@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Chocolate Icecream Bar</Name>
+    <Price>10000</Price>
+    <Slots>0</Slots>
+    <STR>3</STR>
+    <DEX>3</DEX>
+    <INT>3</INT>
+    <LUK>3</LUK>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

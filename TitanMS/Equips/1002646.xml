@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Polax Hat</Name>
+    <Price>130000</Price>
+    <Slots>7</Slots>
+    <STR>4</STR>
+    <DEX>2</DEX>
+    <WDef>63</WDef>
+    <Avo>1</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

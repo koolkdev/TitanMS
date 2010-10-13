@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Steal Pow</Name>
+    <Price>120000</Price>
+    <Slots>5</Slots>
+    <DEX>1</DEX>
+    <LUK>2</LUK>
+    <MP>15</MP>
+    <WDef>22</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

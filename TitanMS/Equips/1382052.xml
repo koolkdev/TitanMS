@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Elemental Staff 8</Name>
+    <Price>190000</Price>
+    <Slots>7</Slots>
+    <LUK>3</LUK>
+    <WAtk>108</WAtk>
+    <MAtk>178</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

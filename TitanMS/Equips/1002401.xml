@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dark Varr Hat</Name>
+    <Price>125000</Price>
+    <Slots>7</Slots>
+    <INT>5</INT>
+    <MP>40</MP>
+    <WDef>52</WDef>
+    <MDef>80</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

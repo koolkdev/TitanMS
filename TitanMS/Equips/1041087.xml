@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Shouldermail</Name>
+    <Price>75000</Price>
+    <Slots>7</Slots>
+    <STR>3</STR>
+    <DEX>1</DEX>
+    <WDef>55</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

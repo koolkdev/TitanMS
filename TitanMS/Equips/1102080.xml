@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Ragged Blue Cape</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <MDef>1</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

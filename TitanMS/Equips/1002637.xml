@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Pirate&apos;s Bandana</Name>
+    <Price>85000</Price>
+    <Slots>7</Slots>
+    <STR>3</STR>
+    <DEX>1</DEX>
+    <WDef>45</WDef>
+    <Avo>1</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

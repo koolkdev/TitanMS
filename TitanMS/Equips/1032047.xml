@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Coke Earring</Name>
+    <Price>10000</Price>
+    <Slots>5</Slots>
+    <HP>10</HP>
+    <MP>10</MP>
+    <MDef>15</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

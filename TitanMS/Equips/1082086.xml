@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Steel Manute</Name>
+    <Price>105000</Price>
+    <Slots>5</Slots>
+    <INT>1</INT>
+    <LUK>1</LUK>
+    <WDef>22</WDef>
+    <MDef>3</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

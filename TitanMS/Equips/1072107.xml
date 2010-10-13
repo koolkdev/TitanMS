@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Red-Lined Shoes</Name>
+    <Price>35000</Price>
+    <Slots>5</Slots>
+    <LUK>2</LUK>
+    <MP>5</MP>
+    <WDef>22</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

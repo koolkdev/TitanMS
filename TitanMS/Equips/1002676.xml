@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Infinity Circlet</Name>
+    <Price>1</Price>
+    <Slots>8</Slots>
+    <INT>3</INT>
+    <LUK>3</LUK>
+    <WDef>25</WDef>
+    <MDef>35</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

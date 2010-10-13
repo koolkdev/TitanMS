@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Wizard Wand</Name>
+    <Price>70000</Price>
+    <Slots>7</Slots>
+    <INT>5</INT>
+    <WAtk>30</WAtk>
+    <MAtk>58</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

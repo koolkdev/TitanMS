@@ -55,11 +55,7 @@ PacketWriter* PacketCreator::loginConnect(char gender, string username, bool fir
 	pw.write(0);
 	pw.write(0);
 	pw.writeString(username);
-	pw.write(0);
-	pw.write(0);
-	pw.writeLong(0);
-	pw.writeLong(0);
-	pw.writeInt(0);
+	pw.writeBytes("0000000000000000000000B86D704CBACA01000000000100");
 	return &pw;
 }
 PacketWriter* PacketCreator::processOk(){
@@ -107,12 +103,17 @@ PacketWriter* PacketCreator::showChannels(){
 PacketWriter* PacketCreator::showCharacters(vector <Character*>& chars){
 	pw.writeShort(SHOW_CHARACTERS);
 
+	/*
 	pw.write(0);
 	pw.write(chars.size());
 	for(int i=0; i<(int)chars.size(); i++){
 		showCharacter(chars[i]);
 	}
-	pw.writeInt(3); //
+	pw.write
+	pw.write(0); //
+	pw.writeInt(3); //*/
+	pw.writeBytes("0001069C0700657232316161007CC8077F03000002B24F00004675000000000000000000000000000000000000000000000000000001D0070C000500040004003200320005000500000000000000000000000000000080887A3600000000000002B24F0000004675000005F7E60F0006E334100007FF5C10000B1F011600FFFF0000000000000000000000000000000000000003000000");
+
 	return &pw;
 }
 void PacketCreator::showCharacter(Character* character){

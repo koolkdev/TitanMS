@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Stirgeman Cape Mk IV</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <STR>2</STR>
+    <DEX>2</DEX>
+    <LUK>2</LUK>
+    <WDef>10</WDef>
+    <MDef>10</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Seraphis</Name>
+    <Price>50000</Price>
+    <Slots>7</Slots>
+    <INT>2</INT>
+    <LUK>2</LUK>
+    <WDef>30</WDef>
+    <MDef>60</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dark Arten</Name>
+    <Price>45000</Price>
+    <Slots>5</Slots>
+    <INT>3</INT>
+    <WDef>16</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

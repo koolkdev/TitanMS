@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Bennis Chainpants</Name>
+    <Price>6500</Price>
+    <Slots>7</Slots>
+    <DEX>1</DEX>
+    <WDef>18</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

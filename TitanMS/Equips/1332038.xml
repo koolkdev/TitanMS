@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Reef Claw</Name>
+    <Price>20000</Price>
+    <Slots>5</Slots>
+    <LUK>2</LUK>
+    <WAtk>55</WAtk>
+    <Acc>5</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

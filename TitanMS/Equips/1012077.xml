@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Crying Mask</Name>
+    <Price>1</Price>
+    <Slots>0</Slots>
+    <Jump>5</Jump>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

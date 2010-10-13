@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Starry Bandana</Name>
+    <Price>3000</Price>
+    <Slots>7</Slots>
+    <WDef>25</WDef>
+    <Jump>3</Jump>
+    <Speed>3</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

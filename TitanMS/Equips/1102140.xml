@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Alcadno&apos;s Cape</Name>
+    <Price>200000</Price>
+    <Slots>5</Slots>
+    <HP>15</HP>
+    <WDef>28</WDef>
+    <MDef>33</MDef>
+    <Jump>3</Jump>
+    <Speed>7</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

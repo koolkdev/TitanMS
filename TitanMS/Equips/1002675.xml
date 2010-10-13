@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Antellion Miter</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <HP>20</HP>
+    <MP>20</MP>
+    <WDef>25</WDef>
+    <MDef>17</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

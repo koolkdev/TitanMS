@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Mystic Cane</Name>
+    <Price>200000</Price>
+    <Slots>7</Slots>
+    <WAtk>42</WAtk>
+    <MAtk>67</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

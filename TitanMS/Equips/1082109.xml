@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Cordon</Name>
+    <Price>200000</Price>
+    <Slots>5</Slots>
+    <STR>1</STR>
+    <DEX>2</DEX>
+    <MP>10</MP>
+    <WDef>30</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

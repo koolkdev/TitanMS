@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Flower decoration celebrating wedding anniversary</Name>
+    <Price>100</Price>
+    <Slots>0</Slots>
+    <WDef>25</WDef>
+    <MDef>15</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

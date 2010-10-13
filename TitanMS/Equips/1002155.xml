@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>White Guiltian</Name>
+    <Price>30000</Price>
+    <Slots>7</Slots>
+    <MAtk>2</MAtk>
+    <WDef>18</WDef>
+    <MDef>50</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

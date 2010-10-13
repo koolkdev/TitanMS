@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Arcina</Name>
+    <Price>265000</Price>
+    <Slots>5</Slots>
+    <STR>2</STR>
+    <DEX>5</DEX>
+    <MP>20</MP>
+    <WDef>39</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

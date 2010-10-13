@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Korean Fan</Name>
+    <Price>40000</Price>
+    <Slots>7</Slots>
+    <WAtk>50</WAtk>
+    <Acc>5</Acc>
+    <Avo>5</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

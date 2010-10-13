@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Umaru</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>20</WAtk>
+    <MAtk>32</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

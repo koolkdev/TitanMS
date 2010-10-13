@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Green Varr Shoes</Name>
+    <Price>140000</Price>
+    <Slots>5</Slots>
+    <INT>3</INT>
+    <LUK>3</LUK>
+    <WDef>39</WDef>
+    <MDef>19</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

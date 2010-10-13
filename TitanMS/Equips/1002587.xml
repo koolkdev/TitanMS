@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Old Wisconsin</Name>
+    <Price>100</Price>
+    <Slots>10</Slots>
+    <HP>20</HP>
+    <MP>20</MP>
+    <WDef>12</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

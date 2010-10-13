@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Flame</Name>
+    <Price>490000</Price>
+    <Slots>7</Slots>
+    <WAtk>108</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

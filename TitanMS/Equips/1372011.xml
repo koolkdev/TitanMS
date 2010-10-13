@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Zhu-Ge-Liang Wand</Name>
+    <Price>170000</Price>
+    <Slots>7</Slots>
+    <INT>2</INT>
+    <LUK>1</LUK>
+    <WAtk>41</WAtk>
+    <MAtk>66</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

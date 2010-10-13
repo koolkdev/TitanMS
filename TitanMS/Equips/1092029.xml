@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Esther Shield</Name>
+    <Price>65000</Price>
+    <Slots>7</Slots>
+    <INT>1</INT>
+    <WDef>15</WDef>
+    <MDef>20</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

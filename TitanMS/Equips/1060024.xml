@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dark Nightshift Pants</Name>
+    <Price>2400</Price>
+    <Slots>7</Slots>
+    <HP>5</HP>
+    <WDef>12</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

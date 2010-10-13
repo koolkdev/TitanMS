@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Steel Pipe</Name>
+    <Price>1500</Price>
+    <Slots>7</Slots>
+    <WAtk>29</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Akha</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WAtk>30</WAtk>
+    <Avo>2</Avo>
+    <Speed>1</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Bathrobe for Men</Name>
+    <Price>15000</Price>
+    <Slots>10</Slots>
+    <WDef>20</WDef>
+    <Speed>10</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

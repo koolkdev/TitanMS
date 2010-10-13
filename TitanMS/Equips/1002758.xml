@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Maple Hat (level 4)</Name>
+    <Price>40000</Price>
+    <Slots>7</Slots>
+    <STR>4</STR>
+    <DEX>4</DEX>
+    <INT>4</INT>
+    <LUK>4</LUK>
+    <HP>17</HP>
+    <MP>17</MP>
+    <WDef>57</WDef>
+    <MDef>70</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

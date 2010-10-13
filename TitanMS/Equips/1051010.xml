@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Dark Engrit</Name>
+    <Price>30000</Price>
+    <Slots>10</Slots>
+    <STR>3</STR>
+    <WDef>52</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

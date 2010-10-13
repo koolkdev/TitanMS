@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Stirgeman Utility Pants Mk V</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <WDef>50</WDef>
+    <MDef>15</MDef>
+    <Avo>2</Avo>
+    <Jump>2</Jump>
+    <Speed>5</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

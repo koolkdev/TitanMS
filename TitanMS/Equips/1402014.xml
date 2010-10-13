@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Thermometer</Name>
+    <Price>80000</Price>
+    <Slots>7</Slots>
+    <MP>80</MP>
+    <WAtk>30</WAtk>
+    <WDef>10</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Green Plain Robe</Name>
+    <Price>3500</Price>
+    <Slots>10</Slots>
+    <HP>15</HP>
+    <WDef>16</WDef>
+    <MDef>8</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

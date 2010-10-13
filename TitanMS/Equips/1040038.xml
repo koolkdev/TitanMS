@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Lolico Armor</Name>
+    <Price>1600</Price>
+    <Slots>7</Slots>
+    <WDef>15</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

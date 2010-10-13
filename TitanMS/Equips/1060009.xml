@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Steel Corporal Pants</Name>
+    <Price>2500</Price>
+    <Slots>7</Slots>
+    <HP>5</HP>
+    <WDef>16</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>
