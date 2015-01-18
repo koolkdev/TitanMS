@@ -35,8 +35,8 @@ class EventData;
 
 class Initializing {
 public:
-	static bool initializing();
-	static bool initializeSettings();
+	static void initializing();
+	static void initializeSettings();
 	static void initializeMobs();
 	static void initializeNPCsScripts();
 	static void initializeMobsDrops();

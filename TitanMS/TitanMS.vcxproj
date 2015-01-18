@@ -37,7 +37,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
@@ -146,7 +146,6 @@
     <ClCompile Include="ReactorHandler.cpp" />
     <ClCompile Include="SkillsHandler.cpp" />
     <ClCompile Include="StatsHandler.cpp" />
-    <ClCompile Include="BuddyList.cpp" />
     <ClCompile Include="Channel.cpp" />
     <ClCompile Include="Channels.cpp" />
     <ClCompile Include="Damage.cpp" />
@@ -187,8 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AntiCheat.h" />
-    <ClInclude Include="Buddy.h" />
-    <ClInclude Include="BuddyList.h" />
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Channel.h" />
     <ClInclude Include="Channels.h" />
@@ -319,7 +316,7 @@
     <ClInclude Include="RemoteControlHandler.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AngelScript\angelscript.vcxproj">
+    <ProjectReference Include="..\angelscript\angelscript.vcxproj">
       <Project>{39e6af97-6ba3-4a72-8c61-bcebf214ebfd}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

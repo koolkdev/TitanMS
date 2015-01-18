@@ -55,6 +55,7 @@ using namespace std;
 
 class PacketCreator{
 private:
+
 	static const short PING = 0x11;
 
 	// Remote Control
@@ -73,45 +74,45 @@ private:
 	static const short REMOVE_CHARACTER = 0x0F;
 	static const short LOG_BACK = 0x16;
 	// Drops
-	static const short SHOW_DROP = 0xEE;
-	static const short REMOVE_DROP = 0xEF;
-	static const short SHOW_GAIN = 0xBC;
+	static const short SHOW_DROP = 0xCC;
+	static const short REMOVE_DROP = 0xCD;
+	static const short SHOW_GAIN = 0x24;
 	// Inventory
-	static const short INVENTORY_CHANGE = 0x1B;
-	static const short USE_PET = 0x9E;
-	static const short PET_MOVE = 0x9B;
-	static const short PET_TEXT = 0x9C;
-	static const short PET_COMMAND_REPLAY = 0x9F; 
+	static const short INVENTORY_CHANGE = 0x1A;
+	static const short USE_PET = 0x7E;
+	static const short PET_MOVE = 0x80;
+	static const short PET_TEXT = 0x81;
+	static const short PET_COMMAND_REPLAY = 0x84; 
 	// Stats
 	static const short STATS_UPDATE = 0x1C;
 	static const short ADD_SKILL = 0x21;
 	// Maps
-	static const short CHANGE_MAP = 0x72;
-	static const short SHOW_PLAYER = 0x91;
-	static const short REMOVE_PLAYER = 0x92;
-	static const short MAP_EFFECT = 0x7E;
-	static const short MAP_WEATHER = 0x7F;
-	static const short SHOW_TIMER = 0x87;
-	static const short SHOW_SHIP1 = 0x88;
-	static const short SHOW_SHIP0 = 0x89;
+	static const short CHANGE_MAP = 0x5B;
+	static const short SHOW_PLAYER = 0x77;
+	static const short REMOVE_PLAYER = 0x78;
+	static const short MAP_EFFECT = 0x67;
+	static const short MAP_WEATHER = 0x68;
+	static const short SHOW_TIMER = 0x6D;
+	static const short SHOW_SHIP1 = 0x6E;
+	static const short SHOW_SHIP0 = 0x6F;
 	// Mobs
-	static const short DAMAGE_REGULAR = 0xA8;
-	static const short DAMAGE_RANGED = 0xA9;
-	static const short DAMAGE_MAGIC = 0xAA;
+	static const short DAMAGE_REGULAR = 0x8D;
+	static const short DAMAGE_RANGED = 0x8E;
+	static const short DAMAGE_MAGIC = 0x8F;
 	static const short DAMAGE_MOB = 0x91; // to find
 	static const short MOB_SKILL = 0x92; // to find
-	static const short SPAWN_MOB = 0xD0;
-	static const short REMOVE_MOB = 0xD1;
-	static const short CONTROL_MOB = 0xD2;
-	static const short MOVE_MOB = 0xD3;
-	static const short MOVE_MOB_RESPONSE = 0xD4;
-	static const short SHOW_MOB_HP = 0xDE;
-	static const short DAMAGE_BY_MOB = 0xB8; // to find
+	static const short SPAWN_MOB = 0xAE;
+	static const short REMOVE_MOB = 0xAF;
+	static const short CONTROL_MOB = 0xB0;
+	static const short MOVE_MOB = 0xB1;
+	static const short MOVE_MOB_RESPONSE = 0xB2;
+	static const short SHOW_MOB_HP = 0xBC;
+	static const short DAMAGE_BY_MOB = 0xB8;
 	// NPCs
-	static const short SHOW_NPC = 0xE3;
-	static const short NPC_TALK = 0x10E;
-	static const short SHOW_SHOP = 0x10F;
-	static const short BUY_RESONSE = 0x110;
+	static const short SHOW_NPC = 0xC1;
+	static const short NPC_TALK = 0xEB;
+	static const short SHOW_SHOP = 0xEC;
+	static const short BUY_RESONSE = 0xED;
 	// Player
 	static const short UPDATE_LOOK = 0x97;
 	static const short SCROLL_EFFECT = 0x7D;

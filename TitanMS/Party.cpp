@@ -42,7 +42,7 @@ Party::Party(int id, int leader){
 }
 Party::~Party(){
 	MySQL::getInstance()->getDataBase()->query("delete from party where id=" + valstr(id)).execute();
-	struct {
+	struct RemoveParty {
 		void operator()(Player* player){
 			player->setParty(NULL);
 		}

@@ -52,10 +52,6 @@ void PlayerLoginHandler::loadPackets(){
 void PlayerLoginHandler::pingHandle(PacketReader& packet){
 }
 void PlayerLoginHandler::loginRequestHandle(PacketReader& packet){
-	//player->send(PacketCreator().loginConnect(0, packet.readString()));
-	//packet.readString();
-	player->send(PacketCreator().loginConnect(0, packet.readString()));
-	return;
 	string username, password;
 	username = packet.readString();
 	password = packet.readString();
@@ -85,9 +81,9 @@ void PlayerLoginHandler::loginRequestHandle(PacketReader& packet){
 	else{
 		short error = 0;
 		switch(s){
-			case -2: error=7; break;
-			case -1: error=5; break;
-			case 0: error=4; break;
+			case -2: error=7;break;
+			case -1: error=5;break;
+			case 0: error=4;break;
 		}
 		player->send(PacketCreator().loginError(error));
 	}
@@ -120,7 +116,6 @@ void PlayerLoginHandler::loginHandle(PacketReader& packet){
 		//checkPin(player, packet);
 	else if(status == 4)
 		player->send(PacketCreator().loginProcess(0x00));
-	PacketCreator().loginProcess(0x00);
 }
 void PlayerLoginHandler::showWorldRequestHandle(PacketReader& packet){
 	for(int i=0; i<Worlds::getInstance()->getWorldsCount(); i++){
@@ -131,8 +126,8 @@ void PlayerLoginHandler::showWorldRequestHandle(PacketReader& packet){
 }
 void PlayerLoginHandler::characterSelectHandle(PacketReader& packet){
 	int id = packet.readInt();
-	//if(player->getCharacter(id) == NULL) return;
-	//MySQL::getInstance()->setString("characters", "ip", id, (char*)player->getIP().c_str());
+	if(player->getCharacter(id) == NULL) return;
+	MySQL::getInstance()->setString("characters", "ip", id, (char*)player->getIP().c_str());
 	Channel* channel = Worlds::getInstance()->getWorld(player->getServer())->getChannels()->getChannel(player->getChannel());
 	if(channel == NULL) return;
 	player->send(PacketCreator().connectChannel(id, channel->getPort()));

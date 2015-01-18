@@ -67,7 +67,7 @@ void Decoder::decrypt(unsigned char *buffer, int size){
 	}
 	MapleEncryption::nextIV(Decoder::ivRecv); 
 	MapleEncryption::mapleDecrypt(buffer, size);
-}
+} 
 
 void Decoder::createHeader (unsigned char* header, short size) {
 	short a = ivSend[3]*0x100 + ivSend[2];
@@ -79,7 +79,6 @@ void Decoder::createHeader (unsigned char* header, short size) {
 	header[3] = (b-header[2])/0x100;
 }
 unsigned char* Decoder::getConnectPacket() {
-	/*
 	(*(int*)ivRecv) = randomInt();
 	(*(int*)ivSend) = randomInt();
 	(*(short*)connectBuffer) = 0x000D;
@@ -87,15 +86,5 @@ unsigned char* Decoder::getConnectPacket() {
 	memcpy_s(connectBuffer+6, 4, ivRecv, 4);
 	memcpy_s(connectBuffer+10, 4, ivSend, 4);
 	connectBuffer[14] = 0x08;
-	*/
-	(*(int*)ivRecv) = randomInt();
-	(*(int*)ivSend) = randomInt();
-	(*(short*)connectBuffer) = 0x000E;
-	(*(short*)(connectBuffer+sizeof(short))) = version;
-	(*(short*)(connectBuffer+sizeof(short)*2)) = 1;
-	(*(char*)(connectBuffer+sizeof(short)*3)) = 50;
-	memcpy_s(connectBuffer+7, 4, ivRecv, 4);
-	memcpy_s(connectBuffer+11, 4, ivSend, 4);
-	connectBuffer[15] = 0x08;
 	return connectBuffer;
 }

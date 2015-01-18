@@ -223,10 +223,8 @@ void PacketCreator::playerInfo(Player* player){
 	pw.writeShort(player->getSP());
 	pw.writeInt(player->getExp());
 	pw.writeShort(player->getFame());
-	pw.writeInt(0);
 	pw.writeInt(player->getMap()->getID());
 	pw.write(player->getMappos());
-	pw.writeInt(0);
 }
 void PacketCreator::playerShow(Player* player, bool smega){
 	pw.write(player->getGender());
@@ -287,7 +285,6 @@ PacketWriter* PacketCreator::connectionData(Player* player){
 	pw.writeShort(CHANGE_MAP);
 
 	pw.writeInt(player->getChannel()->getID());
-
 	pw.write(1);
 	pw.write(1);
 	pw.writeShort(0);
@@ -354,14 +351,7 @@ PacketWriter* PacketCreator::connectionData(Player* player){
 	// VIP Teleport Rock maps
 	for(int i=0; i<10; i++)
 		pw.writeInt(999999999);
-	pw.writeInt(0);
-	pw.write(0);
-
-	pw.writeShort(0);
-	
-	pw.writeInt(0);
-	pw.writeShort(0);
-
+	pw.writeInt(1);
 	pw.writeLong(getLongTime());
 
 	return &pw;

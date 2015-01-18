@@ -27,6 +27,7 @@ class PlayerHandler;
 
 class PlayerHandler : public Handler<PlayerHandler> {
 private:
+
 	static const short CONNECT = 0x14;
 	static const short PING = 0x18;
 	// NPCs

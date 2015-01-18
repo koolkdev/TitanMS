@@ -82,7 +82,7 @@ void PlayerHandler::loadPackets(){
 	handlers[USE_ITEM] = &useItemHandle;
 	handlers[USE_SCROLL] = &useScrollHandle;
 	handlers[USE_RETURN_SCROLL] = &useReturnScrollHandle;
-	//handlers[USE_SUMMON_BAG] = &useSummonBugHandle;
+	handlers[USE_SUMMON_BUG] = &useSummonBugHandle;
 	handlers[CANCEL_ITEM_BUFF] = &cancelItemBuffHandle;
 	handlers[AUTO_ARRANGEMENT] = &autoArrangementHandle;
 	handlers[ADD_STAT] = &addStatHandle;

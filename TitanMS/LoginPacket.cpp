@@ -46,16 +46,20 @@ PacketWriter* PacketCreator::loginConnect(char gender, string username, bool fir
 
 	pw.writeInt(0);
 	pw.writeShort(0);
-	pw.writeInt(0);
+	pw.writeBytes("2A7949");
+	pw.write(0);
 	if(firstlogin)
 		pw.write(0x0A);
 	else
 		pw.write(gender);
-	pw.write(0);
-	pw.write(0);
-	pw.write(0);
+	pw.writeBytes("0465");
 	pw.writeString(username);
-	pw.writeBytes("0000000000000000000000B86D704CBACA01000000000100");
+	pw.writeInt(0);
+	pw.writeInt(0);
+	pw.writeBytes("000000A6B89C2B4CC701");
+	pw.writeInt(8);
+	pw.writeShort(0);
+	pw.write(0);
 	return &pw;
 }
 PacketWriter* PacketCreator::processOk(){
@@ -103,17 +107,12 @@ PacketWriter* PacketCreator::showChannels(){
 PacketWriter* PacketCreator::showCharacters(vector <Character*>& chars){
 	pw.writeShort(SHOW_CHARACTERS);
 
-	/*
 	pw.write(0);
 	pw.write(chars.size());
 	for(int i=0; i<(int)chars.size(); i++){
 		showCharacter(chars[i]);
 	}
-	pw.write
-	pw.write(0); //
-	pw.writeInt(3); //*/
-	pw.writeBytes("0001069C0700657232316161007CC8077F03000002B24F00004675000000000000000000000000000000000000000000000000000001D0070C000500040004003200320005000500000000000000000000000000000080887A3600000000000002B24F0000004675000005F7E60F0006E334100007FF5C10000B1F011600FFFF0000000000000000000000000000000000000003000000");
-
+	pw.writeInt(3); //
 	return &pw;
 }
 void PacketCreator::showCharacter(Character* character){
@@ -145,10 +144,8 @@ void PacketCreator::showCharacter(Character* character){
 	pw.writeShort(character->getSP());
 	pw.writeInt(character->getExp());
 	pw.writeShort(character->getFame());
-	pw.writeInt(0);
 	pw.writeInt(character->getMap());
 	pw.write(character->getMappos());
-	pw.writeInt(0);
 	pw.write(character->getGender());
 	pw.write(character->getSkin());
 	pw.writeInt(character->getFace());

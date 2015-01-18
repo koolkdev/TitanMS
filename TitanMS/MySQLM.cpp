@@ -22,7 +22,6 @@
 #include "MySQLM.h"
 #include <sstream>
 #include <string>
-#include <algorithm>
 #include "Tools.h"
 using namespace Tools;
 using namespace std;
@@ -32,14 +31,9 @@ Connection MySQL::maple_db(false);
 MySQL* MySQL::instance;
 int strval(string& str);
 int MySQL::connectToMySQL(){
-	try {
-		maple_db = mysql_init(NULL);
-		if(!maple_db.connect((char*)database.c_str(), (char*)host.c_str(), (char*)username.c_str(), (char*)password.c_str(), port)){
-			printf(maple_db.error());
-			return 0;
-		}
-	}
-	catch (...){
+	maple_db = mysql_init(NULL);
+	if(!maple_db.connect((char*)database.c_str(), (char*)host.c_str(), (char*)username.c_str(), (char*)password.c_str(), port)){
+		printf(maple_db.error());
 		return 0;
 	}
 	return 1;
@@ -56,7 +50,7 @@ int MySQL::getInt(char* table, int id, char* value){
 }
 int MySQL::getInt(char* table, char* whr, char* wht, char* value){
 	Query query = maple_db.query();
-	query << "SELECT " << value << " FROM " << table << " WHERE " << whr << "=" << "'" << wht << "'";
+	query << "SELECT " << value << " FROM " << table << " WHERE " << whr << "=" << wht;
 	StoreQueryResult res = query.store();
 	if(!res.empty()){
 		return strval(string((res[0][0].c_str())));
@@ -118,9 +112,7 @@ int MySQL::getUserID(char *username){
 	}
 	return 0;
 }
-
 int MySQL::setChar(int userid, string name, int face, int hair, int skin, int gender, int str, int dex, int intt, int luk, int world){
-	//if(std::find(name.begin(), name.end(), 0, badQuery());
 	Query query = maple_db.query();
 	query << "INSERT INTO characters(userid, world, name, face, hair, skin, gender, str, dex, intt, luk) VALUES(" << userid << "," << world << ",'" << name << "'," << face << "," << hair << "," << skin << "," << gender << "," << str << "," << dex << "," << intt << "," << luk << ")";
 	SimpleResult res = query.execute();

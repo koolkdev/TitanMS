@@ -36,15 +36,11 @@
 #include "AngelScriptEngine.h"
 #include "Run.h"
 #include "Tools.h"
-#include <algorithm>
 using namespace Tools;
 
 int main(){ 
- 
-	int Version = 83;
-	int a =  0x51EB851F ;
-	float b = (*((float*)(&a)));
-	float c = 100 * b;
+	int Version = 60;
+
 	printf("Initializing Angel Script Engine... ");
 	if(AngelScriptEngine::Initialize())
 		printf("DONE\n");
@@ -52,11 +48,7 @@ int main(){
 		printf("Failed to create Angel Script engine.\n");
 		return 1;
 	}
-	if(!Initializing::initializing())
-	{
-		printf("FAILED\n");
-		return 1;
-	}
+	Initializing::initializing(); 
 	printf("Initializing Packets... ");
 	PlayerLoginHandler::loadPackets();
 	PlayerHandler::loadPackets();
@@ -67,12 +59,12 @@ int main(){
 	MasterDecoder::Initialize(Worlds::getInstance()->getPassword());
 	printf("DONE\n");
 	printf("Initializing MySQL... ");
-	/*if(MySQL::getInstance()->connectToMySQL())
+	if(MySQL::getInstance()->connectToMySQL())
 		printf("DONE\n");
 	else{
 		printf("FAILED\n");
 		return 1;
-	}*/
+	}
 
 	randomize();
 	WSADATA wsaData;

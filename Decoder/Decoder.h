@@ -37,7 +37,7 @@ private:
 	unsigned char connectBuffer[15];
 
 public:
-	static const int CONNECT_LENGTH = 16;
+	static const int CONNECT_LENGTH = 15;
 	static int getLength (unsigned char* header) {
 		return ((header[0] + header[1]*0x100) ^ (header[2] + header[3]*0x100)); 
 	}

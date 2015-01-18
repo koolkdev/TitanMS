@@ -916,11 +916,11 @@ void Initializing::initializeEvents(){
 		EventsData::getInstance()->registerData(string((char*)FindFileData.cFileName).substr(0, string((char*)FindFileData.cFileName).find('.')));
 	}
 }
-bool Initializing::initializeSettings(){
+void Initializing::initializeSettings(){
 	CMarkup xml;
-	if(!xml.Load("Server.xml")) return false;
+	xml.Load("Server.xml");
 	xml.FindElem();
-	if(xml.GetTagName() != "Server") return false;
+	if(xml.GetTagName() != "Server") return;
 	xml.IntoElem();
 	while(xml.FindElem()){
 		string s = xml.GetTagName();
@@ -943,12 +943,11 @@ bool Initializing::initializeSettings(){
 			xml.OutOfElem();
 		}
 	}
-	return true;
 }
-bool Initializing::initializing(){
+void Initializing::initializing(){
 	printf("Initializing Settings... ");
-	if(initializeSettings()) printf("DONE\n");
-	else return 0;
+	initializeSettings();
+	printf("DONE\n");
 	printf("Initializing Mobs... ");
 	initializeMobs();
 	printf("DONE\n");
@@ -1003,5 +1002,4 @@ bool Initializing::initializing(){
 	printf("Initializing Maps... ");
 	initializeMaps();
 	printf("DONE\n");
-	return true;
 }

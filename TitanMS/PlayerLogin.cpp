@@ -60,7 +60,7 @@ int PlayerLogin::checkLogin(string username, string password){
 		return -1;
 	}
 	string rpassword = MySQL::getInstance()->getString("users", "username",(char*)username.c_str(),"password");
-	if(password == rpassword)
+	if(password == string(rpassword))
 		return 1;
 	return 0;
 }

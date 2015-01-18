@@ -20,7 +20,7 @@
 #ifndef HANDLER_H
 #define HANDLER_H
 
-#include <hash_map> 
+#include <hash_map>
 class PacketReader;
 
 template <class T>
@@ -45,6 +45,6 @@ public:
 protected:
 	static stdext::hash_map <short, handlerf> handlers;
 };
-//template <class T> void Handler<T>::handle(PacketReader& packet);
+template <class T> void Handler<T>::handle(PacketReader& packet);
 
 #endif
