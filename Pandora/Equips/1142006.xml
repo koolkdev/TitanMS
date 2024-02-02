@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Maple Idol Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>6</STR>
+    <DEX>6</DEX>
+    <INT>6</INT>
+    <LUK>6</LUK>
+    <HP>10</HP>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

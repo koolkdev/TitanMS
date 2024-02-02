@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<Map>
+    <returnMap>240000000</returnMap>
+    <fieldType>0</fieldType>
+    <Music>Bgm18/BlackWing</Music>
+    <timeLimit>0</timeLimit>
+    <forcedReturn>999999999</forcedReturn>
+    <decHP>0</decHP>
+    <protectedItem>0</protectedItem>
+    <mobRate>1.000000</mobRate>
+    <Clock>0</Clock>
+    <personalShop>0</personalShop>
+    <NPCs>
+        <NPC>
+            <id>2081013</id>
+            <x>3</x>
+            <cy>26</cy>
+            <fh>1</fh>
+            <rx0>-47</rx0>
+            <rx1>53</rx1>
+            <flip>0</flip>
+        </NPC>
+    </NPCs>
+    <Mobs />
+    <Reactors />
+    <Portals>
+        <Portal>
+            <id>0</id>
+            <from>sp</from>
+            <to></to>
+            <toid>999999999</toid>
+            <type>0</type>
+            <x>-506</x>
+            <y>-9</y>
+            <script></script>
+        </Portal>
+        <Portal>
+            <id>1</id>
+            <from>out00</from>
+            <to>in00</to>
+            <toid>240040510</toid>
+            <type>2</type>
+            <x>-500</x>
+            <y>108</y>
+            <script></script>
+        </Portal>
+    </Portals>
+    <Footholds>
+        <Foothold>
+            <id>1</id>
+            <x1>-85</x1>
+            <y1>26</y1>
+            <x2>91</x2>
+            <y2>26</y2>
+        </Foothold>
+        <Foothold>
+            <id>2</id>
+            <x1>-587</x1>
+            <y1>111</y1>
+            <x2>617</x2>
+            <y2>111</y2>
+        </Foothold>
+    </Footholds>
+</Map>

@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<Map>
+    <returnMap>999999999</returnMap>
+    <fieldType>0</fieldType>
+    <Music>Bgm00/FloralLife</Music>
+    <timeLimit>0</timeLimit>
+    <forcedReturn>999999999</forcedReturn>
+    <decHP>0</decHP>
+    <protectedItem>0</protectedItem>
+    <mobRate>0.000000</mobRate>
+    <Clock>0</Clock>
+    <personalShop>0</personalShop>
+    <NPCs />
+    <Mobs />
+    <Reactors />
+    <Portals>
+        <Portal>
+            <id>0</id>
+            <from>sp</from>
+            <to></to>
+            <toid>999999999</toid>
+            <type>0</type>
+            <x>146</x>
+            <y>-5</y>
+            <script></script>
+        </Portal>
+    </Portals>
+    <Footholds>
+        <Foothold>
+            <id>1</id>
+            <x1>-420</x1>
+            <y1>43</y1>
+            <x2>27</x2>
+            <y2>43</y2>
+        </Foothold>
+        <Foothold>
+            <id>2</id>
+            <x1>27</x1>
+            <y1>43</y1>
+            <x2>443</x2>
+            <y2>43</y2>
+        </Foothold>
+    </Footholds>
+</Map>

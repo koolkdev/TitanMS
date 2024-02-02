@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Absolute Victory Carnivalian Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>7</STR>
+    <DEX>7</DEX>
+    <INT>7</INT>
+    <LUK>7</LUK>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

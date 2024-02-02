@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Maple Scarf</Name>
+    <Price>1</Price>
+    <Slots>3</Slots>
+    <WDef>30</WDef>
+    <MDef>30</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

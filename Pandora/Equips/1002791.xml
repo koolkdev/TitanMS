@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Reverse Coral</Name>
+    <Price>170000</Price>
+    <Slots>7</Slots>
+    <INT>6</INT>
+    <LUK>5</LUK>
+    <MP>25</MP>
+    <WDef>60</WDef>
+    <MDef>90</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

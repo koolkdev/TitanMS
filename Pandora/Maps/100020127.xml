@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Map>
+    <returnMap>100000000</returnMap>
+    <fieldType>6</fieldType>
+    <Music>Bgm00/RestNPeace</Music>
+    <timeLimit>7200</timeLimit>
+    <forcedReturn>100020000</forcedReturn>
+    <decHP>0</decHP>
+    <protectedItem>0</protectedItem>
+    <mobRate>2.199998</mobRate>
+    <Clock>0</Clock>
+    <personalShop>0</personalShop>
+    <NPCs />
+    <Mobs />
+    <Reactors />
+    <Portals />
+    <Footholds />
+</Map>

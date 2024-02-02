@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Cabatina</Name>
+    <Price>180000</Price>
+    <Slots>5</Slots>
+    <INT>5</INT>
+    <LUK>4</LUK>
+    <MAtk>1</MAtk>
+    <WDef>47</WDef>
+    <MDef>23</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

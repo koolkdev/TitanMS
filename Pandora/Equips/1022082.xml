@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Spectrum Goggles</Name>
+    <Price>180000</Price>
+    <Slots>3</Slots>
+    <STR>1</STR>
+    <DEX>1</DEX>
+    <Speed>1</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

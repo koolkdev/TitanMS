@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Restoring Mind of Maple Necklace</Name>
+    <Price>1</Price>
+    <Slots>3</Slots>
+    <STR>5</STR>
+    <DEX>5</DEX>
+    <INT>5</INT>
+    <LUK>5</LUK>
+    <WDef>4</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

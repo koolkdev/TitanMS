@@ -20,7 +20,7 @@
 #include "Decoder.h"
 #include "AES.h"
 #include "MapleEncryption.h"
-#include "../TitanMS/Tools.h"
+#include "../Pandora/Tools.h"
 using namespace Tools;
 
 AES* Decoder::aes;
@@ -67,7 +67,7 @@ void Decoder::decrypt(unsigned char *buffer, int size){
 	}
 	MapleEncryption::nextIV(Decoder::ivRecv); 
 	MapleEncryption::mapleDecrypt(buffer, size);
-} 
+}
 
 void Decoder::createHeader (unsigned char* header, short size) {
 	short a = ivSend[3]*0x100 + ivSend[2];

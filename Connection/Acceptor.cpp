@@ -21,7 +21,7 @@
 #include <Winsock2.h>
 #include "Acceptor.h"
 #include "PacketHandler.h"
-hash_map <int, int> Acceptor::ports;
+stdext::hash_map <int, int> Acceptor::ports;
 
 Acceptor::Acceptor(int port, Selector* selector, AbstractPlayerFactory* apf, bool master) {
 	abstractPlayerFactory = apf;
@@ -70,7 +70,7 @@ int Acceptor::handle (Selector* selector, int socket) {
 	sprintf_s(IP,20,"%d.%d.%d.%d",cli_addr.sin_addr.S_un.S_un_b.s_b1,cli_addr.sin_addr.S_un.S_un_b.s_b2,cli_addr.sin_addr.S_un.S_un_b.s_b3,cli_addr.sin_addr.S_un.S_un_b.s_b4);
 
 	AbstractPlayer* player = abstractPlayerFactory->createPlayer(ports[socket]);
-	player->setIP(string(IP));
+	player->setIP(std::string(IP));
 	PacketHandler* ph;
 	if(master)
 		ph = new PacketHandlerMaster(sock, player);

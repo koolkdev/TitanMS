@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Parachute Agent Suit</Name>
+    <Price>1</Price>
+    <Slots>9</Slots>
+    <STR>1</STR>
+    <DEX>1</DEX>
+    <INT>1</INT>
+    <LUK>1</LUK>
+    <HP>5</HP>
+    <WDef>10</WDef>
+    <MDef>5</MDef>
+    <Avo>5</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

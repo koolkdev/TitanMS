@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>MV&apos;s Hat (INT)</Name>
+    <Price>10000</Price>
+    <Slots>0</Slots>
+    <INT>7</INT>
+    <HP>200</HP>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

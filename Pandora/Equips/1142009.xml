@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Gallant Warrior Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <HP>50</HP>
+    <WAtk>3</WAtk>
+    <Acc>5</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Reverse Moonsteed</Name>
+    <Price>225000</Price>
+    <Slots>5</Slots>
+    <DEX>4</DEX>
+    <LUK>4</LUK>
+    <WDef>70</WDef>
+    <Avo>1</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Map>
+    <returnMap>600000000</returnMap>
+    <fieldType>6</fieldType>
+    <Music>BgmEvent/FunnyRabbitFaster</Music>
+    <timeLimit>3600</timeLimit>
+    <forcedReturn>683000000</forcedReturn>
+    <decHP>0</decHP>
+    <protectedItem>0</protectedItem>
+    <mobRate>1.500000</mobRate>
+    <Clock>0</Clock>
+    <personalShop>0</personalShop>
+    <NPCs />
+    <Mobs />
+    <Reactors />
+    <Portals />
+    <Footholds />
+</Map>

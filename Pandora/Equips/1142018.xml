@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Sleepywood Donor Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>10</STR>
+    <DEX>10</DEX>
+    <INT>10</INT>
+    <LUK>10</LUK>
+    <HP>50</HP>
+    <Jump>10</Jump>
+    <Speed>10</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

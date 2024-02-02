@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Awakening Mind of Maple Necklace</Name>
+    <Price>1</Price>
+    <Slots>3</Slots>
+    <STR>7</STR>
+    <DEX>7</DEX>
+    <INT>7</INT>
+    <LUK>7</LUK>
+    <Jump>5</Jump>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

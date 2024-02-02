@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Seraphim Crossbow</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <STR>3</STR>
+    <DEX>3</DEX>
+    <INT>3</INT>
+    <LUK>3</LUK>
+    <WAtk>52</WAtk>
+    <Speed>7</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Kite Shield</Name>
+    <Price>350000</Price>
+    <Slots>7</Slots>
+    <STR>7</STR>
+    <DEX>5</DEX>
+    <WDef>100</WDef>
+    <MDef>35</MDef>
+    <Avo>5</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

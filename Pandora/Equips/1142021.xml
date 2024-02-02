@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Aquarium Donor Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>10</STR>
+    <DEX>10</DEX>
+    <Avo>10</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

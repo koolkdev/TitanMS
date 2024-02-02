@@ -23,8 +23,6 @@
 #include "Selector.h"
 #include "AbstractPlayer.h"
 #include <hash_map>
-using namespace std;
-using namespace stdext;
 
 class Acceptor: public Selector::SelectHandler {
 public:
@@ -36,7 +34,7 @@ public:
 protected:
 	AbstractPlayerFactory* abstractPlayerFactory;
 private:
-	static hash_map <int, int> ports;
+	static stdext::hash_map <int, int> ports;
 };
 
 #endif

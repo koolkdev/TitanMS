@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Mind of Maple Necklace</Name>
+    <Price>1</Price>
+    <Slots>3</Slots>
+    <STR>1</STR>
+    <DEX>1</DEX>
+    <INT>1</INT>
+    <LUK>1</LUK>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

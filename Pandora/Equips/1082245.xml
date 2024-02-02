@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Agent O&apos;s Leather Gloves</Name>
+    <Price>1</Price>
+    <Slots>4</Slots>
+    <HP>30</HP>
+    <WAtk>3</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

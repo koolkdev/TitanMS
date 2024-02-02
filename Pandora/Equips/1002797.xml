@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Agent N&apos;s Disposable Receiver</Name>
+    <Price>1</Price>
+    <Slots>6</Slots>
+    <STR>2</STR>
+    <DEX>2</DEX>
+    <INT>2</INT>
+    <LUK>2</LUK>
+    <HP>5</HP>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

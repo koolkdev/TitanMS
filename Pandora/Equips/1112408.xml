@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Circle of Ancient Strength</Name>
+    <Price>1</Price>
+    <Slots>0</Slots>
+    <STR>2</STR>
+    <DEX>2</DEX>
+    <WDef>5</WDef>
+    <MDef>5</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

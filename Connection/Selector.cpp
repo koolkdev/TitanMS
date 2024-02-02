@@ -21,6 +21,8 @@
 #include "PacketHandler.h"
 #include <Winbase.h>
 
+using namespace stdext;
+
 void _selectorThread (Selector* selectorObject) {
 	selectorObject->selectThread();
 }

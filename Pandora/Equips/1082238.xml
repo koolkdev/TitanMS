@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Charlston</Name>
+    <Price>335000</Price>
+    <Slots>5</Slots>
+    <STR>6</STR>
+    <DEX>6</DEX>
+    <HP>20</HP>
+    <WDef>48</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

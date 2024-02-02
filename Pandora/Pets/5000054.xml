@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<Pet>
+    <Name>Snail</Name>
+    <Hungry>1</Hungry>
+    <Life>90</Life>
+    <NameTag>0</NameTag>
+    <ChatBalloon>0</ChatBalloon>
+    <Commands>
+        <Command>
+            <Closeness>1</Closeness>
+            <Prob>100</Prob>
+            <MinLevel>1</MinLevel>
+            <MaxLevel>30</MaxLevel>
+        </Command>
+        <Command>
+            <Closeness>1</Closeness>
+            <Prob>100</Prob>
+            <MinLevel>1</MinLevel>
+            <MaxLevel>30</MaxLevel>
+        </Command>
+        <Command>
+            <Closeness>1</Closeness>
+            <Prob>100</Prob>
+            <MinLevel>1</MinLevel>
+            <MaxLevel>30</MaxLevel>
+        </Command>
+    </Commands>
+</Pet>

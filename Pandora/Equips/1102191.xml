@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>El Nathian Cape</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <HP>50</HP>
+    <MP>50</MP>
+    <WDef>22</WDef>
+    <MDef>22</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

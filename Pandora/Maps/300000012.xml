@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<Map>
+    <returnMap>300000010</returnMap>
+    <fieldType>0</fieldType>
+    <Music>Bgm15/ElinForest</Music>
+    <timeLimit>0</timeLimit>
+    <forcedReturn>300000010</forcedReturn>
+    <decHP>0</decHP>
+    <protectedItem>0</protectedItem>
+    <mobRate>1.000000</mobRate>
+    <Clock>0</Clock>
+    <personalShop>0</personalShop>
+    <NPCs />
+    <Mobs />
+    <Reactors />
+    <Portals>
+        <Portal>
+            <id>0</id>
+            <from>sp</from>
+            <to></to>
+            <toid>999999999</toid>
+            <type>0</type>
+            <x>194</x>
+            <y>19</y>
+            <script></script>
+        </Portal>
+    </Portals>
+    <Footholds>
+        <Foothold>
+            <id>1</id>
+            <x1>-357</x1>
+            <y1>98</y1>
+            <x2>49</x2>
+            <y2>98</y2>
+        </Foothold>
+        <Foothold>
+            <id>2</id>
+            <x1>49</x1>
+            <y1>98</y1>
+            <x2>439</x2>
+            <y2>98</y2>
+        </Foothold>
+    </Footholds>
+</Map>

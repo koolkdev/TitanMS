@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Pendant</Name>
+    <Price>400000</Price>
+    <Slots>3</Slots>
+    <STR>9</STR>
+    <DEX>9</DEX>
+    <INT>9</INT>
+    <LUK>9</LUK>
+    <WDef>126</WDef>
+    <MDef>126</MDef>
+    <Avo>28</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

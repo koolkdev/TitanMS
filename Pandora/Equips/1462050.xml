@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Black Beauty</Name>
+    <Price>550000</Price>
+    <Slots>7</Slots>
+    <WAtk>110</WAtk>
+    <Speed>12</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Wrath of El Nath</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <HP>100</HP>
+    <MP>100</MP>
+    <WDef>45</WDef>
+    <MDef>48</MDef>
+    <Avo>5</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

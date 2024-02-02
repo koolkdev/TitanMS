@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Enreal Tear</Name>
+    <Price>510000</Price>
+    <Slots>7</Slots>
+    <WAtk>82</WAtk>
+    <MAtk>138</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

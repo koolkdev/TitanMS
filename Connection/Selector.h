@@ -23,8 +23,6 @@
 #include <Winsock2.h>
 #include <hash_map>
 
-using namespace stdext;
-
 class Selector {
 public:
 
@@ -57,7 +55,7 @@ private:
     fd_set writefds;
 	fd_set errorfds;
 	struct timeval timeout;
-	hash_map<int, SelectHandler*> handlers;
+	stdext::hash_map<int, SelectHandler*> handlers;
 };
 
 #endif

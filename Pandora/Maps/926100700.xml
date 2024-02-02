@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<Map>
+    <returnMap>926100700</returnMap>
+    <fieldType>0</fieldType>
+    <Music>Bgm12/Dispute</Music>
+    <timeLimit>0</timeLimit>
+    <forcedReturn>926100700</forcedReturn>
+    <decHP>0</decHP>
+    <protectedItem>0</protectedItem>
+    <mobRate>1.000000</mobRate>
+    <Clock>0</Clock>
+    <personalShop>0</personalShop>
+    <NPCs />
+    <Mobs />
+    <Reactors />
+    <Portals>
+        <Portal>
+            <id>0</id>
+            <from>sp</from>
+            <to></to>
+            <toid>999999999</toid>
+            <type>0</type>
+            <x>-514</x>
+            <y>76</y>
+            <script></script>
+        </Portal>
+        <Portal>
+            <id>1</id>
+            <from>out00</from>
+            <to></to>
+            <toid>999999999</toid>
+            <type>7</type>
+            <x>100</x>
+            <y>122</y>
+            <script>rnj_exit</script>
+        </Portal>
+    </Portals>
+    <Footholds>
+        <Foothold>
+            <id>1</id>
+            <x1>-186</x1>
+            <y1>124</y1>
+            <x2>216</x2>
+            <y2>124</y2>
+        </Foothold>
+        <Foothold>
+            <id>2</id>
+            <x1>-588</x1>
+            <y1>124</y1>
+            <x2>-186</x2>
+            <y2>124</y2>
+        </Foothold>
+    </Footholds>
+</Map>

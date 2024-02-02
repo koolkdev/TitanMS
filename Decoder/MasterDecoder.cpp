@@ -18,6 +18,7 @@
 */
 
 #include "MasterDecoder.h"
+using namespace std;
 
 string MasterDecoder::pass;
 

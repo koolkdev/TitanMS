@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Circle of Ancient Thought</Name>
+    <Price>1</Price>
+    <Slots>0</Slots>
+    <INT>2</INT>
+    <LUK>2</LUK>
+    <WDef>5</WDef>
+    <MDef>5</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Ellinia Donor Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <INT>10</INT>
+    <HP>20</HP>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

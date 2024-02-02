@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Korean Folk Town Donor Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>10</STR>
+    <DEX>10</DEX>
+    <INT>10</INT>
+    <LUK>10</LUK>
+    <HP>30</HP>
+    <Acc>5</Acc>
+    <Avo>5</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

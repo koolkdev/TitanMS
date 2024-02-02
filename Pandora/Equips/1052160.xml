@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Reverse Taragon</Name>
+    <Price>380000</Price>
+    <Slots>10</Slots>
+    <STR>8</STR>
+    <DEX>7</DEX>
+    <WDef>196</WDef>
+    <Acc>3</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

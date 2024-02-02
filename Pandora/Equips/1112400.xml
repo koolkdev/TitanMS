@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Ring of Alchemist</Name>
+    <Price>0</Price>
+    <Slots>1</Slots>
+    <STR>1</STR>
+    <DEX>1</DEX>
+    <INT>1</INT>
+    <LUK>1</LUK>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Leafre Donor Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>5</STR>
+    <HP>40</HP>
+    <Acc>5</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

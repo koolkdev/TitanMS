@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blackfist Cloak</Name>
+    <Price>0</Price>
+    <Slots>5</Slots>
+    <HP>120</HP>
+    <WAtk>4</WAtk>
+    <WDef>43</WDef>
+    <MDef>48</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

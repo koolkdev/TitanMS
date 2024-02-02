@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Wiseman Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <HP>50</HP>
+    <MAtk>8</MAtk>
+    <Avo>5</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

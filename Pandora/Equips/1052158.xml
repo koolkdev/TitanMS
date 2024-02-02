@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Prinsid</Name>
+    <Price>360000</Price>
+    <Slots>10</Slots>
+    <DEX>5</DEX>
+    <LUK>8</LUK>
+    <WDef>125</WDef>
+    <Avo>4</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

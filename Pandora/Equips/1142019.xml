@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>The Nautilus Donor Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>10</STR>
+    <DEX>10</DEX>
+    <HP>50</HP>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

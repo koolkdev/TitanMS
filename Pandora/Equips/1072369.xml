@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Squishy Shoes</Name>
+    <Price>0</Price>
+    <Slots>5</Slots>
+    <STR>1</STR>
+    <DEX>1</DEX>
+    <INT>1</INT>
+    <LUK>1</LUK>
+    <WDef>10</WDef>
+    <MDef>5</MDef>
+    <Speed>3</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

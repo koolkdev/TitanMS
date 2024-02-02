@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Blue Dragon Shield</Name>
+    <Price>300000</Price>
+    <Slots>7</Slots>
+    <STR>7</STR>
+    <DEX>4</DEX>
+    <WDef>78</WDef>
+    <MDef>30</MDef>
+    <Avo>5</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Cloak of Corruption</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <STR>1</STR>
+    <DEX>1</DEX>
+    <INT>1</INT>
+    <LUK>1</LUK>
+    <WDef>25</WDef>
+    <MDef>25</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

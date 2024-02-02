@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Map>
+    <returnMap>240000000</returnMap>
+    <fieldType>6</fieldType>
+    <Music>Bgm14/DragonNest</Music>
+    <timeLimit>7200</timeLimit>
+    <forcedReturn>240040511</forcedReturn>
+    <decHP>0</decHP>
+    <protectedItem>0</protectedItem>
+    <mobRate>1.500000</mobRate>
+    <Clock>0</Clock>
+    <personalShop>0</personalShop>
+    <NPCs />
+    <Mobs />
+    <Reactors />
+    <Portals />
+    <Footholds />
+</Map>

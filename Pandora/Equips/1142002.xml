@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Quest Specialist Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>2</STR>
+    <DEX>2</DEX>
+    <INT>2</INT>
+    <LUK>2</LUK>
+    <Avo>10</Avo>
+    <Jump>10</Jump>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

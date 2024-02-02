@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Glittering Altaire Earrings</Name>
+    <Price>0</Price>
+    <Slots>5</Slots>
+    <STR>2</STR>
+    <DEX>2</DEX>
+    <INT>2</INT>
+    <LUK>2</LUK>
+    <MDef>25</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

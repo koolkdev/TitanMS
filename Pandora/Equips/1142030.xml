@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Lith Harbor Donor Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>10</STR>
+    <DEX>10</DEX>
+    <INT>10</INT>
+    <LUK>10</LUK>
+    <HP>100</HP>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

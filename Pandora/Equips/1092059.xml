@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless List</Name>
+    <Price>350000</Price>
+    <Slots>7</Slots>
+    <LUK>5</LUK>
+    <WDef>84</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

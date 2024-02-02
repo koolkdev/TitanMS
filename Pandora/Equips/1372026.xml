@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name></Name>
+    <Price>0</Price>
+    <Slots>7</Slots>
+    <WAtk>24</WAtk>
+    <MAtk>38</MAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

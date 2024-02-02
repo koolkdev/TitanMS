@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Reverse Fennel</Name>
+    <Price>320000</Price>
+    <Slots>7</Slots>
+    <STR>6</STR>
+    <WDef>120</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

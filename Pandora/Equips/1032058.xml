@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Agent C&apos;s Titanium Receiver</Name>
+    <Price>0</Price>
+    <Slots>4</Slots>
+    <DEX>2</DEX>
+    <LUK>2</LUK>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Seraphim One-handed Sword</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <STR>3</STR>
+    <DEX>3</DEX>
+    <INT>3</INT>
+    <LUK>3</LUK>
+    <WAtk>30</WAtk>
+    <Avo>3</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

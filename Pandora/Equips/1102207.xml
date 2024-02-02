@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Goldensoul Cape</Name>
+    <Price>0</Price>
+    <Slots>5</Slots>
+    <INT>3</INT>
+    <MP>100</MP>
+    <WDef>50</WDef>
+    <MDef>55</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

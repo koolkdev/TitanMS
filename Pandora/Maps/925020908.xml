@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Map>
+    <returnMap>925020002</returnMap>
+    <fieldType>14</fieldType>
+    <Music>Bgm17/MureungSchool1</Music>
+    <timeLimit>0</timeLimit>
+    <forcedReturn>925020002</forcedReturn>
+    <decHP>0</decHP>
+    <protectedItem>0</protectedItem>
+    <mobRate>1.000000</mobRate>
+    <Clock>0</Clock>
+    <personalShop>0</personalShop>
+    <NPCs />
+    <Mobs />
+    <Reactors />
+    <Portals />
+    <Footholds />
+</Map>

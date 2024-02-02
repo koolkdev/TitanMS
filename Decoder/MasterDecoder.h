@@ -21,22 +21,17 @@
 #define MASTERDECODER_H
 
 #define _CRT_RAND_S
-#include <stdio.h>
-#include <stdlib.h>
-#include <memory.h>
-#include <time.h>
 #include <string>
-using namespace std;
 
 class MasterDecoder {
 private:
-	static string pass;
+	static std::string pass;
 	unsigned char ivRecv[4];
 	unsigned char ivSend[4];
 	unsigned char connectBuffer[15];
 
 public:
-	static void Initialize(string pass){
+	static void Initialize(std::string pass){
 		MasterDecoder::pass = pass;
 	}
 	static int getLength (unsigned char* header) {

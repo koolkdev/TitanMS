@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Magatia Donor Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <INT>8</INT>
+    <HP>30</HP>
+    <Acc>10</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

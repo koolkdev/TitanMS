@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Ultimate Agent Suit</Name>
+    <Price>1</Price>
+    <Slots>9</Slots>
+    <STR>3</STR>
+    <DEX>3</DEX>
+    <INT>3</INT>
+    <LUK>3</LUK>
+    <HP>15</HP>
+    <WDef>50</WDef>
+    <MDef>25</MDef>
+    <Avo>15</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Moon Bloom Hair Pin</Name>
+    <Price>1</Price>
+    <Slots>0</Slots>
+    <WAtk>3</WAtk>
+    <MAtk>3</MAtk>
+    <Jump>3</Jump>
+    <Speed>5</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

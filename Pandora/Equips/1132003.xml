@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Red Belt</Name>
+    <Price>0</Price>
+    <Slots>3</Slots>
+    <STR>4</STR>
+    <DEX>4</DEX>
+    <INT>4</INT>
+    <LUK>4</LUK>
+    <WDef>40</WDef>
+    <MDef>40</MDef>
+    <Avo>12</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Earrings</Name>
+    <Price>250000</Price>
+    <Slots>5</Slots>
+    <MP>30</MP>
+    <MDef>100</MDef>
+    <Acc>3</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

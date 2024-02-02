@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Reverse Pescas</Name>
+    <Price>500000</Price>
+    <Slots>7</Slots>
+    <WAtk>105</WAtk>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

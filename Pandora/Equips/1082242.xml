@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Reverse Lubav</Name>
+    <Price>330000</Price>
+    <Slots>5</Slots>
+    <DEX>6</DEX>
+    <LUK>6</LUK>
+    <MP>30</MP>
+    <WDef>46</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

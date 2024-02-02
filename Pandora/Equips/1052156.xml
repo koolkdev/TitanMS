@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Myst Blue</Name>
+    <Price>340000</Price>
+    <Slots>10</Slots>
+    <INT>9</INT>
+    <LUK>4</LUK>
+    <MP>50</MP>
+    <WDef>100</WDef>
+    <MDef>50</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

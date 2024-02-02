@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Rudolph Change Hat</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <STR>2</STR>
+    <DEX>2</DEX>
+    <INT>2</INT>
+    <LUK>2</LUK>
+    <WAtk>20</WAtk>
+    <WDef>20</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

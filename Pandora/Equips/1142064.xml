@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Mu Lung Dojo Vanquisher Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <HP>50</HP>
+    <WAtk>5</WAtk>
+    <MAtk>5</MAtk>
+    <WDef>15</WDef>
+    <MDef>15</MDef>
+    <Acc>7</Acc>
+    <Avo>7</Avo>
+    <Speed>7</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

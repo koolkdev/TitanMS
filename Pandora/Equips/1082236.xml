@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Presto</Name>
+    <Price>330000</Price>
+    <Slots>5</Slots>
+    <STR>5</STR>
+    <DEX>7</DEX>
+    <MP>30</MP>
+    <WDef>48</WDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

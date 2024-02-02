@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Mark of Naricain</Name>
+    <Price>1</Price>
+    <Slots>0</Slots>
+    <STR>5</STR>
+    <DEX>5</DEX>
+    <INT>5</INT>
+    <LUK>5</LUK>
+    <HP>300</HP>
+    <MP>300</MP>
+    <WAtk>10</WAtk>
+    <MAtk>10</MAtk>
+    <Acc>15</Acc>
+    <Jump>5</Jump>
+    <Speed>5</Speed>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

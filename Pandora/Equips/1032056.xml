@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Agent C&apos;s Old Receiver</Name>
+    <Price>0</Price>
+    <Slots>4</Slots>
+    <LUK>2</LUK>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

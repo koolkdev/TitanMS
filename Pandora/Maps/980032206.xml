@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Map>
+    <returnMap>980032106</returnMap>
+    <fieldType>11</fieldType>
+    <Music>Bgm09/FairyTale</Music>
+    <timeLimit>0</timeLimit>
+    <forcedReturn>980030010</forcedReturn>
+    <decHP>0</decHP>
+    <protectedItem>0</protectedItem>
+    <mobRate>1.000000</mobRate>
+    <Clock>0</Clock>
+    <personalShop>0</personalShop>
+    <NPCs />
+    <Mobs />
+    <Reactors />
+    <Portals />
+    <Footholds />
+</Map>

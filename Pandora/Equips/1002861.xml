@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>MV&apos;s Hat (LUK)</Name>
+    <Price>10000</Price>
+    <Slots>0</Slots>
+    <LUK>7</LUK>
+    <HP>200</HP>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

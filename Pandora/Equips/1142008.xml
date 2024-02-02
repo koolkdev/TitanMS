@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Pink Bean Slayer Medal</Name>
+    <Price>0</Price>
+    <Slots>0</Slots>
+    <STR>8</STR>
+    <DEX>8</DEX>
+    <INT>8</INT>
+    <LUK>8</LUK>
+    <HP>10</HP>
+    <Acc>5</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

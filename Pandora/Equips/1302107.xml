@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Crystal Blade</Name>
+    <Price>1</Price>
+    <Slots>7</Slots>
+    <STR>3</STR>
+    <WAtk>99</WAtk>
+    <Acc>50</Acc>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

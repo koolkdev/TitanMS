@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Hermosa</Name>
+    <Price>330000</Price>
+    <Slots>5</Slots>
+    <INT>6</INT>
+    <LUK>6</LUK>
+    <MP>15</MP>
+    <WDef>50</WDef>
+    <MDef>17</MDef>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

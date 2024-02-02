@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Tree Branch Nose</Name>
+    <Price>0</Price>
+    <Slots>10</Slots>
+    <DEX>4</DEX>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

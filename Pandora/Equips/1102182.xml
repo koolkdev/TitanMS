@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Stirgeman&apos;s Cloak of Darkness</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <WDef>25</WDef>
+    <MDef>10</MDef>
+    <Avo>20</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

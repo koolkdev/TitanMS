@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Item>
+    <Name>&amp;#83;&amp;#111;&amp;#112;&amp;#104;&amp;#101;&amp;#108;&amp;#105;&amp;#97;&amp;#8217;&amp;#115;&amp;#32;&amp;#80;&amp;#111;&amp;#114;&amp;#116;&amp;#114;&amp;#97;&amp;#105;&amp;#116;</Name>
+    <Type>4</Type>
+    <Price>1</Price>
+    <UnitPrice>0.000000e+000</UnitPrice>
+    <MaxSlot>100</MaxSlot>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+    <NotSale>0</NotSale>
+    <Only>0</Only>
+    <ExpireOnLogout>0</ExpireOnLogout>
+    <Consume>0</Consume>
+    <Bullet>0</Bullet>
+</Item>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Agent Cape</Name>
+    <Price>1</Price>
+    <Slots>5</Slots>
+    <WDef>8</WDef>
+    <MDef>12</MDef>
+    <Jump>1</Jump>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>1</TradeBlock>
+</Equip>

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Black Garina</Name>
+    <Price>300000</Price>
+    <Slots>10</Slots>
+    <DEX>4</DEX>
+    <LUK>8</LUK>
+    <WDef>115</WDef>
+    <Avo>3</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>

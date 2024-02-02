@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Equip>
+    <Name>Timeless Evernew</Name>
+    <Price>360000</Price>
+    <Slots>10</Slots>
+    <STR>6</STR>
+    <DEX>9</DEX>
+    <WDef>125</WDef>
+    <Avo>3</Avo>
+    <Cash>0</Cash>
+    <Quest>0</Quest>
+    <TradeBlock>0</TradeBlock>
+</Equip>
